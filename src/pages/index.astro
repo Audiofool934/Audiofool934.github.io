@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Greeting from "../components/Greeting";
-const pageTitle = "Home";
+
+const headTitle = "Home"
+const pageTitle = "Hello There";
 ---
-<BaseLayout pageTitle={pageTitle}>
-	<h2>Audiofool's website</h2>
-	<Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
-	<h2>Still in progress</h2>
+<BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
+	<h2>This is Audiofool's personal website. You can learn more about me in <a href="/about/">here</a></h2>
+	<!-- <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} /> -->
+	<h2>Website is still in progress</h2>
 </BaseLayout>

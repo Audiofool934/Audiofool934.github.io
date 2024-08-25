@@ -1,45 +1,35 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
 
-const pageTitle = "About Me";
+const headTitle = "About"
+const pageTitle = "PHILE OR FOOL";
 
 const identity = {
     firstName: "Everett",
-    // country: "China",
-    occupation: "Student",
-    hobbies: ["rock music", "movies & tv shows", "science topics", "mathematics", "artificial intelligence", "machine learning"]
+    hobbies: ["rock music - prog/art rock - Pink Floyd (die-hard fan)", "movies & tv shows - GOT(recently)", "scientific topics", "mathematics", "artificial intelligence - (multimodal)", "machine learning","electric guitar 🎸"]
 }
 
-const skills = ["Python", "C/C++", "Astro", "Electric Guitar"]
-
-const happy = true;
-const finished = false;
-const goal = 3;
+// const happy = true;
+// const finished = false;
+// const goal = 3;
 
 const skillColor = "navy";
 const fontWeight = "bold";
 const textCase = "uppercase";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-    <h2>audiofool ~ audiophile</h2>
-    <p>I'm currently interested in Math, AI</p>
-    <p>audiofool's website</p>
-    
-    <p>Here are a few facts about me:</p>
-    <ul>
-        <li>My name is {identity.firstName}.</li>
-        <!-- <li>I live in {identity.country} and I work as a {identity.occupation}.</li> -->
-        {identity.hobbies.length >= 2 &&
-            <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-        }
-    </ul>
-    <p>My skills are:</p>
-    <ul>
-        {skills.map((skill) => <li class="skill">{skill}</li>)}
-    </ul>
-    
-    {happy && <p>I am happy to be learning Astro!</p>}
+<BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
+    <p>I'm {identity.firstName}, currently an undergraduate majoring in Stats/Data Science</p>
+
+    {identity.hobbies.length >= 0 &&
+        <p>I love:
+            <ul>
+                {identity.hobbies.map((hobby) => <li>{hobby}</li>)}
+            </ul>
+        </p>
+    }
+    <!-- {happy && <p>I am happy to be learning Astro!</p>}
     {finished && <p>I finished this tutorial</p>}
-    {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+    {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>} -->
 </BaseLayout>
