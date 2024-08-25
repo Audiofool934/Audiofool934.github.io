@@ -4,6 +4,6 @@ import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "http://audiofool934.github.io",
+  site: "http://audiofool.net",
   integrations: [preact()]
 });
