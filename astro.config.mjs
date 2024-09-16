@@ -12,16 +12,12 @@ export default defineConfig({
 		shikiConfig: {
 			theme: "dracula",
 			wrap: false,
-		}
+		},
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex],
 	},
   site: "http://audiofool.net",
   integrations: [
     preact(),
-    mdx({
-      remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex],
-    }),
-    image(),
-    sitemap()
   ]
 });

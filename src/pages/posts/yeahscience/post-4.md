@@ -6,7 +6,18 @@ description: "This post will show up on its own!"
 image:
     url: "https://docs.astro.build/default-og-image.png"
     alt: "The word astro against an illustration of planets and stars."
-pubDate: 2022-08-08
+pubDate: 2024-8-14
 tags: ["astro", "successes"]
 ---
-This post should show up with my other blog posts, because `Astro.glob()` is returning a list of all my posts in order to create my list.
+
+add support for LaTeX in markdown blogs
+
+$$
+e^{i\pi} + 1 = 0
+$$
+
+$$
+\begin{equation}
+    \text{idf}(t, D) = \text{log}\left(\frac{N}{1 + |\{d: d \in D \text{ and } t \in d\}|}\right)
+\end{equation}
+$$
