@@ -12,6 +12,4 @@ tags: ["astro", "blogging", "learning in public"]
 
 PKU-董彬老师-AI4Math
 
-$$
-e^{i\pi} + 1 = 0
-$$
+$ e^{i\pi} + 1 = 0 $
