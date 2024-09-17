@@ -10,11 +10,16 @@ import preact from "@astrojs/preact";
 export default defineConfig({
   markdown: {
 		shikiConfig: {
-			theme: "dracula",
+			// theme: "dracula",
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
 			wrap: false,
 		},
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
+    // syntaxHighlight: 'prism',
 	},
   site: "http://audiofool.net",
   integrations: [

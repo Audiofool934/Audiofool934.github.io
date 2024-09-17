@@ -21,3 +21,24 @@ $$
     \text{idf}(t, D) = \text{log}\left(\frac{N}{1 + |\{d: d \in D \text{ and } t \in d\}|}\right)
 \end{equation}
 $$
+
+```python
+import numpy as np
+print(np.pi)
+```
+
+```cpp
+#include <iostream>
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}
+```
+
+```bash
+echo "Hello, World!"
+```
+
+```mathematica
+Plot[Sin[x], {x, 0, 2 Pi}]
+```
