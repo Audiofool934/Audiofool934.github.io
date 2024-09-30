@@ -1,6 +1,11 @@
 ---
-const { title, url } = Astro.props
+const { title, url, description, image} = Astro.props
 ---
 <li>
-    <a href={url}>{title}</a>
+    <a href={url}>
+        <h2>{title}</h2>
+        {image && (
+            <img src={image.url} alt = {image.alt} loading="lazy" style="max-width: 100%; height: auto;" />
+        )}
+    </a>
 </li>

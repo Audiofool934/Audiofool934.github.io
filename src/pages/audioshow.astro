@@ -8,6 +8,6 @@ const pageTitle = "Audioshow";
 
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
     <ul>
-        {allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
+        {allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} image={post.frontmatter.image}/>)}
     </ul>
 </BaseLayout>

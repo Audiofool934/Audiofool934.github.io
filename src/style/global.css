@@ -21,18 +21,24 @@ h1 {
 }
 
 /* nav styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 1rem;
+}
 
 .hamburger {
-    padding-right: 20px;
+    padding-right: 10px;
     cursor: pointer;
 }
   
 .hamburger .line {
     display: block;
-    width: 40px;
+    width: 50px;
     height: 5px;
-    margin-bottom: 10px;
-    background-color: #ff9776;
+    margin-bottom: 5px;
+    background-color: #000000;
 }
 
 .nav-links {

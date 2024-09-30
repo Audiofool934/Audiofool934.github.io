@@ -1,13 +1,13 @@
 ---
 layout: '../../../layouts/MarkdownPostLayout.astro'
-title: 'ICBS'
+title: '17th R/X-AGI'
 pubDate: 2024-8-14
 description: 'This is the first post'
-author: 'Everett "Audiofool" Wang'
+author: 'Audiofool'
 image:
     url: 'https://docs.astro.build/assets/rose.webp'
     alt: 'The Astro logo on a dark background with a pink glow.'
 tags: ["astro", "blogging", "learning in public"]
 ---
 
-for truth and beauty
+PKU-董彬老师-AI4Math
