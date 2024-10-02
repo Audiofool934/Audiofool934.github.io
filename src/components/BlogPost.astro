@@ -4,8 +4,9 @@ const { title, url, description, image} = Astro.props
 <li>
     <a href={url}>
         <h2>{title}</h2>
+        <!-- <p>{description}</p> -->
         {image && (
-            <img src={image.url} alt = {image.alt} loading="lazy" style="max-width: 100%; height: auto;" />
+            <img src={image.url} alt = {image.alt} loading="lazy" style="max-width: 400px; height: auto;" />
         )}
     </a>
 </li>

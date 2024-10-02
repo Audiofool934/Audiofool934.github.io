@@ -1,29 +1,14 @@
 ---
 layout: '../../../layouts/MarkdownPostLayout.astro'
-title: '📻 Audioshow_EP_50-99'
+title: '📻 Audioshow EP 51-100'
 pubDate: 2024-9-30
-description: 'Audioshow_EP_50-99'
+description: 'Audioshow_EP_51-100'
 author: 'Audiofool'
 image:
     url: 'https://i.imgur.com/AulCCYI.png'
     alt: 'Audioshow'
 tags: ["audioshow"]
 ---
-
-### 📻 Audioshow - EP_50
-
-"There are places I remember
-All my life, though some have changed
-Some forever, not for better
-Some have gone and some remain"
-
-In My Life
-- The Beatles
-- Rubber Soul
-- 1965
-- Paul McCartney & John Lennon
-
-![EP_50_Rubber Soul](https://i.imgur.com/vArKIQH.jpg)
 
 ### 📻 Audioshow - EP_51
 
@@ -36,7 +21,7 @@ Doolin-Dalton
 - 1973
 - Don Henley, Glenn Frey, Jackson Browne, Jim Ed Norman & JD Souther
 
-![EP_51_Desperado](https://i.imgur.com/IXWeFvh.jpg)
+<img src="https://i.imgur.com/IXWeFvh.jpg" alt="EP_51_Desperado" width="256"/>
 
 ### 📻 Audioshow - EP_52
 
@@ -51,7 +36,7 @@ Kashmir
 - 1975
 - Jimmy Page, John Bonham & Robert Plant
 
-![EP_52_Physical Graffiti](https://i.imgur.com/DJ9CEYo.jpg)
+<img src="https://i.imgur.com/DJ9CEYo.jpg" alt="EP_52_Physical Graffiti" width="256"/>
 
 ### 📻 Audioshow - EP_53
 
@@ -64,7 +49,7 @@ Yesterdays
 - 1991
 - Axl Rose, Jeffrey Isbell, Saul Hudson, Duff McKagan, Billy McCloud, West Arkeen & Del James
 
-![EP_53_Use Your Illusion II](https://i.imgur.com/BAKub5X.jpg)
+<img src="https://i.imgur.com/BAKub5X.jpg" alt="EP_53_Use Your Illusion II" width="256"/>
 
 ### 📻 Audioshow - EP_54
 
@@ -77,7 +62,7 @@ The House of the Rising Sun
 - 1963
 - Alan Price & Traditional
 
-![EP_54_The Singles Plus](https://i.imgur.com/siw6Aaa.jpg)
+<img src="https://i.imgur.com/siw6Aaa.jpg" alt="EP_54_The Singles Plus" width="256"/>
 
 ### 📻 Audioshow - EP_55
 
@@ -92,7 +77,7 @@ Let It Be
 - 1970
 - John Lennon & Paul McCartney
 
-![EP_55_Let It Be](https://i.imgur.com/NQ2aYhQ.jpg)
+<img src="https://i.imgur.com/NQ2aYhQ.jpg" alt="EP_55_Let It Be" width="256"/>
 
 ### 📻 Audioshow - EP_56
 
@@ -107,7 +92,7 @@ The Seeker
 - 1970
 - Pete Townshend
 
-![EP_56_Meaty, Beaty, Big and Bouncy](https://i.imgur.com/UUtBw5Z.jpg)
+<img src="https://i.imgur.com/UUtBw5Z.jpg" alt="EP_56_Meaty, Beaty, Big and Bouncy" width="256"/>
 
 ### 📻 Audioshow - EP_57
 
@@ -121,7 +106,7 @@ Echoes
 - 1970
 - Roger Waters, David Gilmour, Richard Wright & Nick Mason
 
-![EP_57_Meddle](https://i.imgur.com/Z6bxCwC.jpg)
+<img src="https://i.imgur.com/Z6bxCwC.jpg" alt="EP_57_Meddle" width="256"/>
 
 ### 📻 Audioshow - EP_58
 
@@ -137,7 +122,7 @@ The End
 - 1967
 - Jim Morrison, John Densmore, Ray Manzarek & Robby Krieger
 
-![EP_58_The Doors](https://i.imgur.com/c4KUBfG.jpg)
+<img src="https://i.imgur.com/c4KUBfG.jpg" alt="EP_58_The Doors" width="256"/>
 
 ### 📻 Audioshow - EP_59
 
@@ -150,7 +135,7 @@ Pride (In the Name of Love)
 - 1984
 - The Edge, Bono, Adam Clayton & Larry Mullen Jr.
 
-![EP_59_The Unforgettable Fire](https://i.imgur.com/ukH4DIO.jpg)
+<img src="https://i.imgur.com/ukH4DIO.jpg" alt="EP_59_The Unforgettable Fire" width="256"/>
 
 ### 📻 Audioshow - EP_60
 
@@ -162,7 +147,7 @@ Solitude
 - 1971
 - Bill Ward, Ozzy Osbourne, Geezer Butler & Tony Iommi
 
-![EP_60_Master of Reality](https://i.imgur.com/M05aE8i.jpg)
+<img src="https://i.imgur.com/M05aE8i.jpg" alt="EP_60_Master of Reality" width="256"/>
 
 ### 📻 Audioshow - EP_61
 
@@ -176,7 +161,7 @@ Two Suns In the Sunset
 - 1983
 - Roger Waters
 
-![EP_61_The Final Cut](https://i.imgur.com/oTXlUgn.jpg)
+<img src="https://i.imgur.com/oTXlUgn.jpg" alt="EP_61_The Final Cut" width="256"/>
 
 ### 📻 Audioshow - EP_62
 
@@ -189,7 +174,7 @@ All Apologies
 - 1993
 - Kurt Cobain
 
-![EP_62_In Utero](https://i.imgur.com/8orQqcb.jpg)
+<img src="https://i.imgur.com/8orQqcb.jpg" alt="EP_62_In Utero" width="256"/>
 
 ### 📻 Audioshow - EP_63
 
@@ -204,7 +189,7 @@ Made in Heaven
 - 1985
 - Freddie Mercury
 
-![EP_63_Mr. Bad Guy](https://i.imgur.com/UQiU1oS.jpg)
+<img src="https://i.imgur.com/UQiU1oS.jpg" alt="EP_63_Mr. Bad Guy" width="256"/>
 
 ### 📻 Audioshow - EP_64
 
@@ -219,7 +204,7 @@ Roundabout
 - 1971
 - Jon Anderson & Steve Howe
 
-![EP_64_Fragile](https://i.imgur.com/LnwKE16.jpg)
+<img src="https://i.imgur.com/LnwKE16.jpg" alt="EP_64_Fragile" width="256"/>
 
 ### 📻 Audioshow - EP_65
 
@@ -234,7 +219,7 @@ Breathe (Reprise)
 - 2020
 - Roger Waters, David Gilmour & Richard Wright
 
-![EP_65_Us + Them](https://i.imgur.com/bf4o97n.jpg)
+<img src="https://i.imgur.com/bf4o97n.jpg" alt="EP_65_Us + Them" width="256"/>
 
 ### 📻 Audioshow - EP_66
 
@@ -249,7 +234,7 @@ Déjà Vu
 - 2017
 - Roger Waters
 
-![EP_66_Is This the Life We Really Want](https://i.imgur.com/EDsObmp.jpg)
+<img src="https://i.imgur.com/EDsObmp.jpg" alt="EP_66_Is This the Life We Really Want" width="256"/>
 
 ### 📻 Audioshow - EP_67
 
@@ -264,7 +249,7 @@ Don't Let It Bring You Down
 - 1970
 - Neil Young
 
-![EP_67_After the Gold Rush](https://i.imgur.com/cpwinuB.jpg)
+<img src="https://i.imgur.com/cpwinuB.jpg" alt="EP_67_After the Gold Rush" width="256"/>
 
 ### 📻 Audioshow - EP_68
 
@@ -278,7 +263,7 @@ Forever Young
 - 1974
 - Bob Dylan
 
-![EP_68_Planet Waves](https://i.imgur.com/zsLU9U7.jpg)
+<img src="https://i.imgur.com/zsLU9U7.jpg" alt="EP_68_Planet Waves" width="256"/>
 
 ### 📻 Audioshow - EP_69
 
@@ -293,7 +278,7 @@ Twilight
 - 1976
 - Robbie Robertson
 
-![EP_69_The Best of The Band](https://i.imgur.com/4vt2yEP.jpg)
+<img src="https://i.imgur.com/4vt2yEP.jpg" alt="EP_69_The Best of The Band" width="256"/>
 
 ### 📻 Audioshow - EP_70
 
@@ -305,7 +290,7 @@ Beck's Bolero
 - 1968
 - Jimmy Page
 
-![EP_70_Truth](https://i.imgur.com/YJMrcgG.jpg)
+<img src="https://i.imgur.com/YJMrcgG.jpg" alt="EP_70_Truth" width="256"/>
 
 ### 📻 Audioshow - EP_71
 
@@ -320,7 +305,7 @@ Five Years
 - 1972
 - David Bowie
 
-![EP_71_The Rise and Fall of Ziggy Stardust and the Spiders from Mars](https://i.imgur.com/8gmo0UE.jpg)
+<img src="https://i.imgur.com/8gmo0UE.jpg" alt="EP_71_The Rise and Fall of Ziggy Stardust and the Spiders from Mars" width="256"/>
 
 ### 📻 Audioshow - EP_72
 
@@ -336,7 +321,7 @@ Knife-Edge
 - 1970
 - Leoš Janáček & Johann Sebastian Bach
 
-![EP_72_Emerson, Lake & Palmer](https://i.imgur.com/3wK3LJ7.jpg)
+<img src="https://i.imgur.com/3wK3LJ7.jpg" alt="EP_72_Emerson, Lake & Palmer" width="256"/>
 
 ### 📻 Audioshow - EP_73
 
@@ -349,7 +334,7 @@ Wearing the Inside Out
 - 1994
 - Richard Wright
 
-![EP_73_The Division Bell](https://i.imgur.com/NtnGfqZ.jpg)
+<img src="https://i.imgur.com/NtnGfqZ.jpg" alt="EP_73_The Division Bell" width="256"/>
 
 ### 📻 Audioshow - EP_74
 
@@ -366,7 +351,7 @@ The Road Goes Ever On..., Pt. 2 / "In Dreams"
 - 2005
 - Howard Shore & Fran Walsh
 
-![EP_74_The Lord of the Rings_ The Fellowship of the Ring - The Complete Recordings](https://i.imgur.com/ZuxyVHr.jpg)
+<img src="https://i.imgur.com/ZuxyVHr.jpg" alt="EP_74_The Lord of the Rings_ The Fellowship of the Ring - The Complete Recordings" width="256"/>
 
 ### 📻 Audioshow - EP_75
 
@@ -378,7 +363,7 @@ Subterranean Homesick Blues
 - 1965
 - Bob Dylan
 
-![EP_75_Bringing It All Back Home](https://i.imgur.com/0DBAJzp.jpg)
+<img src="https://i.imgur.com/0DBAJzp.jpg" alt="EP_75_Bringing It All Back Home" width="256"/>
 
 ### 📻 Audioshow - EP_76
 
@@ -393,7 +378,7 @@ Peace of Mind
 - 1976
 - T. Scholz
 
-![EP_76_Boston](https://i.imgur.com/h1vHaTY.jpg)
+<img src="https://i.imgur.com/h1vHaTY.jpg" alt="EP_76_Boston" width="256"/>
 
 ### 📻 Audioshow - EP_77
 
@@ -410,7 +395,7 @@ Melissa
 - 1972
 - Gregg Allman & Steve Alaimo
 
-![EP_77_Eat a Peach](https://i.imgur.com/ZMLQVlW.jpg)
+<img src="https://i.imgur.com/ZMLQVlW.jpg" alt="EP_77_Eat a Peach" width="256"/>
 
 ### 📻 Audioshow - EP_78
 
@@ -442,7 +427,7 @@ Lost Boys Calling
 - 1998
 - Ennio Morricone
 
-![EP_79_The Legend of 1900](https://i.imgur.com/HmNgs77.jpg)
+<img src="https://i.imgur.com/HmNgs77.jpg" alt="EP_79_The Legend of 1900" width="256"/>
 
 ### 📻 Audioshow - EP_80
 
@@ -457,7 +442,7 @@ Sweet Home Alabama
 - 1974
 - Gary Rossington, Ronnie Van Zant & Edward King
 
-![EP_80_Second Helping](https://i.imgur.com/nkIL3Da.jpg)
+<img src="https://i.imgur.com/nkIL3Da.jpg" alt="EP_80_Second Helping" width="256"/>
 
 ### 📻 Audioshow - EP_81
 
@@ -472,7 +457,7 @@ The Voice
 - 1977
 - Eric Woolfson & Alan Parsons
 
-![EP_81_I Robot](https://i.imgur.com/pESxuDh.jpg)
+<img src="https://i.imgur.com/pESxuDh.jpg" alt="EP_81_I Robot" width="256"/>
 
 ### 📻 Audioshow - EP_82
 
@@ -487,7 +472,7 @@ Romeo and Juliet
 - 1980
 - Mark Knopfler
 
-![EP_82_Making Movies](https://i.imgur.com/uORUBtz.jpg)
+<img src="https://i.imgur.com/uORUBtz.jpg" alt="EP_82_Making Movies" width="256"/>
 
 ### 📻 Audioshow - EP_83
 
@@ -504,7 +489,7 @@ My Iron Lung
 - 1980
 - Colin Greenwood, Ed O'Brien, Jonny Greenwood, Phil Selway & Thom Yorke
 
-![EP_83_The Bends](https://i.imgur.com/sf5meKs.jpg)
+<img src="https://i.imgur.com/sf5meKs.jpg" alt="EP_83_The Bends" width="256"/>
 
 ### 📻 Audioshow - EP_84
 
@@ -516,7 +501,7 @@ Only Time
 - 2000
 - Eith Ni-Bhraonain, Nicholas Ryan, Enya & Roma Ryan
 
-![EP_84_A Day Without Rain](https://i.imgur.com/9GLmT8T.jpg)
+<img src="https://i.imgur.com/9GLmT8T.jpg" alt="EP_84_A Day Without Rain" width="256"/>
 
 ### 📻 Audioshow - EP_85
 
@@ -529,7 +514,7 @@ Unknown Legend
 - 1992
 - Neil Young
 
-![EP_85_Harvest Moon](https://i.imgur.com/5ZuD0Sy.jpg)
+<img src="https://i.imgur.com/5ZuD0Sy.jpg" alt="EP_85_Harvest Moon" width="256"/>
 
 ### 📻 Audioshow - EP_86
 
@@ -544,7 +529,7 @@ Behind Blue Eyes
 - 1971
 - Pete Townshend
 
-![EP_86_Who's Next](https://i.imgur.com/QYhv05F.jpg)
+<img src="https://i.imgur.com/QYhv05F.jpg" alt="EP_86_Who's Next" width="256"/>
 
 ### 📻 Audioshow - EP_87
 
@@ -559,7 +544,7 @@ Sunday Morning
 - 1966
 - Lou Reed & John Cale
 
-![EP_87_The Velvet Underground & Nico](https://i.imgur.com/tGN0Eic.jpg)
+<img src="https://i.imgur.com/tGN0Eic.jpg" alt="EP_87_The Velvet Underground & Nico" width="256"/>
 
 ### 📻 Audioshow - EP_88
 
@@ -574,7 +559,7 @@ May This Be Love
 - 1967
 - Jimi Hendrix
 
-![EP_88_Are You Experienced](https://i.imgur.com/5TB7AON.jpg)
+<img src="https://i.imgur.com/5TB7AON.jpg" alt="EP_88_Are You Experienced" width="256"/>
 
 ### 📻 Audioshow - EP_89
 
@@ -589,7 +574,7 @@ Knights of Cydonia
 - 2006
 - Matthew Bellamy
 
-![EP_89_Black Holes and Revelations](https://i.imgur.com/8O4DRlr.jpg)
+<img src="https://i.imgur.com/8O4DRlr.jpg" alt="EP_89_Black Holes and Revelations" width="256"/>
 
 ### 📻 Audioshow - EP_90
 
@@ -603,7 +588,7 @@ Mind Games
 - 1973
 - John Lennon
 
-![EP_90_Mind Games](https://i.imgur.com/C7U3ILu.jpg)
+<img src="https://i.imgur.com/C7U3ILu.jpg" alt="EP_90_Mind Games" width="256"/>
 
 ### 📻 Audioshow - EP_91
 
@@ -618,7 +603,7 @@ Who Needs Information
 - 1987
 - Roger Waters
 
-![Covers/EP_1-99/EP_91_Radio K.A.O.S.](https://i.imgur.com/AbaZO1q.jpg)
+<img src="https://i.imgur.com/AbaZO1q.jpg" alt="Covers/EP_1-99/EP_91_Radio K.A.O.S." width="256"/>
 
 ### 📻 Audioshow - EP_92
 
@@ -632,7 +617,7 @@ Fallen Angel
 - 1974
 - Robert Fripp, John Wetton
 
-![EP_92_Red](https://i.imgur.com/FQ2Yofl.jpg)
+<img src="https://i.imgur.com/FQ2Yofl.jpg" alt="EP_92_Red" width="256"/>
 
 ### 📻 Audioshow - EP_93
 
@@ -647,7 +632,7 @@ Fallen Angel
 - 1989
 - 崔健
 
-![EP_93_新长征路上的摇滚](https://i.imgur.com/aW8Ai26.jpg)
+<img src="https://i.imgur.com/aW8Ai26.jpg" alt="EP_93_新长征路上的摇滚" width="256"/>
 
 ### 📻 Audioshow - EP_94
 
@@ -663,7 +648,7 @@ Vienna
 - 1977
 - Billy Joel, Patrick Williams
 
-![EP_94_The Stranger](https://i.imgur.com/eaHPATT.jpg)
+<img src="https://i.imgur.com/eaHPATT.jpg" alt="EP_94_The Stranger" width="256"/>
 
 ### 📻 Audioshow - EP_95
 
@@ -677,7 +662,7 @@ Lazarus
 - 2005
 - Steven John Wilson, Richard Barbieri, Colin Edwin Balch & Gavin Richard Harrison
 
-![EP_95_Deadwing](https://i.imgur.com/x7jbacB.jpg)
+<img src="https://i.imgur.com/x7jbacB.jpg" alt="EP_95_Deadwing" width="256"/>
 
 ### 📻 Audioshow - EP_96
 
@@ -692,7 +677,7 @@ Child In Time
 - 1970
 - Ian Gillan, Ian Paice, Jon Lord, Ritchie Blackmore & Roger Glover
 
-![EP_96_Deep Purple In Rock](https://i.imgur.com/sagZXlb.jpg)
+<img src="https://i.imgur.com/sagZXlb.jpg" alt="EP_96_Deep Purple In Rock" width="256"/>
 
 ### 📻 Audioshow - EP_97
 
@@ -704,7 +689,7 @@ Old and Wise
 - 1982
 - Eric Woolfson & Alan Parsons
 
-![EP_97_Eye In the Sky](https://i.imgur.com/SYb7FJW.jpg)
+<img src="https://i.imgur.com/SYb7FJW.jpg" alt="EP_97_Eye In the Sky" width="256"/>
 
 ### 📻 Audioshow - EP_98
 
@@ -719,7 +704,7 @@ The Loner
 - 1968
 - Neil Young
 
-![EP_98_Neil Young](https://i.imgur.com/nrKxQao.jpg)
+<img src="https://i.imgur.com/nrKxQao.jpg" alt="EP_98_Neil Young" width="256"/>
 
 ### 📻 Audioshow - EP_99
 
@@ -732,4 +717,19 @@ Kiss from a Rose
 - 1994
 - Henry Samuel
 
-![EP_99_Seal II](https://i.imgur.com/2rwVRzq.jpg)
+<img src="https://i.imgur.com/2rwVRzq.jpg" alt="EP_99_Seal II" width="256"/>
+
+### 📻 Audioshow - EP_100
+
+"You may say I'm a dreamer
+But I'm not the only one
+I hope someday you'll join us
+And the world will be as one"
+
+Imagine
+- John Lennon
+- Imagine
+- 1971
+- John Lennon & Yoko Ono
+
+<img src="https://i.imgur.com/iS51Fwl.jpg" alt="EP_100_Imagine" width="256"/>

@@ -1,29 +1,14 @@
 ---
 layout: '../../../layouts/MarkdownPostLayout.astro'
-title: '📻 Audioshow_EP_100-149'
+title: '📻 Audioshow EP 101-150'
 pubDate: 2024-9-30
-description: 'Audioshow_EP_100-149'
+description: 'Audioshow_EP_101-150'
 author: 'Audiofool'
 image:
     url: 'https://i.imgur.com/AulCCYI.png'
     alt: 'Audioshow'
 tags: ["audioshow"]
 ---
-
-### 📻 Audioshow - EP_100
-
-"You may say I'm a dreamer
-But I'm not the only one
-I hope someday you'll join us
-And the world will be as one"
-
-Imagine
-- John Lennon
-- Imagine
-- 1971
-- John Lennon & Yoko Ono
-
-![EP_100_Imagine](https://i.imgur.com/iS51Fwl.jpg)
 
 ### 📻 Audioshow - EP_101
 
@@ -36,7 +21,7 @@ Find the Cost of Freedom
 - 1971
 - Stephen Stills
 
-![EP_101_So Far](https://i.imgur.com/eMNQrxR.jpg)
+<img src="https://i.imgur.com/eMNQrxR.jpg" alt="EP_101_So Far" width="256"/>
 
 ### 📻 Audioshow - EP_102
 
@@ -51,7 +36,7 @@ Bad Penny
 - 1979
 - Rory Gallagher
 
-![EP_102_Top Priority](https://i.imgur.com/3eRhFTL.jpg)
+<img src="https://i.imgur.com/3eRhFTL.jpg" alt="EP_102_Top Priority" width="256"/>
 
 ### 📻 Audioshow - EP_103
 
@@ -67,7 +52,7 @@ Little Wing
 - 1967
 - Jimi Hendrix
 
-![EP_103_Axis_ Bold As Love](https://i.imgur.com/ciuFCMk.jpg)
+<img src="https://i.imgur.com/ciuFCMk.jpg" alt="EP_103_Axis_ Bold As Love" width="256"/>
 
 ### 📻 Audioshow - EP_104
 
@@ -80,7 +65,7 @@ Something In the Way
 - 1991
 - Kurt Cobain, Dave Grohl & Krist Novoselic
 
-![EP_104_Nevermind](https://i.imgur.com/ezXPrLv.jpg)
+<img src="https://i.imgur.com/ezXPrLv.jpg" alt="EP_104_Nevermind" width="256"/>
 
 ### 📻 Audioshow - EP_105
 
@@ -100,7 +85,7 @@ Each Small Candle (Live June 2000)
 - 2000
 - Roger Waters
 
-![EP_105_In the Flesh - Live](https://i.imgur.com/cTZGcBU.jpg)
+<img src="https://i.imgur.com/cTZGcBU.jpg" alt="EP_105_In the Flesh - Live" width="256"/>
 
 ### 📻 Audioshow - EP_106
 
@@ -115,7 +100,7 @@ Wouldn't It Be Nice
 - 1966
 - Brian Wilson, Mike Love & Tony Asher
 
-![EP_106_Pet Sounds](https://i.imgur.com/LwXi2XI.jpg)
+<img src="https://i.imgur.com/LwXi2XI.jpg" alt="EP_106_Pet Sounds" width="256"/>
 
 ### 📻 Audioshow - EP_107
 
@@ -130,7 +115,7 @@ Inquisitor
 - 2018
 - Phideaux Xavier, Mark Sherkus & Richard Hutchins
 
-![EP_107_Infernal](https://i.imgur.com/dBfkUKx.jpg)
+<img src="https://i.imgur.com/dBfkUKx.jpg" alt="EP_107_Infernal" width="256"/>
 
 ### 📻 Audioshow - EP_108
 
@@ -145,7 +130,7 @@ Take Me Home, Country Roads
 - 1971
 - John Denver, Bill Danoff, Taffy Nivert Danoff & Mary Danoff
 
-![EP_108_Poems, Prayers & Promises](https://i.imgur.com/UCedR97.jpg)
+<img src="https://i.imgur.com/UCedR97.jpg" alt="EP_108_Poems, Prayers & Promises" width="256"/>
 
 ### 📻 Audioshow - EP_109
 
@@ -160,7 +145,7 @@ Bohemian Rhapsody
 - 1975
 - Freddie Mercury
 
-![EP_109_A Night at the Opera](https://i.imgur.com/9g9zxIE.jpg)
+<img src="https://i.imgur.com/9g9zxIE.jpg" alt="EP_109_A Night at the Opera" width="256"/>
 
 ### 📻 Audioshow - EP_110
 
@@ -175,7 +160,7 @@ Crawling
 - 2000
 - Brad Delson, Chester Bennington, Dave Farrell, Joe Hahn, Mike Shinoda & Rob Bourdon
 
-![EP_110_Hybrid Theory](https://i.imgur.com/bGEJxzy.jpg)
+<img src="https://i.imgur.com/bGEJxzy.jpg" alt="EP_110_Hybrid Theory" width="256"/>
 
 ### 📻 Audioshow - EP_111
 
@@ -191,7 +176,7 @@ Strawberry Fields Forever
 - 1967
 - John Lennon & Paul McCartney
 
-![EP_111_Magical Mystery Tour](https://i.imgur.com/17jSJCk.jpg)
+<img src="https://i.imgur.com/17jSJCk.jpg" alt="EP_111_Magical Mystery Tour" width="256"/>
 
 ### 📻 Audioshow - EP_112
 
@@ -207,7 +192,7 @@ Midnight Rider
 - 1970
 - Gregg Allman & Robert Kim Payne
 
-![EP_112_Idlewild South](https://i.imgur.com/nIhRp3H.jpg)
+<img src="https://i.imgur.com/nIhRp3H.jpg" alt="EP_112_Idlewild South" width="256"/>
 
 ### 📻 Audioshow - EP_113
 
@@ -223,7 +208,7 @@ Fire and Rain
 - 1970
 - James Taylor
 
-![EP_113_Sweet Baby James](https://i.imgur.com/M230kNn.jpg)
+<img src="https://i.imgur.com/M230kNn.jpg" alt="EP_113_Sweet Baby James" width="256"/>
 
 ### 📻 Audioshow - EP_114
 
@@ -238,7 +223,7 @@ Working Man
 - 1974
 - Geddy Lee & Alex Lifeson
 
-![EP_114_Rush](https://i.imgur.com/p5SM8ve.jpg)
+<img src="https://i.imgur.com/p5SM8ve.jpg" alt="EP_114_Rush" width="256"/>
 
 ### 📻 Audioshow - EP_115
 
@@ -252,7 +237,7 @@ Wake Me Up When September Ends
 - 2004
 - Billie Joe Armstrong, Mike Dirnt & Tré Cool
 
-![EP_115_American Idiot](https://i.imgur.com/jykimz2.jpg)
+<img src="https://i.imgur.com/jykimz2.jpg" alt="EP_115_American Idiot" width="256"/>
 
 ### 📻 Audioshow - EP_116
 
@@ -267,7 +252,7 @@ A Hard Day’s Night
 - 1964
 - John Lennon, Paul McCartney
 
-![EP_116_A Hard Day’s Night](https://i.imgur.com/RVRgmEh.jpg)
+<img src="https://i.imgur.com/RVRgmEh.jpg" alt="EP_116_A Hard Day’s Night" width="256"/>
 
 ### 📻 Audioshow - EP_117
 
@@ -285,7 +270,7 @@ Round & Round (It Won't Be Long)
 - 1969
 - Neil Young
 
-![EP_117_Everybody Knows This Is Nowhere](https://i.imgur.com/pUohAFW.jpg)
+<img src="https://i.imgur.com/pUohAFW.jpg" alt="EP_117_Everybody Knows This Is Nowhere" width="256"/>
 
 ### 📻 Audioshow - EP_118
 
@@ -301,7 +286,7 @@ The Best Way to Travel
 - 1968
 - Michael Pinder
 
-![EP_118_In Search of the Lost Chord](https://i.imgur.com/OFqZscs.jpg)
+<img src="https://i.imgur.com/OFqZscs.jpg" alt="EP_118_In Search of the Lost Chord" width="256"/>
 
 ### 📻 Audioshow - EP_119
 
@@ -314,7 +299,7 @@ The Piper's Call
 - 2024
 - David Gilmour
 
-![EP_119_Luck and Strange](https://i.imgur.com/8egLuVk.jpg)
+<img src="https://i.imgur.com/8egLuVk.jpg" alt="EP_119_Luck and Strange" width="256"/>
 
 ### 📻 Audioshow - EP_120
 
@@ -330,7 +315,7 @@ I Won't Back Down
 - 1989
 - Tom Petty & Jeff Lynne
 
-![EP_120_Full Moon Fever](https://i.imgur.com/QUp4FOM.jpg)
+<img src="https://i.imgur.com/QUp4FOM.jpg" alt="EP_120_Full Moon Fever" width="256"/>
 
 ### 📻 Audioshow - EP_121
 
@@ -348,7 +333,7 @@ Rock Around the Clock
 - 1955
 - Jimmy De Knight & Max C. Freedman
 
-![EP_121_Biggest Hits](https://i.imgur.com/vuhOArV.jpg)
+<img src="https://i.imgur.com/vuhOArV.jpg" alt="EP_121_Biggest Hits" width="256"/>
 
 ### 📻 Audioshow - EP_122
 
@@ -363,7 +348,7 @@ Deep Blue
 - 1971
 - George Harrison
 
-![EP_122_Living in the Material World](https://i.imgur.com/JSr0KWm.jpg)
+<img src="https://i.imgur.com/JSr0KWm.jpg" alt="EP_122_Living in the Material World" width="256"/>
 
 ### 📻 Audioshow - EP_123
 
@@ -378,7 +363,7 @@ I Wish You Peace
 - 1975
 - Bernie Leadon & Patti Davis
 
-![EP_123_One of These Nights](https://i.imgur.com/QJEmJ05.jpg)
+<img src="https://i.imgur.com/QJEmJ05.jpg" alt="EP_123_One of These Nights" width="256"/>
 
 ### 📻 Audioshow - EP_124
 
@@ -393,7 +378,7 @@ Dani California
 - 2006
 - Anthony Kiedis, Chad Smith, Flea & John Frusciante
 
-![EP_124_Stadium Arcadium](https://i.imgur.com/plo9I5F.jpg)
+<img src="https://i.imgur.com/plo9I5F.jpg" alt="EP_124_Stadium Arcadium" width="256"/>
 
 ### 📻 Audioshow - EP_125
 
@@ -408,7 +393,7 @@ Uncle John's Band
 - 1970
 - Jerry Garcia & Robert Hunter
 
-![EP_125_Workingman's Dead](https://i.imgur.com/7nQdDqf.jpg)
+<img src="https://i.imgur.com/7nQdDqf.jpg" alt="EP_125_Workingman's Dead" width="256"/>
 
 ### 📻 Audioshow - EP_126
 
@@ -422,7 +407,7 @@ It's My Life
 - 2000
 - Jon Bon Jovi, Richie Sambora & Max Martin
 
-![EP_126_Crush](https://i.imgur.com/vl2h1LJ.jpg)
+<img src="https://i.imgur.com/vl2h1LJ.jpg" alt="EP_126_Crush" width="256"/>
 
 ### 📻 Audioshow - EP_127
 
@@ -434,7 +419,7 @@ Under Pressure (feat. David Bowie)
 - 1981
 - David Bowie, Brian May, Roger Taylor, John Deacon & Freddie Mercury
 
-![EP_127_Hot Space](https://i.imgur.com/DVEcWJl.jpg)
+<img src="https://i.imgur.com/DVEcWJl.jpg" alt="EP_127_Hot Space" width="256"/>
 
 ### 📻 Audioshow - EP_128
 
@@ -447,7 +432,7 @@ Ramblin' Man
 - 1973
 - Richard Betts
 
-![EP_128_Brothers and Sisters](https://i.imgur.com/u3guwQ9.jpg)
+<img src="https://i.imgur.com/u3guwQ9.jpg" alt="EP_128_Brothers and Sisters" width="256"/>
 
 ### 📻 Audioshow - EP_129
 
@@ -460,7 +445,7 @@ The Railroad
 - 1973
 - Mark Farner
 
-![EP_129_We're An American Band](https://i.imgur.com/TWkSmbt.jpg)
+<img src="https://i.imgur.com/TWkSmbt.jpg" alt="EP_129_We're An American Band" width="256"/>
 
 ### 📻 Audioshow - EP_130
 
@@ -475,7 +460,7 @@ Ramble On
 - 1969
 - Jimmy Page & Robert Plant
 
-![EP_130_Led Zeppelin II](https://i.imgur.com/OaroKMw.jpg)
+<img src="https://i.imgur.com/OaroKMw.jpg" alt="EP_130_Led Zeppelin II" width="256"/>
 
 ### 📻 Audioshow - EP_131
 
@@ -490,7 +475,7 @@ Nor do the wind, the sun or the rain"
 - 1976
 - Buck Dharma
 
-![EP_131_Agents of Fortune](https://i.imgur.com/5YjKK8d.jpg)
+<img src="https://i.imgur.com/5YjKK8d.jpg" alt="EP_131_Agents of Fortune" width="256"/>
 
 ### 📻 Audioshow - EP_132
 
@@ -503,7 +488,7 @@ Purple Rain
 - 1984
 - Prince
 
-![EP_132_Purple Rain](https://i.imgur.com/wz41B4u.jpg)
+<img src="https://i.imgur.com/wz41B4u.jpg" alt="EP_132_Purple Rain" width="256"/>
 
 ### 📻 Audioshow - EP_133
 
@@ -516,7 +501,7 @@ Pinball Wizard
 - 1969
 - Pete Townshend
 
-![EP_133_Tommy](https://i.imgur.com/sIjXAX8.jpg)
+<img src="https://i.imgur.com/sIjXAX8.jpg" alt="EP_133_Tommy" width="256"/>
 
 ### 📻 Audioshow - EP_134
 
@@ -531,7 +516,7 @@ Shape of My Heart
 - 1993
 - Sting & Dominic Miller
 
-![EP_134_Ten Summoner's Tales](https://i.imgur.com/QNgHN4Y.jpg)
+<img src="https://i.imgur.com/QNgHN4Y.jpg" alt="EP_134_Ten Summoner's Tales" width="256"/>
 
 ### 📻 Audioshow - EP_135
 
@@ -548,7 +533,7 @@ Space Oddity
 - 1969
 - David Bowie
 
-![EP_135_David Bowie (aka Space Oddity](https://i.imgur.com/krzeA4w.jpg)
+<img src="https://i.imgur.com/krzeA4w.jpg" alt="EP_135_David Bowie (aka Space Oddity" width="256"/>
 
 ### 📻 Audioshow - EP_136
 
@@ -563,7 +548,7 @@ Radar Love
 - 1973
 - Barry Hay & George Kooymans
 
-![EP_136_Radar Love - Single](https://i.imgur.com/FPchF73.jpg)
+<img src="https://i.imgur.com/FPchF73.jpg" alt="EP_136_Radar Love - Single" width="256"/>
 
 ### 📻 Audioshow - EP_137
 
@@ -580,7 +565,7 @@ Baker Street
 - 1978
 - Gerry Rafferty
 
-![EP_137_City to City](https://i.imgur.com/3yKdDlH.jpg)
+<img src="https://i.imgur.com/3yKdDlH.jpg" alt="EP_137_City to City" width="256"/>
 
 ### 📻 Audioshow - EP_138
 
@@ -597,7 +582,7 @@ Top Jimmy
 - 1984
 - Alex Van Halen, David Lee Roth, Eddie Van Halen & Michael Anthony
 
-![EP_138_1984](https://i.imgur.com/JDRD3nY.jpg)
+<img src="https://i.imgur.com/JDRD3nY.jpg" alt="EP_138_1984" width="256"/>
 
 ### 📻 Audioshow - EP_139
 
@@ -611,7 +596,7 @@ Curtain of Iron
 - 1980
 - Kerry Livgren
 
-![EP_139_Audio-Visions](https://i.imgur.com/ODDWmKe.jpg)
+<img src="https://i.imgur.com/ODDWmKe.jpg" alt="EP_139_Audio-Visions" width="256"/>
 
 ### 📻 Audioshow - EP_140
 
@@ -626,7 +611,7 @@ Don't Stop Believin'
 - 1981
 - Steve Perry, Neal Schon & Jonathan Cain
 
-![EP_140_Escape](https://i.imgur.com/Ws4iabX.jpg)
+<img src="https://i.imgur.com/Ws4iabX.jpg" alt="EP_140_Escape" width="256"/>
 
 ### 📻 Audioshow - EP_140
 
@@ -641,6 +626,6 @@ Tender
 - 1998
 - Alex James, Damon Albarn, Dave Rowntree & Graham Coxon
 
-![EP_141_13](https://i.imgur.com/4pnQMXA.jpg)
+<img src="https://i.imgur.com/4pnQMXA.jpg" alt="EP_141_13" width="256"/>
 
 <!-- 需要列出所有的喜欢/待喜欢的艺人，以及录音室专辑，甚至可以做一个系统->audiolib，然后从里面来抽audioshow -->
