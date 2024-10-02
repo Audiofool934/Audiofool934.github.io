@@ -1,7 +1,7 @@
 ---
 layout: '../../../layouts/AudioshowLayout.astro'
 title: '📻 Audioshow'
-episode: ''
+episode: '1-50'
 pubDate: 2024-9-30
 ---
 

@@ -1,7 +1,7 @@
 html {
     /* background-color: bisque; */
     font-family: 'Charter';
-    background-image: url("https://i.imgur.com/w65gI2j.jpg");
+    background-image: url("https://i.imgur.com/y6AZK1I.jpg");
     background-color: rgb(255, 255, 255, 0.5);
     background-blend-mode: lighten;
     background-size: cover; /* 图片覆盖整个页面 */
@@ -61,6 +61,7 @@ h1 {
 }
 
 .nav-links a {
+    color: #000000;
     display: block;
     text-align: center;
     padding: 10px 0;
@@ -99,8 +100,8 @@ h1 {
 }
 
 html.dark {
-    background-image: url("https://i.imgur.com/w65gI2j.jpg");
-    background-color: rgba(255, 255, 255, 0);
+    background-image: url("https://i.imgur.com/enp0IlP.png");
+    background-color: rgba(255, 255, 255, 0.25);
     background-blend-mode: lighten;
     color: #fff;
     .astro-code,
