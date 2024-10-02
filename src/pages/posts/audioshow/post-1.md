@@ -10,6 +10,28 @@ image:
 tags: ["audioshow"]
 ---
 
+<script>
+    function toggleMusic(iframeId, musicUrl) {
+        const musicIframe = document.getElementById(iframeId);
+        
+        musicIframe.style.display = "block";
+        musicIframe.src = musicUrl;
+        // if (musicIframe.style.display === "none" || musicIframe.style.display === "") {
+        //     // 显示并播放音乐
+        //     musicIframe.style.display = "block";
+        //     musicIframe.src = musicUrl;
+        // } else {
+        //     // 隐藏并停止音乐
+        //     musicIframe.style.display = "none";
+        //     musicIframe.src = "";
+        // }
+    }
+</script>
+
+<iframe id="apple-music-player" allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent; display: none;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+
+<!-- <div style="text-align: center;"> -->
+
 ### 📻 Audioshow - EP_1
 
 "Another hero, another mindless crime,
@@ -21,9 +43,7 @@ The Show Must Go On
 - 1991
 - Brian May, Roger Taylor, Freddie Mercury & John Deacon
 
-<iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/cn/album/the-show-must-go-on/1440857736?i=1440857999"></iframe>
-
-<img src="https://i.imgur.com/kASDvJf.jpg" alt="EP_1_Innuendo" width="256"/>
+<img class="audioshow-image" src="https://i.imgur.com/kASDvJf.jpg" alt="EP_1_Innuendo" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/the-show-must-go-on/1440857736?i=1440857999')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_2
 
@@ -36,7 +56,7 @@ My Back Pages (Live 10/16/1992)
 - 1993
 - Bob Dylan
 
-<img src="https://i.imgur.com/P1xHap0.jpg" alt="EP_2_Bob Dylan_ The 30th Anniversary Concert Celebration" width="256"/>
+<img src="https://i.imgur.com/P1xHap0.jpg" alt="EP_2_Bob Dylan_ The 30th Anniversary Concert Celebration" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/my-back-pages-live-10-16-1992/819171070?i=819171141')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_3
 
@@ -48,7 +68,7 @@ My My, Hey Hey (Out of the Blue)
 - 1979
 - Jeff Blackburn & Neil Young
 
-<img src="https://i.imgur.com/E7xkyiF.jpg" alt="EP_3_Rust Never Sleeps" width="256"/>
+<img src="https://i.imgur.com/E7xkyiF.jpg" alt="EP_3_Rust Never Sleeps" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/my-my-hey-hey-out-of-the-blue/1015767135?i=1015767223')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_4
 
@@ -60,7 +80,7 @@ The Chain
 - 1977
 - Christine McVie, John McVie, Lindsey Buckingham, Mick Fleetwood & Stevie Nicks
 
-<img src="https://i.imgur.com/NmWlJSV.jpg" alt="EP_4_Rumours" width="256"/>
+<img src="https://i.imgur.com/NmWlJSV.jpg" alt="EP_4_Rumours" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/the-chain/594061854?i=594061861')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_5
 
@@ -75,7 +95,7 @@ The Last Resort
 - 1976
 - Don Henley & Glenn Frey
 
-<img src="https://i.imgur.com/TcEdpB4.jpg" alt="EP_5_Hotel California" width="256"/>
+<img src="https://i.imgur.com/TcEdpB4.jpg" alt="EP_5_Hotel California" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/the-last-resort/635770200?i=635770370')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_6
 
@@ -88,7 +108,7 @@ While My Guitar Gently Weeps
 - 1968
 - George Harrison
 
-<img src="https://i.imgur.com/HRRRMhK.jpg" alt="EP_6_The Beatles (The White Album)" width="256"/>
+<img src="https://i.imgur.com/HRRRMhK.jpg" alt="EP_6_The Beatles (The White Album)" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/while-my-guitar-gently-weeps/1441133180?i=1441133644')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_7
 
@@ -100,7 +120,7 @@ Have a Cigar
 - 1975
 - Roger Waters
 
-<img src="https://i.imgur.com/XthbDN4.jpg" alt="EP_7_Wish You Were Here" width="256"/>
+<img src="https://i.imgur.com/XthbDN4.jpg" alt="EP_7_Wish You Were Here" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/have-a-cigar/1065973975?i=1065973979')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_8
 
@@ -113,7 +133,7 @@ Rocket Man (I Think It's Going to Be a Long Long Time)
 - 1972
 - Elton John & Bernie Taupin
 
-<img src="https://i.imgur.com/w2AKJT1.jpg" alt="EP_8_Honky Château" width="256"/>
+<img src="https://i.imgur.com/w2AKJT1.jpg" alt="EP_8_Honky Château" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/rocket-man-i-think-its-going-to-be-a-long-long-time/1440910513?i=1440910931')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_9
 
@@ -125,7 +145,7 @@ Wind of Change
 - 1990
 - Klaus Meine
 
-<img src="https://i.imgur.com/pbAFbvX.jpg" alt="EP_9_Crazy World" width="256"/>
+<img src="https://i.imgur.com/pbAFbvX.jpg" alt="EP_9_Crazy World" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/wind-of-change/1440761157?i=1440761801')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_10
 
@@ -138,7 +158,7 @@ When The Music's Over
 - 1967
 - Jim Morrison, John Densmore, Ray Manzarek & Robby Krieger
 
-<img src="https://i.imgur.com/cXELXQ1.jpg" alt="EP_10_Strange Days" width="256"/>
+<img src="https://i.imgur.com/cXELXQ1.jpg" alt="EP_10_Strange Days" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/when-the-musics-over/1622362830?i=1622362946')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_11
 
@@ -151,7 +171,7 @@ Time
 - 1973
 - Roger Waters, Nick Mason, Richard Wright & David Gilmour
 
-<img src="https://i.imgur.com/dzFq9So.jpg" alt="EP_11_The Dark Side of the Moon" width="256"/>
+<img src="https://i.imgur.com/dzFq9So.jpg" alt="EP_11_The Dark Side of the Moon" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/time/1065973699?i=1065973706')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_12
 
@@ -163,7 +183,7 @@ Old Time Rock & Roll
 - 1978
 - George Henry Jackson & Thomas Earl Jones III
 
-<img src="https://i.imgur.com/ycaMwoD.jpg" alt="EP_12_Stranger In Town" width="256"/>
+<img src="https://i.imgur.com/ycaMwoD.jpg" alt="EP_12_Stranger In Town" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/old-time-rock-roll/1440888092?i=1440888252')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_13
 
@@ -176,7 +196,7 @@ Words (Between the Lines of Age)
 - 1972
 - Neil Young
 
-<img src="https://i.imgur.com/9vp1YOk.jpg" alt="EP_13_Harvest" width="256"/>
+<img src="https://i.imgur.com/9vp1YOk.jpg" alt="EP_13_Harvest" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/words-between-the-lines-of-age/1015739190?i=1015739954')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_14
 
@@ -188,7 +208,7 @@ Perfect Sense, Pt. I
 - 1992
 - Roger Waters
 
-<img src="https://i.imgur.com/zbYgxV7.jpg" alt="EP_14_Amused to Death" width="256"/>
+<img src="https://i.imgur.com/zbYgxV7.jpg" alt="EP_14_Amused to Death" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/perfect-sense-pt-i/975952384?i=975952657')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_15
 
@@ -201,7 +221,7 @@ Simple Man
 - 1973
 - Ronnie Van Zant & Gary Rossington
 
-<img src="https://i.imgur.com/I3sRAdA.jpg" alt="EP_15_Pronounced Leh-Nerd Skin-Nerd" width="256"/>
+<img src="https://i.imgur.com/I3sRAdA.jpg" alt="EP_15_Pronounced Leh-Nerd Skin-Nerd" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/simple-man/1440838012?i=1440838314')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_16
 
@@ -213,7 +233,7 @@ Simple Man
 - 1977
 - David Bowie & Brian Eno
 
-<img src="https://i.imgur.com/CmGtE7z.jpg" alt="EP_16__Heroes_" width="256"/>
+<img src="https://i.imgur.com/CmGtE7z.jpg" alt="EP_16__Heroes_" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/heroes-2017-remaster/1347894082?i=1347894092')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_17
 
@@ -225,7 +245,8 @@ Comfortably Numb
 - 1979
 - Roger Waters & David Gilmour
 
-<img src="https://i.imgur.com/eNwImq2.jpg" alt="EP_17_The Wall" width="256"/>
+<img src="https://i.imgur.com/eNwImq2.jpg" alt="EP_17_The Wall" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/comfortably-numb/1065975633?i=1065976170
+')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_18
 
@@ -238,7 +259,7 @@ The Night They Drove Old Dixie Down
 - 1969
 - Robbie Robertson
 
-<img src="https://i.imgur.com/4vt2yEP.jpg" alt="EP_18_The Band" width="256"/>
+<img src="https://i.imgur.com/4vt2yEP.jpg" alt="EP_18_The Band" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/the-night-they-drove-old-dixie-down/1440846597?i=1440847001')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_19
 
@@ -251,7 +272,7 @@ Don't Look Back in Anger
 - 1995
 - Noel Gallagher
 
-<img src="https://i.imgur.com/FCOl0at.jpg" alt="EP_19_(What's the Story) Morning Glory" width="256"/>
+<img src="https://i.imgur.com/FCOl0at.jpg" alt="EP_19_(What's the Story) Morning Glory" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/dont-look-back-in-anger-remastered/895127002?i=895127014')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_20
 
@@ -263,7 +284,7 @@ I Am the Sea
 - 1973
 - Pete Townshend
 
-<img src="https://i.imgur.com/KMEnHgX.jpg" alt="EP_20_Quadrophenia" width="256"/>
+<img src="https://i.imgur.com/KMEnHgX.jpg" alt="EP_20_Quadrophenia" width="256" onclick="toggleMusic('apple-music-player', 'https://embed.music.apple.com/cn/album/i-am-the-sea/1440824353?i=1440824372')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_21
 
@@ -275,7 +296,7 @@ Waterloo Sunset
 - 1967
 - Raymond Douglas Davies
 
-<img src="https://i.imgur.com/HYBzDSi.jpg" alt="EP_21_Something Else By the Kinks" width="256"/>
+<img src="https://i.imgur.com/HYBzDSi.jpg" alt="EP_21_Something Else By the Kinks" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_22
 
@@ -288,7 +309,7 @@ Stairway to Heaven
 - 1971
 - Jimmy Page & Robert Plant
 
-<img src="https://i.imgur.com/6E7ixEA.jpg" alt="EP_22_Led Zeppelin IV" width="256"/>
+<img src="https://i.imgur.com/6E7ixEA.jpg" alt="EP_22_Led Zeppelin IV" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_23
 
@@ -303,7 +324,7 @@ Vincent
 - 1971
 - Don Mclean
 
-<img src="https://i.imgur.com/o53zfXI.jpg" alt="EP_23_American Pie" width="256"/>
+<img src="https://i.imgur.com/o53zfXI.jpg" alt="EP_23_American Pie" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_24
 
@@ -318,7 +339,7 @@ A Hard Rain's A-Gonna Fall
 - 1963
 - Bob Dylan
 
-<img src="https://i.imgur.com/lXV30e9.jpg" alt="EP_24_The Freewheelin' Bob Dylan" width="256"/>
+<img src="https://i.imgur.com/lXV30e9.jpg" alt="EP_24_The Freewheelin' Bob Dylan" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_25
 
@@ -330,7 +351,7 @@ Iron Man
 - 1970
 - Ozzy Osbourne, Tony Iommi & William Thomas Ward
 
-<img src="https://i.imgur.com/5gwVCuX.jpg" alt="EP_25_Paranoid" width="256"/>
+<img src="https://i.imgur.com/5gwVCuX.jpg" alt="EP_25_Paranoid" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_26
 
@@ -343,7 +364,7 @@ Ambrosia
 - 1976
 - Carole King & David Palmer
 
-<img src="https://i.imgur.com/I1Lclkd.jpg" alt="EP_26_Thoroughbred" width="256"/>
+<img src="https://i.imgur.com/I1Lclkd.jpg" alt="EP_26_Thoroughbred" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_27
 
@@ -355,7 +376,7 @@ Something
 - 1969
 - George Harrison
 
-<img src="https://i.imgur.com/d9kBA2V.jpg" alt="EP_27_Abbey Road" width="256"/>
+<img src="https://i.imgur.com/d9kBA2V.jpg" alt="EP_27_Abbey Road" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_28
 
@@ -368,7 +389,7 @@ Piano Man
 - 1973
 - Billy Joel
 
-<img src="https://i.imgur.com/CWnNrHw.jpg" alt="EP_28_Piano Man" width="256"/>
+<img src="https://i.imgur.com/CWnNrHw.jpg" alt="EP_28_Piano Man" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_29
 
@@ -380,7 +401,7 @@ Thunderstruck
 - 1990
 - Angus Young & Malcolm Young
 
-<img src="https://i.imgur.com/teuKk4X.jpg" alt="EP_29_The Razors Edge" width="256"/>
+<img src="https://i.imgur.com/teuKk4X.jpg" alt="EP_29_The Razors Edge" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_30
 
@@ -392,7 +413,7 @@ Paranoid Android
 - 1997
 - Colin Greenwood, Ed O'Brien, Jonny Greenwood, Phil Selway & Thom Yorke
 
-<img src="https://i.imgur.com/IV5kvex.jpg" alt="EP_30_OK Computer" width="256"/>
+<img src="https://i.imgur.com/IV5kvex.jpg" alt="EP_30_OK Computer" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_31
 
@@ -404,7 +425,7 @@ I Am a Child
 - 1968
 - Neil Young
 
-<img src="https://i.imgur.com/OqoJpVo.jpg" alt="EP_31_Last Time Around" width="256"/>
+<img src="https://i.imgur.com/OqoJpVo.jpg" alt="EP_31_Last Time Around" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_32
 
@@ -417,7 +438,7 @@ It
 - 1974
 - Mike Rutherford, Peter Gabriel, Phil Collins, Steve Hackett & Tony Banks
 
-<img src="https://i.imgur.com/QrlORst.jpg" alt="EP_32_The Lamb Lies Down on Broadway" width="256"/>
+<img src="https://i.imgur.com/QrlORst.jpg" alt="EP_32_The Lamb Lies Down on Broadway" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_33
 
@@ -432,7 +453,7 @@ Backstreets
 - 1975
 - Bruce Springsteen
 
-<img src="https://i.imgur.com/ZAbubrR.jpg" alt="EP_33_Born to Run" width="256"/>
+<img src="https://i.imgur.com/ZAbubrR.jpg" alt="EP_33_Born to Run" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_34
 
@@ -445,7 +466,7 @@ The Music Never Stopped
 - 1975
 - Bob Weir & John Barlow
 
-<img src="https://i.imgur.com/0GLsDDS.jpg" alt="EP_34_Blues for Allah" width="256"/>
+<img src="https://i.imgur.com/0GLsDDS.jpg" alt="EP_34_Blues for Allah" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_35
 
@@ -458,7 +479,7 @@ Brain Damage
 - 2023
 - Roger Waters
 
-<img src="https://i.imgur.com/UGy1MPD.jpg" alt="EP_35_The Dark Side of the Moon Redux" width="256"/>
+<img src="https://i.imgur.com/UGy1MPD.jpg" alt="EP_35_The Dark Side of the Moon Redux" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_37
 
@@ -471,7 +492,7 @@ You Can't Always Get What You Want
 - 1969
 - Mick Jagger & Keith Richards
 
-<img src="https://i.imgur.com/EF4cjmb.jpg" alt="EP_37_Let It Bleed" width="256"/>
+<img src="https://i.imgur.com/EF4cjmb.jpg" alt="EP_37_Let It Bleed" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_38
 
@@ -484,7 +505,7 @@ Holiday
 - 1978
 - Richard Wright
 
-<img src="https://i.imgur.com/CJRVytj.jpg" alt="EP_38_Wet Dream" width="256"/>
+<img src="https://i.imgur.com/CJRVytj.jpg" alt="EP_38_Wet Dream" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_39
 
@@ -497,7 +518,7 @@ Dream On
 - 1973
 - Steven Tyler
 
-<img src="https://i.imgur.com/fdbvbPc.jpg" alt="EP_39_Aerosmith" width="256"/>
+<img src="https://i.imgur.com/fdbvbPc.jpg" alt="EP_39_Aerosmith" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_40
 
@@ -509,7 +530,7 @@ Little Wing
 - 1970
 - Jimi Hendrix
 
-<img src="https://i.imgur.com/ZKporZG.jpg" alt="EP_40_Layla and Other Assorted Love Songs" width="256"/>
+<img src="https://i.imgur.com/ZKporZG.jpg" alt="EP_40_Layla and Other Assorted Love Songs" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_41
 
@@ -522,7 +543,7 @@ Almost Cut My Hair
 - 1970
 - David Crosby
 
-<img src="https://i.imgur.com/EYYJo4x.jpg" alt="EP_41_Déjà Vu" width="256"/>
+<img src="https://i.imgur.com/EYYJo4x.jpg" alt="EP_41_Déjà Vu" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_42
 
@@ -537,7 +558,7 @@ Rock and Roll Ain't Noise Pollution
 - 1980
 - Brian Johnson, Angus Young & Malcolm Young
 
-<img src="https://i.imgur.com/y3glwy7.jpg" alt="EP_42_Back In Black.jpg" width="256"/>
+<img src="https://i.imgur.com/y3glwy7.jpg" alt="EP_42_Back In Black.jpg" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_43
 
@@ -551,7 +572,7 @@ The Unforgiven
 - 1991
 - James Hetfield, Lars Ulrich & Kirk Hammett
 
-<img src="https://i.imgur.com/QsrHnxi.jpg" alt="EP_43_Metallica" width="256"/>
+<img src="https://i.imgur.com/QsrHnxi.jpg" alt="EP_43_Metallica" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_44
 
@@ -564,7 +585,7 @@ Against the Wind
 - 1980
 - Bob Seger
 
-<img src="https://i.imgur.com/UaMjov8.jpg" alt="EP_44_Against the Wind" width="256"/>
+<img src="https://i.imgur.com/UaMjov8.jpg" alt="EP_44_Against the Wind" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_45
 
@@ -578,7 +599,7 @@ Aqualung
 - 1971
 - Ian Anderson & Jennie Anderson
 
-<img src="https://i.imgur.com/49uLJiU.jpg" alt="EP_45_Aqualung" width="256"/>
+<img src="https://i.imgur.com/49uLJiU.jpg" alt="EP_45_Aqualung" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_46
 
@@ -591,7 +612,7 @@ California
 - 1971
 - Joni Mitchell
 
-<img src="https://i.imgur.com/K7vznn8.jpg" alt="EP_46_Blue" width="256"/>
+<img src="https://i.imgur.com/K7vznn8.jpg" alt="EP_46_Blue" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_47
 
@@ -605,7 +626,7 @@ Yesterday
 - 1965
 - John Lennon & Paul McCartney
 
-<img src="https://i.imgur.com/KF6HDAJ.jpg" alt="EP_47_Help!" width="256"/>
+<img src="https://i.imgur.com/KF6HDAJ.jpg" alt="EP_47_Help!" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_48
 
@@ -620,7 +641,7 @@ Epitaph
 - 1969
 - Robert Fripp, Michael Giles, Greg Lake & Ian McDonald
 
-<img src="https://i.imgur.com/3GDIwVT.jpg" alt="In the Court of the Crimson King" width="256"/>
+<img src="https://i.imgur.com/3GDIwVT.jpg" alt="In the Court of the Crimson King" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_49
 
@@ -633,7 +654,7 @@ Rockin' In the Free World
 - 1989
 - Neil Young
 
-<img src="https://i.imgur.com/dO44Nis.jpg" alt="EP_49_Freedom" width="256"/>
+<img src="https://i.imgur.com/dO44Nis.jpg" alt="EP_49_Freedom" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
 
 ### 📻 Audioshow - EP_50
 
@@ -648,4 +669,4 @@ In My Life
 - 1965
 - Paul McCartney & John Lennon
 
-<img src="https://i.imgur.com/vArKIQH.jpg" alt="EP_50_Rubber Soul" width="256"/>
+<img src="https://i.imgur.com/vArKIQH.jpg" alt="EP_50_Rubber Soul" width="256" onclick="toggleMusic('apple-music-player', '')" style="cursor: pointer;"/>
