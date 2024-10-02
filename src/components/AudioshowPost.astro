@@ -1,0 +1,8 @@
+---
+const { title, url, episode, pubDate} = Astro.props
+---
+<li>
+    <a href={url}>
+        <h2>{`${title} EP ${episode}`}</h2>
+    </a>
+</li>

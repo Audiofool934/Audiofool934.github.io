@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlogPost from "../components/BlogPost.astro";
+import AudioshowPost from "../components/AudioshowPost.astro";
 const allPosts = await Astro.glob('./posts/audioshow/*.md')
 const headTitle = "Audioshow";
 const pageTitle = "Audioshow";
@@ -8,6 +8,6 @@ const pageTitle = "Audioshow";
 
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
     <ul>
-        {allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} image={post.frontmatter.image}/>)}
+        {allPosts.map((post) => <AudioshowPost url={post.url} episode={post.frontmatter.episode} pubDate={post.frontmatter.pubDate} title={post.frontmatter.title}/>)}
     </ul>
 </BaseLayout>

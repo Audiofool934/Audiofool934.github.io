@@ -1,18 +1,13 @@
 ---
-layout: '../../../layouts/MarkdownPostLayout.astro'
-title: '📻 Audioshow EP 51-100'
+layout: '../../../layouts/AudioshowLayout.astro'
+title: '📻 Audioshow'
+episode: '51-100'
 pubDate: 2024-9-30
-description: 'Audioshow_EP_51-100'
-author: 'Audiofool'
-image:
-    url: 'https://i.imgur.com/AulCCYI.png'
-    alt: 'Audioshow'
-tags: ["audioshow"]
 ---
 
 ### 📻 Audioshow - EP_51
 
-"Better keep on moving, Doolin-Dalton
+"Better keep on moving, Doolin-Dalton  
 'Til your shadow sets you free"
 
 Doolin-Dalton
@@ -25,9 +20,9 @@ Doolin-Dalton
 
 ### 📻 Audioshow - EP_52
 
-"Oh, let the sun beat down upon my face
-With stars to fill my dream
-I am a traveller of both time and space
+"Oh, let the sun beat down upon my face  
+With stars to fill my dream  
+I am a traveller of both time and space  
 To be where I have been"
 
 Kashmir
@@ -40,7 +35,7 @@ Kashmir
 
 ### 📻 Audioshow - EP_53
 
-"Yesterday, there were so many things I was never shown
+"Yesterday, there were so many things I was never shown  
 Suddenly this time I found I'm on the streets and I'm all alone"
 
 Yesterdays
@@ -53,7 +48,7 @@ Yesterdays
 
 ### 📻 Audioshow - EP_54
 
-"There is a house in New Orleans
+"There is a house in New Orleans  
 They call the Rising Sun"
 
 The House of the Rising Sun
@@ -66,9 +61,9 @@ The House of the Rising Sun
 
 ### 📻 Audioshow - EP_55
 
-"And when the night is cloudy
-There is still a light that shines on me
-Shine on till tomorrow
+"And when the night is cloudy  
+There is still a light that shines on me  
+Shine on till tomorrow  
 Let it be"
 
 Let It Be
@@ -81,9 +76,9 @@ Let It Be
 
 ### 📻 Audioshow - EP_56
 
-"I'm lookin' for me
-You're lookin' for you
-We're lookin' at each other
+"I'm lookin' for me  
+You're lookin' for you  
+We're lookin' at each other  
 And we don't know what to do"
 
 The Seeker
@@ -96,8 +91,8 @@ The Seeker
 
 ### 📻 Audioshow - EP_57
 
-"Strangers passing in the street
-By chance two separate glances meet
+"Strangers passing in the street  
+By chance two separate glances meet  
 And I am you and what I see is me"
 
 Echoes
@@ -110,10 +105,10 @@ Echoes
 
 ### 📻 Audioshow - EP_58
 
-"Can you picture what will be?
-So limitless and free
-Desperately in need
-Of some stranger's hand
+"Can you picture what will be?  
+So limitless and free  
+Desperately in need  
+Of some stranger's hand  
 In a desperate land"
 
 The End
@@ -126,7 +121,7 @@ The End
 
 ### 📻 Audioshow - EP_59
 
-"Free at last, they took your life
+"Free at last, they took your life  
 They could not take your pride"
 
 Pride (In the Name of Love)
@@ -151,8 +146,8 @@ Solitude
 
 ### 📻 Audioshow - EP_61
 
-"Ashes and diamonds
-Foe and friend
+"Ashes and diamonds  
+Foe and friend  
 We were all equal in the end"
 
 Two Suns In the Sunset
@@ -165,7 +160,7 @@ Two Suns In the Sunset
 
 ### 📻 Audioshow - EP_62
 
-"Sunburn with freezerburn
+"Sunburn with freezerburn  
 Choking on the ashes of her enemy"
 
 All Apologies
@@ -178,9 +173,9 @@ All Apologies
 
 ### 📻 Audioshow - EP_63
 
-"I'm playing my role in history
-Looking to find my goal
-Taking in all this misery
+"I'm playing my role in history  
+Looking to find my goal  
+Taking in all this misery  
 But giving in all my soul"
 
 Made in Heaven
@@ -193,9 +188,9 @@ Made in Heaven
 
 ### 📻 Audioshow - EP_64
 
-"We stand to lose all time
-A thousand answers by in our hand
-Next to your deeper fears
+"We stand to lose all time  
+A thousand answers by in our hand  
+Next to your deeper fears  
 We stand surrounded by a million years"
 
 Roundabout
@@ -208,9 +203,9 @@ Roundabout
 
 ### 📻 Audioshow - EP_65
 
-"Home, home again
-I like to be here when I can
-When I come home cold and tired
+"Home, home again  
+I like to be here when I can  
+When I come home cold and tired  
 It's good to warm my bones beside the fire"
 
 Breathe (Reprise)
@@ -223,9 +218,9 @@ Breathe (Reprise)
 
 ### 📻 Audioshow - EP_66
 
-"The temple's in ruins
-The bankers get fat
-The buffalo's gone
+"The temple's in ruins  
+The bankers get fat  
+The buffalo's gone  
 And the mountain top's flat"
 
 Déjà Vu
@@ -238,9 +233,9 @@ Déjà Vu
 
 ### 📻 Audioshow - EP_67
 
-"Blind man running through the light of the night
-With an answer in his hand
-Come on down to the river of sight
+"Blind man running through the light of the night  
+With an answer in his hand  
+Come on down to the river of sight  
 And you can really understand"
 
 Don't Let It Bring You Down
@@ -253,8 +248,8 @@ Don't Let It Bring You Down
 
 ### 📻 Audioshow - EP_68
 
-"May your heart always be joyful
-May your song always be sung
+"May your heart always be joyful  
+May your song always be sung  
 And may you stay, forever young"
 
 Forever Young
@@ -267,9 +262,9 @@ Forever Young
 
 ### 📻 Audioshow - EP_69
 
-"Don't put me in a frame upon the mantel
-'Fore memories turn dusty old and grey
-Don't leave me alone in the twilight
+"Don't put me in a frame upon the mantel  
+'Fore memories turn dusty old and grey  
+Don't leave me alone in the twilight  
 Twilight is the loneliest time a day"
 
 Twilight
@@ -294,9 +289,9 @@ Beck's Bolero
 
 ### 📻 Audioshow - EP_71
 
-"I heard telephones, opera house, favourite melodies
-I saw boys, toys, electric irons and TVs
-My brain hurt like a warehouse, it had no room to spare
+"I heard telephones, opera house, favourite melodies  
+I saw boys, toys, electric irons and TVs  
+My brain hurt like a warehouse, it had no room to spare  
 I had to cram so many things to store everything in there"
 
 Five Years
@@ -309,11 +304,11 @@ Five Years
 
 ### 📻 Audioshow - EP_72
 
-"When the flames have their season
-Will you hold to your reason?
-Loaded down with your talents
-Can you still keep your balance?
-Can you live on a knife-edge?"
+"When the flames have their season  
+Will you hold to your reason?  
+Loaded down with your talents  
+Can you still keep your balance?  
+Can you live on a knife-edge?"  
 
 Knife-Edge
 - Emerson, Lake & Palmer
@@ -325,7 +320,7 @@ Knife-Edge
 
 ### 📻 Audioshow - EP_73
 
-"This bleeding heart's (Waiting for the waves)
+"This bleeding heart's (Waiting for the waves)  
 Not beating much (To break)"
 
 Wearing the Inside Out
@@ -338,11 +333,11 @@ Wearing the Inside Out
 
 ### 📻 Audioshow - EP_74
 
-"When the seas and mountains fall
-And we come to end of days
-In the dark I hear a call
-Calling me there
-I will go there
+"When the seas and mountains fall  
+And we come to end of days  
+In the dark I hear a call  
+Calling me there  
+I will go there  
 And back again"
 
 The Road Goes Ever On..., Pt. 2 / "In Dreams"
@@ -367,9 +362,9 @@ Subterranean Homesick Blues
 
 ### 📻 Audioshow - EP_76
 
-"I understand about indecision
-But I don't care if I get behind
-People living in competition
+"I understand about indecision  
+But I don't care if I get behind  
+People living in competition  
 All I want is to have my peace of mind"
 
 Peace of Mind
@@ -382,11 +377,11 @@ Peace of Mind
 
 ### 📻 Audioshow - EP_77
 
-"Again, the morning's come
-Again, he's on the run
-A sunbeam shinin' through his hair
-Fear not to have a care
-Well pick up your gear and gypsy roll on
+"Again, the morning's come  
+Again, he's on the run  
+A sunbeam shinin' through his hair  
+Fear not to have a care  
+Well pick up your gear and gypsy roll on  
 Roll on"
 
 Melissa
@@ -399,9 +394,9 @@ Melissa
 
 ### 📻 Audioshow - EP_78
 
-"Knock, knock, knockin' on Heaven's door
-Knock, knock, knockin' on Heaven's door
-Knock, knock, knockin' on Heaven's door
+"Knock, knock, knockin' on Heaven's door  
+Knock, knock, knockin' on Heaven's door  
+Knock, knock, knockin' on Heaven's door  
 Knock, knock, knockin' on Heaven's door"
 
 Knockin' On Heaven's Door
@@ -410,15 +405,15 @@ Knockin' On Heaven's Door
 - 1973
 - Bob Dylan
 
-![EP_78_Pat Garrett & Billy the Kid  [Soundtrack from the Motion Picture]](https://i.imgur.com/q96p0ZZ.jpg)
+<img src="https://i.imgur.com/q96p0ZZ.jpg" alt="EP_78_Pat Garrett & Billy the Kid  [Soundtrack from the Motion Picture]" width="256"/>
 
 ### 📻 Audioshow - EP_79
 
-"The spotlight fades
-The boys disband
-The final notes lie mute upon the sand
-And in the silence
-Of the grave
+"The spotlight fades  
+The boys disband  
+The final notes lie mute upon the sand  
+And in the silence  
+Of the grave  
 I can still hear those lost boys calling"
 
 Lost Boys Calling
@@ -431,9 +426,9 @@ Lost Boys Calling
 
 ### 📻 Audioshow - EP_80
 
-"Sweet home Alabama
-Where the skies are so blue
-Sweet home Alabama
+"Sweet home Alabama  
+Where the skies are so blue  
+Sweet home Alabama  
 Lord, I'm coming home to you"
 
 Sweet Home Alabama
@@ -446,9 +441,9 @@ Sweet Home Alabama
 
 ### 📻 Audioshow - EP_81
 
-"It's almost a feeling you can touch in the air
-You look all around you, but nobody's there
-It's been a long time now since you've been aware
+"It's almost a feeling you can touch in the air  
+You look all around you, but nobody's there  
+It's been a long time now since you've been aware  
 That someone is watching you (he's gonna get you)"
 
 The Voice
@@ -461,9 +456,9 @@ The Voice
 
 ### 📻 Audioshow - EP_82
 
-"Juliet, the dice was loaded from the start
-And I bet, when you exploded into my heart
-And I forget, I forget, the movie song
+"Juliet, the dice was loaded from the start  
+And I bet, when you exploded into my heart  
+And I forget, I forget, the movie song  
 When you gonna realize, it was just that the time was wrong, Juliet?"
 
 Romeo and Juliet
@@ -476,11 +471,11 @@ Romeo and Juliet
 
 ### 📻 Audioshow - EP_83
 
-"Faith, you're driving me away
-You do it everyday
-You don't mean it, but it hurts like hell
-My brain says I'm receiving pain
-A lack of oxygen from my life support
+"Faith, you're driving me away  
+You do it everyday  
+You don't mean it, but it hurts like hell  
+My brain says I'm receiving pain  
+A lack of oxygen from my life support  
 My iron lung"
 
 My Iron Lung
@@ -505,7 +500,7 @@ Only Time
 
 ### 📻 Audioshow - EP_85
 
-"Somewhere on a desert highway
+"Somewhere on a desert highway  
 She rides a Harley-Davidson"
 
 Unknown Legend
@@ -518,9 +513,9 @@ Unknown Legend
 
 ### 📻 Audioshow - EP_86
 
-"When my fist clenches, crack it open
-Before I use it and lose my cool
-When I smile, tell me some bad news
+"When my fist clenches, crack it open  
+Before I use it and lose my cool  
+When I smile, tell me some bad news  
 Before I laugh and act like a fool"
 
 Behind Blue Eyes
@@ -533,9 +528,9 @@ Behind Blue Eyes
 
 ### 📻 Audioshow - EP_87
 
-"Watch out
-The world's behind you
-There's always someone around you who will call
+"Watch out  
+The world's behind you  
+There's always someone around you who will call  
 It's nothing at all"
 
 Sunday Morning
@@ -548,9 +543,9 @@ Sunday Morning
 
 ### 📻 Audioshow - EP_88
 
-"I can see
-My rainbow calling me
-Through the misty breeze
+"I can see  
+My rainbow calling me  
+Through the misty breeze  
 Of my waterfall"
 
 May This Be Love
@@ -563,9 +558,9 @@ May This Be Love
 
 ### 📻 Audioshow - EP_89
 
-"Come ride with me through the veins of history
-I'll show you a god who falls asleep on the job
-And how can we win when fools can be kings?
+"Come ride with me through the veins of history  
+I'll show you a god who falls asleep on the job  
+And how can we win when fools can be kings?  
 Don't waste your time, or time will waste you"
 
 Knights of Cydonia
@@ -578,8 +573,8 @@ Knights of Cydonia
 
 ### 📻 Audioshow - EP_90
 
-"Keep on playin' those mind games forever
-Raisin' the spirit 
+"Keep on playin' those mind games forever  
+Raisin' the spirit  
 Of peace and love"
 
 Mind Games
@@ -592,10 +587,10 @@ Mind Games
 
 ### 📻 Audioshow - EP_91
 
-"Who needs information
-When you're workin' underground?
-Just give me confirmation
-We could win a million pounds"
+"Who needs information  
+When you're workin' underground?  
+Just give me confirmation  
+We could win a million pounds"  
 
 Who Needs Information
 - Roger Waters
@@ -607,8 +602,8 @@ Who Needs Information
 
 ### 📻 Audioshow - EP_92
 
-"Westside skyline crying
-Fallen angel dying
+"Westside skyline crying  
+Fallen angel dying  
 Risk a life to make a dime"
 
 Fallen Angel
@@ -621,9 +616,9 @@ Fallen Angel
 
 ### 📻 Audioshow - EP_93
 
-"我不愿离开 我不愿存在
-我不愿活得过分实实在在
-我想要离开 我想要存在
+"我不愿离开 我不愿存在  
+我不愿活得过分实实在在  
+我想要离开 我想要存在  
 我想要死去之后从头再来"
 
 从头再来
@@ -636,10 +631,10 @@ Fallen Angel
 
 ### 📻 Audioshow - EP_94
 
-"Slow down, you crazy child
-And take the phone off the hook and disappear for a while
-It’s alright, you can afford to lose a day or two, ooh
-When will you realize?
+"Slow down, you crazy child  
+And take the phone off the hook and disappear for a while  
+It’s alright, you can afford to lose a day or two, ooh  
+When will you realize?  
 Vienna waits for you"
 
 Vienna
@@ -652,8 +647,8 @@ Vienna
 
 ### 📻 Audioshow - EP_95
 
-"'Follow me down to the valley below
-You know
+"'Follow me down to the valley below  
+You know  
 Moonlight is bleeding from out of your soul'"
 
 Lazarus
@@ -666,9 +661,9 @@ Lazarus
 
 ### 📻 Audioshow - EP_96
 
-"Sweet child in time
-You'll see the line
-The line that's drawn between
+"Sweet child in time  
+You'll see the line  
+The line that's drawn between  
 Good and bad"
 
 Child In Time
@@ -693,9 +688,9 @@ Old and Wise
 
 ### 📻 Audioshow - EP_98
 
-"Know when you see him
-Nothing can free him
-Step aside, open wide
+"Know when you see him  
+Nothing can free him  
+Step aside, open wide  
 It's the loner"
 
 The Loner
@@ -708,7 +703,7 @@ The Loner
 
 ### 📻 Audioshow - EP_99
 
-"Now that your rose is in bloom
+"Now that your rose is in bloom  
 A light hits the gloom on the gray"
 
 Kiss from a Rose
@@ -721,9 +716,9 @@ Kiss from a Rose
 
 ### 📻 Audioshow - EP_100
 
-"You may say I'm a dreamer
-But I'm not the only one
-I hope someday you'll join us
+"You may say I'm a dreamer  
+But I'm not the only one  
+I hope someday you'll join us  
 And the world will be as one"
 
 Imagine

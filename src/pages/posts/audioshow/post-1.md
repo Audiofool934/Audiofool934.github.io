@@ -1,13 +1,8 @@
 ---
-layout: '../../../layouts/MarkdownPostLayout.astro'
-title: '📻 Audioshow EP 1-50'
+layout: '../../../layouts/AudioshowLayout.astro'
+title: '📻 Audioshow'
+episode: ''
 pubDate: 2024-9-30
-description: 'Audioshow_EP_1-50'
-author: 'Audiofool'
-image:
-    url: 'https://i.imgur.com/AulCCYI.png'
-    alt: 'Audioshow'
-tags: ["audioshow"]
 ---
 
 <script>
@@ -34,7 +29,7 @@ tags: ["audioshow"]
 
 ### 📻 Audioshow - EP_1
 
-"Another hero, another mindless crime,
+"Another hero, another mindless crime,  
 Behind the curtain, in the pantomime"
 
 The Show Must Go On
@@ -47,7 +42,7 @@ The Show Must Go On
 
 ### 📻 Audioshow - EP_2
 
-"Ah, but I was so much older then
+"Ah, but I was so much older then  
 I am younger than that now"
 
 My Back Pages (Live 10/16/1992)
@@ -84,9 +79,9 @@ The Chain
 
 ### 📻 Audioshow - EP_5
 
-"They call it paradise
-I don't know why
-You call someplace paradise
+"They call it paradise  
+I don't know why  
+You call someplace paradise  
 Kiss it goodbye"
 
 The Last Resort
@@ -99,7 +94,7 @@ The Last Resort
 
 ### 📻 Audioshow - EP_6
 
-"With every mistake, we must surely be learning
+"With every mistake, we must surely be learning  
 Still my guitar gently weeps"
 
 While My Guitar Gently Weeps
@@ -124,7 +119,7 @@ Have a Cigar
 
 ### 📻 Audioshow - EP_8
 
-"And I think it's gonna be a long, long time
+"And I think it's gonna be a long, long time  
 Till touchdown brings me 'round again to find"
 
 Rocket Man (I Think It's Going to Be a Long Long Time)
@@ -149,7 +144,7 @@ Wind of Change
 
 ### 📻 Audioshow - EP_10
 
-"When the music's over
+"When the music's over  
 Turn out the lights"
 
 When The Music's Over
@@ -162,7 +157,7 @@ When The Music's Over
 
 ### 📻 Audioshow - EP_11
 
-"Every year is getting shorter, never seem to find the time
+"Every year is getting shorter, never seem to find the time  
 Plans that either come to naught or half a page of scibbled lines"
 
 Time
@@ -187,7 +182,7 @@ Old Time Rock & Roll
 
 ### 📻 Audioshow - EP_13
 
-"Someone and someone were down by the pond
+"Someone and someone were down by the pond  
 Looking for something to plant in the lawn"
 
 Words (Between the Lines of Age)
@@ -250,7 +245,7 @@ Comfortably Numb
 
 ### 📻 Audioshow - EP_18
 
-"The night they drove old Dixie down
+"The night they drove old Dixie down  
 And the people were singing"
 
 The Night They Drove Old Dixie Down
@@ -263,9 +258,9 @@ The Night They Drove Old Dixie Down
 
 ### 📻 Audioshow - EP_19
 
-"So Sally can wait
+"So Sally can wait  
 She knows it's too late as we're walking on by"
-EP_20_Quadrophenia
+
 Don't Look Back in Anger
 - Oasis
 - (What's the Story) Morning Glory?
@@ -300,7 +295,7 @@ Waterloo Sunset
 
 ### 📻 Audioshow - EP_22
 
-"When all are one, and one is all
+"When all are one, and one is all  
 To be a rock and not to roll"
 
 Stairway to Heaven
@@ -313,9 +308,9 @@ Stairway to Heaven
 
 ### 📻 Audioshow - EP_23
 
-"Starry, starry night
-Portraits hung in empty halls
-Frameless heads on nameless walls
+"Starry, starry night  
+Portraits hung in empty halls  
+Frameless heads on nameless walls  
 With eyes that watch the world and can't forget"
 
 Vincent
@@ -328,9 +323,9 @@ Vincent
 
 ### 📻 Audioshow - EP_24
 
-"And I'll tell it, and speak it, and think it, and breathe it
-And reflect from the mountain so all souls can see it
-And I'll stand on the ocean until I start sinking
+"And I'll tell it, and speak it, and think it, and breathe it  
+And reflect from the mountain so all souls can see it  
+And I'll stand on the ocean until I start sinking  
 But I'll know my song well before I start singing"
 
 A Hard Rain's A-Gonna Fall
@@ -355,7 +350,7 @@ Iron Man
 
 ### 📻 Audioshow - EP_26
 
-"I need to be replenished, I need to overflow
+"I need to be replenished, I need to overflow  
 Let my senses know your power, let your holy mix distill"
 
 Ambrosia
@@ -380,7 +375,7 @@ Something
 
 ### 📻 Audioshow - EP_28
 
-"He says, 'Son, can you play me a memory?'
+"He says, 'Son, can you play me a memory?'  
 'I'm not really sure how it goes'"
 
 Piano Man
@@ -429,7 +424,7 @@ I Am a Child
 
 ### 📻 Audioshow - EP_32
 
-"It is here
+"It is here  
 It is now"
 
 It
@@ -442,9 +437,9 @@ It
 
 ### 📻 Audioshow - EP_33
 
-"Hiding on the backstreets
-Hiding on the backstreets
-Where we swore forever friends
+"Hiding on the backstreets  
+Hiding on the backstreets  
+Where we swore forever friends  
 On the backstreets until the end"
 
 Backstreets
@@ -457,7 +452,7 @@ Backstreets
 
 ### 📻 Audioshow - EP_34
 
-"It's a rainbow full of sound
+"It's a rainbow full of sound  
 It's fireworks, calliopes and clowns"
 
 The Music Never Stopped
@@ -470,7 +465,7 @@ The Music Never Stopped
 
 ### 📻 Audioshow - EP_35
 
-"The paper holds their folded faces to the floor
+"The paper holds their folded faces to the floor  
 And every day the paper boy brings more"
 
 Brain Damage
@@ -483,7 +478,7 @@ Brain Damage
 
 ### 📻 Audioshow - EP_37
 
-"You can't always get what you want
+"You can't always get what you want  
 But if you try sometimes, you'll find you get what you need"
 
 You Can't Always Get What You Want
@@ -496,7 +491,7 @@ You Can't Always Get What You Want
 
 ### 📻 Audioshow - EP_38
 
-"Destiny, reality are just a dream
+"Destiny, reality are just a dream  
 Raise the sails, the wind is free"
 
 Holiday
@@ -509,7 +504,7 @@ Holiday
 
 ### 📻 Audioshow - EP_39
 
-"Sing with me, sing for the year
+"Sing with me, sing for the year  
 Sing for the laughter, sing for the tear"
 
 Dream On
@@ -534,7 +529,7 @@ Little Wing
 
 ### 📻 Audioshow - EP_41
 
-"When I finally get myself together
+"When I finally get myself together  
 I'm gonna get down in that sunny Southern weather"
 
 Almost Cut My Hair
@@ -547,9 +542,9 @@ Almost Cut My Hair
 
 ### 📻 Audioshow - EP_42
 
-"We're just talkin' about the future
-Forget about the past
-It'll always be with us
+"We're just talkin' about the future  
+Forget about the past  
+It'll always be with us  
 It's never gonna die"
 
 Rock and Roll Ain't Noise Pollution
@@ -562,8 +557,8 @@ Rock and Roll Ain't Noise Pollution
 
 ### 📻 Audioshow - EP_43
 
-"Never free
-Never me
+"Never free  
+Never me  
 So I dub thee Unforgiven"
 
 The Unforgiven
@@ -576,7 +571,7 @@ The Unforgiven
 
 ### 📻 Audioshow - EP_44
 
-"Deadlines and commitments
+"Deadlines and commitments  
 What to leave in, what to leave out"
 
 Against the Wind
@@ -589,8 +584,8 @@ Against the Wind
 
 ### 📻 Audioshow - EP_45
 
-"Auqalung, my friend
-Don't just start away uneasy
+"Auqalung, my friend  
+Don't just start away uneasy  
 You poor old sod, you see, it's only me"
 
 Aqualung
@@ -603,7 +598,7 @@ Aqualung
 
 ### 📻 Audioshow - EP_46
 
-"All the news of home you read
+"All the news of home you read  
 Just gives you the blues"
 
 California
@@ -617,7 +612,7 @@ California
 ### 📻 Audioshow - EP_47
 
 "Yesterday
-All my troubles seemed so far away
+All my troubles seemed so far away  
 Now it looks as though they're here to stay"
 
 Yesterday
@@ -630,9 +625,9 @@ Yesterday
 
 ### 📻 Audioshow - EP_48
 
-"Between the iron gates of fate
-The seeds of time were sown"
-And watered by the deeds of those
+"Between the iron gates of fate  
+The seeds of time were sown  
+And watered by the deeds of those  
 Who know and who are known"
 
 Epitaph
@@ -645,7 +640,7 @@ Epitaph
 
 ### 📻 Audioshow - EP_49
 
-"There's one more kid that'll never go to school
+"There's one more kid that'll never go to school  
 Never get to fall in love, never get to be cool"
 
 Rockin' In the Free World
@@ -658,9 +653,9 @@ Rockin' In the Free World
 
 ### 📻 Audioshow - EP_50
 
-"There are places I remember
-All my life, though some have changed
-Some forever, not for better
+"There are places I remember  
+All my life, though some have changed  
+Some forever, not for better  
 Some have gone and some remain"
 
 In My Life

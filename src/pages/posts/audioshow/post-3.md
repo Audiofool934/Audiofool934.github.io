@@ -1,18 +1,13 @@
 ---
-layout: '../../../layouts/MarkdownPostLayout.astro'
-title: '📻 Audioshow EP 101-150'
+layout: '../../../layouts/AudioshowLayout.astro'
+title: '📻 Audioshow'
+episode: '101-141'
 pubDate: 2024-9-30
-description: 'Audioshow_EP_101-150'
-author: 'Audiofool'
-image:
-    url: 'https://i.imgur.com/AulCCYI.png'
-    alt: 'Audioshow'
-tags: ["audioshow"]
 ---
 
 ### 📻 Audioshow - EP_101
 
-"Find the cost of freedom buried in the ground
+"Find the cost of freedom buried in the ground  
 Mother Earth will swallow you, lay your body down"
 
 Find the Cost of Freedom
@@ -25,9 +20,9 @@ Find the Cost of Freedom
 
 ### 📻 Audioshow - EP_102
 
-"Well, like a bad penny spins around and around
-Well, you won't know what's gone wrong when it all falls down
-You got to learn from now on to stop playin' games
+"Well, like a bad penny spins around and around  
+Well, you won't know what's gone wrong when it all falls down  
+You got to learn from now on to stop playin' games  
 You oughta keep on movin', you gotta spin on your way"
 
 Bad Penny
@@ -40,10 +35,10 @@ Bad Penny
 
 ### 📻 Audioshow - EP_103
 
-"Well, she's walkin' through the clouds
-With a circus mind that's running 'round
-Butterflies and zebras
-And moonbeams
+"Well, she's walkin' through the clouds  
+With a circus mind that's running 'round  
+Butterflies and zebras  
+And moonbeams  
 And the fairytales"
 
 Little Wing
@@ -56,7 +51,7 @@ Little Wing
 
 ### 📻 Audioshow - EP_104
 
-"Underneath the bridge
+"Underneath the bridge  
 Tarp has sprung a leak"
 
 Something In the Way
@@ -69,14 +64,14 @@ Something In the Way
 
 ### 📻 Audioshow - EP_105
 
-"When the wheel of pain stops turnin'
-(And the brandin' iron stop burnin')
-When the children can be children
-(When the desperadoes weaken)
-When the tide rolls in to greet them
-(And the natural law of science)
-Greets the humble and the mighty
-(And the billion candles burnin')
+"When the wheel of pain stops turnin'  
+(And the brandin' iron stop burnin')  
+When the children can be children  
+(When the desperadoes weaken)  
+When the tide rolls in to greet them  
+(And the natural law of science)  
+Greets the humble and the mighty  
+(And the billion candles burnin')  
 (Lights the dark side of every human mind)"
 
 Each Small Candle (Live June 2000)
@@ -89,9 +84,9 @@ Each Small Candle (Live June 2000)
 
 ### 📻 Audioshow - EP_106
 
-"Wouldn't it be nice if we were older?
-Then we wouldn't have to wait so long
-And wouldn't it be nice to live together
+"Wouldn't it be nice if we were older?  
+Then we wouldn't have to wait so long  
+And wouldn't it be nice to live together  
 In the kind of world where we belong?"
 
 Wouldn't It Be Nice
@@ -104,9 +99,9 @@ Wouldn't It Be Nice
 
 ### 📻 Audioshow - EP_107
 
-"But deep down undercover
-Where all good secrects go
-We'll wait in the corner
+"But deep down undercover  
+Where all good secrects go  
+We'll wait in the corner  
 In faith the truth will show"
 
 Inquisitor
@@ -119,9 +114,9 @@ Inquisitor
 
 ### 📻 Audioshow - EP_108
 
-"Almost heaven, West Virginia
-Blue Ridge Mountains, Shenandoah River
-Life is old there, older than the trees
+"Almost heaven, West Virginia  
+Blue Ridge Mountains, Shenandoah River  
+Life is old there, older than the trees  
 Younger than the mountains, growing like a breeze"
 
 Take Me Home, Country Roads
@@ -134,9 +129,9 @@ Take Me Home, Country Roads
 
 ### 📻 Audioshow - EP_109
 
-"Is this the real life?
-Is this just fantasy?
-Caught in a landslide
+"Is this the real life?  
+Is this just fantasy?  
+Caught in a landslide  
 No escape from reality"
 
 Bohemian Rhapsody
@@ -149,9 +144,9 @@ Bohemian Rhapsody
 
 ### 📻 Audioshow - EP_110
 
-"Crawling in my skin
-These wounds, they will not heal
-Fear is how I fall
+"Crawling in my skin  
+These wounds, they will not heal  
+Fear is how I fall  
 Confusing what is real"
 
 Crawling
@@ -164,10 +159,10 @@ Crawling
 
 ### 📻 Audioshow - EP_111
 
-"Living is easy with eyes closed
-Misunderstanding all you see
-It's getting hard to be someone
-But it all works out
+"Living is easy with eyes closed  
+Misunderstanding all you see  
+It's getting hard to be someone  
+But it all works out  
 It doesn't matter much to me"
 
 Strawberry Fields Forever
@@ -180,10 +175,10 @@ Strawberry Fields Forever
 
 ### 📻 Audioshow - EP_112
 
-"And I don't own the clothes I'm wearing
+"And I don't own the clothes I'm wearing  
 And the road goes on forever
-And I've got one more silver dollar
-But I'm not gonna let 'em catch me, no
+And I've got one more silver dollar  
+But I'm not gonna let 'em catch me, no  
 I'm gonna let 'em catch the midnight rider"
 
 Midnight Rider
@@ -196,10 +191,10 @@ Midnight Rider
 
 ### 📻 Audioshow - EP_113
 
-"Won't you look down upon me, Jesus?
-You've got to help me make a stand
-You've just got to see me through another day
-My body's aching and my time is at hand
+"Won't you look down upon me, Jesus?  
+You've got to help me make a stand  
+You've just got to see me through another day  
+My body's aching and my time is at hand  
 And I won't make it any other way"
 
 Fire and Rain
@@ -212,9 +207,9 @@ Fire and Rain
 
 ### 📻 Audioshow - EP_114
 
-"It seems to me I could live my life
-A lot better than I think I am
-I guess that's why they call me
+"It seems to me I could live my life  
+A lot better than I think I am  
+I guess that's why they call me  
 They call me the working man"
 
 Working Man
@@ -227,8 +222,8 @@ Working Man
 
 ### 📻 Audioshow - EP_115
 
-"As my memory rests
-But never forgets what I lost
+"As my memory rests  
+But never forgets what I lost  
 Wake me up when September ends"
 
 Wake Me Up When September Ends
@@ -241,9 +236,9 @@ Wake Me Up When September Ends
 
 ### 📻 Audioshow - EP_116
 
-"It’s been a hard day’s night
-And I’ve been working like a dog
-It’s been a hard day’s night
+"It’s been a hard day’s night  
+And I’ve been working like a dog  
+It’s been a hard day’s night  
 I should be sleeping like a log"
 
 A Hard Day’s Night
@@ -256,12 +251,12 @@ A Hard Day’s Night
 
 ### 📻 Audioshow - EP_117
 
-"It's hard enough losin'
-The paper illusion
-You've hidden inside
-Without the confusion
-Of findin' you're usin'
-The crutch of the lie
+"It's hard enough losin'  
+The paper illusion  
+You've hidden inside  
+Without the confusion  
+Of findin' you're usin'  
+The crutch of the lie  
 To shelter your pride when you cry"
 
 Round & Round (It Won't Be Long)
@@ -274,10 +269,10 @@ Round & Round (It Won't Be Long)
 
 ### 📻 Audioshow - EP_118
 
-"We ride the waves
-Distance is gone, will we find out
-How life began, will we find out
-Speeding through the universe
+"We ride the waves  
+Distance is gone, will we find out  
+How life began, will we find out  
+Speeding through the universe  
 Thinking is the best way to travel"
 
 The Best Way to Travel
@@ -290,7 +285,7 @@ The Best Way to Travel
 
 ### 📻 Audioshow - EP_119
 
-"The flames are high
+"The flames are high  
 The piper's call contagious"
 
 The Piper's Call
@@ -303,10 +298,10 @@ The Piper's Call
 
 ### 📻 Audioshow - EP_120
 
-"Well I know what's right
-I got just one life
-In a world that keeps on pushing me around
-But I'll stand my ground
+"Well I know what's right  
+I got just one life  
+In a world that keeps on pushing me around  
+But I'll stand my ground  
 And I won't back down"
 
 I Won't Back Down
@@ -319,12 +314,12 @@ I Won't Back Down
 
 ### 📻 Audioshow - EP_121
 
-"One, two, three o'clock
-Four o'clock rock
-Five, six, seven o'clock
-Eight o'clock rock
-Nine, ten, eleven o'clock
-Twelve o'clock rock
+"One, two, three o'clock  
+Four o'clock rock  
+Five, six, seven o'clock  
+Eight o'clock rock  
+Nine, ten, eleven o'clock  
+Twelve o'clock rock  
 We're gonna rock around the clock tonight"
 
 Rock Around the Clock
@@ -337,9 +332,9 @@ Rock Around the Clock
 
 ### 📻 Audioshow - EP_122
 
-"When the sunshine is not enough to make me feel bright
-It's got me suffering in the darkness
-That's so easy come by on the roadside
+"When the sunshine is not enough to make me feel bright  
+It's got me suffering in the darkness  
+That's so easy come by on the roadside  
 Of one long lifetime"
 
 Deep Blue
@@ -352,9 +347,9 @@ Deep Blue
 
 ### 📻 Audioshow - EP_123
 
-"Wish you peace when times are hard
-A light to guide you through the dark
-And when storms are high and your dreams are low
+"Wish you peace when times are hard  
+A light to guide you through the dark  
+And when storms are high and your dreams are low  
 I wish you the strength to let love grow"
 
 I Wish You Peace
@@ -367,9 +362,9 @@ I Wish You Peace
 
 ### 📻 Audioshow - EP_124
 
-"California, rest in peace
-Simultaneous release
-California, show your teeth
+"California, rest in peace  
+Simultaneous release  
+California, show your teeth  
 She's my priestess, I'm your priest"
 
 Dani California
@@ -382,9 +377,9 @@ Dani California
 
 ### 📻 Audioshow - EP_125
 
-"Well the first days are the hardest days
-Don't you worry anymore
-'Cause when life looks like Easy Street
+"Well the first days are the hardest days  
+Don't you worry anymore  
+'Cause when life looks like Easy Street  
 There is danger at your door"
 
 Uncle John's Band
@@ -397,8 +392,8 @@ Uncle John's Band
 
 ### 📻 Audioshow - EP_126
 
-"It's my life, it's now or never
-I ain't gonna live forever
+"It's my life, it's now or never  
+I ain't gonna live forever  
 I just want to live while I'm alive"
 
 It's My Life
@@ -423,7 +418,7 @@ Under Pressure (feat. David Bowie)
 
 ### 📻 Audioshow - EP_128
 
-"And when it's time for leavin', I hope you'll understand
+"And when it's time for leavin', I hope you'll understand  
 That I was born a ramblin' man"
 
 Ramblin' Man
@@ -436,7 +431,7 @@ Ramblin' Man
 
 ### 📻 Audioshow - EP_129
 
-"Oh, you know, the railroad is a mighty good line
+"Oh, you know, the railroad is a mighty good line  
 Come on and ride the railroad, one more time"
 
 The Railroad
@@ -449,9 +444,9 @@ The Railroad
 
 ### 📻 Audioshow - EP_130
 
-"Mine's tale that can't be told
-My freedom I hold dear
-How years ago in days of old
+"Mine's tale that can't be told  
+My freedom I hold dear  
+How years ago in days of old  
 When magic filled the air"
 
 Ramble On
@@ -464,9 +459,9 @@ Ramble On
 
 ### 📻 Audioshow - EP_131
 
-"All our times have come4
-Here but now they're gone
-Seasons don't fear the reaper
+"All our times have come  
+Here but now they're gone  
+Seasons don't fear the reaper  
 Nor do the wind, the sun or the rain"
 
 (Don't Fear) The Reaper
@@ -479,7 +474,7 @@ Nor do the wind, the sun or the rain"
 
 ### 📻 Audioshow - EP_132
 
-"Purple rain, purple rain
+"Purple rain, purple rain  
 Purple rain, purple rain"
 
 Purple Rain
@@ -492,7 +487,7 @@ Purple Rain
 
 ### 📻 Audioshow - EP_133
 
-"He's a pinball wizard, there has to be a twist
+"He's a pinball wizard, there has to be a twist  
 A pinball wizard's got such a supple wrist"
 
 Pinball Wizard
@@ -505,9 +500,9 @@ Pinball Wizard
 
 ### 📻 Audioshow - EP_134
 
-"He deals the cards to find the answer
-The sacred geometry of chance
-The hidden law of a probable outcome
+"He deals the cards to find the answer  
+The sacred geometry of chance  
+The hidden law of a probable outcome  
 The numbers lead a dance"
 
 Shape of My Heart
@@ -520,11 +515,11 @@ Shape of My Heart
 
 ### 📻 Audioshow - EP_135
 
-"Ground Control to Major Tom
-Your circuit's dead, there's something wrong
-Can you hear me, Major Tom?
-Can you hear me, Major Tom?
-Can you hear me, Major Tom?
+"Ground Control to Major Tom  
+Your circuit's dead, there's something wrong  
+Can you hear me, Major Tom?  
+Can you hear me, Major Tom?  
+Can you hear me, Major Tom?  
 Can you hear..."
 
 Space Oddity
@@ -537,9 +532,9 @@ Space Oddity
 
 ### 📻 Audioshow - EP_136
 
-"No more speed, I'm almost there
-Gotta keep cool now, gotta take care
-Last car to pass, here I go
+"No more speed, I'm almost there  
+Gotta keep cool now, gotta take care  
+Last car to pass, here I go  
 And the line of cars drove down real slow"
 
 Radar Love
@@ -552,11 +547,11 @@ Radar Love
 
 ### 📻 Audioshow - EP_137
 
-"But you know he'll always keep moving
-You know he's never gonna stop moving
-'Cause he's rolling, he's the rolling stone
-When you wake up, it's a new morning
-The sun is shining, it's a new morning
+"But you know he'll always keep moving  
+You know he's never gonna stop moving  
+'Cause he's rolling, he's the rolling stone  
+When you wake up, it's a new morning  
+The sun is shining, it's a new morning  
 And you're going, you're going home"
 
 Baker Street
@@ -569,11 +564,11 @@ Baker Street
 
 ### 📻 Audioshow - EP_138
 
-"Some friends of mine, just the other night
-Went to hear this cool cat blow
-The say he sang so good that the roof fell in
-And he didn't even stop the show
-They don't remember the place
+"Some friends of mine, just the other night  
+Went to hear this cool cat blow  
+The say he sang so good that the roof fell in  
+And he didn't even stop the show  
+They don't remember the place  
 But they remember the face"
 
 Top Jimmy
@@ -586,8 +581,8 @@ Top Jimmy
 
 ### 📻 Audioshow - EP_139
 
-"See the pages as they turn
-In their wisdom we will learn
+"See the pages as they turn  
+In their wisdom we will learn  
 Free from the prison, a Curtain of Iron"
 
 Curtain of Iron
@@ -600,9 +595,9 @@ Curtain of Iron
 
 ### 📻 Audioshow - EP_140
 
-"Some'll win, some will lose
-Some are born to sing the blues
-Oh, the movie never ends
+"Some'll win, some will lose  
+Some are born to sing the blues  
+Oh, the movie never ends  
 It goes on and on and on and on"
 
 Don't Stop Believin'
@@ -613,11 +608,11 @@ Don't Stop Believin'
 
 <img src="https://i.imgur.com/Ws4iabX.jpg" alt="EP_140_Escape" width="256"/>
 
-### 📻 Audioshow - EP_140
+### 📻 Audioshow - EP_141
 
-"Tender is the ghost
-The ghost I love the most
-Hiding from the sun
+"Tender is the ghost  
+The ghost I love the most  
+Hiding from the sun  
 Waiting for the night to come"
 
 Tender
@@ -627,5 +622,3 @@ Tender
 - Alex James, Damon Albarn, Dave Rowntree & Graham Coxon
 
 <img src="https://i.imgur.com/4pnQMXA.jpg" alt="EP_141_13" width="256"/>
-
-<!-- 需要列出所有的喜欢/待喜欢的艺人，以及录音室专辑，甚至可以做一个系统->audiolib，然后从里面来抽audioshow -->

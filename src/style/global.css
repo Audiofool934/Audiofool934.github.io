@@ -1,6 +1,16 @@
 html {
-    background-color: bisque;
-    font-family: 'Charter'
+    /* background-color: bisque; */
+    font-family: 'Charter';
+    background-image: url("https://i.imgur.com/w65gI2j.jpg");
+    background-color: rgb(255, 255, 255, 0.5);
+    background-blend-mode: lighten;
+    background-size: cover; /* 图片覆盖整个页面 */
+    background-attachment: fixed; /* 背景图片固定 */
+    background-position: center; /* 图片居中 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
 }
 
 body {
@@ -45,7 +55,7 @@ h1 {
     width: 100%;
     top: 5rem;
     left: 48px;
-    background-color: #ff9776;
+    /* background-color: #ff9776; */
     display: none;
     margin: 0;
 }
@@ -60,10 +70,9 @@ h1 {
     text-transform: uppercase;
 }
 
-.nav-links a:hover,
-
-.nav-links a:focus {
-    background-color: #ff9776;
+.nav-links a:hover, .nav-links a:focus {
+    background-color: #7dad58;
+    border-radius: 20px; /* 圆角值，根据需要调整 */
 }
 
 .expanded {
@@ -90,7 +99,9 @@ h1 {
 }
 
 html.dark {
-    background-color: #332e8b;
+    background-image: url("https://i.imgur.com/w65gI2j.jpg");
+    background-color: rgba(255, 255, 255, 0);
+    background-blend-mode: lighten;
     color: #fff;
     .astro-code,
     .astro-code span {
