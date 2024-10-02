@@ -23,6 +23,8 @@ In My Life
 - 1965
 - Paul McCartney & John Lennon
 
+![EP_50_Rubber Soul](https://i.imgur.com/vArKIQH.jpg)
+
 ### 📻 Audioshow - EP_51
 
 "Better keep on moving, Doolin-Dalton
@@ -33,6 +35,8 @@ Doolin-Dalton
 - Desperado
 - 1973
 - Don Henley, Glenn Frey, Jackson Browne, Jim Ed Norman & JD Souther
+
+![EP_51_Desperado](https://i.imgur.com/IXWeFvh.jpg)
 
 ### 📻 Audioshow - EP_52
 
@@ -47,6 +51,8 @@ Kashmir
 - 1975
 - Jimmy Page, John Bonham & Robert Plant
 
+![EP_52_Physical Graffiti](https://i.imgur.com/DJ9CEYo.jpg)
+
 ### 📻 Audioshow - EP_53
 
 "Yesterday, there were so many things I was never shown
@@ -58,6 +64,8 @@ Yesterdays
 - 1991
 - Axl Rose, Jeffrey Isbell, Saul Hudson, Duff McKagan, Billy McCloud, West Arkeen & Del James
 
+![EP_53_Use Your Illusion II](https://i.imgur.com/BAKub5X.jpg)
+
 ### 📻 Audioshow - EP_54
 
 "There is a house in New Orleans
@@ -68,6 +76,8 @@ The House of the Rising Sun
 - The Singles Plus
 - 1963
 - Alan Price & Traditional
+
+![EP_54_The Singles Plus](https://i.imgur.com/siw6Aaa.jpg)
 
 ### 📻 Audioshow - EP_55
 
@@ -82,6 +92,8 @@ Let It Be
 - 1970
 - John Lennon & Paul McCartney
 
+![EP_55_Let It Be](https://i.imgur.com/NQ2aYhQ.jpg)
+
 ### 📻 Audioshow - EP_56
 
 "I'm lookin' for me
@@ -95,6 +107,8 @@ The Seeker
 - 1970
 - Pete Townshend
 
+![EP_56_Meaty, Beaty, Big and Bouncy](https://i.imgur.com/UUtBw5Z.jpg)
+
 ### 📻 Audioshow - EP_57
 
 "Strangers passing in the street
@@ -106,6 +120,8 @@ Echoes
 - Meddle
 - 1970
 - Roger Waters, David Gilmour, Richard Wright & Nick Mason
+
+![EP_57_Meddle](https://i.imgur.com/Z6bxCwC.jpg)
 
 ### 📻 Audioshow - EP_58
 
@@ -121,6 +137,8 @@ The End
 - 1967
 - Jim Morrison, John Densmore, Ray Manzarek & Robby Krieger
 
+![EP_58_The Doors](https://i.imgur.com/c4KUBfG.jpg)
+
 ### 📻 Audioshow - EP_59
 
 "Free at last, they took your life
@@ -132,6 +150,8 @@ Pride (In the Name of Love)
 - 1984
 - The Edge, Bono, Adam Clayton & Larry Mullen Jr.
 
+![EP_59_The Unforgettable Fire](https://i.imgur.com/ukH4DIO.jpg)
+
 ### 📻 Audioshow - EP_60
 
 "Sunshine is far away, clouds linger on"
@@ -141,6 +161,8 @@ Solitude
 - Master of Reality
 - 1971
 - Bill Ward, Ozzy Osbourne, Geezer Butler & Tony Iommi
+
+![EP_60_Master of Reality](https://i.imgur.com/M05aE8i.jpg)
 
 ### 📻 Audioshow - EP_61
 
@@ -154,6 +176,8 @@ Two Suns In the Sunset
 - 1983
 - Roger Waters
 
+![EP_61_The Final Cut](https://i.imgur.com/oTXlUgn.jpg)
+
 ### 📻 Audioshow - EP_62
 
 "Sunburn with freezerburn
@@ -164,6 +188,8 @@ All Apologies
 - In Utero
 - 1993
 - Kurt Cobain
+
+![EP_62_In Utero](https://i.imgur.com/8orQqcb.jpg)
 
 ### 📻 Audioshow - EP_63
 
@@ -178,6 +204,8 @@ Made in Heaven
 - 1985
 - Freddie Mercury
 
+![EP_63_Mr. Bad Guy](https://i.imgur.com/UQiU1oS.jpg)
+
 ### 📻 Audioshow - EP_64
 
 "We stand to lose all time
@@ -190,6 +218,8 @@ Roundabout
 - Fragile
 - 1971
 - Jon Anderson & Steve Howe
+
+![EP_64_Fragile](https://i.imgur.com/LnwKE16.jpg)
 
 ### 📻 Audioshow - EP_65
 
@@ -204,6 +234,8 @@ Breathe (Reprise)
 - 2020
 - Roger Waters, David Gilmour & Richard Wright
 
+![EP_65_Us + Them](https://i.imgur.com/bf4o97n.jpg)
+
 ### 📻 Audioshow - EP_66
 
 "The temple's in ruins
@@ -216,6 +248,8 @@ Déjà Vu
 - Is This the Life We Really Want?
 - 2017
 - Roger Waters
+
+![EP_66_Is This the Life We Really Want](https://i.imgur.com/EDsObmp.jpg)
 
 ### 📻 Audioshow - EP_67
 
@@ -230,6 +264,8 @@ Don't Let It Bring You Down
 - 1970
 - Neil Young
 
+![EP_67_After the Gold Rush](https://i.imgur.com/cpwinuB.jpg)
+
 ### 📻 Audioshow - EP_68
 
 "May your heart always be joyful
@@ -241,6 +277,8 @@ Forever Young
 - Planet Waves
 - 1974
 - Bob Dylan
+
+![EP_68_Planet Waves](https://i.imgur.com/zsLU9U7.jpg)
 
 ### 📻 Audioshow - EP_69
 
@@ -255,6 +293,8 @@ Twilight
 - 1976
 - Robbie Robertson
 
+![EP_69_The Best of The Band](https://i.imgur.com/4vt2yEP.jpg)
+
 ### 📻 Audioshow - EP_70
 
 [Instrumental]
@@ -264,6 +304,8 @@ Beck's Bolero
 - Truth
 - 1968
 - Jimmy Page
+
+![EP_70_Truth](https://i.imgur.com/YJMrcgG.jpg)
 
 ### 📻 Audioshow - EP_71
 
@@ -278,6 +320,7 @@ Five Years
 - 1972
 - David Bowie
 
+![EP_71_The Rise and Fall of Ziggy Stardust and the Spiders from Mars](https://i.imgur.com/8gmo0UE.jpg)
 
 ### 📻 Audioshow - EP_72
 
@@ -293,6 +336,8 @@ Knife-Edge
 - 1970
 - Leoš Janáček & Johann Sebastian Bach
 
+![EP_72_Emerson, Lake & Palmer](https://i.imgur.com/3wK3LJ7.jpg)
+
 ### 📻 Audioshow - EP_73
 
 "This bleeding heart's (Waiting for the waves)
@@ -303,6 +348,8 @@ Wearing the Inside Out
 - The Division Bell
 - 1994
 - Richard Wright
+
+![EP_73_The Division Bell](https://i.imgur.com/NtnGfqZ.jpg)
 
 ### 📻 Audioshow - EP_74
 
@@ -319,6 +366,7 @@ The Road Goes Ever On..., Pt. 2 / "In Dreams"
 - 2005
 - Howard Shore & Fran Walsh
 
+![EP_74_The Lord of the Rings_ The Fellowship of the Ring - The Complete Recordings](https://i.imgur.com/ZuxyVHr.jpg)
 
 ### 📻 Audioshow - EP_75
 
@@ -329,6 +377,8 @@ Subterranean Homesick Blues
 - Bringing It All Back Home
 - 1965
 - Bob Dylan
+
+![EP_75_Bringing It All Back Home](https://i.imgur.com/0DBAJzp.jpg)
 
 ### 📻 Audioshow - EP_76
 
@@ -342,6 +392,8 @@ Peace of Mind
 - Boston
 - 1976
 - T. Scholz
+
+![EP_76_Boston](https://i.imgur.com/h1vHaTY.jpg)
 
 ### 📻 Audioshow - EP_77
 
@@ -358,6 +410,8 @@ Melissa
 - 1972
 - Gregg Allman & Steve Alaimo
 
+![EP_77_Eat a Peach](https://i.imgur.com/ZMLQVlW.jpg)
+
 ### 📻 Audioshow - EP_78
 
 "Knock, knock, knockin' on Heaven's door
@@ -371,6 +425,7 @@ Knockin' On Heaven's Door
 - 1973
 - Bob Dylan
 
+![EP_78_Pat Garrett & Billy the Kid  [Soundtrack from the Motion Picture]](https://i.imgur.com/q96p0ZZ.jpg)
 
 ### 📻 Audioshow - EP_79
 
@@ -387,6 +442,8 @@ Lost Boys Calling
 - 1998
 - Ennio Morricone
 
+![EP_79_The Legend of 1900](https://i.imgur.com/HmNgs77.jpg)
+
 ### 📻 Audioshow - EP_80
 
 "Sweet home Alabama
@@ -399,6 +456,8 @@ Sweet Home Alabama
 - Second Helping
 - 1974
 - Gary Rossington, Ronnie Van Zant & Edward King
+
+![EP_80_Second Helping](https://i.imgur.com/nkIL3Da.jpg)
 
 ### 📻 Audioshow - EP_81
 
@@ -413,6 +472,8 @@ The Voice
 - 1977
 - Eric Woolfson & Alan Parsons
 
+![EP_81_I Robot](https://i.imgur.com/pESxuDh.jpg)
+
 ### 📻 Audioshow - EP_82
 
 "Juliet, the dice was loaded from the start
@@ -425,6 +486,8 @@ Romeo and Juliet
 - Making Movies
 - 1980
 - Mark Knopfler
+
+![EP_82_Making Movies](https://i.imgur.com/uORUBtz.jpg)
 
 ### 📻 Audioshow - EP_83
 
@@ -441,6 +504,8 @@ My Iron Lung
 - 1980
 - Colin Greenwood, Ed O'Brien, Jonny Greenwood, Phil Selway & Thom Yorke
 
+![EP_83_The Bends](https://i.imgur.com/sf5meKs.jpg)
+
 ### 📻 Audioshow - EP_84
 
 "Who knows? Only time"
@@ -450,6 +515,8 @@ Only Time
 - A Day Without Rain
 - 2000
 - Eith Ni-Bhraonain, Nicholas Ryan, Enya & Roma Ryan
+
+![EP_84_A Day Without Rain](https://i.imgur.com/9GLmT8T.jpg)
 
 ### 📻 Audioshow - EP_85
 
@@ -461,6 +528,8 @@ Unknown Legend
 - Harvest Moon
 - 1992
 - Neil Young
+
+![EP_85_Harvest Moon](https://i.imgur.com/5ZuD0Sy.jpg)
 
 ### 📻 Audioshow - EP_86
 
@@ -475,6 +544,8 @@ Behind Blue Eyes
 - 1971
 - Pete Townshend
 
+![EP_86_Who's Next](https://i.imgur.com/QYhv05F.jpg)
+
 ### 📻 Audioshow - EP_87
 
 "Watch out
@@ -487,6 +558,8 @@ Sunday Morning
 - The Velvet Underground & Nico
 - 1966
 - Lou Reed & John Cale
+
+![EP_87_The Velvet Underground & Nico](https://i.imgur.com/tGN0Eic.jpg)
 
 ### 📻 Audioshow - EP_88
 
@@ -501,6 +574,8 @@ May This Be Love
 - 1967
 - Jimi Hendrix
 
+![EP_88_Are You Experienced](https://i.imgur.com/5TB7AON.jpg)
+
 ### 📻 Audioshow - EP_89
 
 "Come ride with me through the veins of history
@@ -514,6 +589,8 @@ Knights of Cydonia
 - 2006
 - Matthew Bellamy
 
+![EP_89_Black Holes and Revelations](https://i.imgur.com/8O4DRlr.jpg)
+
 ### 📻 Audioshow - EP_90
 
 "Keep on playin' those mind games forever
@@ -525,6 +602,8 @@ Mind Games
 - Mind Games
 - 1973
 - John Lennon
+
+![EP_90_Mind Games](https://i.imgur.com/C7U3ILu.jpg)
 
 ### 📻 Audioshow - EP_91
 
@@ -539,6 +618,8 @@ Who Needs Information
 - 1987
 - Roger Waters
 
+![Covers/EP_1-99/EP_91_Radio K.A.O.S.](https://i.imgur.com/AbaZO1q.jpg)
+
 ### 📻 Audioshow - EP_92
 
 "Westside skyline crying
@@ -546,10 +627,12 @@ Fallen angel dying
 Risk a life to make a dime"
 
 Fallen Angel
-- 4son
+- King Crimson
 - Red
 - 1974
 - Robert Fripp, John Wetton
+
+![EP_92_Red](https://i.imgur.com/FQ2Yofl.jpg)
 
 ### 📻 Audioshow - EP_93
 
@@ -563,6 +646,8 @@ Fallen Angel
 - 新长征路上的摇滚
 - 1989
 - 崔健
+
+![EP_93_新长征路上的摇滚](https://i.imgur.com/aW8Ai26.jpg)
 
 ### 📻 Audioshow - EP_94
 
@@ -578,6 +663,8 @@ Vienna
 - 1977
 - Billy Joel, Patrick Williams
 
+![EP_94_The Stranger](https://i.imgur.com/eaHPATT.jpg)
+
 ### 📻 Audioshow - EP_95
 
 "'Follow me down to the valley below
@@ -589,6 +676,8 @@ Lazarus
 - Deadwing
 - 2005
 - Steven John Wilson, Richard Barbieri, Colin Edwin Balch & Gavin Richard Harrison
+
+![EP_95_Deadwing](https://i.imgur.com/x7jbacB.jpg)
 
 ### 📻 Audioshow - EP_96
 
@@ -603,6 +692,8 @@ Child In Time
 - 1970
 - Ian Gillan, Ian Paice, Jon Lord, Ritchie Blackmore & Roger Glover
 
+![EP_96_Deep Purple In Rock](https://i.imgur.com/sagZXlb.jpg)
+
 ### 📻 Audioshow - EP_97
 
 "As far as my eyes can see"
@@ -612,6 +703,8 @@ Old and Wise
 - Eye In the Sky
 - 1982
 - Eric Woolfson & Alan Parsons
+
+![EP_97_Eye In the Sky](https://i.imgur.com/SYb7FJW.jpg)
 
 ### 📻 Audioshow - EP_98
 
@@ -626,6 +719,8 @@ The Loner
 - 1968
 - Neil Young
 
+![EP_98_Neil Young](https://i.imgur.com/nrKxQao.jpg)
+
 ### 📻 Audioshow - EP_99
 
 "Now that your rose is in bloom
@@ -636,3 +731,5 @@ Kiss from a Rose
 - Seal II
 - 1994
 - Henry Samuel
+
+![EP_99_Seal II](https://i.imgur.com/2rwVRzq.jpg)

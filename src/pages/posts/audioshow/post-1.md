@@ -10,9 +10,6 @@ image:
 tags: ["audioshow"]
 ---
 
-# 📻 Audioshow
-presented by Audiofool
-
 ### 📻 Audioshow - EP_1
 
 "Another hero, another mindless crime,
@@ -23,6 +20,8 @@ The Show Must Go On
 - Innuendo
 - 1991
 - Brian May, Roger Taylor, Freddie Mercury & John Deacon
+
+![EP_1_Innuendo](https://i.imgur.com/kASDvJf.jpg)
 
 ### 📻 Audioshow - EP_2
 
@@ -35,6 +34,8 @@ My Back Pages (Live 10/16/1992)
 - 1993
 - Bob Dylan
 
+![EP_2_Bob Dylan_ The 30th Anniversary Concert Celebration (Deluxe Edition) \[2014 Remaster\]](https://i.imgur.com/P1xHap0.jpg)
+
 ### 📻 Audioshow - EP_3
 
 "It's better to burn out than to fade away"
@@ -45,6 +46,8 @@ My My, Hey Hey (Out of the Blue)
 - 1979
 - Jeff Blackburn & Neil Young
 
+![EP_3_Rust Never Sleeps](https://i.imgur.com/E7xkyiF.jpg)
+
 ### 📻 Audioshow - EP_4
 
 "Chain, keep us together"
@@ -54,6 +57,8 @@ The Chain
 - Rumours
 - 1977
 - Christine McVie, John McVie, Lindsey Buckingham, Mick Fleetwood & Stevie Nicks
+
+![EP_4_Rumours](https://i.imgur.com/NmWlJSV.jpg)
 
 ### 📻 Audioshow - EP_5
 
@@ -68,6 +73,8 @@ The Last Resort
 - 1976
 - Don Henley & Glenn Frey
 
+![EP_5_Hotel California](https://i.imgur.com/TcEdpB4.jpg)
+
 ### 📻 Audioshow - EP_6
 
 "With every mistake, we must surely be learning
@@ -79,6 +86,8 @@ While My Guitar Gently Weeps
 - 1968
 - George Harrison
 
+![EP_6_The Beatles (The White Album)](https://i.imgur.com/HRRRMhK.jpg)
+
 ### 📻 Audioshow - EP_7
 
 "Oh, by the way, which one's Pink?"
@@ -88,6 +97,8 @@ Have a Cigar
 - Wish You Were Here
 - 1975
 - Roger Waters
+
+![EP_7_Wish You Were Here](https://i.imgur.com/XthbDN4.jpg)
 
 ### 📻 Audioshow - EP_8
 
@@ -100,6 +111,8 @@ Rocket Man (I Think It's Going to Be a Long Long Time)
 - 1972
 - Elton John & Bernie Taupin
 
+![EP_8_Honky Château](https://i.imgur.com/w2AKJT1.jpg)
+
 ### 📻 Audioshow - EP_9
 
 "Listening to the wind of change"
@@ -109,6 +122,8 @@ Wind of Change
 - Crazy World
 - 1990
 - Klaus Meine
+
+![EP_9_Crazy World](https://i.imgur.com/pbAFbvX.jpg)
 
 ### 📻 Audioshow - EP_10
 
@@ -121,6 +136,8 @@ When The Music's Over
 - 1967
 - Jim Morrison, John Densmore, Ray Manzarek & Robby Krieger
 
+![EP_10_Strange Days](https://i.imgur.com/cXELXQ1.jpg)
+
 ### 📻 Audioshow - EP_11
 
 "Every year is getting shorter, never seem to find the time
@@ -132,6 +149,8 @@ Time
 - 1973
 - Roger Waters, Nick Mason, Richard Wright & David Gilmour
 
+![EP_11_The Dark Side of the Moon](https://i.imgur.com/dzFq9So.jpg)
+
 ### 📻 Audioshow - EP_12
 
 "Still like that old time rock and roll"
@@ -141,6 +160,8 @@ Old Time Rock & Roll
 - Stranger In Town
 - 1978
 - George Henry Jackson & Thomas Earl Jones III
+
+![EP_12_Stranger In Town](https://i.imgur.com/ycaMwoD.jpg)
 
 ### 📻 Audioshow - EP_13
 
@@ -153,6 +174,8 @@ Words (Between the Lines of Age)
 - 1972
 - Neil Young
 
+![EP_13_Harvest](https://i.imgur.com/9vp1YOk.jpg)
+
 ### 📻 Audioshow - EP_14
 
 "Time is linear, memory's a stranger"
@@ -162,6 +185,8 @@ Perfect Sense, Pt. I
 - Amused to Death
 - 1992
 - Roger Waters
+
+![EP_14_Amused to Death](https://i.imgur.com/zbYgxV7.jpg)
 
 ### 📻 Audioshow - EP_15
 
@@ -174,6 +199,8 @@ Simple Man
 - 1973
 - Ronnie Van Zant & Gary Rossington
 
+![EP_15_Pronounced Leh-Nerd Skin-Nerd](https://i.imgur.com/I3sRAdA.jpg)
+
 ### 📻 Audioshow - EP_16
 
 "We can be heroes, just for one day"
@@ -184,6 +211,8 @@ Simple Man
 - 1977
 - David Bowie & Brian Eno
 
+![EP_16__Heroes_](https://i.imgur.com/CmGtE7z.jpg)
+
 ### 📻 Audioshow - EP_17
 
 "I have become comfortably numb"
@@ -193,6 +222,8 @@ Comfortably Numb
 - The Wall
 - 1979
 - Roger Waters & David Gilmour
+
+![EP_17_The Wall](https://i.imgur.com/eNwImq2.jpg)
 
 ### 📻 Audioshow - EP_18
 
@@ -205,6 +236,8 @@ The Night They Drove Old Dixie Down
 - 1969
 - Robbie Robertson
 
+![EP_18_The Band](https://i.imgur.com/4vt2yEP.jpg)
+
 ### 📻 Audioshow - EP_19
 
 "So Sally can wait
@@ -216,6 +249,8 @@ Don't Look Back in Anger
 - 1995
 - Noel Gallagher
 
+![EP_19_(What's the Story) Morning Glory](https://i.imgur.com/FCOl0at.jpg)
+
 ### 📻 Audioshow - EP_20
 
 "Is it me, for a moment"
@@ -225,6 +260,8 @@ I Am the Sea
 - Quadrophenia
 - 1973
 - Pete Townshend
+
+![EP_20_Quadrophenia](https://i.imgur.com/KMEnHgX.jpg)
 
 ### 📻 Audioshow - EP_21
 
@@ -236,6 +273,8 @@ Waterloo Sunset
 - 1967
 - Raymond Douglas Davies
 
+![EP_21_Something Else By the Kinks](https://i.imgur.com/HYBzDSi.jpg)
+
 ### 📻 Audioshow - EP_22
 
 "When all are one, and one is all
@@ -246,6 +285,8 @@ Stairway to Heaven
 - Led Zeppelin IV
 - 1971
 - Jimmy Page & Robert Plant
+
+![EP_22_Led Zeppelin IV](https://i.imgur.com/6E7ixEA.jpg)
 
 ### 📻 Audioshow - EP_23
 
@@ -260,6 +301,8 @@ Vincent
 - 1971
 - Don Mclean
 
+![EP_23_American Pie](https://i.imgur.com/o53zfXI.jpg)
+
 ### 📻 Audioshow - EP_24
 
 "And I'll tell it, and speak it, and think it, and breathe it
@@ -273,15 +316,19 @@ A Hard Rain's A-Gonna Fall
 - 1963
 - Bob Dylan
 
+![EP_24_The Freewheelin' Bob Dylan](https://i.imgur.com/lXV30e9.jpg)
+
 ### 📻 Audioshow - EP_25
 
 "I am Iron Man"
 
 Iron Man
-- **Black Sabbath**
+- Black Sabbath
 - Paranoid
 - 1970
 - Ozzy Osbourne, Tony Iommi & William Thomas Ward
+
+![EP_25_Paranoid](https://i.imgur.com/5gwVCuX.jpg)
 
 ### 📻 Audioshow - EP_26
 
@@ -294,6 +341,8 @@ Ambrosia
 - 1976
 - Carole King & David Palmer
 
+![EP_26_Thoroughbred](https://i.imgur.com/I1Lclkd.jpg)
+
 ### 📻 Audioshow - EP_27
 
 "You know I believe and how"
@@ -303,6 +352,8 @@ Something
 - Abbey Road
 - 1969
 - George Harrison
+
+![EP_27_Abbey Road](https://i.imgur.com/d9kBA2V.jpg)
 
 ### 📻 Audioshow - EP_28
 
@@ -315,6 +366,8 @@ Piano Man
 - 1973
 - Billy Joel
 
+![EP_28_Piano Man](https://i.imgur.com/CWnNrHw.jpg)
+
 ### 📻 Audioshow - EP_29
 
 "Thunder"
@@ -324,6 +377,8 @@ Thunderstruck
 - The Razors Edge
 - 1990
 - Angus Young & Malcolm Young
+
+![EP_29_The Razors Edge](https://i.imgur.com/teuKk4X.jpg)
 
 ### 📻 Audioshow - EP_30
 
@@ -335,6 +390,8 @@ Paranoid Android
 - 1997
 - Colin Greenwood, Ed O'Brien, Jonny Greenwood, Phil Selway & Thom Yorke
 
+![EP_30_OK Computer](https://i.imgur.com/IV5kvex.jpg)
+
 ### 📻 Audioshow - EP_31
 
 "What is the color when black is burned?"
@@ -344,6 +401,8 @@ I Am a Child
 - Last Time Around
 - 1968
 - Neil Young
+
+![EP_31_Last Time Around](https://i.imgur.com/OqoJpVo.jpg)
 
 ### 📻 Audioshow - EP_32
 
@@ -355,6 +414,8 @@ It
 - The Lamb Lies Down on Broadway
 - 1974
 - Mike Rutherford, Peter Gabriel, Phil Collins, Steve Hackett & Tony Banks
+
+![EP_32_The Lamb Lies Down on Broadway](https://i.imgur.com/QrlORst.jpg)
 
 ### 📻 Audioshow - EP_33
 
@@ -369,6 +430,8 @@ Backstreets
 - 1975
 - Bruce Springsteen
 
+![EP_33_Born to Run](https://i.imgur.com/ZAbubrR.jpg)
+
 ### 📻 Audioshow - EP_34
 
 "It's a rainbow full of sound
@@ -379,6 +442,8 @@ The Music Never Stopped
 - Blues for Allah
 - 1975
 - Bob Weir & John Barlow
+
+![EP_34_Blues for Allah](https://i.imgur.com/0GLsDDS.jpg)
 
 ### 📻 Audioshow - EP_35
 
@@ -391,6 +456,8 @@ Brain Damage
 - 2023
 - Roger Waters
 
+![EP_35_The Dark Side of the Moon Redux](https://i.imgur.com/UGy1MPD.jpg)
+
 ### 📻 Audioshow - EP_37
 
 "You can't always get what you want
@@ -401,6 +468,8 @@ You Can't Always Get What You Want
 - Let It Bleed
 - 1969
 - Mick Jagger & Keith Richards
+
+![EP_37_Let It Bleed](https://i.imgur.com/EF4cjmb.jpg)
 
 ### 📻 Audioshow - EP_38
 
@@ -413,6 +482,8 @@ Holiday
 - 1978
 - Richard Wright
 
+![EP_38_Wet Dream](https://i.imgur.com/CJRVytj.jpg)
+
 ### 📻 Audioshow - EP_39
 
 "Sing with me, sing for the year
@@ -424,6 +495,8 @@ Dream On
 - 1973
 - Steven Tyler
 
+![EP_39_Aerosmith](https://i.imgur.com/fdbvbPc.jpg)
+
 ### 📻 Audioshow - EP_40
 
 "Fly on, little wing"
@@ -433,6 +506,8 @@ Little Wing
 - Layla and Other Assorted Love Songs
 - 1970
 - Jimi Hendrix
+
+![EP_40_Layla and Other Assorted Love Songs](https://i.imgur.com/ZKporZG.jpg)
 
 ### 📻 Audioshow - EP_41
 
@@ -444,6 +519,8 @@ Almost Cut My Hair
 - Déjà Vu
 - 1970
 - David Crosby
+
+![EP_41_Déjà Vu](https://i.imgur.com/EYYJo4x.jpg)
 
 ### 📻 Audioshow - EP_42
 
@@ -458,6 +535,8 @@ Rock and Roll Ain't Noise Pollution
 - 1980
 - Brian Johnson, Angus Young & Malcolm Young
 
+![EP_42_Back In Black.jpg](https://i.imgur.com/y3glwy7.jpg)
+
 ### 📻 Audioshow - EP_43
 
 "Never free
@@ -470,6 +549,8 @@ The Unforgiven
 - 1991
 - James Hetfield, Lars Ulrich & Kirk Hammett
 
+![EP_43_Metallica](https://i.imgur.com/QsrHnxi.jpg)
+
 ### 📻 Audioshow - EP_44
 
 "Deadlines and commitments
@@ -480,6 +561,8 @@ Against the Wind
 - Against the Wind
 - 1980
 - Bob Seger
+
+![EP_44_Against the Wind](https://i.imgur.com/UaMjov8.jpg)
 
 ### 📻 Audioshow - EP_45
 
@@ -493,6 +576,8 @@ Aqualung
 - 1971
 - Ian Anderson & Jennie Anderson
 
+![EP_45_Aqualung](https://i.imgur.com/49uLJiU.jpg)
+
 ### 📻 Audioshow - EP_46
 
 "All the news of home you read
@@ -503,6 +588,8 @@ California
 - Blue
 - 1971
 - Joni Mitchell
+
+![EP_46_Blue](https://i.imgur.com/K7vznn8.jpg)
 
 ### 📻 Audioshow - EP_47
 
@@ -515,6 +602,8 @@ Yesterday
 - Help!
 - 1965
 - John Lennon & Paul McCartney
+
+![EP_47_Help!](https://i.imgur.com/KF6HDAJ.jpg)
 
 ### 📻 Audioshow - EP_48
 
@@ -529,6 +618,8 @@ Epitaph
 - 1969
 - Robert Fripp, Michael Giles, Greg Lake & Ian McDonald
 
+![In the Court of the Crimson King](https://i.imgur.com/3GDIwVT.jpg)
+
 ### 📻 Audioshow - EP_49
 
 "There's one more kid that'll never go to school
@@ -539,3 +630,5 @@ Rockin' In the Free World
 - Freedom
 - 1989
 - Neil Young
+
+![EP_49_Freedom](https://i.imgur.com/dO44Nis.jpg)

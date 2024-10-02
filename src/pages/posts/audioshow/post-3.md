@@ -23,6 +23,8 @@ Imagine
 - 1971
 - John Lennon & Yoko Ono
 
+![EP_100_Imagine](https://i.imgur.com/iS51Fwl.jpg)
+
 ### 📻 Audioshow - EP_101
 
 "Find the cost of freedom buried in the ground
@@ -33,6 +35,8 @@ Find the Cost of Freedom
 - So Far
 - 1971
 - Stephen Stills
+
+![EP_101_So Far](https://i.imgur.com/eMNQrxR.jpg)
 
 ### 📻 Audioshow - EP_102
 
@@ -46,6 +50,8 @@ Bad Penny
 - Top Priority
 - 1979
 - Rory Gallagher
+
+![EP_102_Top Priority](https://i.imgur.com/3eRhFTL.jpg)
 
 ### 📻 Audioshow - EP_103
 
@@ -61,6 +67,8 @@ Little Wing
 - 1967
 - Jimi Hendrix
 
+![EP_103_Axis_ Bold As Love](https://i.imgur.com/ciuFCMk.jpg)
+
 ### 📻 Audioshow - EP_104
 
 "Underneath the bridge
@@ -71,6 +79,8 @@ Something In the Way
 - Nevermind
 - 1991
 - Kurt Cobain, Dave Grohl & Krist Novoselic
+
+![EP_104_Nevermind](https://i.imgur.com/ezXPrLv.jpg)
 
 ### 📻 Audioshow - EP_105
 
@@ -90,6 +100,8 @@ Each Small Candle (Live June 2000)
 - 2000
 - Roger Waters
 
+![EP_105_In the Flesh - Live](https://i.imgur.com/cTZGcBU.jpg)
+
 ### 📻 Audioshow - EP_106
 
 "Wouldn't it be nice if we were older?
@@ -102,6 +114,8 @@ Wouldn't It Be Nice
 - Pet Sounds
 - 1966
 - Brian Wilson, Mike Love & Tony Asher
+
+![EP_106_Pet Sounds](https://i.imgur.com/LwXi2XI.jpg)
 
 ### 📻 Audioshow - EP_107
 
@@ -116,6 +130,8 @@ Inquisitor
 - 2018
 - Phideaux Xavier, Mark Sherkus & Richard Hutchins
 
+![EP_107_Infernal](https://i.imgur.com/dBfkUKx.jpg)
+
 ### 📻 Audioshow - EP_108
 
 "Almost heaven, West Virginia
@@ -128,6 +144,8 @@ Take Me Home, Country Roads
 - Poems, Prayers & Promises
 - 1971
 - John Denver, Bill Danoff, Taffy Nivert Danoff & Mary Danoff
+
+![EP_108_Poems, Prayers & Promises](https://i.imgur.com/UCedR97.jpg)
 
 ### 📻 Audioshow - EP_109
 
@@ -142,7 +160,7 @@ Bohemian Rhapsody
 - 1975
 - Freddie Mercury
 
-<!-- 需要列出所有的喜欢/待喜欢的艺人，以及录音室专辑，甚至可以做一个系统->audiolib，然后从里面来抽audioshow -->
+![EP_109_A Night at the Opera](https://i.imgur.com/9g9zxIE.jpg)
 
 ### 📻 Audioshow - EP_110
 
@@ -156,6 +174,8 @@ Crawling
 - Hybrid Theory
 - 2000
 - Brad Delson, Chester Bennington, Dave Farrell, Joe Hahn, Mike Shinoda & Rob Bourdon
+
+![EP_110_Hybrid Theory](https://i.imgur.com/bGEJxzy.jpg)
 
 ### 📻 Audioshow - EP_111
 
@@ -171,6 +191,8 @@ Strawberry Fields Forever
 - 1967
 - John Lennon & Paul McCartney
 
+![EP_111_Magical Mystery Tour](https://i.imgur.com/17jSJCk.jpg)
+
 ### 📻 Audioshow - EP_112
 
 "And I don't own the clothes I'm wearing
@@ -184,6 +206,8 @@ Midnight Rider
 - Idlewild South
 - 1970
 - Gregg Allman & Robert Kim Payne
+
+![EP_112_Idlewild South](https://i.imgur.com/nIhRp3H.jpg)
 
 ### 📻 Audioshow - EP_113
 
@@ -199,6 +223,8 @@ Fire and Rain
 - 1970
 - James Taylor
 
+![EP_113_Sweet Baby James](https://i.imgur.com/M230kNn.jpg)
+
 ### 📻 Audioshow - EP_114
 
 "It seems to me I could live my life
@@ -212,6 +238,8 @@ Working Man
 - 1974
 - Geddy Lee & Alex Lifeson
 
+![EP_114_Rush](https://i.imgur.com/p5SM8ve.jpg)
+
 ### 📻 Audioshow - EP_115
 
 "As my memory rests
@@ -223,6 +251,8 @@ Wake Me Up When September Ends
 - American Idiot
 - 2004
 - Billie Joe Armstrong, Mike Dirnt & Tré Cool
+
+![EP_115_American Idiot](https://i.imgur.com/jykimz2.jpg)
 
 ### 📻 Audioshow - EP_116
 
@@ -236,6 +266,8 @@ A Hard Day’s Night
 - A Hard Day’s Night
 - 1964
 - John Lennon, Paul McCartney
+
+![EP_116_A Hard Day’s Night](https://i.imgur.com/RVRgmEh.jpg)
 
 ### 📻 Audioshow - EP_117
 
@@ -253,6 +285,8 @@ Round & Round (It Won't Be Long)
 - 1969
 - Neil Young
 
+![EP_117_Everybody Knows This Is Nowhere](https://i.imgur.com/pUohAFW.jpg)
+
 ### 📻 Audioshow - EP_118
 
 "We ride the waves
@@ -267,6 +301,8 @@ The Best Way to Travel
 - 1968
 - Michael Pinder
 
+![EP_118_In Search of the Lost Chord](https://i.imgur.com/OFqZscs.jpg)
+
 ### 📻 Audioshow - EP_119
 
 "The flames are high
@@ -277,6 +313,8 @@ The Piper's Call
 - Luck and Strange
 - 2024
 - David Gilmour
+
+![EP_119_Luck and Strange](https://i.imgur.com/8egLuVk.jpg)
 
 ### 📻 Audioshow - EP_120
 
@@ -291,6 +329,8 @@ I Won't Back Down
 - Full Moon Fever
 - 1989
 - Tom Petty & Jeff Lynne
+
+![EP_120_Full Moon Fever](https://i.imgur.com/QUp4FOM.jpg)
 
 ### 📻 Audioshow - EP_121
 
@@ -308,6 +348,8 @@ Rock Around the Clock
 - 1955
 - Jimmy De Knight & Max C. Freedman
 
+![EP_121_Biggest Hits](https://i.imgur.com/vuhOArV.jpg)
+
 ### 📻 Audioshow - EP_122
 
 "When the sunshine is not enough to make me feel bright
@@ -320,6 +362,8 @@ Deep Blue
 - Living in the Material World
 - 1971
 - George Harrison
+
+![EP_122_Living in the Material World](https://i.imgur.com/JSr0KWm.jpg)
 
 ### 📻 Audioshow - EP_123
 
@@ -334,6 +378,8 @@ I Wish You Peace
 - 1975
 - Bernie Leadon & Patti Davis
 
+![EP_123_One of These Nights](https://i.imgur.com/QJEmJ05.jpg)
+
 ### 📻 Audioshow - EP_124
 
 "California, rest in peace
@@ -346,6 +392,8 @@ Dani California
 - Stadium Arcadium
 - 2006
 - Anthony Kiedis, Chad Smith, Flea & John Frusciante
+
+![EP_124_Stadium Arcadium](https://i.imgur.com/plo9I5F.jpg)
 
 ### 📻 Audioshow - EP_125
 
@@ -360,6 +408,8 @@ Uncle John's Band
 - 1970
 - Jerry Garcia & Robert Hunter
 
+![EP_125_Workingman's Dead](https://i.imgur.com/7nQdDqf.jpg)
+
 ### 📻 Audioshow - EP_126
 
 "It's my life, it's now or never
@@ -372,6 +422,8 @@ It's My Life
 - 2000
 - Jon Bon Jovi, Richie Sambora & Max Martin
 
+![EP_126_Crush](https://i.imgur.com/vl2h1LJ.jpg)
+
 ### 📻 Audioshow - EP_127
 
 "These are the days it never rains, but it pours"
@@ -381,6 +433,8 @@ Under Pressure (feat. David Bowie)
 - Hot Space
 - 1981
 - David Bowie, Brian May, Roger Taylor, John Deacon & Freddie Mercury
+
+![EP_127_Hot Space](https://i.imgur.com/DVEcWJl.jpg)
 
 ### 📻 Audioshow - EP_128
 
@@ -393,6 +447,8 @@ Ramblin' Man
 - 1973
 - Richard Betts
 
+![EP_128_Brothers and Sisters](https://i.imgur.com/u3guwQ9.jpg)
+
 ### 📻 Audioshow - EP_129
 
 "Oh, you know, the railroad is a mighty good line
@@ -403,6 +459,8 @@ The Railroad
 - We're An American Band
 - 1973
 - Mark Farner
+
+![EP_129_We're An American Band](https://i.imgur.com/TWkSmbt.jpg)
 
 ### 📻 Audioshow - EP_130
 
@@ -417,6 +475,8 @@ Ramble On
 - 1969
 - Jimmy Page & Robert Plant
 
+![EP_130_Led Zeppelin II](https://i.imgur.com/OaroKMw.jpg)
+
 ### 📻 Audioshow - EP_131
 
 "All our times have come4
@@ -430,6 +490,8 @@ Nor do the wind, the sun or the rain"
 - 1976
 - Buck Dharma
 
+![EP_131_Agents of Fortune](https://i.imgur.com/5YjKK8d.jpg)
+
 ### 📻 Audioshow - EP_132
 
 "Purple rain, purple rain
@@ -441,6 +503,8 @@ Purple Rain
 - 1984
 - Prince
 
+![EP_132_Purple Rain](https://i.imgur.com/wz41B4u.jpg)
+
 ### 📻 Audioshow - EP_133
 
 "He's a pinball wizard, there has to be a twist
@@ -451,6 +515,8 @@ Pinball Wizard
 - Tommy
 - 1969
 - Pete Townshend
+
+![EP_133_Tommy](https://i.imgur.com/sIjXAX8.jpg)
 
 ### 📻 Audioshow - EP_134
 
@@ -464,6 +530,8 @@ Shape of My Heart
 - Ten Summoner's Tales
 - 1993
 - Sting & Dominic Miller
+
+![EP_134_Ten Summoner's Tales](https://i.imgur.com/QNgHN4Y.jpg)
 
 ### 📻 Audioshow - EP_135
 
@@ -480,6 +548,8 @@ Space Oddity
 - 1969
 - David Bowie
 
+![EP_135_David Bowie (aka Space Oddity](https://i.imgur.com/krzeA4w.jpg)
+
 ### 📻 Audioshow - EP_136
 
 "No more speed, I'm almost there
@@ -492,6 +562,8 @@ Radar Love
 - Radar Love - Single
 - 1973
 - Barry Hay & George Kooymans
+
+![EP_136_Radar Love - Single](https://i.imgur.com/FPchF73.jpg)
 
 ### 📻 Audioshow - EP_137
 
@@ -508,6 +580,8 @@ Baker Street
 - 1978
 - Gerry Rafferty
 
+![EP_137_City to City](https://i.imgur.com/3yKdDlH.jpg)
+
 ### 📻 Audioshow - EP_138
 
 "Some friends of mine, just the other night
@@ -523,6 +597,8 @@ Top Jimmy
 - 1984
 - Alex Van Halen, David Lee Roth, Eddie Van Halen & Michael Anthony
 
+![EP_138_1984](https://i.imgur.com/JDRD3nY.jpg)
+
 ### 📻 Audioshow - EP_139
 
 "See the pages as they turn
@@ -534,3 +610,37 @@ Curtain of Iron
 - Audio-Visions
 - 1980
 - Kerry Livgren
+
+![EP_139_Audio-Visions](https://i.imgur.com/ODDWmKe.jpg)
+
+### 📻 Audioshow - EP_140
+
+"Some'll win, some will lose
+Some are born to sing the blues
+Oh, the movie never ends
+It goes on and on and on and on"
+
+Don't Stop Believin'
+- Journey
+- Escape
+- 1981
+- Steve Perry, Neal Schon & Jonathan Cain
+
+![EP_140_Escape](https://i.imgur.com/Ws4iabX.jpg)
+
+### 📻 Audioshow - EP_140
+
+"Tender is the ghost
+The ghost I love the most
+Hiding from the sun
+Waiting for the night to come"
+
+Tender
+- Blur
+- 13
+- 1998
+- Alex James, Damon Albarn, Dave Rowntree & Graham Coxon
+
+![EP_141_13](https://i.imgur.com/4pnQMXA.jpg)
+
+<!-- 需要列出所有的喜欢/待喜欢的艺人，以及录音室专辑，甚至可以做一个系统->audiolib，然后从里面来抽audioshow -->
