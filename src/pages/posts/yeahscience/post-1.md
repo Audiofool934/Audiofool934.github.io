@@ -11,3 +11,5 @@ tags: ["astro", "blogging", "learning in public"]
 ---
 
 ## [Richard S. Hamilton 1943-2024](https://www.math.columbia.edu/~woit/wordpress/?p=14157)
+
+test 中文 不知道效果如何？？Hello world
