@@ -1,8 +1,8 @@
 html {
     /* background-color: bisque; */
     font-family: 'Charter';
-    background-image: url("https://i.imgur.com/y6AZK1I.jpg");
-    background-color: rgb(255, 255, 255, 0.5);
+    background-image: url("https://i.imgur.com/3fypcSD.jpg");
+    /* background-color: rgb(255, 255, 255, 0.5); */
     background-blend-mode: lighten;
     background-size: cover; /* 图片覆盖整个页面 */
     background-attachment: fixed; /* 背景图片固定 */
@@ -100,8 +100,8 @@ h1 {
 }
 
 html.dark {
-    background-image: url("https://i.imgur.com/enp0IlP.png");
-    background-color: rgba(255, 255, 255, 0.25);
+    background-image: url("https://i.imgur.com/2XwMWXS.jpg");
+    /* background-color: rgba(255, 255, 255, 0.25); */
     background-blend-mode: lighten;
     color: #fff;
     .astro-code,
