@@ -39,6 +39,6 @@ int main() {
 echo "Hello, World!"
 ```
 
-```mathematica
+```
 Plot[Sin[x], {x, 0, 2 Pi}]
 ```

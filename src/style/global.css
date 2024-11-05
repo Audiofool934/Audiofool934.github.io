@@ -1,8 +1,10 @@
 html {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: Charter, 'Times New Roman', Times, serif;
+    background-image: url("https://i.imgur.com/3fypcSD.jpg");
     /* background-color: rgb(255, 255, 255, 0.5); */
-    background: url("https://i.imgur.com/3fypcSD.jpg") center/cover fixed;
-    background-blend-mode: lighten;
+    background-size: cover; /* Cover the entire page */
+    background-attachment: fixed; /* Background image fixed */
+    background-position: center; /* 图片居中 */
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,7 +13,7 @@ html {
 
 body {
     margin: 0 auto;
-    width: 90%;
+    width: 692px;
     padding: 1rem;
     line-height: 1.5;
 }
@@ -76,9 +78,6 @@ h1 {
 }
 
 @media screen and (min-width: 800px) {
-    html {
-        background-attachment: scroll; /* Change to scroll on mobile devices */
-    }
     .nav-links {
         margin-left: 5em;
         display: block;
@@ -102,6 +101,14 @@ html.dark {
     /* background-color: rgba(255, 255, 255, 0.25); */
     background-blend-mode: lighten;
     color: #fff;
+    background-size: cover; /* Cover the entire page */
+    background-attachment: fixed; /* Background image fixed */
+    background-position: center; /* 图片居中 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    
     .astro-code,
     .astro-code span {
         color: var(--shiki-dark) !important;
