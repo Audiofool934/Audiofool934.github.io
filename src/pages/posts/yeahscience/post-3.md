@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/MarkdownPostLayout.astro
-title: My Fourth Blog Post
+title: test
 author: Astro Learner
 description: "This post will show up on its own!"
 image:
-    url: "https://docs.astro.build/default-og-image.png"
+    url: "https://i.imgur.com/yucR1Ko.png"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-8-14
 tags: ["astro", "successes"]
@@ -20,6 +20,10 @@ $$
 \begin{equation}
     \text{idf}(t, D) = \text{log}\left(\frac{N}{1 + |\{d: d \in D \text{ and } t \in d\}|}\right)
 \end{equation}
+$$
+
+$$
+\int_{a}^{b} f(x) \, dx = F(b) - F(a)
 $$
 
 ```python
