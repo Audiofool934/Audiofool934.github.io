@@ -1,12 +1,15 @@
 ---
 const { title, url, description, image} = Astro.props
 ---
-<li>
+<li class="post-preview">
     <a href={url}>
-        <h2>{title}</h2>
-        <!-- <p>{description}</p> -->
+        <h3>{title}</h3>
         {image && (
-            <img src={image.url} alt = {image.alt} loading="lazy" style="max-width: 100%; height: auto;" />
+            <img src={image.url} alt={image.alt} loading="lazy" style="visibility: hidden;" />
         )}
     </a>
 </li>
+
+<script>
+    import "../scripts/post-preview.js";
+</script>

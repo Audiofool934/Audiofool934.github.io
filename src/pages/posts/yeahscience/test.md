@@ -7,7 +7,7 @@ image:
     url: "https://i.imgur.com/yucR1Ko.png"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-8-14
-tags: ["astro", "successes"]
+tags: []
 ---
 
 add support for LaTeX in markdown blogs

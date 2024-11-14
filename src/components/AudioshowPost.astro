@@ -1,8 +1,16 @@
 ---
-const { title, url, episode, pubDate} = Astro.props
+const { title, episode, pubDate, url, image } = Astro.props;
 ---
-<li>
-    <a href={url}>
-        <h2>{`${title} EP ${episode}`}</h2>
-    </a>
+
+<li class="post-preview">
+  <a href={url}>
+      <h3>{`${title} EP ${episode}`}</h3>
+      {image && (
+          <img src={image.url} alt={image.alt} loading="lazy" style="visibility: hidden;" />
+      )}
+  </a>
 </li>
+
+<script>
+    import "../scripts/post-preview.js";
+</script>

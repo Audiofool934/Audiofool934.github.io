@@ -9,6 +9,10 @@ const pageTitle = "Alog";
 
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
     <ul>
-        {allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} image={post.frontmatter.image}/>)}
+        {allPosts.map((post) => (
+            <div class="post-preview">
+                <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} image={post.frontmatter.image}/>
+            </div>
+        ))}
     </ul>
 </BaseLayout>

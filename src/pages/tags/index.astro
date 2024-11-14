@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-const allPosts = await Astro.glob('../posts/yeahscience/*.md');
+const allPosts = await Astro.glob('../posts/*/*.md');
 const tags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
-const pageTitle = "Tag Index";
+const pageTitle = "Tags";
 ---
 <BaseLayout pageTitle={pageTitle}>
   <div class="tags">
@@ -23,10 +23,10 @@ const pageTitle = "Tag Index";
 
   .tag {
     margin: 0.25em;
-    border: dotted 1px #a1a1a1;
+    border: dashed 1.5px #a1a1a1;
     border-radius: .5em;
-    padding: .5em 1em;
+    padding: 0.1em 0.5em;
     font-size: 1.15em;
-    background-color: #F8FCFD;
+    background-color: #f8fcfd7b;
   }
 </style>

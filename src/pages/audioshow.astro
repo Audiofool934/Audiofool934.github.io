@@ -7,13 +7,49 @@ const pageTitle = "Audioshow";
 ---
 
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
+    <section>
+        <h2>(recently) listened to 🎶</h2>
+        <ul>
+            <li>
+                <a href="https://music.apple.com/album/from-zero/1766137049">
+                    <b>From Zero</b> - LINKIN PARK
+                </a>
+            </li>
+            <li>
+                <a href="https://music.apple.com/album/me-against-the-world/1440509542">
+                    <b>Me Against the World</b> - 2Pac
+                </a>
+            </li>
+            <li>
+                <a href="https://music.apple.com/album/american-beauty/664831661">
+                    <b>American Beauty</b> - Grateful Dead
+                </a>
+            </li>
+            <li>
+                <a href="https://music.apple.com/album/use-your-illusion-i/1440896026">
+                    <b>Use Your Illusion I</b> - Guns N' Roses
+                </a>
+            </li>
+            <li>
+                <a href="https://music.apple.com/album/the-dream-of-the-blue-turtles/1650884598">
+                    <b>The Dream of the Blue Turtles</b> - Sting
+                </a>
+            </li>
+        </ul>
+    </section>
+    
+    <section>
+        <img src="https://i.imgur.com/AulCCYI.png" alt="audioshow_badge" style="max-width: 500px; width: 100%; opacity: 0.8;"/>
 
-    <img src="https://i.imgur.com/AulCCYI.png" alt="audioshow" width="100%"/>
-
-    <ul>
-        {allPosts.map((post) => <AudioshowPost url={post.url} episode={post.frontmatter.episode} pubDate={post.frontmatter.pubDate} title={post.frontmatter.title}/>)}
-    </ul>
-    <br>
-    <img src="https://i.imgur.com/cE7A7LW.jpg" alt="audioshow" width="100%"/>
+        <ul>
+            {allPosts.map((post) => (
+                <div>
+                    <AudioshowPost url={post.url} episode={post.frontmatter.episode} pubDate={post.frontmatter.pubDate} title={post.frontmatter.title} image={post.frontmatter.image}/>
+                </div>
+            ))}
+        </ul>
+        <!-- <br> -->
+        <!-- <img src="https://i.imgur.com/cE7A7LW.jpg" alt="audioshow_poster" style="max-width: 500px; width: 100%; opacity: 0.8;"/> -->
+    </section>
 
 </BaseLayout>

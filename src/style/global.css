@@ -136,3 +136,23 @@ html.dark {
     background: transparent;
     display: block;
 }
+
+.post-preview {
+    position: relative;
+    cursor: pointer;
+}
+
+.post-preview img {
+    position: fixed;
+    max-height: 200px;
+    height: auto;
+    max-width: 400px;
+    width: auto;
+    z-index: 10;
+    pointer-events: none;
+    display: none;
+}
+
+.post-preview:hover img {
+    display: block;
+}

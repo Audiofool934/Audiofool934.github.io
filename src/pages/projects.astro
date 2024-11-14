@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogPost from "../components/BlogPost.astro";
+
+const allPosts = await Astro.glob('./posts/projects/*.md')
+const headTitle = "Projects"
+const pageTitle = "Projects";
+---
+
+<BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
+    <section>
+        <h2>in progress</h2>
+        <ul>
+            {allPosts.filter(post => post.frontmatter.status === 'in progress').map((post) => (
+                <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} />
+            ))}
+        </ul>
+    </section>
+
+    <section>
+        <h2>(first phase) completed</h2>
+        <ul>
+            {allPosts.filter(post => post.frontmatter.status === '(first phase) completed').map((post) => (
+                <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} />
+            ))}
+        </ul>
+    </section>
+
+    <section>
+        <h2>ideas</h2>
+        <ul>
+            {allPosts.filter(post => post.frontmatter.status === 'idea').map((post) => (
+                <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} />
+            ))}
+        </ul>
+    </section>
+
+    <!-- <ul>
+        {allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description}/>)}
+    </ul> -->
+</BaseLayout>

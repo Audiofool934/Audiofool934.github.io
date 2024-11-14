@@ -3,6 +3,7 @@ layout: '../../../layouts/AudioshowLayout.astro'
 title: '📻 Audioshow'
 episode: '0'
 pubDate: 2024-9-30
+tags: [audioshow]
 ---
 
 <img class="audioshow-image" src="https://i.imgur.com/cE7A7LW.jpg" alt="audioshow" width="100%"/>
