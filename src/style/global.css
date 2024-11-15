@@ -1,7 +1,8 @@
+/* ---------------------------------- html ---------------------------------- */
+
 html {
     font-family: Charter, 'Times New Roman', Times, serif;
-    background-image: url("https://i.imgur.com/3fypcSD.jpg");
-    /* background-color: rgb(255, 255, 255, 0.5); */
+    background-image: url("/images/BG_light.jpg");
     background-size: cover; /* Cover the entire page */
     background-attachment: fixed; /* Background image fixed */
     background-position: center; /* 图片居中 */
@@ -11,6 +12,19 @@ html {
     height: 100vh;
 }
 
+html.dark {
+    background-image: url("/images/BG_dark.jpg");
+    color: #fff;
+    
+    .astro-code,
+    .astro-code span {
+        color: var(--shiki-dark) !important;
+        background-color: var(--shiki-dark-bg) !important;
+    }
+}
+
+/* ---------------------------------- body ---------------------------------- */
+
 body {
     margin: 0 auto;
     width: 80%;
@@ -18,34 +32,53 @@ body {
     line-height: 1.5;
 }
 
+/* --------------------------------- <a></a> -------------------------------- */
+
+a {
+    color:black;
+    text-decoration: none;
+}
+
+.dark a {
+    color: #fff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------------------------- <hr> ---------------------------------- */
+
+hr {
+    border: 0;
+    height: 2px;
+    background: #000;
+    /* margin: 2rem 0; */
+}
+
+.dark hr {
+    background: #fff;
+}
+
+
+
 * {
     box-sizing: border-box;
 }
+
 
 h1 {
     margin: 1rem 0;
     font-size: 2.5rem;
 }
 
-/* nav styles */
+/* ----------------------------------- nav ---------------------------------- */
+
 .navbar {
     display: flex;
     align-items: center;
     padding: 1rem 0;
     gap: 1rem;
-}
-
-.hamburger {
-    padding-right: 5px;
-    cursor: pointer;
-}
-  
-.hamburger .line {
-    display: block;
-    width: 50px;
-    height: 5px;
-    margin-bottom: 5px;
-    background-color: #000000;
 }
 
 .nav-links {
@@ -55,6 +88,11 @@ h1 {
     /* background-color: #ff9776; */
     display: none;
     margin: 0;
+}
+
+.nav-links a:hover, .nav-links a:focus {
+    background-color: #ffffff7d;
+    border-radius: 20px; /* Adjust the border-radius value as needed */
 }
 
 .nav-links a {
@@ -68,13 +106,25 @@ h1 {
     text-transform: uppercase;
 }
 
-.nav-links a:hover, .nav-links a:focus {
-    background-color: #ffffff7d;
-    border-radius: 20px; /* Adjust the border-radius value as needed */
+.dark .nav-links a {
+    color: #fff;
 }
 
 .expanded {
   display: block;
+}
+
+.hamburger {
+    padding-right: 5px;
+    cursor: pointer;
+}
+  
+.hamburger .line {
+    display: block;
+    width: 50px;
+    height: 5px;
+    margin-bottom: 5px;
+    background-color: #000000;
 }
 
 @media screen and (min-width: 300px) {
@@ -96,46 +146,11 @@ h1 {
     }
 }
 
-html.dark {
-    background-image: url("https://i.imgur.com/2XwMWXS.jpg");
-    /* background-color: rgba(255, 255, 255, 0.25); */
-    background-blend-mode: lighten;
-    color: #fff;
-    background-size: cover; /* Cover the entire page */
-    background-attachment: fixed; /* Background image fixed */
-    background-position: center; /* 图片居中 */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-    
-    .astro-code,
-    .astro-code span {
-        color: var(--shiki-dark) !important;
-        background-color: var(--shiki-dark-bg) !important;
-    }
-}
-
-.dark .nav-links a {
-    color: #fff;
-}
-
 .audioshow-image {
     text-align: center;
 }
 
-#apple-music-player {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    /* max-width: 660px; */
-    height: 150px;
-    z-index: 9999; /* Ensure it's on top */
-    background: transparent;
-    display: block;
-}
+/* ------------------------------ post-preview ------------------------------ */
 
 .post-preview {
     position: relative;
@@ -154,5 +169,18 @@ html.dark {
 }
 
 .post-preview:hover img {
+    display: block;
+}
+
+#apple-music-player {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    /* max-width: 660px; */
+    height: 150px;
+    z-index: 9999; /* Ensure it's on top */
+    background: transparent;
     display: block;
 }

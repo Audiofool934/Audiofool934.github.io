@@ -4,9 +4,9 @@ title: test
 author: Astro Learner
 description: "This post will show up on its own!"
 image:
-    url: "https://i.imgur.com/yucR1Ko.png"
-    alt: "The word astro against an illustration of planets and stars."
-pubDate: 2024-8-14
+    url: "/images/alog/to_inf_n_byd.png"
+    alt: "to infinity and beyond"
+pubDate: '2024-9-1'
 tags: []
 ---
 

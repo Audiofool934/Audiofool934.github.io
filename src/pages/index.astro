@@ -1,10 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import "../style/global.css"
+
 const headTitle = "Home"
 const pageTitle = "Hello There";
 ---
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
-	<h2>This is Audiofool's personal website. You can learn more about me in <a href="/about/">here</a></h2>
+	<h2>This is Audiofool's personal website. You can learn more about me in <a href="/about/" style="text-decoration: underline;">here</a></h2>
 	<!-- <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} /> -->
-	<h2>Website is still in progress</h2>
+	<h2>Website is still <span style="color:green">in progress</span></h2>
+	<h2>Recent Posts</h2>
+
+	<hr/>
+
+	<ul>
+		<li><h3><a href="/posts/yeahscience/ICBS">ICBS 2024: For Truth and Beauty</a></li></h3>
+		<li><h3><a href="/posts/audioshow/5-EP_151-200">Audioshow</a></li></h3>
+	</ul>
+
 </BaseLayout>

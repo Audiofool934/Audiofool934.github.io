@@ -3,33 +3,90 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 
 const headTitle = "About"
-const pageTitle = "PHILE OR FOOL";
-
-const identity = {
-    firstName: "Audiofool",
-    hobbies: ["rock music - prog/art rock - Pink Floyd (die-hard fan)", "movies & tv shows - GOT(recently)", "scientific topics", "mathematics", "artificial intelligence (multimodal)", "machine learning","electric guitar 🎸"]
-}
+const pageTitle = "Phile or Fool?";
 
 // const happy = true;
-// const finished = false;
 // const goal = 3;
 
-const skillColor = "navy";
-const fontWeight = "bold";
-const textCase = "uppercase";
 ---
 
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
-    <p>I'm {identity.firstName}, currently an undergraduate majoring in Stats/Data Science</p>
+    <p>I'm Audiofool, currently an undergraduate majoring in Stats/Data Science</p>
 
-    {identity.hobbies.length >= 0 &&
-        <p>I love:
+    <h2>📚 working on:</h2>
+    <ul>
+        <li><b>math</b>
             <ul>
-                {identity.hobbies.map((hobby) => <li>{hobby}</li>)}
+                <li><span style="color:red">algebra</span></li>
+                <li><span style="color:green">analysis</span></li>
+                <li><span style="color:green">probability</span></li>
+                <li><span style="color:black">statistics</span></li>
+                <li><span style="color:black"></span>stochastic process</span></li>
             </ul>
-        </p>
-    }
-    <!-- {happy && <p>I am happy to be learning Astro!</p>}
-    {finished && <p>I finished this tutorial</p>}
-    {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>} -->
+        </li>
+        <li><b>CS</b>
+            <ul>
+                <li><span style="color:blue">C/C++ programing</span></li>
+                <li><span style="color:blue">Python programing</span></li>
+                <li><span style="color:green">DSA</span></li>
+            </ul>
+        </li>
+        <li><b>ML</b>
+            <ul>
+                <li><span style="color:green">deep learning</span></li>
+            </ul>
+        </li>
+        <li><b>Research</b>
+            <ul>
+                <li><span style="color:black">Multimodal</span></li>
+                <li><span style="color:black">AIGC</span></li>
+                <ul>
+                    <li><span style="color:black">Video Generation</span></li>
+                    <li><span style="color:green">AI+Music/Audio</span></li>
+                </ul>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>❤️‍🔥 love:</h2>
+    <ul>
+        <li><b>Rock 'N' Roll</b>
+            <ul>
+                <li>Hard Rock
+                    <ul>
+                        <li><a href="https://www.acdc.com">AC/DC</a></li>
+                        <li><a href="https://www.ledzeppelin.com">Led Zeppelin</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li>Prog/Art Rock
+                    <ul>
+                        <li><a href="https://www.pinkfloyd.com">Pink Floyd</a></li>
+                    </ul>
+                </li>
+            </ul>
+        <li>
+            <b><a href="https://tolkiengateway.net/wiki/Main_Page">J.R.R. Tolkien</a></b>
+        </li>
+        <li>
+            <b><a href="https://www.imdb.com/title/tt0903747/">BB</a> & <a href="https://www.imdb.com/title/tt3032476/">BCS</a></b>
+        </li>
+        <li>
+            <b><a href="https://www.starwars.com">Star Wars</a></b>
+        </li>
+        <li>
+            <b><a href="https://www.imdb.com/name/nm0634240/">Christopher Nolan</a></b>
+        </li>
+    </ul>
+
+    <h2>👉 (recently) into:</h2>
+    <ul>
+        <li>
+            <b><a href="https://www.hbo.com/game-of-thrones">GOT</a></b>
+        </li>
+    </ul>
+    
+
+    <!-- {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>} -->
 </BaseLayout>

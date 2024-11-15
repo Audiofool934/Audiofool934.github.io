@@ -39,17 +39,20 @@ const pageTitle = "Audioshow";
     </section>
     
     <section>
-        <img src="https://i.imgur.com/AulCCYI.png" alt="audioshow_badge" style="max-width: 500px; width: 100%; opacity: 0.8;"/>
+        <img src="/images/audioshow/audioshow.png" alt="audioshow_badge" style="max-width: 500px; width: 100%; opacity: 0.8;"/>
 
         <ul>
-            {allPosts.map((post) => (
-                <div>
-                    <AudioshowPost url={post.url} episode={post.frontmatter.episode} pubDate={post.frontmatter.pubDate} title={post.frontmatter.title} image={post.frontmatter.image}/>
+            {allPosts
+            .sort((b, a) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
+            .map((post) => (
+                <div class="post-preview">
+                <AudioshowPost url={post.url} episode={post.frontmatter.episode} pubDate={post.frontmatter.pubDate} title={post.frontmatter.title} image={post.frontmatter.image}/>
                 </div>
-            ))}
+            ))
+            }
         </ul>
         <!-- <br> -->
-        <!-- <img src="https://i.imgur.com/cE7A7LW.jpg" alt="audioshow_poster" style="max-width: 500px; width: 100%; opacity: 0.8;"/> -->
+        <img src="/images/audioshow/audioshow_poster.png" alt="audioshow_poster" style="max-width: 500px; width: 100%;"/>
     </section>
 
 </BaseLayout>

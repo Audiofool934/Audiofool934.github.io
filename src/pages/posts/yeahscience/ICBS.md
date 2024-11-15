@@ -1,11 +1,11 @@
 ---
 layout: '../../../layouts/MarkdownPostLayout.astro'
 title: 'ICBS: For Truth and Beauty'
-pubDate: 2024-8-14
+pubDate: '2024-7-14'
 description: 'reflections on participating in ICBS 2024'
 author: 'Audiofool'
 image:
-    url: 'https://i.imgur.com/29ZGD4s.jpg'
+    url: '/images/alog/icbs_2024.jpg'
     alt: 'ICBS Night of Math'
 tags: ["blogging", "lectures", "science", "mathematics", "learning", "ICBS 2024"]
 ---

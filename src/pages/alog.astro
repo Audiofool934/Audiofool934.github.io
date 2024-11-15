@@ -9,7 +9,7 @@ const pageTitle = "Alog";
 
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
     <ul>
-        {allPosts.map((post) => (
+        {allPosts.sort((b, a) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()).map((post) => (
             <div class="post-preview">
                 <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} image={post.frontmatter.image}/>
             </div>
