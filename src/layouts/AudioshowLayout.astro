@@ -1,10 +1,41 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import "../style/post.css";
 const { frontmatter } = Astro.props;
+const formattedDate = frontmatter.pubDate
+	? new Date(frontmatter.pubDate).toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" })
+	: "";
 ---
-<BaseLayout headTitle={frontmatter.title}>
-    <h2>{`${frontmatter.title} EP ${frontmatter.episode}`}</h2>
-    <p><em>{frontmatter.description}</em></p>
-    <p>{frontmatter.pubDate.toString().slice(0,10)}</p>    
-    <slot />
+
+<BaseLayout
+	pageTitle={`${frontmatter.title} · EP ${frontmatter.episode}`}
+	headTitle={`${frontmatter.title} EP ${frontmatter.episode}`}
+	hideHeading={true}
+>
+	<article class="post audio-post">
+		<header class="post-header">
+			<p class="pill">EP {frontmatter.episode}</p>
+			<h1>{frontmatter.title}</h1>
+			{frontmatter.description && <p class="lede">{frontmatter.description}</p>}
+			<div class="meta-line">
+				{formattedDate && <span>{formattedDate}</span>}
+				{frontmatter.tags && frontmatter.tags.length > 0 && <span>{frontmatter.tags.join(", ")}</span>}
+			</div>
+			{frontmatter.image?.url && (
+				<figure class="post-cover">
+					<img src={frontmatter.image.url} alt={frontmatter.image.alt ?? frontmatter.title} loading="lazy" />
+				</figure>
+			)}
+		</header>
+		<div class="post-content">
+			<slot />
+		</div>
+	</article>
 </BaseLayout>
+
+<style>
+	.audio-post .pill {
+		align-self: flex-start;
+		background: rgba(249, 115, 22, 0.18);
+	}
+</style>

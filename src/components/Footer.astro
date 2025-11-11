@@ -1,16 +1,60 @@
 ---
 import Social from "./Social.astro"
 ---
-<style>
-    footer {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-        margin-top: auto;
-    }
-</style>
-
-<footer>
-    <p>find me on <Social platform="github" username="audiofool934"></Social></p>
-    <!-- <Social platform="youtube" username="@Audiofool934" /> -->
+<footer class="site-footer">
+	<div class="footer-card">
+		<p class="eyebrow">Audiofool</p>
+		<p>Minimal corner of the web for notebooks, cameras, and records — built to stay nimble and intentional.</p>
+	</div>
+	<div class="footer-card">
+		<p class="eyebrow">Elsewhere</p>
+		<div class="footer-links">
+			<Social platform="github" username="audiofool934" label="GitHub" />
+			<Social platform="instagram" username="audiofool934" label="Instagram" />
+			<Social platform="bsky" username="audiofool934.com" label="Bluesky" href="https://bsky.app/profile/audiofool934.com" />
+		</div>
+	</div>
+	<div class="footer-card">
+		<p class="eyebrow">Now</p>
+		<ul class="list-reset now-list">
+			<li>Stats/Data Science undergrad restarting the blog.</li>
+			<li>Writing more academic notes + project logs.</li>
+			<li>Carrying a compact camera + pocket recorder everywhere.</li>
+		</ul>
+	</div>
 </footer>
+
+<style>
+	.site-footer {
+		display: grid;
+		gap: 1.4rem;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		margin-top: 2rem;
+		padding-top: 1.4rem;
+		border-top: 1px solid var(--border-subtle);
+	}
+
+	.footer-card {
+		background: rgba(255, 255, 255, 0.08);
+		padding: 1.2rem;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--border-subtle);
+		backdrop-filter: blur(12px);
+	}
+
+	:global(html.dark) .footer-card {
+		background: rgba(10, 12, 16, 0.6);
+	}
+
+	.footer-links {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		margin-top: 0.4rem;
+	}
+
+	.now-list li {
+		color: var(--text-secondary);
+		margin-bottom: 0.35rem;
+	}
+</style>

@@ -2,17 +2,97 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 
-const allPosts = await Astro.glob('./posts/yeahscience/*.md')
-const headTitle = "Alog"
-const pageTitle = "Alog";
+const allPosts = await Astro.glob("./posts/yeahscience/*.md");
+const posts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+const headTitle = "Notebook";
+const pageTitle = "Notebook";
+const lede = "Lecture notes, research reflections, and essays that trace how I'm learning in public.";
+
+const tagCounts = posts
+	.map((post) => post.frontmatter.tags ?? [])
+	.flat()
+	.reduce((acc, tag) => {
+		acc[tag] = (acc[tag] ?? 0) + 1;
+		return acc;
+	}, {});
+const sortedTags = Object.entries(tagCounts)
+	.sort((a, b) => b[1] - a[1])
+	.slice(0, 12);
+const formatDate = (value) =>
+	new Date(value).toLocaleDateString("en", {
+		month: "long",
+		day: "numeric",
+		year: "numeric",
+	});
 ---
 
-<BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
-    <ul>
-        {allPosts.sort((b, a) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()).map((post) => (
-            <div class="post-preview">
-                <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} image={post.frontmatter.image}/>
-            </div>
-        ))}
-    </ul>
+<BaseLayout pageTitle={pageTitle} headTitle={headTitle} lede={lede}>
+	<section>
+		<div class="section-header">
+			<p class="eyebrow">Latest entries</p>
+			<p class="muted">Everything sorted chronologically — the newest reflections live at the top.</p>
+		</div>
+		<ul class="list-reset column-list">
+			{posts.map((post) => (
+				<BlogPost
+					url={post.url}
+					title={post.frontmatter.title}
+					description={post.frontmatter.description}
+					meta={formatDate(post.frontmatter.pubDate)}
+					tags={post.frontmatter.tags}
+				/>
+			))}
+		</ul>
+	</section>
+
+	<section class="two-col">
+		<div>
+			<p class="eyebrow">Tag cloud</p>
+			<ul class="list-reset tag-cloud">
+				{sortedTags.map(([tag, count]) => (
+					<li>
+						<a href={`/tags/${tag}`}>{tag}</a>
+						<span>{count}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+		<div>
+			<p class="eyebrow">RSS</p>
+			<p>
+				The notebook is best read through an RSS reader. Subscribe at <a href="/rss.xml">/rss.xml</a> or use the navigation links to filter by
+				tags.
+			</p>
+		</div>
+	</section>
 </BaseLayout>
+
+<style>
+	.column-list li + li {
+		margin-top: 0.8rem;
+	}
+
+	.tag-cloud {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.tag-cloud li {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.4rem 0;
+		border-bottom: 1px solid var(--border-subtle);
+	}
+
+	.tag-cloud a {
+		text-decoration: none;
+		color: var(--text-secondary);
+	}
+
+	.tag-cloud span {
+		font-size: 0.85rem;
+		color: var(--text-muted);
+	}
+</style>

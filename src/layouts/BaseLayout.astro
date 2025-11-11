@@ -1,20 +1,31 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import "../style/global.css"
+import "../style/global.css";
 
-const { pageTitle, headTitle } = Astro.props;
+const {
+	pageTitle = "Audiofool",
+	headTitle = pageTitle,
+	description = "Notes, experiments, and playlists from Audiofool — blending academia, photography, and music.",
+	lede,
+	hideHeading = false,
+} = Astro.props;
+
+const documentTitle = headTitle ? `${headTitle} · Audiofool` : "Audiofool";
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-        <title>{headTitle}</title> <!-- This sets the browser tab title -->
-		
-		<!-- support for latex -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{documentTitle}</title>
+		<meta name="description" content={description} />
+		<meta property="og:title" content={documentTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta name="theme-color" content="#0fa3b1" />
 		<link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
@@ -23,12 +34,18 @@ const { pageTitle, headTitle } = Astro.props;
 		/>
 	</head>
 	<body>
-        <Header />
-        <h1>{pageTitle}</h1> <!-- This sets the page's main heading -->
-        <slot />
-		<Footer />
-		<script>
-			import "../scripts/menu.js";
-		</script>
+		<div class="site-shell">
+			<Header />
+			<main>
+				{!hideHeading && (
+					<header class="page-heading">
+						<h1>{pageTitle}</h1>
+						{lede && <p class="lede">{lede}</p>}
+					</header>
+				)}
+				<slot />
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>

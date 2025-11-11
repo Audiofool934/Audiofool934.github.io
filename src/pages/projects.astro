@@ -2,45 +2,56 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 
-const allPosts = await Astro.glob('./posts/projects/*.md')
-const headTitle = "Projects"
+const allPosts = await Astro.glob("./posts/projects/*.md");
+const headTitle = "Projects";
 const pageTitle = "Projects";
+const lede = "Where my experiments live: shipping audio tools, writing long-form guides, and prototyping learning systems.";
+
+const statusGroups = [
+	{ emoji: "📖", label: "In progress", key: "in progress" },
+	{ emoji: "📕", label: "First phase complete", key: "(first phase) completed" },
+	{ emoji: "🌱", label: "Ideas on deck", key: "idea" },
+];
+const formatDate = (value) =>
+	new Date(value).toLocaleDateString("en", {
+		month: "short",
+		year: "numeric",
+	});
 ---
 
-<BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
-    <section>
-        <h2>📖 in progress</h2>
-        <ul>
-            {allPosts
-                .filter(post => post.frontmatter.status === 'in progress')
-                .sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-                .map((post) => (
-                    <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} />
-                ))}
-        </ul>
-    </section>
+<BaseLayout pageTitle={pageTitle} headTitle={headTitle} lede={lede}>
+	<section>
+		<p class="eyebrow">Overview</p>
+		<p class="muted">
+			Projects here range from heavy research write-ups to fun micro-sites. Status labels are honest snapshots, not marketing speak.
+		</p>
+	</section>
 
-    <section>
-        <h2>📕 (first phase) completed</h2>
-        <ul>
-            {allPosts
-                .filter(post => post.frontmatter.status === '(first phase) completed')
-                .sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-                .map((post) => (
-                    <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} />
-                ))}
-        </ul>
-    </section>
-
-    <section>
-        <h2>🌟 ideas</h2>
-        <ul>
-            {allPosts
-                .filter(post => post.frontmatter.status === 'idea')
-                .sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-                .map((post) => (
-                    <BlogPost url={post.url} title={post.frontmatter.title} description={post.frontmatter.description} />
-                ))}
-        </ul>
-    </section>
+	{statusGroups.map((group) => {
+		const entries = allPosts
+			.filter((post) => post.frontmatter.status === group.key)
+			.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+		return (
+			<section>
+				<div class="section-header">
+					<p class="eyebrow">{group.emoji} {group.label}</p>
+				</div>
+				{entries.length === 0 ? (
+					<p class="muted">No entries yet — check back soon.</p>
+				) : (
+					<ul class="list-reset grid-auto">
+						{entries.map((post) => (
+							<BlogPost
+								url={post.url}
+								title={post.frontmatter.title}
+								description={post.frontmatter.description}
+								meta={`${group.label} · ${formatDate(post.frontmatter.pubDate)}`}
+								tags={post.frontmatter.tags}
+							/>
+						))}
+					</ul>
+				)}
+			</section>
+		);
+	})}
 </BaseLayout>

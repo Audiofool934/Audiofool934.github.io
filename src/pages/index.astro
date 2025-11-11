@@ -1,21 +1,240 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import "../style/global.css"
+import BlogPost from "../components/BlogPost.astro";
+import AudioshowPost from "../components/AudioshowPost.astro";
 
-const headTitle = "Home"
-const pageTitle = "Hello There";
+const notebookPosts = (await Astro.glob("./posts/yeahscience/*.md"))
+	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
+	.slice(0, 3);
+
+const projectPosts = (await Astro.glob("./posts/projects/*.md"))
+	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
+	.slice(0, 2);
+
+const listeningPosts = (await Astro.glob("./posts/audioshow/*.md"))
+	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
+	.slice(0, 2);
+
+const listeningNow = [
+	{
+		title: "From Zero",
+		artist: "Linkin Park",
+		link: "https://music.apple.com/album/from-zero/1766137049",
+		notes: "demo reels, rough edges, pure nostalgia.",
+	},
+	{
+		title: "American Beauty",
+		artist: "Grateful Dead",
+		link: "https://music.apple.com/album/american-beauty/664831661",
+		notes: "acoustic warmth for long Markdown nights.",
+	},
+	{
+		title: "Use Your Illusion I",
+		artist: "Guns N' Roses",
+		link: "https://music.apple.com/album/use-your-illusion-i/1440896026",
+		notes: "maximal guitars, minimal patience required.",
+	},
+];
+
+const photoStories = [
+	{
+		title: "Neon Alley, Shenzhen",
+		context: "800T · humid summer",
+		description: "Chasing cyan reflections with a compact camera and a single roll.",
+		palette: ["#06141b", "#f97316"],
+	},
+	{
+		title: "Library Silence",
+		context: "Tri-X · afternoon grain",
+		description: "Documenting the academic half of life — notebooks, coffee rings, quiet light.",
+		palette: ["#0f172a", "#94a3b8"],
+	},
+	{
+		title: "Desert Radio",
+		context: "Portra · roadtrip loop",
+		description: "Music research meets photography: abandoned antennas, long exposure skies.",
+		palette: ["#1d1a31", "#fba834"],
+	},
+];
+
+const headTitle = "Audiofool";
+const pageTitle = "Audiofool Studio";
+const description = "Rebooting my personal blog to document academic work, photography experiments, and music logs.";
+const formatDate = (value) =>
+	new Date(value).toLocaleDateString("en", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	});
 ---
-<BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
-	<h2>This is Audiofool's personal website. You can learn more about me in <a href="/about/" style="text-decoration: underline;">here</a></h2>
-	<!-- <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} /> -->
-	<h2>Website is still <span style="color:green">in progress</span></h2>
-	<h2>Recent Posts</h2>
 
-	<hr/>
+<BaseLayout headTitle={headTitle} pageTitle={pageTitle} hideHeading={true} description={description}>
+	<section class="hero">
+		<p class="eyebrow">Reboot · 2024</p>
+		<h1>极简又迅捷的个人实验室 — 写作、摄影与声音。</h1>
+		<p class="lede">
+			Hello, I'm Audiofool. This space is my academic notebook, travel camera roll, and listening diary —
+			minimal surface, fast pages, intentional stories.
+		</p>
+		<div class="meta-line">
+			<span>📚 stats / ML / audio research</span>
+			<span>📷 film & compact digital photography</span>
+			<span>🎧 weekly audioshow log</span>
+		</div>
+	</section>
 
-	<ul>
-		<li><h3><a href="/posts/yeahscience/ICBS">ICBS 2024: For Truth and Beauty</a></li></h3>
-		<li><h3><a href="/posts/audioshow/5-EP_151-200">Audioshow</a></li></h3>
-	</ul>
+	<section>
+		<div class="section-header">
+			<p class="eyebrow">Notebook</p>
+			<h2>Academic notes & discussions</h2>
+			<p class="muted">Fresh summaries from lectures, paper clubs, and learning sprints.</p>
+		</div>
+		<ul class="list-reset grid-auto">
+			{notebookPosts.map((post) => (
+				<BlogPost
+					url={post.url}
+					title={post.frontmatter.title}
+					description={post.frontmatter.description}
+					meta={formatDate(post.frontmatter.pubDate)}
+					tags={post.frontmatter.tags}
+				/>
+			))}
+		</ul>
+		<a class="cta-link" href="/alog/">Browse the full notebook ↗</a>
+	</section>
 
+	<section class="two-col">
+		<div>
+			<div class="section-header">
+				<p class="eyebrow">Projects</p>
+				<h2>Work-in-progress ideas</h2>
+			</div>
+			<ul class="list-reset grid-auto">
+				{projectPosts.map((post) => (
+					<BlogPost
+						url={post.url}
+						title={post.frontmatter.title}
+						description={post.frontmatter.description}
+						meta={post.frontmatter.status}
+					/>
+				))}
+			</ul>
+			<a class="cta-link" href="/projects/">See every project ↗</a>
+		</div>
+		<div>
+			<div class="section-header">
+				<p class="eyebrow">Now Playing</p>
+				<h2>Listening log</h2>
+			</div>
+			<ul class="list-reset grid-auto">
+				{listeningPosts.map((post) => (
+					<AudioshowPost url={post.url} title={post.frontmatter.title} episode={post.frontmatter.episode} pubDate={post.frontmatter.pubDate} />
+				))}
+			</ul>
+			<ul class="list-reset now-list">
+				{listeningNow.map((entry) => (
+					<li>
+						<a href={entry.link} target="_blank" rel="noopener noreferrer">
+							<strong>{entry.title}</strong> — {entry.artist}
+						</a>
+						<p class="muted">{entry.notes}</p>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<section>
+		<div class="section-header">
+			<p class="eyebrow">Field Notes</p>
+			<h2>Photography stories</h2>
+			<p class="muted">Small essays without words — just light, contrast, and memory triggers.</p>
+		</div>
+		<div class="photo-grid">
+			{photoStories.map((story) => (
+				<div class="photo-card surface-card" style={`background: radial-gradient(circle at top, ${story.palette[1]}22, transparent), ${story.palette[0]};`}>
+					<p class="pill">{story.context}</p>
+					<h3>{story.title}</h3>
+					<p>{story.description}</p>
+				</div>
+			))}
+		</div>
+		<a class="cta-link" href="/photography/">Open the photo journal ↗</a>
+	</section>
+
+	<section class="two-col focus">
+		<div>
+			<p class="eyebrow">Focus</p>
+			<h2>What I'm exploring</h2>
+			<ul class="list-reset focus-list">
+				<li>Statistical thinking applied to multimodal AIGC + audio.</li>
+				<li>Better note-taking systems for bilingual writing.</li>
+				<li>Compact-camera workflows with fast publishing.</li>
+			</ul>
+		</div>
+		<div>
+			<p class="eyebrow">Stay Updated</p>
+			<p class="muted">
+				Grab the <a href="/rss.xml">RSS feed</a> or stop by <a href="/about/">about</a> for ways to reach me. No mailing list yet, just
+				pure RSS and occasional DMs.
+			</p>
+		</div>
+	</section>
 </BaseLayout>
+
+<style>
+	.hero {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.section-header {
+		margin-bottom: 1rem;
+	}
+
+	.cta-link {
+		display: inline-flex;
+		margin-top: 1rem;
+		font-weight: 600;
+		color: var(--accent);
+		text-decoration: none;
+		align-items: center;
+		gap: 0.35rem;
+	}
+
+	.cta-link:hover {
+		text-decoration: underline;
+	}
+
+	.now-list li {
+		padding: 0.6rem 0;
+		border-bottom: 1px solid var(--border-subtle);
+	}
+
+	.photo-grid {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+
+	.photo-card {
+		color: #f5f5f5;
+		min-height: 220px;
+		border: none;
+		box-shadow: none;
+	}
+
+	.photo-card p {
+		color: #fefefe;
+	}
+
+	.focus-list li {
+		padding: 0.4rem 0;
+		color: var(--text-secondary);
+	}
+
+	.focus {
+		align-items: flex-start;
+	}
+</style>

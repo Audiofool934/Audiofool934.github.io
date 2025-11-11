@@ -1,16 +1,22 @@
 ---
+const navItems = [
+	{ href: "/", label: "Home" },
+	{ href: "/alog/", label: "Notebook" },
+	{ href: "/projects/", label: "Projects" },
+	{ href: "/photography/", label: "Photography" },
+	{ href: "/audioshow/", label: "Listening" },
+	{ href: "/about/", label: "About" },
+];
+
+const normalize = (path) => (path.endsWith("/") ? path : `${path}/`);
+const currentPath = normalize(Astro.url?.pathname ?? "/");
+const isActive = (href) => (href === "/" ? currentPath === "/" : currentPath.startsWith(normalize(href)));
 ---
-<div class="nav-links">
 
-    <a href="/">🏠</a>
-    <a href="/about/">🧑</a>
-    <a href="/alog/">📝</a>
-    <a href="/audioshow/">📻</a>
-    <a href="/projects/">📂</a>
-    <a href="/tags/">🏷️</a>
-
-    <!-- <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/alog/">Alog</a>
-    <a href="/audioshow/">Audioshow</a> -->
-</div>
+<ul class="nav-links">
+	{navItems.map(({ href, label }) => (
+		<li>
+			<a href={href} aria-current={isActive(href) ? "page" : undefined}>{label}</a>
+		</li>
+	))}
+</ul>

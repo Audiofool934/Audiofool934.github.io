@@ -1,15 +1,54 @@
 ---
-const { title, url, description, image} = Astro.props
+const { title, url, description = "", meta = "", tags = [], accent } = Astro.props;
+const tagList = Array.isArray(tags) ? tags : [];
 ---
-<li class="post-preview">
-    <a href={url}>
-        <h3>{title}</h3>
-        {image && (
-            <img src={image.url} alt={image.alt} loading="lazy" style="visibility: hidden;" />
-        )}
-    </a>
+
+<li class="post-card surface-card">
+	<a href={url}>
+		{meta && <p class="pill" style={accent ? `background:${accent}` : undefined}>{meta}</p>}
+		<h3>{title}</h3>
+		{description && <p class="muted">{description}</p>}
+		{tagList.length > 0 && (
+			<ul class="list-reset tag-list">
+				{tagList.slice(0, 3).map((tag) => (
+					<li>{tag}</li>
+				))}
+			</ul>
+		)}
+	</a>
 </li>
 
-<script>
-    import "../scripts/post-preview.js";
-</script>
+<style>
+	.post-card {
+		list-style: none;
+		padding: 1.25rem;
+	}
+
+	.post-card a {
+		text-decoration: none;
+		color: inherit;
+		display: flex;
+		flex-direction: column;
+		gap: 0.8rem;
+	}
+
+	.post-card h3 {
+		font-size: 1.2rem;
+		letter-spacing: -0.01em;
+	}
+
+	.post-card .pill {
+		align-self: flex-start;
+		background: var(--accent-soft);
+		color: var(--text-primary);
+		font-weight: 500;
+	}
+
+	.tag-list {
+		display: flex;
+		gap: 0.4rem;
+		flex-wrap: wrap;
+		font-size: 0.8rem;
+		color: var(--text-muted);
+	}
+</style>

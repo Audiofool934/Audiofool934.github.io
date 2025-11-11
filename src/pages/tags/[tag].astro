@@ -1,27 +1,41 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogPost from '../../components/BlogPost.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
 
 export async function getStaticPaths() {
-  const allPosts = await Astro.glob('../posts/yeahscience/*.md');
+	const allPosts = await Astro.glob("../posts/*/*.md");
+	const tagMap = new Map();
 
-  const uniqueTags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
+	allPosts.forEach((post) => {
+		(post.frontmatter.tags ?? []).forEach((tag) => {
+			if (!tagMap.has(tag)) tagMap.set(tag, []);
+			tagMap.get(tag).push(post);
+		});
+	});
 
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) => post.frontmatter.tags.includes(tag));
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
-  });
+	return [...tagMap.entries()].map(([tag, entries]) => ({
+		params: { tag },
+		props: { posts: entries },
+	}));
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
+const sortedPosts = posts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
 ---
-<BaseLayout pageTitle={tag}>
-  <p>Posts tagged with {tag}</p>
-  <ul>
-    {posts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
-  </ul>
+
+<BaseLayout pageTitle={`#${tag}`} headTitle={`Tag: ${tag}`} lede={`Every post that mentions ${tag}.`}>
+	<section>
+		<ul class="list-reset grid-auto">
+			{sortedPosts.map((post) => (
+				<BlogPost
+					url={post.url}
+					title={post.frontmatter.title}
+					description={post.frontmatter.description}
+					meta={new Date(post.frontmatter.pubDate).toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" })}
+					tags={post.frontmatter.tags}
+				/>
+			))}
+		</ul>
+	</section>
 </BaseLayout>

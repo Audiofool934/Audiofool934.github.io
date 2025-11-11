@@ -1,58 +1,117 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AudioshowPost from "../components/AudioshowPost.astro";
-const allPosts = await Astro.glob('./posts/audioshow/*.md')
+
+const allPosts = await Astro.glob("./posts/audioshow/*.md");
+const posts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
 const headTitle = "Audioshow";
 const pageTitle = "Audioshow";
+const lede = "A hand-built radio diary — 200 episodes of quotes, riffs, and late-night selections.";
+const favorites = [
+	{
+		title: "From Zero",
+		artist: "Linkin Park",
+		link: "https://music.apple.com/album/from-zero/1766137049",
+		notes: "Unreleased demos from my teenage hard drive.",
+	},
+	{
+		title: "Me Against the World",
+		artist: "2Pac",
+		link: "https://music.apple.com/album/me-against-the-world/1440509542",
+		notes: "Poetry, paranoia, and perfect percussion.",
+	},
+	{
+		title: "American Beauty",
+		artist: "Grateful Dead",
+		link: "https://music.apple.com/album/american-beauty/664831661",
+		notes: "Acoustic sunshine for desk-bound nights.",
+	},
+];
 ---
 
-<BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
-    <section>
-        <h2>(recently) listened to 🎶</h2>
-        <ul>
-            <li>
-                <a href="https://music.apple.com/album/from-zero/1766137049">
-                    <b>From Zero</b> - LINKIN PARK
-                </a>
-            </li>
-            <li>
-                <a href="https://music.apple.com/album/me-against-the-world/1440509542">
-                    <b>Me Against the World</b> - 2Pac
-                </a>
-            </li>
-            <li>
-                <a href="https://music.apple.com/album/american-beauty/664831661">
-                    <b>American Beauty</b> - Grateful Dead
-                </a>
-            </li>
-            <li>
-                <a href="https://music.apple.com/album/use-your-illusion-i/1440896026">
-                    <b>Use Your Illusion I</b> - Guns N' Roses
-                </a>
-            </li>
-            <li>
-                <a href="https://music.apple.com/album/the-dream-of-the-blue-turtles/1650884598">
-                    <b>The Dream of the Blue Turtles</b> - Sting
-                </a>
-            </li>
-        </ul>
-    </section>
-    
-    <section>
-        <img src="/images/audioshow/audioshow.png" alt="audioshow_badge" style="max-width: 500px; width: 100%; opacity: 0.8;"/>
+<BaseLayout pageTitle={pageTitle} headTitle={headTitle} lede={lede}>
+	<section class="audio-hero">
+		<div>
+			<p class="eyebrow">What is Audioshow?</p>
+			<p>
+				A weekly set of six songs wrapped in a lyric, a quote, or a sample. Each entry is one PNG poster plus Markdown notes — portable, light,
+				and friendly to RSS.
+			</p>
+			<ul class="list-reset meta-line inline">
+				<li>200+ episodes since 2022</li>
+				<li>Rock, hip-hop, prog, ambient</li>
+				<li>Recorded midnight, published at dawn</li>
+			</ul>
+		</div>
+		<img src="/images/audioshow/audioshow.png" alt="Audioshow badge" class="audio-badge" loading="lazy" />
+	</section>
 
-        <ul>
-            {allPosts
-            .sort((b, a) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-            .map((post) => (
-                <div class="post-preview">
-                <AudioshowPost url={post.url} episode={post.frontmatter.episode} pubDate={post.frontmatter.pubDate} title={post.frontmatter.title} image={post.frontmatter.image}/>
-                </div>
-            ))
-            }
-        </ul>
-        <!-- <br> -->
-        <img src="/images/audioshow/audioshow_poster.png" alt="audioshow_poster" style="max-width: 500px; width: 100%;"/>
-    </section>
+	<section>
+		<p class="eyebrow">Featured selections</p>
+		<ul class="list-reset favorite-list">
+			{favorites.map((pick) => (
+				<li class="surface-card">
+					<a href={pick.link} target="_blank" rel="noopener noreferrer">
+						<strong>{pick.title}</strong> — {pick.artist}
+					</a>
+					<p class="muted">{pick.notes}</p>
+				</li>
+			))}
+		</ul>
+	</section>
 
+	<section>
+		<p class="eyebrow">Episode archive</p>
+		<ul class="list-reset grid-auto">
+			{posts.map((post) => (
+				<AudioshowPost
+					url={post.url}
+					episode={post.frontmatter.episode}
+					pubDate={post.frontmatter.pubDate}
+					title={post.frontmatter.title}
+				/>
+			))}
+		</ul>
+		<img src="/images/audioshow/audioshow_poster.png" alt="Audioshow poster" class="audio-poster" loading="lazy" />
+	</section>
 </BaseLayout>
+
+<style>
+	.audio-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+		gap: 1.5rem;
+		align-items: center;
+	}
+
+	.audio-badge,
+	.audio-poster {
+		width: 100%;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--border-subtle);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.favorite-list {
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	.favorite-list li {
+		padding: 1rem;
+	}
+
+	.inline {
+		gap: 0.5rem;
+	}
+
+	.audio-poster {
+		margin-top: 1.5rem;
+	}
+
+	@media (max-width: 720px) {
+		.audio-hero {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

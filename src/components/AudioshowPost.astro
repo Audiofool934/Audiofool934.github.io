@@ -1,16 +1,37 @@
 ---
-const { title, episode, pubDate, url, image } = Astro.props;
+const { title, episode, pubDate, url } = Astro.props;
+const formattedDate = pubDate ? new Date(pubDate).toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" }) : "";
 ---
 
-<li class="post-preview">
-  <a href={url}>
-      <h3>{`${title} EP ${episode}`}</h3>
-      {image && (
-          <img src={image.url} alt={image.alt} loading="lazy" style="visibility: hidden;" />
-      )}
-  </a>
+<li class="audio-card surface-card">
+	<a href={url}>
+		<p class="pill">EP {episode}</p>
+		<h3>{title}</h3>
+		{formattedDate && <p class="muted">{formattedDate}</p>}
+	</a>
 </li>
 
-<script>
-    import "../scripts/post-preview.js";
-</script>
+<style>
+	.audio-card {
+		list-style: none;
+		padding: 1.25rem;
+	}
+
+	.audio-card a {
+		text-decoration: none;
+		color: inherit;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.audio-card h3 {
+		font-size: 1.1rem;
+	}
+
+	.audio-card .pill {
+		background: rgba(249, 115, 22, 0.18);
+		color: var(--text-primary);
+		font-weight: 600;
+	}
+</style>

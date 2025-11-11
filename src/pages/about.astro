@@ -1,92 +1,174 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Footer from "../components/Footer.astro";
 
-const headTitle = "About"
-const pageTitle = "Phile or Fool?";
+const headTitle = "About";
+const pageTitle = "Audiofool";
+const lede = "Stats/Data Science undergrad documenting the overlap between research, photography, and music.";
 
-// const happy = true;
-// const goal = 3;
+const focusAreas = [
+	"Applied probability, statistics, and data-driven research habits.",
+	"Multimodal + audio generation — especially when music meets ML.",
+	"Compact camera workflows and bilingual note-taking systems.",
+];
 
+const tools = [
+	{ label: "Code", value: "Python, C/C++, PyTorch, Astro" },
+	{ label: "Math", value: "Measure theory, stochastic processes, information theory" },
+	{ label: "Creative", value: "Fujifilm X100 / Ricoh GR, 35mm film, Logic Pro" },
+];
+
+const influences = [
+	"Hard rock storytellers: AC/DC, Led Zeppelin, Foo Fighters.",
+	"Prog dreamers: Pink Floyd, Steven Wilson, King Crimson.",
+	"World builders: Tolkien, Vince Gilligan, George Lucas.",
+	"Filmmakers obsessed with time: Christopher Nolan, Denis Villeneuve.",
+];
+
+const currentEnjoyment = [
+	{ title: "Reading", detail: "Game of Thrones (re-read) + nonlinear algebra notes." },
+	{ title: "Watching", detail: "Better Call Saul montages for character studies." },
+	{ title: "Listening", detail: "Weekly audioshow setlists + random cassette finds." },
+];
 ---
 
-<BaseLayout pageTitle={pageTitle} headTitle={headTitle}>
-    <p>I'm Audiofool, currently an undergraduate majoring in Stats/Data Science</p>
+<BaseLayout pageTitle={pageTitle} headTitle={headTitle} lede={lede}>
+	<section class="bio">
+		<div>
+			<p>
+				I answer to <strong>Audiofool</strong> online — a nod to my obsession with sound design and minimal gear. I study statistics/data science,
+				work on multimodal audio research, and keep this site as a slow, intentional logbook.
+			</p>
+			<p>
+				When I'm not buried in proofs or model outputs, I'm walking with a compact camera, editing a bilingual essay, or recording a tiny radio
+				show called <a href="/audioshow/">Audioshow</a>. The mission: stay curious, stay fast, stay simple.
+			</p>
+		</div>
+		<div class="card">
+			<p class="eyebrow">Snapshot</p>
+			<ul class="list-reset snapshot">
+				<li>🎓 Stats/Data Science undergrad</li>
+				<li>🌏 Learning + writing in Chinese & English</li>
+				<li>🎛 Researching multimodal audio + generation</li>
+				<li>📷 Carrying a film camera everywhere</li>
+			</ul>
+		</div>
+	</section>
 
-    <h2>📚 working on:</h2>
-    <ul>
-        <li><b>math</b>
-            <ul>
-                <li><span style="color:red">algebra</span></li>
-                <li><span style="color:green">analysis</span></li>
-                <li><span style="color:green">probability</span></li>
-                <li><span style="color:black">statistics</span></li>
-                <li><span style="color:black"></span>stochastic process</span></li>
-            </ul>
-        </li>
-        <li><b>CS</b>
-            <ul>
-                <li><span style="color:blue">C/C++ programing</span></li>
-                <li><span style="color:blue">Python programing</span></li>
-                <li><span style="color:green">DSA</span></li>
-            </ul>
-        </li>
-        <li><b>ML</b>
-            <ul>
-                <li><span style="color:green">deep learning</span></li>
-            </ul>
-        </li>
-        <li><b>Research</b>
-            <ul>
-                <li><span style="color:black">Multimodal</span></li>
-                <li><span style="color:black">AIGC</span></li>
-                <ul>
-                    <li><span style="color:black">Video Generation</span></li>
-                    <li><span style="color:green">AI+Music/Audio</span></li>
-                </ul>
-            </ul>
-        </li>
-    </ul>
+	<section>
+		<p class="eyebrow">Currently exploring</p>
+		<h2>Research + craft pillars</h2>
+		<ul class="list-reset focus-list">
+			{focusAreas.map((item) => (
+				<li class="surface-card">{item}</li>
+			))}
+		</ul>
+	</section>
 
-    <h2>❤️‍🔥 love:</h2>
-    <ul>
-        <li><b>Rock 'N' Roll</b>
-            <ul>
-                <li>Hard Rock
-                    <ul>
-                        <li><a href="https://www.acdc.com">AC/DC</a></li>
-                        <li><a href="https://www.ledzeppelin.com">Led Zeppelin</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul>
-                <li>Prog/Art Rock
-                    <ul>
-                        <li><a href="https://www.pinkfloyd.com">Pink Floyd</a></li>
-                    </ul>
-                </li>
-            </ul>
-        <li>
-            <b><a href="https://tolkiengateway.net/wiki/Main_Page">J.R.R. Tolkien</a></b>
-        </li>
-        <li>
-            <b><a href="https://www.imdb.com/title/tt0903747/">BB</a> & <a href="https://www.imdb.com/title/tt3032476/">BCS</a></b>
-        </li>
-        <li>
-            <b><a href="https://www.starwars.com">Star Wars</a></b>
-        </li>
-        <li>
-            <b><a href="https://www.imdb.com/name/nm0634240/">Christopher Nolan</a></b>
-        </li>
-    </ul>
+	<section class="two-col">
+		<div>
+			<p class="eyebrow">Toolkit</p>
+			<ul class="list-reset tool-list">
+				{tools.map((tool) => (
+					<li>
+						<strong>{tool.label}</strong>
+						<span>{tool.value}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+		<div>
+			<p class="eyebrow">Influences</p>
+			<ul class="list-reset influence-list">
+				{influences.map((entry) => (
+					<li>{entry}</li>
+				))}
+			</ul>
+		</div>
+	</section>
 
-    <h2>👉 (recently) into:</h2>
-    <ul>
-        <li>
-            <b><a href="https://www.hbo.com/game-of-thrones">GOT</a></b>
-        </li>
-    </ul>
-    
+	<section>
+		<p class="eyebrow">Right now</p>
+		<ul class="list-reset now-cards">
+			{currentEnjoyment.map((item) => (
+				<li class="surface-card">
+					<p class="pill">{item.title}</p>
+					<p>{item.detail}</p>
+				</li>
+			))}
+		</ul>
+	</section>
 
-    <!-- {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>} -->
+	<section class="two-col">
+		<div>
+			<p class="eyebrow">Elsewhere</p>
+			<p>
+				Find me on <a href="https://github.com/audiofool934">GitHub</a>, <a href="https://bsky.app/profile/audiofool934.com">Bluesky</a>, and
+				<a href="https://instagram.com/audiofool934">Instagram</a>. Email is best for deep dives — <strong>hi [at] audiofool934.com</strong>.
+			</p>
+		</div>
+		<div>
+			<p class="eyebrow">Values</p>
+			<ul class="list-reset values">
+				<li>🧠 Clarity over noise.</li>
+				<li>📷 Process over perfection.</li>
+				<li>🎸 Share work early, keep it human.</li>
+			</ul>
+		</div>
+	</section>
 </BaseLayout>
+
+<style>
+	.bio {
+		display: grid;
+		gap: 1.2rem;
+		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+	}
+
+	.card {
+		padding: 1.2rem;
+		border-radius: var(--radius-xl);
+		border: 1px solid var(--border-subtle);
+		background: var(--bg-page);
+	}
+
+	.snapshot li {
+		padding: 0.3rem 0;
+	}
+
+	.focus-list li {
+		margin-bottom: 0.8rem;
+	}
+
+	.tool-list li {
+		padding: 0.6rem 0;
+		border-bottom: 1px solid var(--border-subtle);
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+
+	.tool-list strong {
+		color: var(--text-primary);
+	}
+
+	.influence-list li {
+		padding: 0.35rem 0;
+		color: var(--text-secondary);
+	}
+
+	.now-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1rem;
+	}
+
+	.values li {
+		padding: 0.3rem 0;
+	}
+
+	@media (max-width: 720px) {
+		.bio {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -1,0 +1,73 @@
+article.post {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.post-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.post-header h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.tag-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag-row a {
+  display: inline-flex;
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  text-decoration: none;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  transition: border 120ms ease, color 120ms ease;
+}
+
+.tag-row a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.post-cover {
+  margin: 1rem 0 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.post-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.post-cover figcaption {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.post-content :global(img) {
+  max-width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  margin: 1.5rem 0;
+}
+
+.post-content :global(p),
+.post-content :global(li) {
+  color: var(--text-secondary);
+}
+
+.post-content :global(h2),
+.post-content :global(h3) {
+  margin-top: 2rem;
+}

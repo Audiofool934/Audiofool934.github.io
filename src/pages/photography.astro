@@ -1,0 +1,156 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const headTitle = "Photography";
+const pageTitle = "Photography";
+const lede = "Field notes from my cameras — slow walks, neon nights, and documentation of academic life.";
+
+const series = [
+	{
+		title: "Neon Algebra",
+		format: "CineStill 800T · 35mm",
+		description: "Night walks after late labs. I chase reflections on concrete, pair the photos with math notes, and keep the color palette restrained.",
+		accent: "#f59e0b",
+	},
+	{
+		title: "Library Field Recording",
+		format: "Tri-X 400 · 35mm",
+		description: "Quiet shelves, notebooks, and candid portraits of classmates. Grain welcomes the imperfections of long homework sets.",
+		accent: "#38bdf8",
+	},
+	{
+		title: "Desert Radio Diaries",
+		format: "Ricoh GR III",
+		description: "Road trips with portable recorders — capturing antennas, empty motels, and the playlists that followed.",
+		accent: "#f472b6",
+	},
+];
+
+const gallery = [
+	{
+		title: "ICBS Night",
+		image: "/images/alog/icbs_2024.jpg",
+		notes: "Documenting academic conferences like music gigs.",
+	},
+	{
+		title: "Entropy Notes",
+		image: "/images/alog/A_Mathematical_Theory_of_Communication.png",
+		notes: "Notebook scans mixed with photo textures.",
+	},
+	{
+		title: "Orthlist vs Triplet",
+		image: "/images/alog/Orthlist-vs_Triplet.jpeg",
+		notes: "Models, chalk, and long shutter blur.",
+	},
+];
+
+const gear = [
+	{ name: "Fujifilm X100", detail: "Everyday carry for color stories." },
+	{ name: "Ricoh GR III", detail: "Street + lecture hall stealth mode." },
+	{ name: "Nikon FM2", detail: "For when I want to slow down with film." },
+];
+
+const principles = [
+	"One roll, one story — publish even if imperfect.",
+	"Pair every photo set with sound or text to keep context alive.",
+	"Minimize gear so travel + school schedules stay light.",
+];
+---
+
+<BaseLayout pageTitle={pageTitle} headTitle={headTitle} lede={lede}>
+	<section>
+		<p class="eyebrow">Series</p>
+		<div class="series-grid">
+			{series.map((item) => (
+				<div class="surface-card" style={`border-color:${item.accent};`}>
+					<p class="pill" style={`background:${item.accent}33;`}>{item.format}</p>
+					<h3>{item.title}</h3>
+					<p>{item.description}</p>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<section>
+		<p class="eyebrow">Gallery</p>
+		<div class="gallery-grid">
+			{gallery.map((shot) => (
+				<figure>
+					<img src={shot.image} alt={shot.title} loading="lazy" />
+					<figcaption>
+						<strong>{shot.title}</strong>
+						<span>{shot.notes}</span>
+					</figcaption>
+				</figure>
+			))}
+		</div>
+	</section>
+
+	<section class="two-col">
+		<div>
+			<p class="eyebrow">Gear</p>
+			<ul class="list-reset gear-list">
+				{gear.map((item) => (
+					<li>
+						<strong>{item.name}</strong>
+						<span>{item.detail}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+		<div>
+			<p class="eyebrow">Principles</p>
+			<ul class="list-reset principles">
+				{principles.map((item) => (
+					<li>{item}</li>
+				))}
+			</ul>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.series-grid {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+
+	.gallery-grid {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+
+	.gallery-grid figure {
+		margin: 0;
+		border-radius: var(--radius-lg);
+		background: var(--bg-page);
+		border: 1px solid var(--border-subtle);
+		overflow: hidden;
+	}
+
+	.gallery-grid img {
+		width: 100%;
+		display: block;
+	}
+
+	.gallery-grid figcaption {
+		padding: 0.75rem 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.gear-list li {
+		padding: 0.5rem 0;
+		border-bottom: 1px solid var(--border-subtle);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.principles li {
+		padding: 0.35rem 0;
+		color: var(--text-secondary);
+	}
+</style>
