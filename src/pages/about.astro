@@ -5,6 +5,12 @@ const headTitle = "About";
 const pageTitle = "Audiofool";
 const lede = "Stats/Data Science undergrad documenting the overlap between research, photography, and music.";
 
+const avatar = {
+	src: "/images/Audiofool_icon.png",
+	alt: "Audiofool avatar icon",
+	caption: "Audiofool · Stats/Data Science",
+};
+
 const focusAreas = [
 	"Applied probability, statistics, and data-driven research habits.",
 	"Multimodal + audio generation — especially when music meets ML.",
@@ -43,14 +49,20 @@ const currentEnjoyment = [
 				show called <a href="/audioshow/">Audioshow</a>. The mission: stay curious, stay fast, stay simple.
 			</p>
 		</div>
-		<div class="card">
-			<p class="eyebrow">Snapshot</p>
-			<ul class="list-reset snapshot">
-				<li>🎓 Stats/Data Science undergrad</li>
-				<li>🌏 Learning + writing in Chinese & English</li>
-				<li>🎛 Researching multimodal audio + generation</li>
-				<li>📷 Carrying a film camera everywhere</li>
-			</ul>
+		<div class="profile-stack">
+			<div class="avatar-card surface-card">
+				<img src={avatar.src} alt={avatar.alt} loading="lazy" />
+				<p class="muted">{avatar.caption}</p>
+			</div>
+			<div class="card">
+				<p class="eyebrow">Snapshot</p>
+				<ul class="list-reset snapshot">
+					<li>🎓 Stats/Data Science undergrad</li>
+					<li>🌏 Learning + writing in Chinese & English</li>
+					<li>🎛 Researching multimodal audio + generation</li>
+					<li>📷 Carrying a film camera everywhere</li>
+				</ul>
+			</div>
 		</div>
 	</section>
 
@@ -124,11 +136,24 @@ const currentEnjoyment = [
 		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
 	}
 
+	.profile-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.avatar-card img {
+		width: 100%;
+		border-radius: var(--radius-xl);
+		border: 1px solid var(--border-subtle);
+	}
+
 	.card {
 		padding: 1.2rem;
 		border-radius: var(--radius-xl);
 		border: 1px solid var(--border-subtle);
-		background: var(--bg-page);
+		background: var(--bg-surface);
+		box-shadow: var(--shadow-soft);
 	}
 
 	.snapshot li {

@@ -3,55 +3,95 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 
 const allPosts = await Astro.glob("./posts/projects/*.md");
+const posts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
 const headTitle = "Projects";
 const pageTitle = "Projects";
-const lede = "Where my experiments live: shipping audio tools, writing long-form guides, and prototyping learning systems.";
+const lede = "Tracking AI-for-music experiments, generative model studies, and tooling initiatives.";
 
-const statusGroups = [
-	{ emoji: "📖", label: "In progress", key: "in progress" },
-	{ emoji: "📕", label: "First phase complete", key: "(first phase) completed" },
-	{ emoji: "🌱", label: "Ideas on deck", key: "idea" },
+const statusTags = [...new Set(posts.map((post) => post.frontmatter.status))].filter(Boolean);
+const slugify = (value = "") => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+const thematicGroups = [
+	{
+		title: "AI4Music Direction",
+		description: "Projects that bind DSP, ML, and composition workflows.",
+		matcher: (post) => (post.frontmatter.tags ?? []).some((tag) => ["music", "audio"].includes(tag.toLowerCase())),
+	},
+	{
+		title: "Generative Model Direction",
+		description: "Image-to-video, AIGC, and multimodal synthesis exploration.",
+		matcher: (post) => (post.frontmatter.tags ?? []).some((tag) => ["aigc", "image-to-video"].includes(tag.toLowerCase())),
+	},
+	{
+		title: "Learning / Research Systems",
+		description: "Course projects, infrastructure, and long-form study builds.",
+		matcher: () => true,
+	},
 ];
-const formatDate = (value) =>
-	new Date(value).toLocaleDateString("en", {
-		month: "short",
-		year: "numeric",
-	});
+
+let remaining = [...posts];
+const grouped = thematicGroups.map((group) => {
+	const entries = remaining.filter((post) => group.matcher(post));
+	remaining = remaining.filter((post) => !group.matcher(post));
+	return { ...group, entries };
+});
 ---
 
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle} lede={lede}>
 	<section>
-		<p class="eyebrow">Overview</p>
-		<p class="muted">
-			Projects here range from heavy research write-ups to fun micro-sites. Status labels are honest snapshots, not marketing speak.
-		</p>
+		<p class="eyebrow">Filter by status</p>
+		<div class="tag-search">
+			{statusTags.map((status) => (
+				<a href={`/projects/?status=${slugify(status)}`} class="surface-card">
+					<span>{status}</span>
+					<span class="muted">tap to filter</span>
+				</a>
+			))}
+		</div>
 	</section>
 
-	{statusGroups.map((group) => {
-		const entries = allPosts
-			.filter((post) => post.frontmatter.status === group.key)
-			.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
-		return (
-			<section>
-				<div class="section-header">
-					<p class="eyebrow">{group.emoji} {group.label}</p>
-				</div>
-				{entries.length === 0 ? (
-					<p class="muted">No entries yet — check back soon.</p>
-				) : (
-					<ul class="list-reset grid-auto">
-						{entries.map((post) => (
-							<BlogPost
-								url={post.url}
-								title={post.frontmatter.title}
-								description={post.frontmatter.description}
-								meta={`${group.label} · ${formatDate(post.frontmatter.pubDate)}`}
-								tags={post.frontmatter.tags}
-							/>
-						))}
-					</ul>
-				)}
-			</section>
-		);
-	})}
+	{grouped.map((group) => (
+		<section>
+			<div class="section-header">
+				<p class="eyebrow">{group.title}</p>
+				<p class="muted">{group.description}</p>
+			</div>
+			{group.entries.length === 0 ? (
+				<p class="muted">No entries yet — sketching in the notebook.</p>
+			) : (
+				<ul class="list-reset grid-auto">
+					{group.entries.map((post) => (
+						<BlogPost
+							url={post.url}
+							title={post.frontmatter.title}
+							description={post.frontmatter.description}
+							meta={`${post.frontmatter.status ?? ""} · ${new Date(post.frontmatter.pubDate).toLocaleDateString("en", {
+								month: "short",
+								year: "numeric",
+							})}`}
+						/>
+					))}
+				</ul>
+			)}
+		</section>
+	))}
 </BaseLayout>
+
+<style>
+	.tag-search {
+		display: grid;
+		gap: 0.6rem;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	}
+
+	.tag-search a {
+		text-decoration: none;
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+
+	.section-header {
+		margin-bottom: 0.6rem;
+	}
+</style>

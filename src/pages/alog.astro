@@ -4,9 +4,9 @@ import BlogPost from "../components/BlogPost.astro";
 
 const allPosts = await Astro.glob("./posts/yeahscience/*.md");
 const posts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
-const headTitle = "Notebook";
-const pageTitle = "Notebook";
-const lede = "Lecture notes, research reflections, and essays that trace how I'm learning in public.";
+const headTitle = "Notes";
+const pageTitle = "Notes";
+const lede = "Study notes that track probability, information theory, ML, and everything adjacent.";
 
 const tagCounts = posts
 	.map((post) => post.frontmatter.tags ?? [])
@@ -15,9 +15,21 @@ const tagCounts = posts
 		acc[tag] = (acc[tag] ?? 0) + 1;
 		return acc;
 	}, {});
-const sortedTags = Object.entries(tagCounts)
-	.sort((a, b) => b[1] - a[1])
-	.slice(0, 12);
+const tags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+
+const collections = [
+	{
+		title: "Probability I · II · III",
+		description: "A rolling series of measure, convergence, and stochastic process notes.",
+		status: "upcoming",
+	},
+	{
+		title: "Information Theory Pack",
+		description: "From Shannon to modern cross-entropy recipes, tidied into one thread.",
+		status: "drafting",
+	},
+];
+
 const formatDate = (value) =>
 	new Date(value).toLocaleDateString("en", {
 		month: "long",
@@ -28,10 +40,20 @@ const formatDate = (value) =>
 
 <BaseLayout pageTitle={pageTitle} headTitle={headTitle} lede={lede}>
 	<section>
-		<div class="section-header">
-			<p class="eyebrow">Latest entries</p>
-			<p class="muted">Everything sorted chronologically — the newest reflections live at the top.</p>
+		<p class="eyebrow">Browse by tag</p>
+		<div class="tag-search">
+			{tags.map(([tag, count]) => (
+				<a href={`/tags/${tag}`} class="surface-card">
+					<span>{tag}</span>
+					<span class="muted">{count} entries</span>
+				</a>
+			))}
 		</div>
+	</section>
+
+	<section>
+		<p class="eyebrow">Latest notes</p>
+		<p class="muted">New entries land here first. Everything is reverse-chronological.</p>
 		<ul class="list-reset column-list">
 			{posts.map((post) => (
 				<BlogPost
@@ -45,54 +67,41 @@ const formatDate = (value) =>
 		</ul>
 	</section>
 
-	<section class="two-col">
-		<div>
-			<p class="eyebrow">Tag cloud</p>
-			<ul class="list-reset tag-cloud">
-				{sortedTags.map(([tag, count]) => (
-					<li>
-						<a href={`/tags/${tag}`}>{tag}</a>
-						<span>{count}</span>
-					</li>
-				))}
-			</ul>
-		</div>
-		<div>
-			<p class="eyebrow">RSS</p>
-			<p>
-				The notebook is best read through an RSS reader. Subscribe at <a href="/rss.xml">/rss.xml</a> or use the navigation links to filter by
-				tags.
-			</p>
+	<section>
+		<p class="eyebrow">Collections (in progress)</p>
+		<div class="collections">
+			{collections.map((collection) => (
+				<div class="surface-card">
+					<p class="pill">{collection.status}</p>
+					<h3>{collection.title}</h3>
+					<p>{collection.description}</p>
+				</div>
+			))}
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
-	.column-list li + li {
-		margin-top: 0.8rem;
+	.tag-search {
+		display: grid;
+		gap: 0.6rem;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 	}
 
-	.tag-cloud {
+	.tag-search a {
+		text-decoration: none;
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0.2rem;
 	}
 
-	.tag-cloud li {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0.4rem 0;
-		border-bottom: 1px solid var(--border-subtle);
+	.column-list li + li {
+		margin-top: 0.6rem;
 	}
 
-	.tag-cloud a {
-		text-decoration: none;
-		color: var(--text-secondary);
-	}
-
-	.tag-cloud span {
-		font-size: 0.85rem;
-		color: var(--text-muted);
+	.collections {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 	}
 </style>

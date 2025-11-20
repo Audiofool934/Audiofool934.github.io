@@ -4,6 +4,8 @@ import AudioshowPost from "../components/AudioshowPost.astro";
 
 const allPosts = await Astro.glob("./posts/audioshow/*.md");
 const posts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+const latestEpisode = posts[0];
+const archive = posts.slice(1);
 const headTitle = "Audioshow";
 const pageTitle = "Audioshow";
 const lede = "A hand-built radio diary — 200 episodes of quotes, riffs, and late-night selections.";
@@ -46,6 +48,19 @@ const favorites = [
 		<img src="/images/audioshow/audioshow.png" alt="Audioshow badge" class="audio-badge" loading="lazy" />
 	</section>
 
+	{latestEpisode && (
+		<section>
+			<p class="eyebrow">Latest episode</p>
+			<article class="latest-card surface-card">
+				<p class="pill">EP {latestEpisode.frontmatter.episode}</p>
+				<h2>{latestEpisode.frontmatter.title}</h2>
+				<p class="muted">{new Date(latestEpisode.frontmatter.pubDate).toLocaleDateString("en", { month: "long", day: "numeric", year: "numeric" })}</p>
+				<p>{latestEpisode.frontmatter.description ?? "Fresh from the midnight session."}</p>
+				<a class="cta-link" href={latestEpisode.url}>Listen / read notes ↗</a>
+			</article>
+		</section>
+	)}
+
 	<section>
 		<p class="eyebrow">Featured selections</p>
 		<ul class="list-reset favorite-list">
@@ -63,7 +78,7 @@ const favorites = [
 	<section>
 		<p class="eyebrow">Episode archive</p>
 		<ul class="list-reset grid-auto">
-			{posts.map((post) => (
+			{archive.map((post) => (
 				<AudioshowPost
 					url={post.url}
 					episode={post.frontmatter.episode}
@@ -99,6 +114,23 @@ const favorites = [
 
 	.favorite-list li {
 		padding: 1rem;
+	}
+
+	.latest-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		padding: 1.8rem;
+	}
+
+	.cta-link {
+		color: var(--accent);
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.cta-link:hover {
+		text-decoration: underline;
 	}
 
 	.inline {

@@ -3,38 +3,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 import AudioshowPost from "../components/AudioshowPost.astro";
 
-const notebookPosts = (await Astro.glob("./posts/yeahscience/*.md"))
+const notesPosts = (await Astro.glob("./posts/yeahscience/*.md"))
 	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-	.slice(0, 3);
+	.slice(0, 4);
 
 const projectPosts = (await Astro.glob("./posts/projects/*.md"))
 	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-	.slice(0, 2);
+	.slice(0, 4);
 
-const listeningPosts = (await Astro.glob("./posts/audioshow/*.md"))
-	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-	.slice(0, 2);
-
-const listeningNow = [
-	{
-		title: "From Zero",
-		artist: "Linkin Park",
-		link: "https://music.apple.com/album/from-zero/1766137049",
-		notes: "demo reels, rough edges, pure nostalgia.",
-	},
-	{
-		title: "American Beauty",
-		artist: "Grateful Dead",
-		link: "https://music.apple.com/album/american-beauty/664831661",
-		notes: "acoustic warmth for long Markdown nights.",
-	},
-	{
-		title: "Use Your Illusion I",
-		artist: "Guns N' Roses",
-		link: "https://music.apple.com/album/use-your-illusion-i/1440896026",
-		notes: "maximal guitars, minimal patience required.",
-	},
-];
+const audioshowEpisodes = (await Astro.glob("./posts/audioshow/*.md"))
+	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+const latestAudioshow = audioshowEpisodes[0];
+const supportingEpisodes = audioshowEpisodes.slice(1, 3);
 
 const photoStories = [
 	{
@@ -57,9 +37,30 @@ const photoStories = [
 	},
 ];
 
+const focusSignals = [
+	"Statistical thinking applied to multimodal AIGC + audio.",
+	"Better note-taking systems for bilingual writing.",
+	"Compact-camera workflows with fast publishing.",
+];
+
+const nowSignals = [
+	{
+		title: "From Zero",
+		context: "Linkin Park · demo reels",
+	},
+	{
+		title: "American Beauty",
+		context: "Grateful Dead · acoustic focus",
+	},
+	{
+		title: "Use Your Illusion I",
+		context: "Guns N' Roses · maximal guitars",
+	},
+];
+
 const headTitle = "Audiofool";
 const pageTitle = "Audiofool Studio";
-const description = "Rebooting my personal blog to document academic work, photography experiments, and music logs.";
+const description = "Projects, notes, photography, and Audioshow logs from Audiofool.";
 const formatDate = (value) =>
 	new Date(value).toLocaleDateString("en", {
 		month: "short",
@@ -73,24 +74,43 @@ const formatDate = (value) =>
 		<p class="eyebrow">Reboot · 2024</p>
 		<h1>极简又迅捷的个人实验室 — 写作、摄影与声音。</h1>
 		<p class="lede">
-			Hello, I'm Audiofool. This space is my academic notebook, travel camera roll, and listening diary —
-			minimal surface, fast pages, intentional stories.
+			Hello, I'm Audiofool. This is the control room for my projects, study notes, camera rolls, and Audioshow episodes — minimal surfaces, intentional stories.
 		</p>
 		<div class="meta-line">
-			<span>📚 stats / ML / audio research</span>
-			<span>📷 film & compact digital photography</span>
-			<span>🎧 weekly audioshow log</span>
+			<span>📁 projects first</span>
+			<span>📝 notes and collections</span>
+			<span>📷 roaming cameras</span>
+			<span>🎧 weekly audioshow</span>
 		</div>
 	</section>
 
 	<section>
 		<div class="section-header">
-			<p class="eyebrow">Notebook</p>
-			<h2>Academic notes & discussions</h2>
-			<p class="muted">Fresh summaries from lectures, paper clubs, and learning sprints.</p>
+			<p class="eyebrow">Projects</p>
+			<h2>Shipping-focused experiments</h2>
+			<p class="muted">Research tools, AI4Music prototypes, and long-form build logs.</p>
 		</div>
 		<ul class="list-reset grid-auto">
-			{notebookPosts.map((post) => (
+			{projectPosts.map((post) => (
+				<BlogPost
+					url={post.url}
+					title={post.frontmatter.title}
+					description={post.frontmatter.description}
+					meta={`${post.frontmatter.status ?? ""}`}
+				/>
+			))}
+		</ul>
+		<a class="cta-link" href="/projects/">Browse every project ↗</a>
+	</section>
+
+	<section>
+		<div class="section-header">
+			<p class="eyebrow">Notes</p>
+			<h2>Rigorous study logs</h2>
+			<p class="muted">Lecture reflections, paper clubs, and bilingual study notes.</p>
+		</div>
+		<ul class="list-reset column-list">
+			{notesPosts.map((post) => (
 				<BlogPost
 					url={post.url}
 					title={post.frontmatter.title}
@@ -100,57 +120,16 @@ const formatDate = (value) =>
 				/>
 			))}
 		</ul>
-		<a class="cta-link" href="/alog/">Browse the full notebook ↗</a>
-	</section>
-
-	<section class="two-col">
-		<div>
-			<div class="section-header">
-				<p class="eyebrow">Projects</p>
-				<h2>Work-in-progress ideas</h2>
-			</div>
-			<ul class="list-reset grid-auto">
-				{projectPosts.map((post) => (
-					<BlogPost
-						url={post.url}
-						title={post.frontmatter.title}
-						description={post.frontmatter.description}
-						meta={post.frontmatter.status}
-					/>
-				))}
-			</ul>
-			<a class="cta-link" href="/projects/">See every project ↗</a>
-		</div>
-		<div>
-			<div class="section-header">
-				<p class="eyebrow">Now Playing</p>
-				<h2>Listening log</h2>
-			</div>
-			<ul class="list-reset grid-auto">
-				{listeningPosts.map((post) => (
-					<AudioshowPost url={post.url} title={post.frontmatter.title} episode={post.frontmatter.episode} pubDate={post.frontmatter.pubDate} />
-				))}
-			</ul>
-			<ul class="list-reset now-list">
-				{listeningNow.map((entry) => (
-					<li>
-						<a href={entry.link} target="_blank" rel="noopener noreferrer">
-							<strong>{entry.title}</strong> — {entry.artist}
-						</a>
-						<p class="muted">{entry.notes}</p>
-					</li>
-				))}
-			</ul>
-		</div>
+		<a class="cta-link" href="/alog/">Open the notes library ↗</a>
 	</section>
 
 	<section>
 		<div class="section-header">
-			<p class="eyebrow">Field Notes</p>
-			<h2>Photography stories</h2>
-			<p class="muted">Small essays without words — just light, contrast, and memory triggers.</p>
+			<p class="eyebrow">Photography</p>
+			<h2>Field notes in light</h2>
+			<p class="muted">Visual logs that pair film/digital captures with research days.</p>
 		</div>
-		<div class="photo-grid">
+		<div class="photo-track">
 			{photoStories.map((story) => (
 				<div class="photo-card surface-card" style={`background: radial-gradient(circle at top, ${story.palette[1]}22, transparent), ${story.palette[0]};`}>
 					<p class="pill">{story.context}</p>
@@ -159,26 +138,66 @@ const formatDate = (value) =>
 				</div>
 			))}
 		</div>
-		<a class="cta-link" href="/photography/">Open the photo journal ↗</a>
+		<a class="cta-link" href="/photography/">View photography plans ↗</a>
 	</section>
 
-	<section class="two-col focus">
+	<section>
+		<div class="section-header">
+			<p class="eyebrow">Audioshow</p>
+			<h2>Latest broadcast + archive</h2>
+			<p class="muted">One PNG poster, six tracks, and a lyric per episode.</p>
+		</div>
+		<div class="audioshow-stack">
+			{latestAudioshow && (
+				<article class="latest-audio surface-card">
+					<p class="pill">New</p>
+					<h3>{latestAudioshow.frontmatter.title}</h3>
+					<p class="muted">EP {latestAudioshow.frontmatter.episode}</p>
+					<p>{latestAudioshow.frontmatter.description ?? "Fresh pull from the midnight queue."}</p>
+					<a class="cta-link" href={latestAudioshow.url}>Play this episode ↗</a>
+				</article>
+			)}
+			<ul class="list-reset grid-auto">
+				{supportingEpisodes.map((post) => (
+					<AudioshowPost
+						url={post.url}
+						episode={post.frontmatter.episode}
+						pubDate={post.frontmatter.pubDate}
+						title={post.frontmatter.title}
+					/>
+				))}
+			</ul>
+		</div>
+		<a class="cta-link" href="/audioshow/">Full Audioshow archive ↗</a>
+	</section>
+
+	<section class="two-col signals">
 		<div>
 			<p class="eyebrow">Focus</p>
-			<h2>What I'm exploring</h2>
 			<ul class="list-reset focus-list">
-				<li>Statistical thinking applied to multimodal AIGC + audio.</li>
-				<li>Better note-taking systems for bilingual writing.</li>
-				<li>Compact-camera workflows with fast publishing.</li>
+				{focusSignals.map((item) => (
+					<li>{item}</li>
+				))}
 			</ul>
 		</div>
 		<div>
-			<p class="eyebrow">Stay Updated</p>
-			<p class="muted">
-				Grab the <a href="/rss.xml">RSS feed</a> or stop by <a href="/about/">about</a> for ways to reach me. No mailing list yet, just
-				pure RSS and occasional DMs.
-			</p>
+			<p class="eyebrow">Now</p>
+			<ul class="list-reset now-list">
+				{nowSignals.map((entry) => (
+					<li>
+						<strong>{entry.title}</strong>
+						<p class="muted">{entry.context}</p>
+					</li>
+				))}
+			</ul>
 		</div>
+	</section>
+
+	<section class="stay-updated">
+		<p class="eyebrow">Stay Updated</p>
+		<p class="muted">
+			Grab the <a href="/rss.xml">RSS feed</a>, drop by <a href="/about/">about</a> for contact, or ping me on social if you prefer short updates.
+		</p>
 	</section>
 </BaseLayout>
 
@@ -207,12 +226,11 @@ const formatDate = (value) =>
 		text-decoration: underline;
 	}
 
-	.now-list li {
-		padding: 0.6rem 0;
-		border-bottom: 1px solid var(--border-subtle);
+	.column-list li + li {
+		margin-top: 0.6rem;
 	}
 
-	.photo-grid {
+	.photo-track {
 		display: grid;
 		gap: 1rem;
 		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -229,12 +247,54 @@ const formatDate = (value) =>
 		color: #fefefe;
 	}
 
-	.focus-list li {
+	.audioshow-stack {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.latest-audio {
+		padding: 1.6rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.signals {
+		align-items: flex-start;
+	}
+
+	.focus-list li,
+	.now-list li {
 		padding: 0.4rem 0;
 		color: var(--text-secondary);
 	}
 
-	.focus {
-		align-items: flex-start;
+	.now-list li {
+		border-bottom: 1px solid var(--border-subtle);
+	}
+
+	.stay-updated {
+		margin-top: 1rem;
+		padding: 1.2rem;
+		border: 1px dashed var(--border-subtle);
+		border-radius: var(--radius-lg);
+	}
+
+	@media (max-width: 720px) {
+		.photo-track {
+			display: flex;
+			gap: 0.8rem;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+		}
+
+		.photo-card {
+			min-width: 240px;
+			scroll-snap-align: start;
+		}
+
+		.audioshow-stack {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>
