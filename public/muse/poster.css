@@ -177,8 +177,8 @@ body {
 /* ==================== CONTENT GRID ==================== */
 .content-grid {
     display: grid;
-    /* Auto-fit with flexible column widths: min 380px, max 1fr */
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    /* Auto-fit with flexible column widths: min 380px, max 3 columns */
+    grid-template-columns: repeat(auto-fit, minmax(max(400px, calc(100% / 3 - var(--spacing-xl))), 1fr));
     gap: var(--spacing-xl);
 }
 
