@@ -1,41 +1,21 @@
-<button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-	<span class="icon sun" aria-hidden="true">☼</span>
-	<span class="icon moon" aria-hidden="true">○</span>
+<button
+	id="themeToggle"
+	class="p-2 rounded-lg transition-colors text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-text-muted dark:hover:text-text-main dark:hover:bg-surface"
+	aria-label="Toggle theme"
+>
+	<span class="icon sun inline-flex text-lg dark:hidden" aria-hidden="true"
+		>☼</span
+	>
+	<span class="icon moon hidden text-lg dark:inline-flex" aria-hidden="true"
+		>○</span
+	>
 </button>
 
-<style>
-	button {
-		font-size: 1rem;
-	}
-
-	.icon {
-		font-size: 0.95rem;
-		display: none;
-		color: var(--text-secondary);
-	}
-
-	.sun {
-		display: inline-flex;
-	}
-
-	:global(.dark) .sun {
-		display: none;
-	}
-
-	:global(.dark) .moon {
-		display: inline-flex;
-	}
-</style>
-
 <script is:inline>
+	// Theme toggle functionality - initialization happens in BaseLayout <head>
 	if (typeof window !== "undefined") {
 		const element = document.documentElement;
 		const storageKey = "theme";
-		const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-		const storedTheme = localStorage.getItem(storageKey);
-		const initialTheme = storedTheme ?? (prefersDark.matches ? "dark" : "light");
-
-		element.classList.toggle("dark", initialTheme === "dark");
 
 		const toggleButton = document.getElementById("themeToggle");
 		const toggleTheme = () => {

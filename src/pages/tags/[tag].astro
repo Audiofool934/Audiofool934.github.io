@@ -1,13 +1,18 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogPost from "../../components/BlogPost.astro";
 
 export async function getStaticPaths() {
-	const allPosts = await Astro.glob("../posts/*/*.md");
+	const projects = await getCollection("projects");
+	const notes = await getCollection("notes");
+	const audioshow = await getCollection("audioshow");
+
+	const allPosts = [...projects, ...notes, ...audioshow];
 	const tagMap = new Map();
 
 	allPosts.forEach((post) => {
-		(post.frontmatter.tags ?? []).forEach((tag) => {
+		(post.data.tags ?? []).forEach((tag) => {
 			if (!tagMap.has(tag)) tagMap.set(tag, []);
 			tagMap.get(tag).push(post);
 		});
@@ -21,21 +26,37 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-const sortedPosts = posts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+const sortedPosts = posts.sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
 ---
 
-<BaseLayout pageTitle={`#${tag}`} headTitle={`Tag: ${tag}`} lede={`Every post that mentions ${tag}.`}>
+<BaseLayout
+	pageTitle={`#${tag}`}
+	headTitle={`Tag: ${tag}`}
+	lede={`Every post that mentions ${tag}.`}
+>
 	<section>
 		<ul class="list-reset grid-auto">
-			{sortedPosts.map((post) => (
-				<BlogPost
-					url={post.url}
-					title={post.frontmatter.title}
-					description={post.frontmatter.description}
-					meta={new Date(post.frontmatter.pubDate).toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" })}
-					tags={post.frontmatter.tags}
-				/>
-			))}
+			{
+				sortedPosts.map((post) => {
+					const collection = post.collection;
+					const url = `/${collection === "notes" ? "notes" : collection}/${post.slug}/`;
+					return (
+						<BlogPost
+							url={url}
+							title={post.data.title}
+							description={post.data.description}
+							meta={post.data.pubDate.toLocaleDateString("en", {
+								month: "short",
+								day: "numeric",
+								year: "numeric",
+							})}
+							tags={post.data.tags}
+						/>
+					);
+				})
+			}
 		</ul>
 	</section>
 </BaseLayout>

@@ -1,14 +1,18 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AudioshowPost from "../components/AudioshowPost.astro";
 
-const allPosts = await Astro.glob("./posts/audioshow/*.md");
-const posts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+const allPosts = await getCollection("audioshow");
+const posts = allPosts.sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
 const latestEpisode = posts[0];
 const archive = posts.slice(1);
 const headTitle = "Audioshow";
 const pageTitle = "Audioshow";
-const lede = "A hand-built radio diary — 200 episodes of quotes, riffs, and late-night selections.";
+const lede =
+	"A hand-built radio diary — 200 episodes of quotes, riffs, and late-night selections.";
 const favorites = [
 	{
 		title: "From Zero",
@@ -36,8 +40,9 @@ const favorites = [
 		<div>
 			<p class="eyebrow">What is Audioshow?</p>
 			<p>
-				A weekly set of six songs wrapped in a lyric, a quote, or a sample. Each entry is one PNG poster plus Markdown notes — portable, light,
-				and friendly to RSS.
+				A weekly set of six songs wrapped in a lyric, a quote, or a
+				sample. Each entry is one PNG poster plus Markdown notes —
+				portable, light, and friendly to RSS.
 			</p>
 			<ul class="list-reset meta-line inline">
 				<li>200+ episodes since 2022</li>
@@ -45,105 +50,93 @@ const favorites = [
 				<li>Recorded midnight, published at dawn</li>
 			</ul>
 		</div>
-		<img src="/images/audioshow/audioshow.png" alt="Audioshow badge" class="audio-badge" loading="lazy" />
+		<img
+			src="/images/audioshow/audioshow.png"
+			alt="Audioshow badge"
+			class="audio-badge"
+			loading="lazy"
+		/>
 	</section>
 
-	{latestEpisode && (
-		<section>
-			<p class="eyebrow">Latest episode</p>
-			<article class="latest-card surface-card">
-				<p class="pill">EP {latestEpisode.frontmatter.episode}</p>
-				<h2>{latestEpisode.frontmatter.title}</h2>
-				<p class="muted">{new Date(latestEpisode.frontmatter.pubDate).toLocaleDateString("en", { month: "long", day: "numeric", year: "numeric" })}</p>
-				<p>{latestEpisode.frontmatter.description ?? "Fresh from the midnight session."}</p>
-				<a class="cta-link" href={latestEpisode.url}>Listen / read notes ↗</a>
-			</article>
-		</section>
-	)}
+	{
+		latestEpisode && (
+			<section>
+				<p class="eyebrow">Latest episode</p>
+				<article class="latest-card surface-card">
+					<p class="pill">EP {latestEpisode.data.episode}</p>
+					<h2>{latestEpisode.data.title}</h2>
+					<p class="muted">
+						{latestEpisode.data.pubDate.toLocaleDateString("en", {
+							month: "long",
+							day: "numeric",
+							year: "numeric",
+						})}
+					</p>
+					<p>
+						{latestEpisode.data.description ??
+							"Fresh from the midnight session."}
+					</p>
+					<a
+						class="cta-link"
+						href={`/audioshow/${latestEpisode.slug}/`}
+					>
+						Listen / read notes ↗
+					</a>
+				</article>
+			</section>
+		)
+	}
 
 	<section>
 		<p class="eyebrow">Featured selections</p>
 		<ul class="list-reset favorite-list">
-			{favorites.map((pick) => (
-				<li class="surface-card">
-					<a href={pick.link} target="_blank" rel="noopener noreferrer">
-						<strong>{pick.title}</strong> — {pick.artist}
-					</a>
-					<p class="muted">{pick.notes}</p>
-				</li>
-			))}
+			{
+				favorites.map((pick) => (
+					<li class="surface-card">
+						<a
+							href={pick.link}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<strong>{pick.title}</strong> — {pick.artist}
+						</a>
+						<p class="muted">{pick.notes}</p>
+					</li>
+				))
+			}
 		</ul>
 	</section>
 
 	<section>
 		<p class="eyebrow">Episode archive</p>
 		<ul class="list-reset grid-auto">
-			{archive.map((post) => (
-				<AudioshowPost
-					url={post.url}
-					episode={post.frontmatter.episode}
-					pubDate={post.frontmatter.pubDate}
-					title={post.frontmatter.title}
-				/>
-			))}
+			{
+				archive.map((post) => (
+					<AudioshowPost
+						url={`/audioshow/${post.slug}/`}
+						episode={post.data.episode}
+						pubDate={post.data.pubDate}
+						title={post.data.title}
+					/>
+				))
+			}
 		</ul>
-		<img src="/images/audioshow/audioshow_poster.png" alt="Audioshow poster" class="audio-poster" loading="lazy" />
+		<img
+			src="/images/audioshow/audioshow_poster.png"
+			alt="Audioshow poster"
+			class="audio-poster"
+			loading="lazy"
+		/>
 	</section>
 </BaseLayout>
 
 <style>
-	.audio-hero {
-		display: grid;
-		grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-		gap: 1.5rem;
-		align-items: center;
-	}
-
-	.audio-badge,
-	.audio-poster {
-		width: 100%;
-		border-radius: var(--radius-lg);
-		border: 1px solid var(--border-subtle);
-		box-shadow: var(--shadow-soft);
-	}
-
-	.favorite-list {
-		display: grid;
-		gap: 0.8rem;
-	}
-
-	.favorite-list li {
-		padding: 1rem;
-	}
-
 	.latest-card {
-		display: flex;
-		flex-direction: column;
-		gap: 0.6rem;
-		padding: 1.8rem;
+		padding: 2.5rem;
 	}
 
-	.cta-link {
-		color: var(--accent);
-		font-weight: 600;
-		text-decoration: none;
-	}
-
-	.cta-link:hover {
-		text-decoration: underline;
-	}
-
-	.inline {
-		gap: 0.5rem;
-	}
-
-	.audio-poster {
-		margin-top: 1.5rem;
-	}
-
-	@media (max-width: 720px) {
-		.audio-hero {
-			grid-template-columns: 1fr;
-		}
+	.audio-badge {
+		max-width: 320px;
+		margin: 0 auto;
 	}
 </style>

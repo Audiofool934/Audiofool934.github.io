@@ -1,6 +1,5 @@
 ---
 const navItems = [
-	{ href: "/", label: "Home" },
 	{ href: "/projects/", label: "Projects" },
 	{ href: "/alog/", label: "Notes" },
 	{ href: "/photography/", label: "Photography" },
@@ -10,13 +9,130 @@ const navItems = [
 
 const normalize = (path) => (path.endsWith("/") ? path : `${path}/`);
 const currentPath = normalize(Astro.url?.pathname ?? "/");
-const isActive = (href) => (href === "/" ? currentPath === "/" : currentPath.startsWith(normalize(href)));
+const isActive = (href) => currentPath.startsWith(normalize(href));
 ---
 
-<ul class="nav-links">
-	{navItems.map(({ href, label }) => (
-		<li>
-			<a href={href} aria-current={isActive(href) ? "page" : undefined}>{label}</a>
-		</li>
-	))}
+<!-- Desktop Navigation -->
+<ul class="hidden md:flex items-center gap-1">
+	{
+		navItems.map(({ href, label }) => (
+			<li>
+				<a
+					href={href}
+					aria-current={isActive(href) ? "page" : undefined}
+					class="nav-link"
+					data-active={isActive(href)}
+				>
+					{label}
+				</a>
+			</li>
+		))
+	}
 </ul>
+
+<!-- Mobile Navigation -->
+<details class="md:hidden relative">
+	<summary class="nav-mobile-trigger">
+		<svg
+			width="20"
+			height="20"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+		>
+			<line x1="3" y1="6" x2="21" y2="6"></line>
+			<line x1="3" y1="12" x2="21" y2="12"></line>
+			<line x1="3" y1="18" x2="21" y2="18"></line>
+		</svg>
+	</summary>
+	<div class="nav-mobile-dropdown">
+		<ul>
+			{
+				navItems.map(({ href, label }) => (
+					<li>
+						<a
+							href={href}
+							aria-current={isActive(href) ? "page" : undefined}
+							class="nav-mobile-link"
+							data-active={isActive(href)}
+						>
+							{label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</details>
+
+<style>
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.nav-link {
+		display: block;
+		padding: 0.5rem 0.75rem;
+		font-size: 0.875rem;
+		font-weight: 500;
+		border-radius: 0.5rem;
+		color: var(--text-muted);
+		transition: all 0.2s ease;
+	}
+
+	.nav-link:hover {
+		color: var(--text-primary);
+		background: var(--bg-muted);
+	}
+
+	.nav-link[data-active="true"] {
+		color: var(--primary);
+	}
+
+	.nav-mobile-trigger {
+		display: flex;
+		align-items: center;
+		padding: 0.5rem;
+		border-radius: 0.5rem;
+		color: var(--text-muted);
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.nav-mobile-trigger:hover {
+		color: var(--text-primary);
+		background: var(--bg-muted);
+	}
+
+	.nav-mobile-dropdown {
+		position: absolute;
+		right: 0;
+		margin-top: 0.5rem;
+		width: 12rem;
+		border-radius: 0.75rem;
+		border: 1px solid var(--border-subtle);
+		background: var(--bg-surface);
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+		padding: 0.5rem;
+	}
+
+	.nav-mobile-link {
+		display: block;
+		padding: 0.625rem 0.875rem;
+		font-size: 0.875rem;
+		border-radius: 0.5rem;
+		color: var(--text-secondary);
+		transition: all 0.2s ease;
+	}
+
+	.nav-mobile-link:hover {
+		color: var(--text-primary);
+		background: var(--bg-muted);
+	}
+
+	.nav-mobile-link[data-active="true"] {
+		color: var(--primary);
+		font-weight: 600;
+	}
+</style>

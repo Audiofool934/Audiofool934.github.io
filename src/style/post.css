@@ -1,19 +1,52 @@
+/* --------------------- Post Article --------------------- */
 article.post {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  animation: fadeInUp 0.6s ease-out;
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------- Post Header --------------------- */
 .post-header {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .post-header h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
+.lede {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.meta-line {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* --------------------- Tags --------------------- */
 .tag-row {
   display: flex;
   gap: 0.5rem;
@@ -22,23 +55,25 @@ article.post {
 
 .tag-row a {
   display: inline-flex;
-  padding: 0.15rem 0.65rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 999px;
-  border: 1px solid var(--border-subtle);
+  background: var(--bg-muted);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--text-secondary);
-  transition: border 120ms ease, color 120ms ease;
+  transition: all 0.2s ease;
 }
 
 .tag-row a:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
 }
 
+/* --------------------- Cover Image --------------------- */
 .post-cover {
-  margin: 1rem 0 0;
-  border-radius: var(--radius-lg);
+  margin: 0.5rem 0 0;
+  border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid var(--border-subtle);
 }
@@ -50,24 +85,153 @@ article.post {
 }
 
 .post-cover figcaption {
-  padding: 0.6rem 0.9rem;
+  padding: 0.75rem 1rem;
   font-size: 0.85rem;
+  color: var(--text-muted);
+  background: var(--bg-muted);
+}
+
+/* --------------------- Post Content --------------------- */
+.post-content {
+  max-width: 65ch;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.post-content :global(p) {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.post-content :global(p:last-child) {
+  margin-bottom: 0;
+}
+
+/* Headings */
+.post-content :global(h2) {
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.post-content :global(h3) {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.post-content :global(h4) {
+  font-size: 1.125rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Lists */
+.post-content :global(ul),
+.post-content :global(ol) {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.post-content :global(li) {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.post-content :global(li)::marker {
+  color: var(--accent);
+}
+
+/* Links */
+.post-content :global(a) {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.post-content :global(a:hover) {
+  color: var(--accent);
+}
+
+/* Images */
+.post-content :global(img) {
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  margin: 2rem 0;
+}
+
+/* Blockquotes */
+.post-content :global(blockquote) {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
   color: var(--text-muted);
 }
 
-.post-content :global(img) {
-  max-width: 100%;
-  border-radius: 16px;
-  border: 1px solid var(--border-subtle);
-  margin: 1.5rem 0;
+.post-content :global(blockquote p) {
+  margin-bottom: 0;
 }
 
-.post-content :global(p),
-.post-content :global(li) {
+/* Code inline */
+.post-content :global(code:not(pre code)) {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.875em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: var(--bg-muted);
+  color: var(--accent);
+}
+
+/* Code blocks */
+.post-content :global(pre) {
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Tables */
+.post-content :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.post-content :global(th),
+.post-content :global(td) {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-subtle);
+  text-align: left;
+}
+
+.post-content :global(th) {
+  background: var(--bg-muted);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.post-content :global(td) {
   color: var(--text-secondary);
 }
 
-.post-content :global(h2),
-.post-content :global(h3) {
-  margin-top: 2rem;
+/* Horizontal rule */
+.post-content :global(hr) {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: 3rem 0;
+}
+
+/* KaTeX specific adjustments */
+.post-content :global(.katex-display) {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.post-content :global(.katex) {
+  font-size: 1.1em;
 }

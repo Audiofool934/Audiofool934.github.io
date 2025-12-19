@@ -1,15 +1,19 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 
-const allPosts = await Astro.glob("./posts/yeahscience/*.md");
-const posts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+const allPosts = await getCollection("notes");
+const posts = allPosts.sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
 const headTitle = "Notes";
 const pageTitle = "Notes";
-const lede = "Study notes that track probability, information theory, ML, and everything adjacent.";
+const lede =
+	"Study notes that track probability, information theory, ML, and everything adjacent.";
 
 const tagCounts = posts
-	.map((post) => post.frontmatter.tags ?? [])
+	.map((post) => post.data.tags ?? [])
 	.flat()
 	.reduce((acc, tag) => {
 		acc[tag] = (acc[tag] ?? 0) + 1;
@@ -20,12 +24,14 @@ const tags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
 const collections = [
 	{
 		title: "Probability I · II · III",
-		description: "A rolling series of measure, convergence, and stochastic process notes.",
+		description:
+			"A rolling series of measure, convergence, and stochastic process notes.",
 		status: "upcoming",
 	},
 	{
 		title: "Information Theory Pack",
-		description: "From Shannon to modern cross-entropy recipes, tidied into one thread.",
+		description:
+			"From Shannon to modern cross-entropy recipes, tidied into one thread.",
 		status: "drafting",
 	},
 ];
@@ -42,41 +48,49 @@ const formatDate = (value) =>
 	<section>
 		<p class="eyebrow">Browse by tag</p>
 		<div class="tag-search">
-			{tags.map(([tag, count]) => (
-				<a href={`/tags/${tag}`} class="surface-card">
-					<span>{tag}</span>
-					<span class="muted">{count} entries</span>
-				</a>
-			))}
+			{
+				tags.map(([tag, count]) => (
+					<a href={`/tags/${tag}`} class="surface-card">
+						<span>{tag}</span>
+						<span class="muted">{count} entries</span>
+					</a>
+				))
+			}
 		</div>
 	</section>
 
 	<section>
 		<p class="eyebrow">Latest notes</p>
-		<p class="muted">New entries land here first. Everything is reverse-chronological.</p>
+		<p class="muted">
+			New entries land here first. Everything is reverse-chronological.
+		</p>
 		<ul class="list-reset column-list">
-			{posts.map((post) => (
-				<BlogPost
-					url={post.url}
-					title={post.frontmatter.title}
-					description={post.frontmatter.description}
-					meta={formatDate(post.frontmatter.pubDate)}
-					tags={post.frontmatter.tags}
-				/>
-			))}
+			{
+				posts.map((post) => (
+					<BlogPost
+						url={`/notes/${post.slug}/`}
+						title={post.data.title}
+						description={post.data.description}
+						meta={formatDate(post.data.pubDate)}
+						tags={post.data.tags}
+					/>
+				))
+			}
 		</ul>
 	</section>
 
 	<section>
 		<p class="eyebrow">Collections (in progress)</p>
 		<div class="collections">
-			{collections.map((collection) => (
-				<div class="surface-card">
-					<p class="pill">{collection.status}</p>
-					<h3>{collection.title}</h3>
-					<p>{collection.description}</p>
-				</div>
-			))}
+			{
+				collections.map((collection) => (
+					<div class="surface-card">
+						<p class="pill">{collection.status}</p>
+						<h3>{collection.title}</h3>
+						<p>{collection.description}</p>
+					</div>
+				))
+			}
 		</div>
 	</section>
 </BaseLayout>

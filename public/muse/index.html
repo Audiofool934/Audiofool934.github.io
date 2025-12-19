@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probabilistic Text-to-Music at Scale | Research Poster</title>
+    <link rel="stylesheet" href="poster.css">
+    <!-- MathJax for equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="poster">
+        <!-- ==================== HEADER ==================== -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="../deep_learning/media/muse.png" alt="MUSE Logo" class="logo">
+                </div>
+                <div class="title-section">
+                    <h1 class="main-title">Probabilistic Text-to-Music at Scale</h1>
+                    <h2 class="subtitle">Parallel Training & Batch Inference for Diverse Music Generation</h2>
+                    <p class="authors">Team MUSE | Parallel Computation Course Final Project</p>
+                </div>
+                <div class="institution">
+                    <a href="https://github.com/Audiofool934/t2m" target="_blank" class="github-link"
+                        title="View on GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                    <p>December 2025</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== MAIN CONTENT GRID ==================== -->
+        <main class="content-grid">
+
+            <!-- Section 1: Background & Idea -->
+            <section class="block block-background">
+                <div class="block-header">
+                    <span class="block-number">01</span>
+                    <h3>Background & Motivation</h3>
+                </div>
+                <div class="block-content">
+                    <h4 class="subsection-title">The One-to-Many Problem</h4>
+                    <div class="highlight-box">
+                        <p class="question">🎵 "A sad piano melody" → Infinite valid interpretations exist</p>
+                    </div>
+
+                    <div class="comparison">
+                        <div class="comparison-item bad">
+                            <h4>❌ Regression: \( Y = f(X) \)</h4>
+                            <ul>
+                                <li>Predicts <strong>E[Y|X]</strong> (mean)</li>
+                                <li>Blurry, mode-averaged output</li>
+                                <li>Cannot capture multimodality</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-item good">
+                            <h4>✓ Generative: \( p(Y|X) \)</h4>
+                            <ul>
+                                <li>Models full <strong>conditional distribution</strong></li>
+                                <li>Sample diverse, high-fidelity outputs</li>
+                                <li>Preserves creative ambiguity</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4 class="subsection-title">Parallel Computing Challenges</h4>
+                    <ul class="challenge-list">
+                        <li><strong>Memory-heavy:</strong> 1B+ param models require multi-GPU training</li>
+                        <li><strong>Compute-bound:</strong> 100-step ODE sampling dominates inference</li>
+                        <li><strong>I/O bottleneck:</strong> Audio data (44.1kHz stereo) is bandwidth-intensive</li>
+                    </ul>
+
+                    <div class="key-insight">
+                        <strong>Research Goal:</strong> End-to-end parallelization of a two-stage text-to-music pipeline
+                        with quantified scaling limits and reproducible benchmarks.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Architecture -->
+            <section class="block block-architecture">
+                <div class="block-header">
+                    <span class="block-number">02</span>
+                    <h3>Two-Stage Architecture</h3>
+                </div>
+                <div class="block-content">
+                    <div class="pipeline-image">
+                        <img src="pipeline.png" alt="Pipeline Architecture">
+                    </div>
+
+                    <div class="stage-cards">
+                        <div class="stage-card stage1">
+                            <div class="stage-badge">Stage 1: Semantic</div>
+                            <h4>Text2MuQFlow</h4>
+                            <p class="params">271M params | 16 layers × 1024 hidden</p>
+                            <ul>
+                                <li>Cross-attention Flow Matching</li>
+                                <li>Output: 512-dim MuQ-MuLan embedding</li>
+                                <li>50-step ODE (dopri5 solver)</li>
+                                <li>CFG scale: 3.0</li>
+                            </ul>
+                        </div>
+                        <div class="stage-card stage2">
+                            <div class="stage-badge">Stage 2: Acoustic</div>
+                            <h4>StableAudioMuQ</h4>
+                            <p class="params">1.05B params | 24-layer DiT</p>
+                            <ul>
+                                <li>Diffusion Transformer + CFG (2× forward)</li>
+                                <li>100-step ODE sampling</li>
+                                <li>Oobleck VAE decoder</li>
+                                <li>Output: 44.1kHz stereo, 47s</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4 class="subsection-title">Training Data</h4>
+                    <table class="compact-table">
+                        <tr>
+                            <td><strong>MusicBench</strong></td>
+                            <td>52K text-audio pairs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Music4All</strong></td>
+                            <td>109K tracks with metadata</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Preprocessing</strong></td>
+                            <td>Cached MuQ embeddings → decouple I/O</td>
+                        </tr>
+                    </table>
+
+                    <div class="design-rationale">
+                        <strong>Design Principle:</strong> Decouple stages for independent parallelization—Stage 1
+                        benefits from batching; Stage 2 is memory-bound.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Parallel Training -->
+            <section class="block block-training">
+                <div class="block-header">
+                    <span class="block-number">03</span>
+                    <h3>Distributed Training</h3>
+                </div>
+                <div class="block-content">
+                    <h4 class="subsection-title">Data Parallel Strategy</h4>
+                    <table class="compact-table">
+                        <tr>
+                            <td><strong>Framework</strong></td>
+                            <td>PyTorch DDP (DistributedDataParallel)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Launch</strong></td>
+                            <td><code>torchrun --nproc_per_node=4</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sampler</strong></td>
+                            <td>DistributedSampler with epoch-aware shuffling</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sync</strong></td>
+                            <td>AllReduce gradients + barrier for checkpoints</td>
+                        </tr>
+                    </table>
+
+                    <h4 class="subsection-title">Memory & Throughput Optimizations</h4>
+                    <div class="tech-badges">
+                        <span class="badge">Mixed Precision (bf16)</span>
+                        <span class="badge">Gradient Accumulation</span>
+                        <span class="badge">Gradient Clipping</span>
+                        <span class="badge">Cached Embeddings</span>
+                    </div>
+                    <ul class="optimization-list">
+                        <li><strong>bf16 AMP:</strong> ~50% memory reduction, faster matmuls on Ampere</li>
+                        <li><strong>Grad Accum:</strong> Effective batch = local_bs × n_gpus × accum_steps</li>
+                        <li><strong>Embedding Cache:</strong> Precompute MuQ → eliminate encoder cost</li>
+                    </ul>
+
+                    <h4 class="subsection-title">Training Summary</h4>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Stage</th>
+                                <th>GPUs</th>
+                                <th>Wall Time</th>
+                                <th>GPU-hrs</th>
+                                <th>Best Loss</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Stage 1</td>
+                                <td>2×A800</td>
+                                <td>~8.2h</td>
+                                <td>~16</td>
+                                <td>0.0569</td>
+                            </tr>
+                            <tr>
+                                <td>Stage 2</td>
+                                <td>4×A800</td>
+                                <td>~32h</td>
+                                <td>~128</td>
+                                <td>1.078</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="loss-curves">
+                        <figure>
+                            <img src="stage1_loss.svg" alt="Stage 1 Loss Curve">
+                            <figcaption>Stage 1: 39K steps</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="stage2_loss.svg" alt="Stage 2 Loss Curve">
+                            <figcaption>Stage 2: 63 epochs</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Batch Inference -->
+            <section class="block block-inference">
+                <div class="block-header">
+                    <span class="block-number">04</span>
+                    <h3>Batch Inference Acceleration</h3>
+                </div>
+                <div class="block-content">
+                    <h4 class="subsection-title">Throughput Comparison</h4>
+                    <div class="speedup-hero">
+                        <div class="speedup-card highlight">
+                            <div class="speedup-stage">Stage 1</div>
+                            <div class="speedup-value">15×</div>
+                            <div class="speedup-detail">@ BS=16</div>
+                            <p>271M model under-utilizes GPU</p>
+                        </div>
+                        <div class="speedup-card">
+                            <div class="speedup-stage">Stage 2</div>
+                            <div class="speedup-value">~1.5×</div>
+                            <div class="speedup-detail">@ BS=16</div>
+                            <p>1.05B already saturates GPU</p>
+                        </div>
+                    </div>
+
+                    <h4 class="subsection-title">Memory Behavior Analysis</h4>
+                    <table class="compact-table">
+                        <tr>
+                            <td><strong>Stage 1</strong></td>
+                            <td>Memory constant (~4.5GB) — model-dominated</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stage 2</strong></td>
+                            <td>Memory scales linearly (18→36GB) — activations-dominated</td>
+                        </tr>
+                    </table>
+
+                    <h4 class="subsection-title">Implementation Details</h4>
+                    <ul class="optimization-list">
+                        <li><strong>Batched seeds:</strong> <code>Text2MuQFlow.generate(x0=[N, 512])</code> for
+                            reproducibility</li>
+                        <li><strong>CUDA sync:</strong> Warmup + <code>torch.cuda.synchronize()</code> for accurate
+                            timing</li>
+                        <li><strong>Peak memory:</strong> <code>torch.cuda.max_memory_allocated()</code></li>
+                    </ul>
+
+                    <div class="insight-box">
+                        <h4>💡 When Does Batching Help?</h4>
+                        <table class="insight-table">
+                            <tr>
+                                <th>Model Size</th>
+                                <th>Benefit</th>
+                                <th>Reason</th>
+                            </tr>
+                            <tr>
+                                <td>&lt; 500M</td>
+                                <td class="benefit-high">✓ 5-30×</td>
+                                <td>GPU under-utilized</td>
+                            </tr>
+                            <tr>
+                                <td>500M-1B</td>
+                                <td>⚠️ 2-5×</td>
+                                <td>Partial saturation</td>
+                            </tr>
+                            <tr>
+                                <td>&gt; 1B</td>
+                                <td class="benefit-low">△ ~1×</td>
+                                <td>Already saturated</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Results -->
+            <section class="block block-results">
+                <div class="block-header">
+                    <span class="block-number">05</span>
+                    <h3>Performance Results</h3>
+                </div>
+                <div class="block-content">
+                    <h4 class="subsection-title">Stage 1: Text → MuQ-MuLan (271M)</h4>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Batch Size</th>
+                                <th>Time/Sample</th>
+                                <th>Throughput</th>
+                                <th>Speedup</th>
+                                <th>GPU Mem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1667 ms</td>
+                                <td>0.60/s</td>
+                                <td>1.0×</td>
+                                <td>4.58 GB</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>442 ms</td>
+                                <td>2.26/s</td>
+                                <td>3.8×</td>
+                                <td>4.58 GB</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>239 ms</td>
+                                <td>4.18/s</td>
+                                <td>7.0×</td>
+                                <td>4.58 GB</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>16</strong></td>
+                                <td><strong>111 ms</strong></td>
+                                <td><strong>9.0/s</strong></td>
+                                <td><strong>15×</strong></td>
+                                <td>4.58 GB</td>
+                            </tr>
+                            <tr>
+                                <td>32</td>
+                                <td>~50 ms</td>
+                                <td>~18/s</td>
+                                <td>~33×</td>
+                                <td>4.58 GB</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="subsection-title">Stage 2: MuQ → Audio (1.05B)</h4>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Batch Size</th>
+                                <th>Time/Sample</th>
+                                <th>Speedup</th>
+                                <th>GPU Mem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>9.94 s</td>
+                                <td>1.0×</td>
+                                <td>18.75 GB</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>7.19 s</td>
+                                <td>1.4×</td>
+                                <td>22.22 GB</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>16</strong></td>
+                                <td><strong>6.67 s</strong></td>
+                                <td><strong>1.5×</strong></td>
+                                <td>36.09 GB</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="scaling-efficiency">
+                        <h4 class="subsection-title">Scaling Efficiency</h4>
+                        <div class="efficiency-bars">
+                            <div class="efficiency-item">
+                                <span class="stage-label">Stage 1</span>
+                                <div class="bar-container">
+                                    <div class="bar stage1-bar" style="width: 93.8%;"></div>
+                                </div>
+                                <span class="efficiency-value">93.8%</span>
+                            </div>
+                            <div class="efficiency-item">
+                                <span class="stage-label">Stage 2</span>
+                                <div class="bar-container">
+                                    <div class="bar stage2-bar" style="width: 9.3%;"></div>
+                                </div>
+                                <span class="efficiency-value">9.3%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-summary">
+                        <div class="summary-item">
+                            <span class="summary-value">42%</span>
+                            <span class="summary-label">End-to-End Time Reduction</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-value">185s → 108s</span>
+                            <span class="summary-label">For 16 samples</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-value">&lt;1e-7</span>
+                            <span class="summary-label">Max Output Diff (Reproducible)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Real-World Impact -->
+            <section class="block block-impact">
+                <div class="block-header">
+                    <span class="block-number">06</span>
+                    <h3>Real-World Impact</h3>
+                </div>
+                <div class="block-content">
+                    <h4 class="subsection-title">Why Batch Inference Matters</h4>
+                    <div class="highlight-box">
+                        <p class="question">🎵 One prompt → Multiple diverse samples → Pick the best</p>
+                    </div>
+                    <p class="impact-text">Batch inference makes <strong>creative exploration practical</strong>:
+                        generate 16 variations in 108s instead of 185s, enabling rapid artist iteration.</p>
+
+                    <h4 class="subsection-title">MUSE: Full-Stack Application</h4>
+                    <table class="compact-table">
+                        <tr>
+                            <td><strong>🎹 Studio</strong></td>
+                            <td>Text-to-music generation with batch sampling</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🔬 Lab</strong></td>
+                            <td>Latent space exploration & interpolation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>📚 Library</strong></td>
+                            <td>Audio management, tagging & playback</td>
+                        </tr>
+                    </table>
+
+                    <div class="demo-image">
+                        <img src="../deep_learning/media/2D Density Heatmap.png" alt="Latent Space">
+                        <p class="caption">MUSE Lab: Diverse samples visualized in MuQ-MuLan latent space</p>
+                    </div>
+
+                    <h4 class="subsection-title">Technology Stack</h4>
+                    <div class="app-features">
+                        <span class="badge">Gradio</span>
+                        <span class="badge">PyTorch</span>
+                        <span class="badge">torchaudio</span>
+                        <span class="badge">Plotly</span>
+                        <span class="badge">UMAP</span>
+                    </div>
+                    <p class="app-desc">Interactive web interface with real-time visualization, drag-drop audio, and
+                        reproducible seed control.</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="references">
+                    <h4>References</h4>
+                    <ol class="ref-list">
+                        <li><a href="https://arxiv.org/abs/2210.02747" target="_blank"><strong>Lipman et al.</strong>
+                                (2023). Flow Matching for Generative Modeling. <em>ICLR</em>.</a></li>
+                        <li><a href="https://arxiv.org/abs/2209.14577" target="_blank"><strong>Liu</strong> (2022).
+                                Rectified Flow: A Marginal Preserving Approach to Optimal Transport.</a></li>
+                        <li><a href="https://arxiv.org/abs/2407.14358" target="_blank"><strong>Evans et al.</strong>
+                                (2024). Stable Audio Open.</a></li>
+                        <li><a href="https://arxiv.org/abs/2501.01108" target="_blank"><strong>Zhu et al.</strong>
+                                (2025). MuQ-MuLan: Contrastive Music-Language Alignment.</a></li>
+                        <li><a href="https://arxiv.org/abs/2210.11416" target="_blank"><strong>Chung et al.</strong>
+                                (2022). Scaling Instruction-Finetuned Language Models.</a></li>
+                        <li><a href="https://arxiv.org/abs/2207.12598" target="_blank"><strong>Ho & Salimans</strong>
+                                (2022). Classifier-Free Diffusion Guidance.</a></li>
+                    </ol>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Lightbox Modal for Image Zoom -->
+    <div id="lightbox" class="lightbox">
+        <img id="lightbox-img" src="" alt="Zoomed Image">
+    </div>
+
+    <script>
+        // Click-to-zoom functionality for images
+        document.addEventListener('DOMContentLoaded', function () {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            // Select all zoomable images
+            const images = document.querySelectorAll('.pipeline-image img, .loss-curves img, .demo-image img');
+
+            images.forEach(img => {
+                img.classList.add('zoomable');
+                img.addEventListener('click', function () {
+                    lightboxImg.src = this.src;
+                    lightbox.classList.add('active');
+                });
+            });
+
+            // Close lightbox on click
+            lightbox.addEventListener('click', function () {
+                this.classList.remove('active');
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

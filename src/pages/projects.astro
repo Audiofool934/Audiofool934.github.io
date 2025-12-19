@@ -1,30 +1,48 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 
-const allPosts = await Astro.glob("./posts/projects/*.md");
-const posts = allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+const allPosts = await getCollection("projects");
+const posts = allPosts.sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
 const headTitle = "Projects";
 const pageTitle = "Projects";
-const lede = "Tracking AI-for-music experiments, generative model studies, and tooling initiatives.";
+const lede =
+	"Tracking AI-for-music experiments, generative model studies, and tooling initiatives.";
 
-const statusTags = [...new Set(posts.map((post) => post.frontmatter.status))].filter(Boolean);
-const slugify = (value = "") => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const statusTags = [...new Set(posts.map((post) => post.data.status))].filter(
+	Boolean,
+);
+const slugify = (value = "") =>
+	value
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/(^-|-$)/g, "");
 
 const thematicGroups = [
 	{
 		title: "AI4Music Direction",
 		description: "Projects that bind DSP, ML, and composition workflows.",
-		matcher: (post) => (post.frontmatter.tags ?? []).some((tag) => ["music", "audio"].includes(tag.toLowerCase())),
+		matcher: (post) =>
+			(post.data.tags ?? []).some((tag) =>
+				["music", "audio"].includes(tag.toLowerCase()),
+			),
 	},
 	{
 		title: "Generative Model Direction",
-		description: "Image-to-video, AIGC, and multimodal synthesis exploration.",
-		matcher: (post) => (post.frontmatter.tags ?? []).some((tag) => ["aigc", "image-to-video"].includes(tag.toLowerCase())),
+		description:
+			"Image-to-video, AIGC, and multimodal synthesis exploration.",
+		matcher: (post) =>
+			(post.data.tags ?? []).some((tag) =>
+				["aigc", "image-to-video"].includes(tag.toLowerCase()),
+			),
 	},
 	{
 		title: "Learning / Research Systems",
-		description: "Course projects, infrastructure, and long-form study builds.",
+		description:
+			"Course projects, infrastructure, and long-form study builds.",
 		matcher: () => true,
 	},
 ];
@@ -41,40 +59,52 @@ const grouped = thematicGroups.map((group) => {
 	<section>
 		<p class="eyebrow">Filter by status</p>
 		<div class="tag-search">
-			{statusTags.map((status) => (
-				<a href={`/projects/?status=${slugify(status)}`} class="surface-card">
-					<span>{status}</span>
-					<span class="muted">tap to filter</span>
-				</a>
-			))}
+			{
+				statusTags.map((status) => (
+					<a
+						href={`/projects/?status=${slugify(status)}`}
+						class="surface-card"
+					>
+						<span>{status}</span>
+						<span class="muted">tap to filter</span>
+					</a>
+				))
+			}
 		</div>
 	</section>
 
-	{grouped.map((group) => (
-		<section>
-			<div class="section-header">
-				<p class="eyebrow">{group.title}</p>
-				<p class="muted">{group.description}</p>
-			</div>
-			{group.entries.length === 0 ? (
-				<p class="muted">No entries yet — sketching in the notebook.</p>
-			) : (
-				<ul class="list-reset grid-auto">
-					{group.entries.map((post) => (
-						<BlogPost
-							url={post.url}
-							title={post.frontmatter.title}
-							description={post.frontmatter.description}
-							meta={`${post.frontmatter.status ?? ""} · ${new Date(post.frontmatter.pubDate).toLocaleDateString("en", {
-								month: "short",
-								year: "numeric",
-							})}`}
-						/>
-					))}
-				</ul>
-			)}
-		</section>
-	))}
+	{
+		grouped.map((group) => (
+			<section>
+				<div class="section-header">
+					<p class="eyebrow">{group.title}</p>
+					<p class="muted">{group.description}</p>
+				</div>
+				{group.entries.length === 0 ? (
+					<p class="muted">
+						No entries yet — sketching in the notebook.
+					</p>
+				) : (
+					<ul class="list-reset grid-auto">
+						{group.entries.map((post) => (
+							<BlogPost
+								url={`/projects/${post.slug}/`}
+								title={post.data.title}
+								description={post.data.description}
+								meta={`${post.data.status ?? ""} · ${post.data.pubDate.toLocaleDateString(
+									"en",
+									{
+										month: "short",
+										year: "numeric",
+									},
+								)}`}
+							/>
+						))}
+					</ul>
+				)}
+			</section>
+		))
+	}
 </BaseLayout>
 
 <style>

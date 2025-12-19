@@ -1,37 +1,26 @@
 ---
 const { title, episode, pubDate, url } = Astro.props;
-const formattedDate = pubDate ? new Date(pubDate).toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" }) : "";
+const formattedDate = pubDate
+	? new Date(pubDate).toLocaleDateString("en", {
+			month: "short",
+			day: "numeric",
+			year: "numeric",
+		})
+	: "";
 ---
 
-<li class="audio-card surface-card">
-	<a href={url}>
-		<p class="pill">EP {episode}</p>
-		<h3>{title}</h3>
-		{formattedDate && <p class="muted">{formattedDate}</p>}
+<li class="group list-none">
+	<a href={url} class="surface-card block p-6">
+		<div class="flex flex-col gap-2">
+			<span class="pill font-semibold">
+				EP {episode}
+			</span>
+			<h3
+				class="text-lg font-heading font-semibold text-primary group-hover:text-primary transition-colors"
+			>
+				{title}
+			</h3>
+			{formattedDate && <p class="text-sm text-muted">{formattedDate}</p>}
+		</div>
 	</a>
 </li>
-
-<style>
-	.audio-card {
-		list-style: none;
-		padding: 1.25rem;
-	}
-
-	.audio-card a {
-		text-decoration: none;
-		color: inherit;
-		display: flex;
-		flex-direction: column;
-		gap: 0.6rem;
-	}
-
-	.audio-card h3 {
-		font-size: 1.1rem;
-	}
-
-	.audio-card .pill {
-		background: rgba(249, 115, 22, 0.18);
-		color: var(--text-primary);
-		font-weight: 600;
-	}
-</style>

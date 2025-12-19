@@ -1,66 +1,29 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 import AudioshowPost from "../components/AudioshowPost.astro";
 
-const notesPosts = (await Astro.glob("./posts/yeahscience/*.md"))
-	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-	.slice(0, 4);
+// Fetch content using Content Collections
+const notesPosts = (await getCollection("notes"))
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.slice(0, 3);
 
-const projectPosts = (await Astro.glob("./posts/projects/*.md"))
-	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-	.slice(0, 4);
+const projectPosts = (await getCollection("projects"))
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.slice(0, 3);
 
-const audioshowEpisodes = (await Astro.glob("./posts/audioshow/*.md"))
-	.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+const audioshowEpisodes = (await getCollection("audioshow")).sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
 const latestAudioshow = audioshowEpisodes[0];
-const supportingEpisodes = audioshowEpisodes.slice(1, 3);
 
-const photoStories = [
-	{
-		title: "Neon Alley, Shenzhen",
-		context: "800T · humid summer",
-		description: "Chasing cyan reflections with a compact camera and a single roll.",
-		palette: ["#06141b", "#f97316"],
-	},
-	{
-		title: "Library Silence",
-		context: "Tri-X · afternoon grain",
-		description: "Documenting the academic half of life — notebooks, coffee rings, quiet light.",
-		palette: ["#0f172a", "#94a3b8"],
-	},
-	{
-		title: "Desert Radio",
-		context: "Portra · roadtrip loop",
-		description: "Music research meets photography: abandoned antennas, long exposure skies.",
-		palette: ["#1d1a31", "#fba834"],
-	},
-];
-
-const focusSignals = [
-	"Statistical thinking applied to multimodal AIGC + audio.",
-	"Better note-taking systems for bilingual writing.",
-	"Compact-camera workflows with fast publishing.",
-];
-
-const nowSignals = [
-	{
-		title: "From Zero",
-		context: "Linkin Park · demo reels",
-	},
-	{
-		title: "American Beauty",
-		context: "Grateful Dead · acoustic focus",
-	},
-	{
-		title: "Use Your Illusion I",
-		context: "Guns N' Roses · maximal guitars",
-	},
-];
-
+// Page metadata
 const headTitle = "Audiofool";
-const pageTitle = "Audiofool Studio";
-const description = "Projects, notes, photography, and Audioshow logs from Audiofool.";
+const pageTitle = "Audiofool";
+const description =
+	"Projects, notes, photography, and music from Audiofool — where research meets creativity.";
+
 const formatDate = (value) =>
 	new Date(value).toLocaleDateString("en", {
 		month: "short",
@@ -69,232 +32,272 @@ const formatDate = (value) =>
 	});
 ---
 
-<BaseLayout headTitle={headTitle} pageTitle={pageTitle} hideHeading={true} description={description}>
-	<section class="hero">
-		<p class="eyebrow">Reboot · 2024</p>
-		<h1>极简又迅捷的个人实验室 — 写作、摄影与声音。</h1>
-		<p class="lede">
-			Hello, I'm Audiofool. This is the control room for my projects, study notes, camera rolls, and Audioshow episodes — minimal surfaces, intentional stories.
-		</p>
-		<div class="meta-line">
-			<span>📁 projects first</span>
-			<span>📝 notes and collections</span>
-			<span>📷 roaming cameras</span>
-			<span>🎧 weekly audioshow</span>
+<BaseLayout
+	headTitle={headTitle}
+	pageTitle={pageTitle}
+	hideHeading={true}
+	description={description}
+	enableGlow={true}
+>
+	<!-- Hero Section -->
+	<section class="hero py-16 md:py-24">
+		<div class="hero-content mx-auto max-width-xl text-center">
+			<p class="eyebrow fade-in">Audiofool Studio</p>
+			<h1
+				class="hero-title text-gradient leading-tight tracking-tighter mb-6"
+			>
+				极简又迅捷的<br class="md:hidden" />个人实验室
+			</h1>
+			<p
+				class="hero-subtitle text-lg md:text-xl text-secondary mb-10 max-width-md mx-auto"
+			>
+				写作、摄影与声音 — 一个关于研究、创作与记录的角落。
+			</p>
+			<div
+				class="hero-signals flex flex-wrap justify-center gap-4 text-sm text-muted"
+			>
+				<span class="surface-card px-3 py-1 rounded-full"
+					>📁 Projects</span
+				>
+				<span class="surface-card px-3 py-1 rounded-full">📝 Notes</span
+				>
+				<span class="surface-card px-3 py-1 rounded-full"
+					>📷 Photography</span
+				>
+				<span class="surface-card px-3 py-1 rounded-full"
+					>🎧 Audioshow</span
+				>
+			</div>
 		</div>
 	</section>
 
-	<section>
-		<div class="section-header">
+	<!-- Projects Section -->
+	<section class="section mb-16">
+		<header class="section-header mb-8">
 			<p class="eyebrow">Projects</p>
-			<h2>Shipping-focused experiments</h2>
-			<p class="muted">Research tools, AI4Music prototypes, and long-form build logs.</p>
-		</div>
-		<ul class="list-reset grid-auto">
-			{projectPosts.map((post) => (
-				<BlogPost
-					url={post.url}
-					title={post.frontmatter.title}
-					description={post.frontmatter.description}
-					meta={`${post.frontmatter.status ?? ""}`}
-				/>
-			))}
+			<h2 class="text-3xl font-bold mb-2">
+				Shipping-focused experiments
+			</h2>
+			<p class="text-muted">
+				Research tools, AI4Music prototypes, and build logs.
+			</p>
+		</header>
+		<ul class="grid md:grid-cols-3 gap-6">
+			{
+				projectPosts.map((post) => (
+					<BlogPost
+						url={`/projects/${post.slug}/`}
+						title={post.data.title}
+						description={post.data.description}
+						meta={post.data.status ?? ""}
+					/>
+				))
+			}
 		</ul>
-		<a class="cta-link" href="/projects/">Browse every project ↗</a>
+		<a class="cta-link mt-6" href="/projects/">Browse all projects →</a>
 	</section>
 
-	<section>
-		<div class="section-header">
+	<!-- Notes Section -->
+	<section class="section">
+		<header class="section-header">
 			<p class="eyebrow">Notes</p>
 			<h2>Rigorous study logs</h2>
-			<p class="muted">Lecture reflections, paper clubs, and bilingual study notes.</p>
-		</div>
-		<ul class="list-reset column-list">
-			{notesPosts.map((post) => (
-				<BlogPost
-					url={post.url}
-					title={post.frontmatter.title}
-					description={post.frontmatter.description}
-					meta={formatDate(post.frontmatter.pubDate)}
-					tags={post.frontmatter.tags}
-				/>
-			))}
-		</ul>
-		<a class="cta-link" href="/alog/">Open the notes library ↗</a>
-	</section>
-
-	<section>
-		<div class="section-header">
-			<p class="eyebrow">Photography</p>
-			<h2>Field notes in light</h2>
-			<p class="muted">Visual logs that pair film/digital captures with research days.</p>
-		</div>
-		<div class="photo-track">
-			{photoStories.map((story) => (
-				<div class="photo-card surface-card" style={`background: radial-gradient(circle at top, ${story.palette[1]}22, transparent), ${story.palette[0]};`}>
-					<p class="pill">{story.context}</p>
-					<h3>{story.title}</h3>
-					<p>{story.description}</p>
-				</div>
-			))}
-		</div>
-		<a class="cta-link" href="/photography/">View photography plans ↗</a>
-	</section>
-
-	<section>
-		<div class="section-header">
-			<p class="eyebrow">Audioshow</p>
-			<h2>Latest broadcast + archive</h2>
-			<p class="muted">One PNG poster, six tracks, and a lyric per episode.</p>
-		</div>
-		<div class="audioshow-stack">
-			{latestAudioshow && (
-				<article class="latest-audio surface-card">
-					<p class="pill">New</p>
-					<h3>{latestAudioshow.frontmatter.title}</h3>
-					<p class="muted">EP {latestAudioshow.frontmatter.episode}</p>
-					<p>{latestAudioshow.frontmatter.description ?? "Fresh pull from the midnight queue."}</p>
-					<a class="cta-link" href={latestAudioshow.url}>Play this episode ↗</a>
-				</article>
-			)}
-			<ul class="list-reset grid-auto">
-				{supportingEpisodes.map((post) => (
-					<AudioshowPost
-						url={post.url}
-						episode={post.frontmatter.episode}
-						pubDate={post.frontmatter.pubDate}
-						title={post.frontmatter.title}
+			<p>Lecture reflections, paper clubs, and bilingual notes.</p>
+		</header>
+		<ul class="grid gap-3">
+			{
+				notesPosts.map((post) => (
+					<BlogPost
+						url={`/notes/${post.slug}/`}
+						title={post.data.title}
+						description={post.data.description}
+						meta={formatDate(post.data.pubDate)}
+						tags={post.data.tags}
 					/>
-				))}
-			</ul>
-		</div>
-		<a class="cta-link" href="/audioshow/">Full Audioshow archive ↗</a>
+				))
+			}
+		</ul>
+		<a class="cta-link mt-4" href="/alog/">Open the notes library →</a>
 	</section>
 
-	<section class="two-col signals">
-		<div>
-			<p class="eyebrow">Focus</p>
-			<ul class="list-reset focus-list">
-				{focusSignals.map((item) => (
-					<li>{item}</li>
-				))}
-			</ul>
-		</div>
-		<div>
-			<p class="eyebrow">Now</p>
-			<ul class="list-reset now-list">
-				{nowSignals.map((entry) => (
-					<li>
-						<strong>{entry.title}</strong>
-						<p class="muted">{entry.context}</p>
-					</li>
-				))}
-			</ul>
-		</div>
-	</section>
+	<!-- Audioshow Section -->
+	{
+		latestAudioshow && (
+			<section class="section">
+				<header class="section-header">
+					<p class="eyebrow">Audioshow</p>
+					<h2>Latest broadcast</h2>
+					<p>One poster, six tracks, and a lyric per episode.</p>
+				</header>
+				<div class="audioshow-feature">
+					<div class="audioshow-badge">New Episode</div>
+					<h3>{latestAudioshow.data.title}</h3>
+					<p class="text-sm" style="color: var(--text-muted);">
+						EP {latestAudioshow.data.episode}
+					</p>
+					<p style="color: var(--text-secondary);">
+						{latestAudioshow.data.description ??
+							"Fresh pull from the midnight queue."}
+					</p>
+					<a
+						class="cta-link mt-3"
+						href={`/audioshow/${latestAudioshow.slug}/`}
+					>
+						Play this episode →
+					</a>
+				</div>
+				<a class="cta-link mt-4" href="/audioshow/">
+					Full archive →
+				</a>
+			</section>
+		)
+	}
 
-	<section class="stay-updated">
-		<p class="eyebrow">Stay Updated</p>
-		<p class="muted">
-			Grab the <a href="/rss.xml">RSS feed</a>, drop by <a href="/about/">about</a> for contact, or ping me on social if you prefer short updates.
-		</p>
+	<!-- Quick Links -->
+	<section class="section">
+		<div class="quick-links">
+			<a href="/photography/" class="quick-link">
+				<span class="quick-link-icon">📷</span>
+				<span class="quick-link-label">Photography</span>
+				<span class="quick-link-arrow">→</span>
+			</a>
+			<a href="/about/" class="quick-link">
+				<span class="quick-link-icon">👋</span>
+				<span class="quick-link-label">About me</span>
+				<span class="quick-link-arrow">→</span>
+			</a>
+			<a href="/rss.xml" class="quick-link">
+				<span class="quick-link-icon">📡</span>
+				<span class="quick-link-label">RSS Feed</span>
+				<span class="quick-link-arrow">→</span>
+			</a>
+		</div>
 	</section>
 </BaseLayout>
 
 <style>
+	/* Hero */
 	.hero {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
+		padding: 4rem 0 5rem;
+		text-align: center;
 	}
 
-	.section-header {
+	.hero-content {
+		max-width: 42rem;
+		margin: 0 auto;
+	}
+
+	.hero-title {
+		font-size: clamp(2.5rem, 6vw, 4rem);
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		margin-bottom: 1.25rem;
+		background: linear-gradient(
+			135deg,
+			var(--text-primary) 0%,
+			var(--accent) 100%
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.hero-subtitle {
+		font-size: 1.25rem;
+		color: var(--text-secondary);
+		max-width: 32rem;
+		margin: 0 auto 2rem;
+		line-height: 1.6;
+	}
+
+	.hero-signals {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1rem;
+		font-size: 0.875rem;
+		color: var(--text-muted);
+	}
+
+	.hero-signals span {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	/* Audioshow Feature */
+	.audioshow-feature {
+		padding: 2rem;
+		border-radius: 1rem;
+		border: 1px solid var(--border-subtle);
+		background: linear-gradient(
+			135deg,
+			var(--bg-surface) 0%,
+			color-mix(in srgb, var(--accent) 5%, var(--bg-surface)) 100%
+		);
+	}
+
+	.audioshow-badge {
+		display: inline-block;
+		padding: 0.25rem 0.625rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		border-radius: 999px;
+		background: var(--accent);
+		color: white;
 		margin-bottom: 1rem;
 	}
 
-	.cta-link {
-		display: inline-flex;
-		margin-top: 1rem;
-		font-weight: 600;
-		color: var(--accent);
-		text-decoration: none;
-		align-items: center;
-		gap: 0.35rem;
+	.audioshow-feature h3 {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
 	}
 
-	.cta-link:hover {
-		text-decoration: underline;
-	}
-
-	.column-list li + li {
-		margin-top: 0.6rem;
-	}
-
-	.photo-track {
+	/* Quick Links */
+	.quick-links {
 		display: grid;
-		gap: 1rem;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 0.75rem;
 	}
 
-	.photo-card {
-		color: #f5f5f5;
-		min-height: 220px;
-		border: none;
-		box-shadow: none;
+	@media (min-width: 768px) {
+		.quick-links {
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
 
-	.photo-card p {
-		color: #fefefe;
-	}
-
-	.audioshow-stack {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.latest-audio {
-		padding: 1.6rem;
+	.quick-link {
 		display: flex;
-		flex-direction: column;
-		gap: 0.6rem;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1rem 1.25rem;
+		border-radius: 0.75rem;
+		border: 1px solid var(--border-subtle);
+		background: var(--bg-surface);
+		transition: all 0.3s ease;
 	}
 
-	.signals {
-		align-items: flex-start;
+	.quick-link:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
 	}
 
-	.focus-list li,
-	.now-list li {
-		padding: 0.4rem 0;
-		color: var(--text-secondary);
+	.quick-link-icon {
+		font-size: 1.25rem;
 	}
 
-	.now-list li {
-		border-bottom: 1px solid var(--border-subtle);
+	.quick-link-label {
+		flex: 1;
+		font-weight: 500;
+		color: var(--text-primary);
 	}
 
-	.stay-updated {
-		margin-top: 1rem;
-		padding: 1.2rem;
-		border: 1px dashed var(--border-subtle);
-		border-radius: var(--radius-lg);
+	.quick-link-arrow {
+		color: var(--text-muted);
+		transition: transform 0.2s ease;
 	}
 
-	@media (max-width: 720px) {
-		.photo-track {
-			display: flex;
-			gap: 0.8rem;
-			overflow-x: auto;
-			scroll-snap-type: x mandatory;
-		}
-
-		.photo-card {
-			min-width: 240px;
-			scroll-snap-align: start;
-		}
-
-		.audioshow-stack {
-			grid-template-columns: 1fr;
-		}
+	.quick-link:hover .quick-link-arrow {
+		transform: translateX(4px);
+		color: var(--accent);
 	}
 </style>
