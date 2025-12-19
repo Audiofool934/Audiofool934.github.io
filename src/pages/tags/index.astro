@@ -1,26 +1,34 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const allPosts = await Astro.glob("../posts/*/*.md");
+const projects = await getCollection("projects");
+const notes = await getCollection("notes");
+const audioshow = await getCollection("audioshow");
+
+const allPosts = [...projects, ...notes, ...audioshow];
 const tagMap = allPosts.reduce((acc, post) => {
-	(post.frontmatter.tags ?? []).forEach((tag) => {
+	(post.data.tags ?? []).forEach((tag) => {
 		acc[tag] = (acc[tag] ?? 0) + 1;
 	});
 	return acc;
 }, {});
 const tags = Object.entries(tagMap).sort((a, b) => b[1] - a[1]);
 const pageTitle = "Tags";
-const lede = "Browse every topic covered on the blog — math, ML, photography, and playlists.";
+const lede =
+	"Browse every topic covered on the blog — math, ML, photography, and playlists.";
 ---
 
 <BaseLayout pageTitle={pageTitle} headTitle="Tags" lede={lede}>
 	<section class="tag-board">
-		{tags.map(([tag, count]) => (
-			<a href={`/tags/${tag}`} class="surface-card">
-				<strong>{tag}</strong>
-				<span>{count} posts</span>
-			</a>
-		))}
+		{
+			tags.map(([tag, count]) => (
+				<a href={`/tags/${tag}`} class="surface-card">
+					<strong>{tag}</strong>
+					<span>{count} posts</span>
+				</a>
+			))
+		}
 	</section>
 </BaseLayout>
 

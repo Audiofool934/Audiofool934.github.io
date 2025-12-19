@@ -19,7 +19,9 @@ const tagCounts = posts
 		acc[tag] = (acc[tag] ?? 0) + 1;
 		return acc;
 	}, {});
-const tags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+const tags = (Object.entries(tagCounts) as [string, number][]).sort(
+	(a, b) => b[1] - a[1],
+);
 
 const collections = [
 	{
