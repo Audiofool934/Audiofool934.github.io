@@ -3,34 +3,10 @@ import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { getCollection } from "astro:content";
 
 const wikiEntries = await getCollection("wiki");
-
-// Build Tree Structure for Sidebar
-// Expects slugs like 'dev/lang/rust'
-// This is a simplified tree builder logic
-const tree = {};
-wikiEntries.forEach((entry) => {
-    const parts = entry.slug.split("/");
-    let currentref = tree;
-    parts.forEach((part, index) => {
-        if (!currentref[part]) {
-            currentref[part] = { _files: [] };
-        }
-        // If it's the last part, it's the file itself
-        if (index === parts.length - 1) {
-            currentref[part]._files.push({ ...entry.data, slug: entry.slug });
-        }
-        currentref = currentref[part];
-    });
-});
-
-// Helper component for recursive tree rendering could be done,
-// but for simplicity in this file we might need a distinct .astro component.
-// For now, let's just list them to ensure routing works, then iterate on the Tree UI.
-// Actually, let's do a simple Flat List grouped by Folder for the Index.
 ---
 
 <MinimalLayout title="Wiki | Audiofool" description="Any Colour You Like">
-    <div class="flex flex-col md:flex-row h-full">
+    <div class="flex flex-col md:flex-row h-full" transition:animate="fade">
         <!-- Sidebar / Tree Placeholder -->
         <div
             class="w-full md:w-72 border-b md:border-b-0 md:border-r border-[var(--border-main)] p-6 overflow-y-auto h-auto md:h-screen bg-[var(--bg-body)]"

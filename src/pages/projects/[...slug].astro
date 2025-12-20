@@ -21,7 +21,10 @@ const { Content } = await entry.render();
     title={`${entry.data.title} | Projects`}
     description={entry.data.description}
 >
-    <article class="p-6 md:p-12 max-w-4xl mx-auto anime-fade-in-up">
+    <article
+        class="p-6 md:p-12 max-w-4xl mx-auto anime-fade-in-up"
+        transition:animate="fade"
+    >
         <!-- Project Header -->
         <header class="mb-12 border-b border-[var(--border-main)] pb-8">
             <div

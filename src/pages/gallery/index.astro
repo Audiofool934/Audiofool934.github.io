@@ -53,8 +53,8 @@ const sortedCategories = Object.keys(categorizedItems).sort((a, b) => {
                         <span class="w-2 h-2 bg-[var(--text-main)] rounded-full" />
                         Featured
                     </h2>
-                    <!-- Removed aspect-ratio constraint, added max-height -->
-                    <div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6">
+                    
+                    <div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
                         {featuredItems.map((item) => (
                             <a 
                                 href={`/gallery/${item.slug}/`}

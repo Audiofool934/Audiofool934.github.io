@@ -1,14 +1,6 @@
 ---
-// AudioPlayer Component - Persistent Now Playing bar with Apple Music iframe
-// This component should be included in pages that need the player
-
-interface Props {
-    initialTrackUrl?: string;
-    initialTrackTitle?: string;
-}
-
-const { initialTrackUrl = "", initialTrackTitle = "Select a track..." } =
-    Astro.props;
+// AudioPlayer Component - Persistent music player with state management
+// State persists across View Transitions via window.__audioPlayerState
 ---
 
 <div
@@ -115,140 +107,280 @@ const { initialTrackUrl = "", initialTrackTitle = "Select a track..." } =
 </div>
 
 <script is:inline>
-    // Audio Player State Management
+    // Audio Player State Management - Single Source of Truth Pattern
     (function () {
-        // Initialize only once even with View Transitions
+        // ========================================
+        // STATE: Lives on window, survives View Transitions
+        // ========================================
+        // window.__audioPlayerState = {
+        //     initialized: false,     // Has setup() run?
+        //     track: null,            // { title, artist, artwork, url }
+        //     isPlaying: false
+        // };
+
+        // ========================================
+        // DOM REFERENCES (resolved fresh each time)
+        // ========================================
+        function getElements() {
+            return {
+                audio: document.getElementById("main-audio-element"),
+                playBtn: document.getElementById("player-play-btn"),
+                playIcon: document.getElementById("play-icon"),
+                seekContainer: document.getElementById("player-seek-container"),
+                progressBar: document.getElementById("player-progress-bar"),
+                currTimeEl: document.getElementById("player-current-time"),
+                durationEl: document.getElementById("player-duration"),
+                trackNameEl: document.getElementById("player-track-name"),
+                artistNameEl: document.getElementById("player-artist-name"),
+                artImg: document.getElementById("player-art-img"),
+                artPlaceholder: document.getElementById(
+                    "player-art-placeholder",
+                ),
+            };
+        }
+
+        // ========================================
+        // UI SYNC: One-way state → DOM
+        // ========================================
+        function syncUIWithState() {
+            const state = window.__audioPlayerState;
+            const els = getElements();
+            if (!els.audio || !els.playBtn) return;
+
+            const track = state?.track;
+            if (track) {
+                els.trackNameEl.textContent = track.title || "Unknown";
+                els.artistNameEl.textContent = track.artist || "AudioShow";
+                if (track.artwork) {
+                    els.artImg.src = track.artwork;
+                    els.artImg.style.opacity = "1";
+                    els.artPlaceholder.style.opacity = "0";
+                }
+            }
+
+            els.playIcon.textContent = state?.isPlaying ? "II" : "▶";
+            els.playBtn.disabled = false;
+        }
+
+        // ========================================
+        // PROVIDERS: Type-specific metadata resolution
+        // ========================================
+        const providers = {
+            apple: {
+                name: "Apple Music",
+                async resolve(track) {
+                    let trackId = track.id;
+                    if (!trackId && track.url) {
+                        const match = track.url.match(/[?&]i=(\d+)/);
+                        trackId = match ? match[1] : null;
+                    }
+                    if (!trackId) throw new Error("Invalid Apple Music ID");
+
+                    const resp = await fetch(
+                        `https://itunes.apple.com/lookup?id=${trackId}&country=cn`,
+                    );
+                    const data = await resp.json();
+                    if (data.resultCount > 0) {
+                        const info = data.results[0];
+                        return {
+                            url: info.previewUrl,
+                            title: info.trackName,
+                            artist: info.artistName,
+                            // Use provided artwork, fallback to API artwork
+                            artwork:
+                                track.artwork ||
+                                info.artworkUrl100?.replace(
+                                    "100x100",
+                                    "300x300",
+                                ),
+                        };
+                    }
+                    throw new Error("Track not found");
+                },
+            },
+            local: {
+                name: "Local Audio",
+                async resolve(track) {
+                    return {
+                        url: track.url,
+                        title: track.title || "Unknown Track",
+                        artist: track.artist || "AudioShow",
+                        artwork: track.artwork,
+                    };
+                },
+            },
+        };
+
+        // ========================================
+        // INIT: Called on every page-load
+        // ========================================
         function initPlayer() {
-            const playerBar = document.getElementById("audio-player-bar");
-            const audio = document.getElementById("main-audio-element");
-            const playBtn = document.getElementById("player-play-btn");
-            const playIcon = document.getElementById("play-icon");
-            const seekContainer = document.getElementById(
-                "player-seek-container",
-            );
-            const progressBar = document.getElementById("player-progress-bar");
-            const currTimeEl = document.getElementById("player-current-time");
-            const durationEl = document.getElementById("player-duration");
-            const trackNameEl = document.getElementById("player-track-name");
-            const artistNameEl = document.getElementById("player-artist-name");
-            const artImg = document.getElementById("player-art-img");
-            const artPlaceholder = document.getElementById(
-                "player-art-placeholder",
-            );
+            // Ensure state object exists
+            if (!window.__audioPlayerState) {
+                window.__audioPlayerState = {
+                    initialized: false,
+                    track: null,
+                    isPlaying: false,
+                    currentTime: 0, // Store playback position
+                };
+            }
 
-            if (!audio || !playBtn) return;
+            const state = window.__audioPlayerState;
+            const els = getElements();
+            if (!els.audio || !els.playBtn) return;
 
+            // First time: load default track
+            if (!state.initialized) {
+                state.initialized = true;
+                if (!state.track && window.__defaultAudioShowTrack) {
+                    state.track = {
+                        title: window.__defaultAudioShowTrack.title,
+                        artist: window.__defaultAudioShowTrack.artist,
+                        artwork: window.__defaultAudioShowTrack.artwork,
+                        url: window.__defaultAudioShowTrack.url,
+                        type: window.__defaultAudioShowTrack.type,
+                    };
+                }
+            }
+
+            // ALWAYS re-attach event handlers (DOM may have been recreated)
             function formatTime(seconds) {
+                if (!seconds || isNaN(seconds)) return "0:00";
                 const mins = Math.floor(seconds / 60);
                 const secs = Math.floor(seconds % 60);
                 return `${mins}:${secs.toString().padStart(2, "0")}`;
             }
 
-            // Play/Pause Toggle
-            playBtn.onclick = () => {
+            // Play Button
+            els.playBtn.onclick = async () => {
+                const audio = els.audio;
+                const noSource =
+                    !audio.src ||
+                    audio.src === "" ||
+                    audio.src === window.location.href;
+
+                if (noSource && state.track && state.track.url) {
+                    audio.src = state.track.url;
+                    // Restore playback position if we had one
+                    if (state.currentTime > 0) {
+                        audio.currentTime = state.currentTime;
+                    }
+                }
+
                 if (audio.paused) {
-                    audio.play();
+                    try {
+                        await audio.play();
+                    } catch (e) {
+                        console.error("Playback failed:", e);
+                    }
                 } else {
                     audio.pause();
                 }
             };
 
-            audio.onplay = () => {
-                playIcon.textContent = "II";
+            // Audio Events
+            els.audio.onplay = () => {
+                state.isPlaying = true;
+                syncUIWithState();
             };
-
-            audio.onpause = () => {
-                playIcon.textContent = "▶";
+            els.audio.onpause = () => {
+                state.isPlaying = false;
+                syncUIWithState();
             };
-
-            // Progress Update
-            audio.ontimeupdate = () => {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = `${percent}%`;
-                currTimeEl.textContent = formatTime(audio.currentTime);
+            els.audio.ontimeupdate = () => {
+                state.currentTime = els.audio.currentTime; // Save position
+                const percent =
+                    (els.audio.currentTime / els.audio.duration) * 100;
+                els.progressBar.style.width = `${percent}%`;
+                els.currTimeEl.textContent = formatTime(els.audio.currentTime);
             };
-
-            audio.onloadedmetadata = () => {
-                durationEl.textContent = formatTime(audio.duration);
-                playBtn.disabled = false;
+            els.audio.onloadedmetadata = () => {
+                els.durationEl.textContent = formatTime(els.audio.duration);
             };
 
             // Seeking
-            seekContainer.onclick = (e) => {
-                const rect = seekContainer.getBoundingClientRect();
+            els.seekContainer.onclick = (e) => {
+                const rect = els.seekContainer.getBoundingClientRect();
                 const pos = (e.clientX - rect.left) / rect.width;
-                audio.currentTime = pos * audio.duration;
+                els.audio.currentTime = pos * els.audio.duration;
             };
 
-            // Fetch and Play Track from Apple Music URL
-            window.playTrack = async function (musicUrl, manualTitle) {
-                console.log("Custom Player: Fetching preview for", musicUrl);
+            // Restore audio src if it was lost but we have track state
+            const audioHasNoSrc =
+                !els.audio.src ||
+                els.audio.src === "" ||
+                els.audio.src === window.location.href;
+            if (audioHasNoSrc && state.track && state.track.url) {
+                els.audio.src = state.track.url;
+                // If was playing, resume
+                if (state.isPlaying) {
+                    els.audio.currentTime = state.currentTime || 0;
+                    els.audio.play().catch(() => {});
+                }
+            }
 
-                // Show loading state
-                trackNameEl.textContent = manualTitle || "Loading...";
-                artistNameEl.textContent = "Fetching track data...";
-                playBtn.disabled = true;
-
-                // Extract Track ID
-                const match = musicUrl.match(/[?&]i=(\d+)/);
-                const trackId = match ? match[1] : null;
-
-                if (!trackId) {
-                    console.error("Invalid Apple Music URL format");
-                    trackNameEl.textContent = "Invalid URL";
+            // --- Global playTrack Function ---
+            window.playTrack = async function (track) {
+                if (!track || !track.type || !track.url) {
+                    console.error("Invalid track object", track);
                     return;
                 }
 
+                const provider = providers[track.type];
+                if (!provider) {
+                    console.error("Unknown provider:", track.type);
+                    return;
+                }
+
+                // Immediate UI feedback
+                state.track = {
+                    title: track.title || "Loading...",
+                    artist: track.artist || provider.name,
+                    artwork: track.artwork,
+                    url: track.url,
+                    type: track.type,
+                };
+                state.currentTime = 0;
+                syncUIWithState();
+
                 try {
-                    // Fetch metadata from iTunes Search API (no token needed)
-                    // Added country=cn to match the user's links
-                    const response = await fetch(
-                        `https://itunes.apple.com/lookup?id=${trackId}&country=cn`,
-                    );
-                    const data = await response.json();
+                    const meta = await provider.resolve(track);
 
-                    if (data.resultCount > 0) {
-                        const track = data.results[0];
+                    // Update state with resolved metadata
+                    state.track = { ...meta, type: track.type };
+                    syncUIWithState();
 
-                        // Update UI
-                        trackNameEl.textContent = track.trackName;
-                        artistNameEl.textContent = track.artistName;
-                        if (track.artworkUrl100) {
-                            artImg.src = track.artworkUrl100.replace(
-                                "100x100",
-                                "300x300",
-                            );
-                            artImg.style.opacity = "1";
-                            artPlaceholder.style.opacity = "0";
-                        }
-
-                        // Load and Play Audio
-                        audio.src = track.previewUrl;
-                        audio.play();
-                    } else {
-                        trackNameEl.textContent =
-                            manualTitle || "Track Not Found";
-                        artistNameEl.textContent = "Unable to fetch metadata";
-                    }
+                    // Play
+                    els.audio.src = meta.url;
+                    els.audio
+                        .play()
+                        .catch((e) => console.error("Playback failed:", e));
                 } catch (error) {
-                    console.error("iTunes API error:", error);
-                    trackNameEl.textContent = manualTitle || "Error Loading";
+                    console.error("Provider error:", error);
+                    state.track = {
+                        title: track.title || "Error",
+                        artist: "Playback Failed",
+                        artwork: track.artwork,
+                    };
+                    syncUIWithState();
                 }
             };
 
-            // Hijack legacy toggleMusic
-            window.toggleMusic = function (iframeId, musicUrl) {
-                const event = window.event;
-                const clickedImg = event?.target;
-                let manualTitle = "";
-                if (clickedImg && clickedImg.tagName === "IMG") {
-                    manualTitle = clickedImg.getAttribute("alt") || "";
-                }
-                window.playTrack(musicUrl, manualTitle);
+            // --- Legacy toggleMusic ---
+            window.toggleMusic = function (playerType, url) {
+                const clickedImg = window.event?.target;
+                let title = clickedImg?.getAttribute("alt") || "";
+                let artwork = clickedImg?.getAttribute("src") || "";
+                let type = url.includes("music.apple.com") ? "apple" : "local";
+
+                window.playTrack({ type, url, title, artwork });
             };
+
+            // Always sync UI
+            syncUIWithState();
         }
 
-        // Initialize on load and after every navigation
+        // Listen for page loads
         document.addEventListener("astro:page-load", initPlayer);
     })();
 </script>

@@ -3,6 +3,12 @@ import "../style/global.css";
 import "../style/prism-theme.css";
 import { ViewTransitions } from "astro:transitions";
 import AudioPlayer from "../components/AudioPlayer.astro";
+import {
+    parseEpisodesFromMarkdown,
+    sortEpisodesDesc,
+} from "../utils/parseAudioshow";
+import fs from "node:fs";
+import path from "node:path";
 
 interface Props {
     title: string;
@@ -15,6 +21,34 @@ const {
     description = "Audiofool Personal Website",
     lang = "en",
 } = Astro.props;
+
+// Get the latest episode for the default track (runs at build time, so available on every page)
+let defaultTrackData = null;
+try {
+    const audioshowDir = path.join(process.cwd(), "src/content/audioshow");
+    const files = fs.readdirSync(audioshowDir).filter((f) => f.endsWith(".md"));
+    let allEpisodes = [];
+    for (const file of files) {
+        const filePath = path.join(audioshowDir, file);
+        const content = fs.readFileSync(filePath, "utf-8");
+        const episodes = parseEpisodesFromMarkdown(content, file);
+        allEpisodes = [...allEpisodes, ...episodes];
+    }
+    const sorted = sortEpisodesDesc(allEpisodes);
+    const latest = sorted[0];
+    if (latest && latest.appleMusicUrl) {
+        const isApple = latest.appleMusicUrl.includes("music.apple.com");
+        defaultTrackData = {
+            type: isApple ? "apple" : "local",
+            url: latest.appleMusicUrl,
+            title: latest.songTitle,
+            artist: latest.artist,
+            artwork: latest.imageUrl || "/images/placeholder-album.svg",
+        };
+    }
+} catch (e) {
+    console.error("Failed to load default track:", e);
+}
 
 const NAV_ITEMS = [
     { label: "Projects", href: "/projects/" },
@@ -203,6 +237,13 @@ const NAV_ITEMS = [
 
             // Attach interactive listeners on load
             document.addEventListener("astro:page-load", attachToggle);
+        </script>
+
+        <script define:vars={{ defaultTrackData }}>
+            // Set default audio track globally (from build-time data)
+            if (defaultTrackData) {
+                window.__defaultAudioShowTrack = defaultTrackData;
+            }
         </script>
     </body>
 </html>

@@ -1,86 +1,151 @@
 ---
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { getCollection } from "astro:content";
+import { parseEpisodesFromMarkdown, sortEpisodesDesc, type Episode } from "../../utils/parseAudioshow";
+import fs from "node:fs";
+import path from "node:path";
 
-const allEpisodes = await getCollection("audioshow");
-// Sort by episode number desc (assuming numeric or parseable)
-const sortedEpisodes = allEpisodes.sort((a, b) => {
-    const epA = Number(a.data.episode);
-    const epB = Number(b.data.episode);
-    if (!isNaN(epA) && !isNaN(epB)) return epB - epA;
-    return 0;
-});
+// Read and parse all audioshow markdown files
+const audioshowDir = path.join(process.cwd(), "src/content/audioshow");
+const files = fs.readdirSync(audioshowDir).filter(f => f.endsWith(".md"));
 
-const featuredEpisodes = sortedEpisodes.filter((e) => e.data.featured);
+let allEpisodes: Episode[] = [];
+
+for (const file of files) {
+    const filePath = path.join(audioshowDir, file);
+    const content = fs.readFileSync(filePath, "utf-8");
+    const episodes = parseEpisodesFromMarkdown(content, file);
+    allEpisodes = [...allEpisodes, ...episodes];
+}
+
+// Sort by episode number descending and get recent 10
+const sortedEpisodes = sortEpisodesDesc(allEpisodes);
+const recentEpisodes = sortedEpisodes.slice(0, 10);
+
+// Placeholder image for episodes without artwork
+const placeholderImage = "/images/placeholder-album.svg";
 ---
 
 <MinimalLayout
     title="AudioShow | Audiofool"
     description="The Great Gig in the Sky"
 >
-    <div class="p-6 md:p-12 mb-20 max-w-5xl mx-auto" transition:animate="fade">
-        <div class="mb-12">
+    <div class="p-6 md:p-12 mb-20" transition:animate="fade">
+        <!-- Header -->
+        <div class="mb-8">
             <h1 class="text-4xl font-bold font-heading mb-2">AudioShow</h1>
-            <p
-                class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
-            >
+            <p class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase">
                 The Great Gig in the Sky
             </p>
         </div>
 
-        <!-- Filter (Visual) -->
-        <div
-            class="flex gap-4 mb-8 text-sm font-mono border-b border-[var(--border-main)] pb-4"
-        >
-            <button
-                class="text-[var(--text-main)] underline decoration-1 underline-offset-4"
-                >[ All Episodes ]</button
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-10 text-sm font-mono border-b border-[var(--border-main)] pb-4">
+            <span class="text-[var(--text-main)] underline decoration-1 underline-offset-4">
+                [ Recent ]
+            </span>
+            <a 
+                href="/audioshow/archive/"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
             >
-            <button
-                class="text-[var(--text-muted)] hover:text-[var(--text-main)]"
-                >[ Featured ]</button
-            >
+                [ Archive ]
+            </a>
         </div>
 
-        <!-- Tracklist -->
-        <div class="flex flex-col border-t border-[var(--border-main)]">
-            {
-                sortedEpisodes.map((ep) => (
-                    <a
-                        href={`/audioshow/${ep.slug}/`}
-                        class="group flex items-center py-4 border-b border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors cursor-pointer px-2"
+        <!-- Recent Episodes - Horizontal Scroll -->
+        <section class="relative">
+            <!-- Scrollable Container -->
+            <div class="flex gap-6 overflow-x-auto pb-8 pt-4 snap-x snap-mandatory scrollbar-hide">
+                <!-- Left Spacer - smaller for less empty space -->
+                <div class="flex-shrink-0 w-8 md:w-16"></div>
+                
+                {recentEpisodes.map((ep) => (
+                    <div 
+                        class="group flex-shrink-0 snap-center w-[360px] md:w-[420px] border border-[var(--border-main)] bg-[var(--bg-body)] cursor-pointer transition-all hover:shadow-lg hover:border-[var(--text-main)] relative"
+                        onclick={ep.appleMusicUrl ? `playTrack({
+                            type: '${ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local'}',
+                            url: '${ep.appleMusicUrl}',
+                            title: '${ep.songTitle.replace(/'/g, "\\'")}',
+                            artist: '${ep.artist.replace(/'/g, "\\'")}',
+                            artwork: '${ep.imageUrl || placeholderImage}'
+                        })` : ''}
                     >
-                        <div class="w-12 md:w-16 font-mono text-sm opacity-50">
-                            #{ep.data.episode}
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="font-bold text-lg truncate">
-                                {ep.data.title}
+                        <!-- Album Artwork -->
+                        <div class="relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+                            <img 
+                                src={ep.imageUrl || placeholderImage}
+                                alt={`${ep.songTitle} - ${ep.artist}`}
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                loading="lazy"
+                                onerror={`this.src='${placeholderImage}'`}
+                            />
+                            <!-- Play Overlay -->
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white text-5xl">▶</span>
                             </div>
-                            <div class="text-xs font-mono opacity-60 md:hidden">
-                                {ep.data.duration}
-                            </div>
                         </div>
-                        <div class="hidden md:block w-32 font-mono text-sm text-right opacity-60">
-                            {ep.data.pubDate.toLocaleDateString()}
-                        </div>
-                        <div class="hidden md:block w-24 font-mono text-sm text-right opacity-60">
-                            {ep.data.duration || "--:--"}
-                        </div>
-                        <div class="w-12 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
-                            →
-                        </div>
-                    </a>
-                ))
-            }
 
-            {
-                sortedEpisodes.length === 0 && (
-                    <div class="py-12 text-[var(--text-muted)]">
-                        No episodes found.
+                        <!-- Card Content - Centered -->
+                        <div class="p-6 pb-8 text-center">
+                            <!-- Quote - Full display with line breaks -->
+                            <p class="text-sm italic text-[var(--text-muted)] mb-5 whitespace-pre-line min-h-[4rem]" set:html={`"${ep.quote.replace(/\n/g, '<br/>')}"`}>
+                            </p>
+
+                            <!-- Song Info -->
+                            <h3 class="font-bold text-xl leading-tight mb-2">
+                                {ep.songTitle}
+                            </h3>
+                            <p class="text-sm text-[var(--text-muted)] mb-3">
+                                {ep.artist}
+                            </p>
+                            
+                            <!-- Album & Year - Centered -->
+                            <div class="text-xs font-mono text-[var(--text-muted)]">
+                                <span>{ep.album}</span>
+                                <span class="mx-2">•</span>
+                                <span>{ep.year}</span>
+                            </div>
+                        </div>
+
+                        <!-- Episode Number Badge - Fixed to Card Border Bottom Right -->
+                        <div class="absolute bottom-2 right-3 text-xs font-mono text-[var(--text-muted)]">
+                            #{ep.number}
+                        </div>
                     </div>
-                )
-            }
+                ))}
+                
+                <!-- Right Spacer -->
+                <div class="flex-shrink-0 w-8 md:w-16"></div>
+            </div>
+        </section>
+
+        <!-- Empty State -->
+        {recentEpisodes.length === 0 && (
+            <div class="py-16 text-center text-[var(--text-muted)]">
+                <p class="text-4xl mb-4">📻</p>
+                <p>No episodes found. The show hasn't started yet.</p>
+            </div>
+        )}
+
+        <!-- Stats -->
+        <div class="mt-12 pt-8 border-t border-[var(--border-main)] flex items-center justify-between text-sm font-mono text-[var(--text-muted)]">
+            <span>{allEpisodes.length} episodes total</span>
+            <a 
+                href="/audioshow/archive/"
+                class="hover:text-[var(--text-main)] transition-colors"
+            >
+                View full archive →
+            </a>
         </div>
     </div>
 </MinimalLayout>
+
+<style>
+    /* Line clamp for quote */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>

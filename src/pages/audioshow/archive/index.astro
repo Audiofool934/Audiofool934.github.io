@@ -1,0 +1,229 @@
+---
+import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import { parseEpisodesFromMarkdown, groupEpisodesByRange, type Episode } from "../../../utils/parseAudioshow";
+import fs from "node:fs";
+import path from "node:path";
+
+// Read and parse all audioshow markdown files
+const audioshowDir = path.join(process.cwd(), "src/content/audioshow");
+const files = fs.readdirSync(audioshowDir).filter(f => f.endsWith(".md"));
+
+let allEpisodes: Episode[] = [];
+
+for (const file of files) {
+    const filePath = path.join(audioshowDir, file);
+    const content = fs.readFileSync(filePath, "utf-8");
+    const episodes = parseEpisodesFromMarkdown(content, file);
+    allEpisodes = [...allEpisodes, ...episodes];
+}
+
+// Group episodes by ranges of 50
+const groupedEpisodes = groupEpisodesByRange(allEpisodes, 50);
+
+// Sort range keys numerically
+const sortedRanges = Object.keys(groupedEpisodes).sort((a, b) => {
+    const startA = parseInt(a.split('-')[0], 10);
+    const startB = parseInt(b.split('-')[0], 10);
+    return startA - startB;
+});
+
+// Placeholder image
+const placeholderImage = "/images/placeholder-album.svg";
+---
+
+<MinimalLayout
+    title="Archive | AudioShow | Audiofool"
+    description="The Great Gig in the Sky - Full Archive"
+>
+    <div class="p-6 md:p-12 mb-20" transition:animate="fade">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold font-heading mb-2">AudioShow Archive</h1>
+            <p class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase">
+                {allEpisodes.length} Episodes • The Great Gig in the Sky
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-10 text-sm font-mono border-b border-[var(--border-main)] pb-4">
+            <a 
+                href="/audioshow/"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+            >
+                [ Recent ]
+            </a>
+            <span class="text-[var(--text-main)] underline decoration-1 underline-offset-4">
+                [ Archive ]
+            </span>
+        </div>
+
+        <!-- Episode Ranges -->
+        <div class="space-y-8">
+            {sortedRanges.map((range, rangeIndex) => (
+                <section class="border border-[var(--border-main)]" data-range={range}>
+                    <details class="group">
+                        <summary class="cursor-pointer p-4 flex items-center justify-between hover:bg-[var(--text-main)]/5 transition-colors">
+                            <h2 class="text-lg font-bold font-heading flex items-center gap-3">
+                                <span class="text-xs font-mono text-[var(--text-muted)]">
+                                    [{groupedEpisodes[range].length}]
+                                </span>
+                                EP {range}
+                            </h2>
+                            <div class="flex items-center gap-4">
+                                <!-- Toggle All Lyrics Button -->
+                                <button 
+                                    class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors px-2 py-1 border border-[var(--border-main)] hover:bg-[var(--text-main)]/5"
+                                    data-toggle-all={range}
+                                    onclick={`toggleAllLyrics('${range}'); event.stopPropagation();`}
+                                >
+                                    [lyrics]
+                                </button>
+                                <span class="font-mono text-xs text-[var(--text-muted)] group-open:rotate-90 transition-transform">
+                                    →
+                                </span>
+                            </div>
+                        </summary>
+
+                        <div class="border-t border-[var(--border-main)]" data-episodes={range}>
+                            {groupedEpisodes[range].map((ep) => (
+                                <div class="episode-item border-b border-[var(--border-main)] last:border-b-0" data-ep={ep.number}>
+                                    <!-- Main Row -->
+                                    <div 
+                                        class="group flex items-center gap-4 p-4 hover:bg-[var(--text-main)]/5 transition-colors cursor-pointer"
+                                        data-ep-row={ep.number}
+                                    >
+                                        <!-- Thumbnail -->
+                                        <div class="w-12 h-12 flex-shrink-0 border border-[var(--border-main)] overflow-hidden">
+                                            <img 
+                                                src={ep.imageUrl || placeholderImage}
+                                                alt={ep.songTitle}
+                                                class="w-full h-full object-cover"
+                                                loading="lazy"
+                                                onerror={`this.src='${placeholderImage}'`}
+                                            />
+                                        </div>
+
+                                        <!-- Episode Number -->
+                                        <div class="w-12 font-mono text-sm opacity-50 text-right">
+                                            #{ep.number}
+                                        </div>
+
+                                        <!-- Song Info: Title + Album -->
+                                        <div class="flex-1 min-w-0">
+                                            <div class="font-bold truncate">
+                                                {ep.songTitle}
+                                            </div>
+                                            <div class="text-xs text-[var(--text-muted)] truncate">
+                                                {ep.album} ({ep.year})
+                                            </div>
+                                        </div>
+
+                                        <!-- Artist on right -->
+                                        <div class="hidden md:block text-sm text-[var(--text-muted)] truncate max-w-[200px]">
+                                            {ep.artist}
+                                        </div>
+
+                                        <!-- Play Button -->
+                                        <button 
+                                            class="w-8 text-center opacity-50 hover:opacity-100 transition-opacity"
+                                            onclick={ep.appleMusicUrl ? `window.playTrack({ type: '${ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local'}', url: '${ep.appleMusicUrl}', title: '${ep.songTitle.replace(/'/g, "\\'")}', artwork: '${ep.imageUrl || ''}' }); event.stopPropagation();` : 'event.stopPropagation();'}
+                                        >
+                                            ▶
+                                        </button>
+
+                                        <!-- Expand Arrow -->
+                                        <div class="w-6 text-center text-[var(--text-muted)] lyrics-arrow transition-transform">
+                                            ↓
+                                        </div>
+                                    </div>
+
+                                    <!-- Lyrics (Hidden by default) -->
+                                    <div class="lyrics-content hidden px-4 pb-4">
+                                        <div class="ml-[76px] pl-4 border-l-2 border-[var(--border-main)]">
+                                            <p class="text-sm italic text-[var(--text-muted)] whitespace-pre-line" set:html={`"${ep.quote.replace(/\n/g, '<br/>')}"`}>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </details>
+                </section>
+            ))}
+        </div>
+
+        <!-- Empty State -->
+        {allEpisodes.length === 0 && (
+            <div class="py-16 text-center text-[var(--text-muted)]">
+                <p class="text-4xl mb-4">📻</p>
+                <p>No episodes found. The show hasn't started yet.</p>
+            </div>
+        )}
+
+        <!-- Back Link -->
+        <div class="mt-12 pt-8 border-t border-[var(--border-main)]">
+            <a 
+                href="/audioshow/"
+                class="text-sm font-mono text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+            >
+                ← Back to Recent
+            </a>
+        </div>
+    </div>
+</MinimalLayout>
+
+<script is:inline>
+    // Toggle individual episode lyrics
+    document.querySelectorAll('[data-ep-row]').forEach(row => {
+        row.addEventListener('click', (e) => {
+            const epItem = row.closest('.episode-item');
+            const lyricsContent = epItem.querySelector('.lyrics-content');
+            const arrow = epItem.querySelector('.lyrics-arrow');
+            
+            if (lyricsContent.classList.contains('hidden')) {
+                lyricsContent.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                lyricsContent.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        });
+    });
+
+    // Toggle all lyrics in a range
+    // Logic: if ALL are closed -> open all; if ANY are open -> close all
+    window.toggleAllLyrics = function(range) {
+        const section = document.querySelector(`[data-range="${range}"]`);
+        const episodes = section.querySelectorAll('.episode-item');
+        const toggleBtn = section.querySelector(`[data-toggle-all="${range}"]`);
+        
+        // Check if ALL are currently hidden (no open lyrics)
+        const allHidden = Array.from(episodes).every(ep => 
+            ep.querySelector('.lyrics-content').classList.contains('hidden')
+        );
+        
+        episodes.forEach(ep => {
+            const lyricsContent = ep.querySelector('.lyrics-content');
+            const arrow = ep.querySelector('.lyrics-arrow');
+            
+            if (allHidden) {
+                // All are closed, so open all
+                lyricsContent.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                // Some are open, so close all
+                lyricsContent.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Update button text
+        toggleBtn.textContent = allHidden ? '[collapse]' : '[lyrics]';
+    };
+</script>
+
+<style>
+    .lyrics-arrow {
+        transition: transform 0.2s ease;
+    }
+</style>
