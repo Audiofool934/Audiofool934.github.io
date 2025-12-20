@@ -3,105 +3,160 @@
 // State persists across View Transitions via window.__audioPlayerState
 ---
 
-<div
-    id="audio-player-bar"
-    class="flex flex-col gap-4 w-full bg-[var(--bg-body)] z-[100] transition-all duration-300 mt-auto"
-    transition:persist
->
-    <!-- Hidden Audio Element -->
+<div id="audio-player-bar" transition:persist>
+    <!-- Hidden Audio Element (shared) -->
     <audio id="main-audio-element" preload="auto"></audio>
 
-    <!-- Header -->
-    <div class="flex items-center justify-between">
-        <span
-            class="text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)]"
-            >Now Playing</span
-        >
-        <div class="flex items-center gap-2">
-            <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse">
-            </div>
-            <span class="text-[10px] font-mono text-[var(--text-muted)]"
-                >Online</span
-            >
-        </div>
-    </div>
-
-    <!-- Art -->
+    <!-- ==================== DESKTOP PLAYER (Sidebar) ==================== -->
     <div
-        id="player-art"
-        class="w-full aspect-square bg-[var(--bg-body)] border border-[var(--border-main)] relative overflow-hidden group"
+        class="hidden md:flex flex-col gap-4 w-full bg-[var(--bg-body)] z-[100] transition-all duration-300 mt-auto"
     >
-        <img
-            id="player-art-img"
-            src=""
-            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
-        />
-        <div
-            id="player-art-placeholder"
-            class="absolute inset-0 flex items-center justify-center font-mono text-2xl text-[var(--text-muted)]"
-        >
-            📻
-        </div>
-
-        <!-- Hover Overlay for Play Toggle -->
-        <div
-            class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
-            onclick="document.getElementById('player-play-btn').click()"
-        >
-            <span class="text-white text-3xl opacity-80 hover:opacity-100"
-                >⏯</span
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+            <span
+                class="text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)]"
+                >Now Playing</span
             >
-        </div>
-    </div>
-
-    <!-- Track Info -->
-    <div class="flex flex-col min-w-0">
-        <div
-            id="player-track-name"
-            class="text-sm font-bold truncate leading-tight"
-        >
-            Select a track...
-        </div>
-        <div
-            id="player-artist-name"
-            class="text-xs text-[var(--text-muted)] truncate mt-1"
-        >
-            AudioShow
-        </div>
-    </div>
-
-    <!-- Controls & Progress -->
-    <div class="flex flex-col gap-3 w-full">
-        <!-- Progress Bar -->
-        <div
-            class="w-full h-1 bg-[var(--text-muted)]/30 relative group cursor-pointer"
-            id="player-seek-container"
-        >
-            <div
-                id="player-progress-bar"
-                class="absolute top-0 left-0 h-full bg-[var(--text-main)] w-0"
-            >
-            </div>
-            <!-- Hit Area -->
-            <div
-                class="absolute -top-2 -bottom-2 left-0 right-0 bg-transparent"
-            >
+            <div class="flex items-center gap-2">
+                <div
+                    class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"
+                >
+                </div>
+                <span class="text-[10px] font-mono text-[var(--text-muted)]"
+                    >Online</span
+                >
             </div>
         </div>
 
-        <!-- Time & Controls -->
+        <!-- Art -->
         <div
-            class="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]"
+            id="player-art"
+            class="w-full aspect-square bg-[var(--bg-body)] border border-[var(--border-main)] relative overflow-hidden group"
         >
-            <span id="player-current-time">0:00</span>
+            <img
+                id="player-art-img"
+                src=""
+                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
+            />
+            <div
+                id="player-art-placeholder"
+                class="absolute inset-0 flex items-center justify-center font-mono text-2xl text-[var(--text-muted)]"
+            >
+                📻
+            </div>
+            <div
+                class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                onclick="document.getElementById('player-play-btn').click()"
+            >
+                <span class="text-white text-3xl opacity-80 hover:opacity-100"
+                    >⏯</span
+                >
+            </div>
+        </div>
+
+        <!-- Track Info -->
+        <div class="flex flex-col min-w-0">
+            <div
+                id="player-track-name"
+                class="text-sm font-bold truncate leading-tight"
+            >
+                Select a track...
+            </div>
+            <div
+                id="player-artist-name"
+                class="text-xs text-[var(--text-muted)] truncate mt-1"
+            >
+                AudioShow
+            </div>
+        </div>
+
+        <!-- Controls & Progress -->
+        <div class="flex flex-col gap-3 w-full">
+            <div
+                class="w-full h-1 bg-[var(--text-muted)]/30 relative group cursor-pointer"
+                id="player-seek-container"
+            >
+                <div
+                    id="player-progress-bar"
+                    class="absolute top-0 left-0 h-full bg-[var(--text-main)] w-0"
+                >
+                </div>
+                <div
+                    class="absolute -top-2 -bottom-2 left-0 right-0 bg-transparent"
+                >
+                </div>
+            </div>
+            <div
+                class="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]"
+            >
+                <span id="player-current-time">0:00</span>
+                <button
+                    id="player-play-btn"
+                    class="hover:text-[var(--text-main)] transition-colors disabled:opacity-30 p-1"
+                    disabled
+                >
+                    <span id="play-icon" class="text-xl">▶</span>
+                </button>
+                <span id="player-duration">0:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MOBILE PLAYER (Fixed Bottom Bar) ==================== -->
+    <div
+        class="md:hidden fixed bottom-0 left-0 right-0 bg-[var(--bg-body)] border-t border-[var(--border-main)] z-[200] px-4 py-3 safe-area-inset-bottom"
+    >
+        <div class="flex items-center gap-3">
+            <!-- Mini Artwork -->
+            <div
+                class="w-12 h-12 flex-shrink-0 border border-[var(--border-main)] relative overflow-hidden bg-[var(--bg-body)]"
+            >
+                <img
+                    id="player-art-img-mobile"
+                    src=""
+                    class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300"
+                />
+                <div
+                    id="player-art-placeholder-mobile"
+                    class="absolute inset-0 flex items-center justify-center font-mono text-lg text-[var(--text-muted)]"
+                >
+                    📻
+                </div>
+            </div>
+
+            <!-- Track Info -->
+            <div class="flex-1 min-w-0">
+                <div
+                    id="player-track-name-mobile"
+                    class="text-sm font-bold truncate"
+                >
+                    Select a track...
+                </div>
+                <div
+                    id="player-artist-name-mobile"
+                    class="text-xs text-[var(--text-muted)] truncate"
+                >
+                    AudioShow
+                </div>
+            </div>
+
+            <!-- Play Button -->
             <button
-                id="player-play-btn"
-                class="hover:text-[var(--text-main)] transition-colors disabled:opacity-30 p-1"
+                id="player-play-btn-mobile"
+                class="w-10 h-10 flex items-center justify-center border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors disabled:opacity-30"
                 disabled
             >
-                <span id="play-icon" class="text-xl">▶</span>
+                <span id="play-icon-mobile" class="text-lg">▶</span>
             </button>
-            <span id="player-duration">0:00</span>
+        </div>
+
+        <!-- Mini Progress Bar -->
+        <div class="w-full h-0.5 bg-[var(--text-muted)]/20 mt-2 -mb-1">
+            <div
+                id="player-progress-bar-mobile"
+                class="h-full bg-[var(--text-main)] w-0 transition-all"
+            >
+            </div>
         </div>
     </div>
 </div>
@@ -124,6 +179,7 @@
         function getElements() {
             return {
                 audio: document.getElementById("main-audio-element"),
+                // Desktop elements
                 playBtn: document.getElementById("player-play-btn"),
                 playIcon: document.getElementById("play-icon"),
                 seekContainer: document.getElementById("player-seek-container"),
@@ -136,30 +192,68 @@
                 artPlaceholder: document.getElementById(
                     "player-art-placeholder",
                 ),
+                // Mobile elements
+                playBtnMobile: document.getElementById(
+                    "player-play-btn-mobile",
+                ),
+                playIconMobile: document.getElementById("play-icon-mobile"),
+                progressBarMobile: document.getElementById(
+                    "player-progress-bar-mobile",
+                ),
+                trackNameMobile: document.getElementById(
+                    "player-track-name-mobile",
+                ),
+                artistNameMobile: document.getElementById(
+                    "player-artist-name-mobile",
+                ),
+                artImgMobile: document.getElementById("player-art-img-mobile"),
+                artPlaceholderMobile: document.getElementById(
+                    "player-art-placeholder-mobile",
+                ),
             };
         }
 
         // ========================================
-        // UI SYNC: One-way state → DOM
+        // UI SYNC: One-way state → DOM (Desktop + Mobile)
         // ========================================
         function syncUIWithState() {
             const state = window.__audioPlayerState;
             const els = getElements();
-            if (!els.audio || !els.playBtn) return;
+            if (!els.audio) return;
 
             const track = state?.track;
-            if (track) {
-                els.trackNameEl.textContent = track.title || "Unknown";
-                els.artistNameEl.textContent = track.artist || "AudioShow";
-                if (track.artwork) {
-                    els.artImg.src = track.artwork;
-                    els.artImg.style.opacity = "1";
-                    els.artPlaceholder.style.opacity = "0";
+            const isPlaying = state?.isPlaying;
+
+            // Update Desktop UI
+            if (els.playBtn) {
+                if (track) {
+                    els.trackNameEl.textContent = track.title || "Unknown";
+                    els.artistNameEl.textContent = track.artist || "AudioShow";
+                    if (track.artwork) {
+                        els.artImg.src = track.artwork;
+                        els.artImg.style.opacity = "1";
+                        els.artPlaceholder.style.opacity = "0";
+                    }
                 }
+                els.playIcon.textContent = isPlaying ? "II" : "▶";
+                els.playBtn.disabled = false;
             }
 
-            els.playIcon.textContent = state?.isPlaying ? "II" : "▶";
-            els.playBtn.disabled = false;
+            // Update Mobile UI
+            if (els.playBtnMobile) {
+                if (track) {
+                    els.trackNameMobile.textContent = track.title || "Unknown";
+                    els.artistNameMobile.textContent =
+                        track.artist || "AudioShow";
+                    if (track.artwork) {
+                        els.artImgMobile.src = track.artwork;
+                        els.artImgMobile.style.opacity = "1";
+                        els.artPlaceholderMobile.style.opacity = "0";
+                    }
+                }
+                els.playIconMobile.textContent = isPlaying ? "II" : "▶";
+                els.playBtnMobile.disabled = false;
+            }
         }
 
         // ========================================
@@ -227,7 +321,7 @@
 
             const state = window.__audioPlayerState;
             const els = getElements();
-            if (!els.audio || !els.playBtn) return;
+            if (!els.audio) return;
 
             // First time: load default track
             if (!state.initialized) {
@@ -251,8 +345,8 @@
                 return `${mins}:${secs.toString().padStart(2, "0")}`;
             }
 
-            // Play Button
-            els.playBtn.onclick = async () => {
+            // Shared play/pause handler
+            async function handlePlayPause() {
                 const audio = els.audio;
                 const noSource =
                     !audio.src ||
@@ -261,7 +355,6 @@
 
                 if (noSource && state.track && state.track.url) {
                     audio.src = state.track.url;
-                    // Restore playback position if we had one
                     if (state.currentTime > 0) {
                         audio.currentTime = state.currentTime;
                     }
@@ -276,7 +369,17 @@
                 } else {
                     audio.pause();
                 }
-            };
+            }
+
+            // Desktop Play Button
+            if (els.playBtn) {
+                els.playBtn.onclick = handlePlayPause;
+            }
+
+            // Mobile Play Button
+            if (els.playBtnMobile) {
+                els.playBtnMobile.onclick = handlePlayPause;
+            }
 
             // Audio Events
             els.audio.onplay = () => {
@@ -288,22 +391,37 @@
                 syncUIWithState();
             };
             els.audio.ontimeupdate = () => {
-                state.currentTime = els.audio.currentTime; // Save position
+                state.currentTime = els.audio.currentTime;
                 const percent =
                     (els.audio.currentTime / els.audio.duration) * 100;
-                els.progressBar.style.width = `${percent}%`;
-                els.currTimeEl.textContent = formatTime(els.audio.currentTime);
+                // Update desktop progress
+                if (els.progressBar) {
+                    els.progressBar.style.width = `${percent}%`;
+                }
+                // Update mobile progress
+                if (els.progressBarMobile) {
+                    els.progressBarMobile.style.width = `${percent}%`;
+                }
+                if (els.currTimeEl) {
+                    els.currTimeEl.textContent = formatTime(
+                        els.audio.currentTime,
+                    );
+                }
             };
             els.audio.onloadedmetadata = () => {
-                els.durationEl.textContent = formatTime(els.audio.duration);
+                if (els.durationEl) {
+                    els.durationEl.textContent = formatTime(els.audio.duration);
+                }
             };
 
-            // Seeking
-            els.seekContainer.onclick = (e) => {
-                const rect = els.seekContainer.getBoundingClientRect();
-                const pos = (e.clientX - rect.left) / rect.width;
-                els.audio.currentTime = pos * els.audio.duration;
-            };
+            // Seeking (Desktop only)
+            if (els.seekContainer) {
+                els.seekContainer.onclick = (e) => {
+                    const rect = els.seekContainer.getBoundingClientRect();
+                    const pos = (e.clientX - rect.left) / rect.width;
+                    els.audio.currentTime = pos * els.audio.duration;
+                };
+            }
 
             // Restore audio src if it was lost but we have track state
             const audioHasNoSrc =
