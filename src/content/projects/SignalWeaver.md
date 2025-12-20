@@ -5,8 +5,10 @@ author: 'Audiofool'
 pubDate: '2025-01-12'
 status: 'in progress'
 tags: ['project', 'AI', 'audio', 'multimodal']
+category: 'Audio'
+featured: true
 image:
-    url: '/images/photography/moonrise.JPG'
+    url: '/images/gallery/moonrise.webp'
     alt: 'Moonrise over campus'
 ---
 

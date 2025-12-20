@@ -1,0 +1,138 @@
+---
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import { getCollection } from "astro:content";
+
+const galleryItems = await getCollection("gallery");
+
+// Sort by date desc
+const sortedGallery = galleryItems.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+// Featured items for horizontal scroll
+const featuredItems = sortedGallery.filter((item) => item.data.featured);
+
+// Group remaining by category
+const categorizedItems = sortedGallery
+    .filter((item) => !item.data.featured)
+    .reduce(
+        (acc, item) => {
+            const cat = item.data.category || "Other";
+            if (!acc[cat]) acc[cat] = [];
+            acc[cat].push(item);
+            return acc;
+        },
+        {} as Record<string, typeof galleryItems>,
+    );
+
+const categoryOrder = ["Nature", "Urban", "Night", "Travel", "Other"];
+const sortedCategories = Object.keys(categorizedItems).sort((a, b) => {
+    const indexA = categoryOrder.indexOf(a);
+    const indexB = categoryOrder.indexOf(b);
+    return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+});
+---
+
+<MinimalLayout title="Gallery | Audiofool" description="Obscured by Clouds">
+    <div class="p-6 md:p-12" transition:animate="fade">
+        <!-- Header -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold font-heading mb-2">Gallery</h1>
+            <p
+                class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
+            >
+                Obscured by Clouds
+            </p>
+        </div>
+
+        <!-- Featured Section - Horizontal Scroll -->
+        {
+            featuredItems.length > 0 && (
+                <section class="mb-16">
+                    <h2 class="text-sm font-mono uppercase tracking-widest text-[var(--text-muted)] mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[var(--text-main)] rounded-full" />
+                        Featured
+                    </h2>
+                    <!-- Removed aspect-ratio constraint, added max-height -->
+                    <div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6">
+                        {featuredItems.map((item) => (
+                            <a 
+                                href={`/gallery/${item.slug}/`}
+                                class="group flex-shrink-0 snap-start relative border border-[var(--border-main)]"
+                            >
+                                <img 
+                                    src={item.data.image} 
+                                    alt={item.data.title}
+                                    class="h-[30vh] w-auto max-w-[80vw] object-contain"
+                                    loading="lazy"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                                        <h3 class="font-bold text-lg">{item.data.title}</h3>
+                                        <div class="font-mono text-xs opacity-80">
+                                            {item.data.location || item.data.date.getFullYear()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </section>
+            )
+        }
+
+        <!-- Categorized Sections -->
+        {
+            sortedCategories.map((category) => (
+                <section class="mb-12 border-t border-[var(--border-main)] pt-6">
+                    <details class="group" open>
+                        <summary class="cursor-pointer list-none flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-bold font-heading flex items-center gap-3">
+                                <span class="text-xs font-mono text-[var(--text-muted)]">
+                                    [{categorizedItems[category].length}]
+                                </span>
+                                {category}
+                            </h2>
+                            <span class="font-mono text-xs text-[var(--text-muted)] group-open:rotate-90 transition-transform">
+                                →
+                            </span>
+                        </summary>
+                        
+                        <!-- Masonry-like flex layout instead of strict grid for varying aspect ratios -->
+                        <div class="flex flex-wrap gap-4">
+                            {categorizedItems[category].map((item) => (
+                                <a 
+                                    href={`/gallery/${item.slug}/`}
+                                    class="group relative border border-[var(--border-main)] overflow-hidden"
+                                >
+                                    <img 
+                                        src={item.data.image} 
+                                        alt={item.data.title}
+                                        class="h-[300px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                        loading="lazy"
+                                    />
+                                    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3 text-white pointer-events-none">
+                                        <h3 class="font-bold text-sm truncate">{item.data.title}</h3>
+                                        <div class="font-mono text-[10px] opacity-80">
+                                            {item.data.date.getFullYear()}
+                                        </div>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    </details>
+                </section>
+            ))
+        }
+
+        {
+            sortedGallery.length === 0 && (
+                <div class="py-12 text-center text-[var(--text-muted)]">
+                    No images found. Clouds are obscuring everything.
+                </div>
+            )
+        }
+    </div>
+</MinimalLayout>
+
+

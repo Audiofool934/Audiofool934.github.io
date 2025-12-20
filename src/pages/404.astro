@@ -1,0 +1,28 @@
+---
+import MinimalLayout from "../layouts/MinimalLayout.astro";
+---
+
+<MinimalLayout title="404 - Not Found">
+    <div
+        class="p-8 md:p-12 min-h-[60vh] flex flex-col justify-center items-center text-center"
+    >
+        <h1 class="text-6xl md:text-8xl font-bold font-mono mb-4">404</h1>
+
+        <div class="h-px w-32 bg-[var(--border-main)] my-8"></div>
+
+        <h2 class="text-2xl md:text-3xl font-heading mb-8">
+            "Is There Anybody Out There?"
+        </h2>
+
+        <p class="text-[var(--text-muted)] max-w-md mb-12">
+            The page you are looking for has been obscured by clouds.
+        </p>
+
+        <a
+            href="/"
+            class="px-8 py-3 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors font-mono"
+        >
+            Return Home
+        </a>
+    </div>
+</MinimalLayout>

@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import "../../style/post.css";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("log");
+    return posts.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+function formatDate(date: Date) {
+    return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+}
+---
+
+<MinimalLayout title={`${entry.data.title} | Log`}>
+    <div class="p-6 md:p-12 flex justify-center">
+        <article class="max-w-4xl w-full anime-fade-in-up">
+            <!-- Log Header -->
+            <header
+                class="mb-10 text-center border-b border-[var(--border-main)] pb-8"
+            >
+                <time
+                    class="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest mb-4 block"
+                >
+                    {formatDate(entry.data.pubDate)}
+                </time>
+                <h1 class="text-3xl md:text-5xl font-bold font-heading mb-6">
+                    {entry.data.title}
+                </h1>
+
+                <div class="flex flex-wrap justify-center gap-2">
+                    {
+                        entry.data.tags.map((tag) => (
+                            <span class="text-xs font-mono text-[var(--text-muted)] before:content-['#']">
+                                {tag}
+                            </span>
+                        ))
+                    }
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="post-content">
+                <Content />
+            </div>
+        </article>
+    </div>
+</MinimalLayout>
+
+<style>
+    .anime-fade-in-up {
+        animation: fadeInUp 0.5s ease-out;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

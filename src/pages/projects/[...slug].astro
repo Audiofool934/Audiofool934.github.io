@@ -1,10 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import "../../style/post.css"; // Standard typography
 
 export async function getStaticPaths() {
-    const projectEntries = await getCollection("projects");
-    return projectEntries.map((entry) => ({
+    const projects = await getCollection("projects");
+    return projects.map((entry) => ({
         params: { slug: entry.slug },
         props: { entry },
     }));
@@ -12,15 +13,84 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+// Logic: If there is a 'url' in frontmatter, show a "Launch" button.
 ---
 
-<BaseLayout title={entry.data.title}>
-    <article class="prose prose-invert lg:prose-xl mx-auto">
-        <header class="mb-8">
-            <p class="text-accent eyebrow">{entry.data.status}</p>
-            <h1>{entry.data.title}</h1>
-            <p class="text-muted">{entry.data.pubDate.toLocaleDateString()}</p>
+<MinimalLayout
+    title={`${entry.data.title} | Projects`}
+    description={entry.data.description}
+>
+    <article class="p-6 md:p-12 max-w-4xl mx-auto anime-fade-in-up">
+        <!-- Project Header -->
+        <header class="mb-12 border-b border-[var(--border-main)] pb-8">
+            <div
+                class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6"
+            >
+                <div>
+                    <div
+                        class="font-mono text-xs text-[var(--accent)] mb-2 uppercase tracking-wider"
+                    >
+                        {entry.data.type || "Project"} / {
+                            entry.data.pubDate.getFullYear()
+                        }
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold font-heading">
+                        {entry.data.title}
+                    </h1>
+                </div>
+
+                {
+                    entry.data.url && (
+                        <a
+                            href={entry.data.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="px-6 py-3 bg-[var(--text-main)] text-[var(--bg-body)] font-mono text-sm hover:opacity-80 transition-opacity flex items-center gap-2"
+                        >
+                            [ Launch Machine ]<span class="text-xs">↗</span>
+                        </a>
+                    )
+                }
+            </div>
+
+            <p
+                class="text-xl text-[var(--text-muted)] leading-relaxed max-w-2xl"
+            >
+                {entry.data.description}
+            </p>
+
+            <!-- Tech Stack -->
+            <div class="flex flex-wrap gap-2 mt-6">
+                {
+                    entry.data.stack.map((tech) => (
+                        <span class="text-xs font-mono px-2 py-1 border border-[var(--border-main)] rounded-full text-[var(--text-muted)]">
+                            {tech}
+                        </span>
+                    ))
+                }
+            </div>
         </header>
-        <Content />
+
+        <!-- Content (Case Study / Blog) -->
+        <div class="post-content">
+            <Content />
+        </div>
     </article>
-</BaseLayout>
+</MinimalLayout>
+
+<style>
+    .anime-fade-in-up {
+        animation: fadeInUp 0.5s ease-out;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

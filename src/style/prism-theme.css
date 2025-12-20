@@ -1,0 +1,169 @@
+/* ====================== Prism.js Dual Theme ====================== */
+/* Light theme (default) and Dark theme (html.dark) */
+
+/* Base code styling */
+code[class*="language-"],
+pre[class*="language-"] {
+    font-family: 'JetBrains Mono', Consolas, Monaco, 'Andale Mono', monospace;
+    font-size: 0.9em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.6;
+    tab-size: 4;
+    hyphens: none;
+}
+
+pre[class*="language-"] {
+    padding: 1.25rem;
+    margin: 2rem 0;
+    overflow: auto;
+    border-radius: 0;
+    border: 1px solid var(--border-main);
+}
+
+:not(pre)>code[class*="language-"] {
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    white-space: normal;
+}
+
+/* ==================== Light Theme (Default) ==================== */
+html:not(.dark) code[class*="language-"],
+html:not(.dark) pre[class*="language-"] {
+    color: #24292e;
+    background: #f6f8fa;
+}
+
+html:not(.dark) .token.comment,
+html:not(.dark) .token.prolog,
+html:not(.dark) .token.doctype,
+html:not(.dark) .token.cdata {
+    color: #6a737d;
+}
+
+html:not(.dark) .token.punctuation {
+    color: #24292e;
+}
+
+html:not(.dark) .token.property,
+html:not(.dark) .token.tag,
+html:not(.dark) .token.boolean,
+html:not(.dark) .token.number,
+html:not(.dark) .token.constant,
+html:not(.dark) .token.symbol,
+html:not(.dark) .token.deleted {
+    color: #005cc5;
+}
+
+html:not(.dark) .token.selector,
+html:not(.dark) .token.attr-name,
+html:not(.dark) .token.string,
+html:not(.dark) .token.char,
+html:not(.dark) .token.builtin,
+html:not(.dark) .token.inserted {
+    color: #22863a;
+}
+
+html:not(.dark) .token.operator,
+html:not(.dark) .token.entity,
+html:not(.dark) .token.url,
+html:not(.dark) .language-css .token.string,
+html:not(.dark) .style .token.string {
+    color: #d73a49;
+}
+
+html:not(.dark) .token.atrule,
+html:not(.dark) .token.attr-value,
+html:not(.dark) .token.keyword {
+    color: #d73a49;
+}
+
+html:not(.dark) .token.function,
+html:not(.dark) .token.class-name {
+    color: #6f42c1;
+}
+
+html:not(.dark) .token.regex,
+html:not(.dark) .token.important,
+html:not(.dark) .token.variable {
+    color: #e36209;
+}
+
+/* ==================== Dark Theme ==================== */
+html.dark code[class*="language-"],
+html.dark pre[class*="language-"] {
+    color: #e1e4e8;
+    background: #24292e;
+}
+
+html.dark .token.comment,
+html.dark .token.prolog,
+html.dark .token.doctype,
+html.dark .token.cdata {
+    color: #6a737d;
+}
+
+html.dark .token.punctuation {
+    color: #e1e4e8;
+}
+
+html.dark .token.property,
+html.dark .token.tag,
+html.dark .token.boolean,
+html.dark .token.number,
+html.dark .token.constant,
+html.dark .token.symbol,
+html.dark .token.deleted {
+    color: #79b8ff;
+}
+
+html.dark .token.selector,
+html.dark .token.attr-name,
+html.dark .token.string,
+html.dark .token.char,
+html.dark .token.builtin,
+html.dark .token.inserted {
+    color: #85e89d;
+}
+
+html.dark .token.operator,
+html.dark .token.entity,
+html.dark .token.url,
+html.dark .language-css .token.string,
+html.dark .style .token.string {
+    color: #f97583;
+}
+
+html.dark .token.atrule,
+html.dark .token.attr-value,
+html.dark .token.keyword {
+    color: #f97583;
+}
+
+html.dark .token.function,
+html.dark .token.class-name {
+    color: #b392f0;
+}
+
+html.dark .token.regex,
+html.dark .token.important,
+html.dark .token.variable {
+    color: #ffab70;
+}
+
+/* Common styles */
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}

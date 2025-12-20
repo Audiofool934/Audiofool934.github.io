@@ -3,6 +3,7 @@ title: 'WeaveWave'
 pubDate: '2024-11-15'
 description: 'An AI-powered generator for intricate ambient soundscapes.'
 author: 'Audiofool'
+category: 'Audio'
 image:
     url: ''
     alt: 'weavewave'

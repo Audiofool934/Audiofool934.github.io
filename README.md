@@ -1,47 +1,174 @@
-# Astro Starter Kit: Minimal
+# Audiofool.net
 
-```sh
-npm create astro@latest -- --template minimal
+> *"Die-hard Pink Floyd fan. Developer. Exploring the intersection of Logic and Sound."*
+
+A minimalist personal website built with Astro, featuring a strict black & white design aesthetic with subtle Pink Floyd thematic elements.
+
+🌐 **Live**: [audiofool.net](http://audiofool.net)
+
+---
+
+## ✨ Features
+
+### Design
+- **Black & White Aesthetic** – Strict B&W palette with 1px line borders
+- **Dark/Light Mode** – Toggle between "Dark Side of the Moon" and light mode
+- **Minimalist Typography** – Inter for UI, JetBrains Mono for code
+- **Responsive Layout** – Sidebar navigation on desktop, stacked on mobile
+
+### Content Sections
+| Section       | Description                  | Pink Floyd Reference         |
+| ------------- | ---------------------------- | ---------------------------- |
+| **Projects**  | Portfolio of completed works | *"Welcome to the Machine"*   |
+| **Log**       | Chronological blog stream    | *"The Endless River"*        |
+| **Wiki**      | Structured knowledge base    | *"Any Colour You Like"*      |
+| **AudioShow** | Music & audio episodes       | *"The Great Gig in the Sky"* |
+| **Gallery**   | Photography showcase         | *"Obscured by Clouds"*       |
+
+### Technical Highlights
+- **Custom Audio Player** – Bypasses Apple Music iframe, fetches preview URLs via iTunes API
+- **View Transitions** – Seamless page-to-page animations with persistent audio playback
+- **Content Collections** – Type-safe Markdown/YAML content with Zod schemas
+- **LaTeX Support** – Math rendering via remark-math + rehype-katex
+
+---
+
+## 🛠 Tech Stack
+
+| Category      | Technology                                  |
+| ------------- | ------------------------------------------- |
+| Framework     | [Astro](https://astro.build) 4.x            |
+| Styling       | [Tailwind CSS](https://tailwindcss.com) 3.x |
+| UI Components | [Preact](https://preactjs.com)              |
+| Content       | Astro Content Collections                   |
+| Fonts         | Inter, JetBrains Mono (Google Fonts)        |
+| Hosting       | GitHub Pages                                |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   └── AudioPlayer.astro    # Custom music player
+├── content/
+│   ├── projects/            # Portfolio items
+│   ├── log/                 # Blog posts
+│   ├── wiki/                # Knowledge base
+│   ├── audioshow/           # Audio episodes
+│   ├── gallery/             # Photo metadata
+│   └── config.ts            # Collection schemas
+├── layouts/
+│   └── MinimalLayout.astro  # Main site layout
+├── pages/
+│   ├── index.astro          # Homepage
+│   ├── 404.astro            # "Is There Anybody Out There?"
+│   ├── projects/            # Projects section
+│   ├── log/                 # Log section
+│   ├── wiki/                # Wiki section
+│   ├── audioshow/           # AudioShow section
+│   └── gallery/             # Gallery section
+└── style/
+    ├── global.css           # Design system & CSS vars
+    └── post.css             # Markdown content styles
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+---
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Getting Started
 
-## 🚀 Project Structure
+```bash
+# Install dependencies
+npm install
 
-Inside of your Astro project, you'll see the following folders and files:
+# Start development server
+npm run dev
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 📝 Adding Content
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Projects
+Create a new `.md` file in `src/content/projects/`:
+```yaml
+---
+title: "My Project"
+pubDate: 2024-01-01
+description: "Brief description"
+stack: ["Astro", "TypeScript"]
+type: "Product"  # Product | Lib | Art | Other
+url: "https://example.com"  # Optional external link
+---
 
-## 🧞 Commands
+Your project details in Markdown...
+```
 
-All commands are run from the root of the project, from a terminal:
+### AudioShow Episodes
+Add to `src/content/audioshow/`:
+```yaml
+---
+title: "Episode Title"
+episode: "1"
+pubDate: 2024-01-01
+audioUrl: "https://embed.music.apple.com/..."  # Apple Music embed URL
+featured: false
+---
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Episode content with album images using onclick handlers...
+```
 
-## 👀 Want to learn more?
+### Wiki Entries
+Add to `src/content/wiki/`:
+```yaml
+---
+title: "Topic Name"
+tags: ["category", "subtopic"]
+---
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Knowledge content in Markdown...
+```
+
+---
+
+## 🎨 Customization
+
+### Social Links
+Edit `/src/layouts/MinimalLayout.astro` to update:
+- GitHub URL
+- Instagram URL
+- Xiaohongshu URL
+
+### Theme Colors
+Modify CSS variables in `/src/style/global.css`:
+```css
+:root {
+  --bg-body: #ffffff;
+  --text-main: #000000;
+  --text-muted: #525252;
+  --border-main: #000000;
+}
+
+html.dark {
+  --bg-body: #000000;
+  --text-main: #ffffff;
+  /* ... */
+}
+```
+
+---
+
+## 📄 License
+
+MIT License - Feel free to use this as a template for your own site.
+
+---
+
+*"Shine on you crazy diamond."* 💎

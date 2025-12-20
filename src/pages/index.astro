@@ -1,303 +1,56 @@
 ---
-import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import BlogPost from "../components/BlogPost.astro";
-import AudioshowPost from "../components/AudioshowPost.astro";
-
-// Fetch content using Content Collections
-const notesPosts = (await getCollection("notes"))
-	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-	.slice(0, 3);
-
-const projectPosts = (await getCollection("projects"))
-	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-	.slice(0, 3);
-
-const audioshowEpisodes = (await getCollection("audioshow")).sort(
-	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
-);
-const latestAudioshow = audioshowEpisodes[0];
-
-// Page metadata
-const headTitle = "Audiofool";
-const pageTitle = "Audiofool";
-const description =
-	"Projects, notes, photography, and music from Audiofool — where research meets creativity.";
-
-const formatDate = (value) =>
-	new Date(value).toLocaleDateString("en", {
-		month: "short",
-		day: "numeric",
-		year: "numeric",
-	});
+import MinimalLayout from "../layouts/MinimalLayout.astro";
 ---
 
-<BaseLayout
-	headTitle={headTitle}
-	pageTitle={pageTitle}
-	hideHeading={true}
-	description={description}
-	enableGlow={true}
->
-	<!-- Hero Section -->
-	<section class="hero py-16 md:py-24">
-		<div class="hero-content mx-auto max-width-xl text-center">
-			<p class="eyebrow fade-in">Audiofool Studio</p>
-			<h1
-				class="hero-title text-gradient leading-tight tracking-tighter mb-6"
+<MinimalLayout title="Audiofool">
+	<div class="p-8 md:p-12 min-h-[60vh] flex flex-col justify-center">
+		<!-- Introduction -->
+		<h1
+			class="text-4xl md:text-6xl font-bold tracking-tight mb-8 font-heading"
+		>
+			Audiofool
+		</h1>
+
+		<p
+			class="text-xl md:text-2xl leading-relaxed max-w-2xl text-[var(--text-muted)] mb-12"
+		>
+			Die-hard Pink Floyd fan. Developer. <br />
+			Exploring the intersection of <span
+				class="text-[var(--text-main)] font-medium">Logic</span
+			> and <span class="text-[var(--text-main)] font-medium">Sound</span
+			>.
+		</p>
+
+		<!-- Navigation Grid / Quick Links (Optional, since Sidebar exists) -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md">
+			<a
+				href="/projects/"
+				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
 			>
-				极简又迅捷的<br class="md:hidden" />个人实验室
-			</h1>
-			<p
-				class="hero-subtitle text-lg md:text-xl text-secondary mb-10 max-width-md mx-auto"
-			>
-				写作、摄影与声音 — 一个关于研究、创作与记录的角落。
-			</p>
-			<div
-				class="hero-signals flex flex-wrap justify-center gap-4 text-sm text-muted"
-			>
-				<span class="surface-card px-3 py-1 rounded-full"
-					>📁 Projects</span
-				>
-				<span class="surface-card px-3 py-1 rounded-full">📝 Notes</span
-				>
-				<span class="surface-card px-3 py-1 rounded-full"
-					>📷 Photography</span
-				>
-				<span class="surface-card px-3 py-1 rounded-full"
-					>🎧 Audioshow</span
-				>
-			</div>
-		</div>
-	</section>
-
-	<!-- Projects Section -->
-	<section class="section mb-16">
-		<header class="section-header mb-8">
-			<p class="eyebrow">Projects</p>
-			<h2 class="text-3xl font-bold mb-2">
-				Shipping-focused experiments
-			</h2>
-			<p class="text-muted">
-				Research tools, AI4Music prototypes, and build logs.
-			</p>
-		</header>
-		<ul class="grid md:grid-cols-3 gap-6">
-			{
-				projectPosts.map((post) => (
-					<BlogPost
-						url={`/projects/${post.slug}/`}
-						title={post.data.title}
-						description={post.data.description}
-						meta={post.data.status ?? ""}
-					/>
-				))
-			}
-		</ul>
-		<a class="cta-link mt-6" href="/projects/">Browse all projects →</a>
-	</section>
-
-	<!-- Notes Section -->
-	<section class="section">
-		<header class="section-header">
-			<p class="eyebrow">Notes</p>
-			<h2>Rigorous study logs</h2>
-			<p>Lecture reflections, paper clubs, and bilingual notes.</p>
-		</header>
-		<ul class="grid gap-3">
-			{
-				notesPosts.map((post) => (
-					<BlogPost
-						url={`/notes/${post.slug}/`}
-						title={post.data.title}
-						description={post.data.description}
-						meta={formatDate(post.data.pubDate)}
-						tags={post.data.tags}
-					/>
-				))
-			}
-		</ul>
-		<a class="cta-link mt-4" href="/alog/">Open the notes library →</a>
-	</section>
-
-	<!-- Audioshow Section -->
-	{
-		latestAudioshow && (
-			<section class="section">
-				<header class="section-header">
-					<p class="eyebrow">Audioshow</p>
-					<h2>Latest broadcast</h2>
-					<p>One poster, six tracks, and a lyric per episode.</p>
-				</header>
-				<div class="audioshow-feature">
-					<div class="audioshow-badge">New Episode</div>
-					<h3>{latestAudioshow.data.title}</h3>
-					<p class="text-sm" style="color: var(--text-muted);">
-						EP {latestAudioshow.data.episode}
-					</p>
-					<p style="color: var(--text-secondary);">
-						{latestAudioshow.data.description ??
-							"Fresh pull from the midnight queue."}
-					</p>
-					<a
-						class="cta-link mt-3"
-						href={`/audioshow/${latestAudioshow.slug}/`}
-					>
-						Play this episode →
-					</a>
-				</div>
-				<a class="cta-link mt-4" href="/audioshow/">
-					Full archive →
-				</a>
-			</section>
-		)
-	}
-
-	<!-- Quick Links -->
-	<section class="section">
-		<div class="quick-links">
-			<a href="/photography/" class="quick-link">
-				<span class="quick-link-icon">📷</span>
-				<span class="quick-link-label">Photography</span>
-				<span class="quick-link-arrow">→</span>
+				<span class="font-mono">/projects</span>
+				<span class="opacity-0 group-hover:opacity-100">-></span>
 			</a>
-			<a href="/about/" class="quick-link">
-				<span class="quick-link-icon">👋</span>
-				<span class="quick-link-label">About me</span>
-				<span class="quick-link-arrow">→</span>
+			<a
+				href="/log/"
+				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+			>
+				<span class="font-mono">/log</span>
+				<span class="opacity-0 group-hover:opacity-100">-></span>
 			</a>
-			<a href="/rss.xml" class="quick-link">
-				<span class="quick-link-icon">📡</span>
-				<span class="quick-link-label">RSS Feed</span>
-				<span class="quick-link-arrow">→</span>
+			<a
+				href="/wiki/"
+				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+			>
+				<span class="font-mono">/wiki</span>
+				<span class="opacity-0 group-hover:opacity-100">-></span>
+			</a>
+			<a
+				href="/audioshow/"
+				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+			>
+				<span class="font-mono">/audioshow</span>
+				<span class="opacity-0 group-hover:opacity-100">-></span>
 			</a>
 		</div>
-	</section>
-</BaseLayout>
-
-<style>
-	/* Hero */
-	.hero {
-		padding: 4rem 0 5rem;
-		text-align: center;
-	}
-
-	.hero-content {
-		max-width: 42rem;
-		margin: 0 auto;
-	}
-
-	.hero-title {
-		font-size: clamp(2.5rem, 6vw, 4rem);
-		line-height: 1.1;
-		letter-spacing: -0.03em;
-		margin-bottom: 1.25rem;
-		background: linear-gradient(
-			135deg,
-			var(--text-primary) 0%,
-			var(--accent) 100%
-		);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.hero-subtitle {
-		font-size: 1.25rem;
-		color: var(--text-secondary);
-		max-width: 32rem;
-		margin: 0 auto 2rem;
-		line-height: 1.6;
-	}
-
-	.hero-signals {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 1rem;
-		font-size: 0.875rem;
-		color: var(--text-muted);
-	}
-
-	.hero-signals span {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	/* Audioshow Feature */
-	.audioshow-feature {
-		padding: 2rem;
-		border-radius: 1rem;
-		border: 1px solid var(--border-subtle);
-		background: linear-gradient(
-			135deg,
-			var(--bg-surface) 0%,
-			color-mix(in srgb, var(--accent) 5%, var(--bg-surface)) 100%
-		);
-	}
-
-	.audioshow-badge {
-		display: inline-block;
-		padding: 0.25rem 0.625rem;
-		font-size: 0.75rem;
-		font-weight: 600;
-		border-radius: 999px;
-		background: var(--accent);
-		color: white;
-		margin-bottom: 1rem;
-	}
-
-	.audioshow-feature h3 {
-		font-size: 1.5rem;
-		margin-bottom: 0.5rem;
-	}
-
-	/* Quick Links */
-	.quick-links {
-		display: grid;
-		gap: 0.75rem;
-	}
-
-	@media (min-width: 768px) {
-		.quick-links {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-
-	.quick-link {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 1rem 1.25rem;
-		border-radius: 0.75rem;
-		border: 1px solid var(--border-subtle);
-		background: var(--bg-surface);
-		transition: all 0.3s ease;
-	}
-
-	.quick-link:hover {
-		border-color: var(--accent);
-		transform: translateY(-2px);
-	}
-
-	.quick-link-icon {
-		font-size: 1.25rem;
-	}
-
-	.quick-link-label {
-		flex: 1;
-		font-weight: 500;
-		color: var(--text-primary);
-	}
-
-	.quick-link-arrow {
-		color: var(--text-muted);
-		transition: transform 0.2s ease;
-	}
-
-	.quick-link:hover .quick-link-arrow {
-		transform: translateX(4px);
-		color: var(--accent);
-	}
-</style>
+	</div>
+</MinimalLayout>

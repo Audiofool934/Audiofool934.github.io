@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import AudioshowLayout from "../../layouts/AudioshowLayout.astro";
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import "../../style/post.css";
 
 export async function getStaticPaths() {
     const audioshowEntries = await getCollection("audioshow");
@@ -12,8 +13,99 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+function formatDate(date: Date) {
+    return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+}
 ---
 
-<AudioshowLayout frontmatter={entry.data}>
-    <Content />
-</AudioshowLayout>
+<MinimalLayout
+    title={`EP ${entry.data.episode}: ${entry.data.title} | AudioShow`}
+>
+    <div class="p-6 md:p-12 mb-20 max-w-5xl mx-auto" transition:animate="fade">
+        <!-- Back Link -->
+        <a
+            href="/audioshow/"
+            class="font-mono text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors mb-8 inline-block"
+        >
+            ← Back to Episodes
+        </a>
+
+        <article class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <header
+                class="mb-10 border-b border-[var(--border-main)] pb-8 text-center"
+            >
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <span
+                        class="font-mono text-xs px-3 py-1 border border-[var(--border-main)] rounded-full"
+                    >
+                        EP {entry.data.episode}
+                    </span>
+                    <time class="font-mono text-xs text-[var(--text-muted)]">
+                        {formatDate(entry.data.pubDate)}
+                    </time>
+                </div>
+
+                <h1 class="text-3xl md:text-4xl font-bold font-heading mb-4">
+                    {entry.data.title}
+                </h1>
+
+                {
+                    entry.data.description && (
+                        <p class="text-lg text-[var(--text-muted)] leading-relaxed max-w-2xl mx-auto">
+                            {entry.data.description}
+                        </p>
+                    )
+                }
+            </header>
+
+            <!-- Content -->
+            <div class="post-content text-center">
+                <Content />
+            </div>
+        </article>
+    </div>
+</MinimalLayout>
+
+<style>
+    .anime-fade-in-up {
+        animation: fadeInUp 0.5s ease-out;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Center images in AudioShow posts */
+    .post-content :global(img) {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1rem; /* Close to EP header above */
+        margin-bottom: 4rem; /* More space before next EP */
+    }
+
+    /* AudioShow metadata lists: mono font, no indent, no bullets */
+    .post-content :global(ul) {
+        list-style: none;
+        padding-left: 0;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    .post-content :global(li) {
+        padding-left: 0;
+        margin-bottom: 0.25rem;
+    }
+</style>

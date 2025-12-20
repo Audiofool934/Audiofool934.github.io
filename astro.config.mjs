@@ -11,18 +11,12 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   markdown: {
-        shikiConfig: {
-            // theme: "dracula",
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
-            wrap: false,
-        },
+    syntaxHighlight: 'prism',
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
     // syntaxHighlight: 'prism',
-    },
+  },
   site: "http://audiofool.net",
+  trailingSlash: 'always',
   integrations: [preact(), tailwind()]
 });

@@ -3,6 +3,7 @@ title: 'AudioAIchemy'
 pubDate: '2024-11-14'
 description: 'Learning log for audio(signal processing) and related AI methods.'
 author: 'Audiofool'
+category: 'Audio'
 image:
     url: ''
     alt: ''

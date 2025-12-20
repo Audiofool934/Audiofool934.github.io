@@ -1,0 +1,94 @@
+---
+import { getCollection } from "astro:content";
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import "../../style/post.css";
+
+export async function getStaticPaths() {
+    const galleryEntries = await getCollection("gallery");
+    return galleryEntries.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+function formatDate(date: Date) {
+    return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+}
+---
+
+<MinimalLayout title={`${entry.data.title} | Gallery`}>
+    <div class="p-6 md:p-12" transition:animate="fade">
+        <!-- Back Link -->
+        <a
+            href="/gallery/"
+            class="font-mono text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors mb-8 inline-block"
+        >
+            ← Back to Gallery
+        </a>
+
+        <article class="max-w-4xl mx-auto">
+            <!-- Image -->
+            <div
+                class="mb-8 border border-[var(--border-main)] overflow-hidden flex justify-center bg-[var(--bg-body)]"
+            >
+                <img
+                    src={entry.data.image}
+                    alt={entry.data.title}
+                    class="max-h-[85vh] w-auto object-contain"
+                />
+            </div>
+
+            <!-- Metadata -->
+            <header class="mb-8 border-b border-[var(--border-main)] pb-6">
+                <h1 class="text-3xl md:text-4xl font-bold font-heading mb-4">
+                    {entry.data.title}
+                </h1>
+
+                <div
+                    class="flex flex-wrap gap-6 text-sm font-mono text-[var(--text-muted)]"
+                >
+                    <div class="flex items-center gap-2">
+                        <span class="opacity-50">Date:</span>
+                        <time>{formatDate(entry.data.date)}</time>
+                    </div>
+                    {
+                        entry.data.location && (
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-50">Location:</span>
+                                <span>{entry.data.location}</span>
+                            </div>
+                        )
+                    }
+                    {
+                        entry.data.camera && (
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-50">Camera:</span>
+                                <span>{entry.data.camera}</span>
+                            </div>
+                        )
+                    }
+                    <div class="flex items-center gap-2">
+                        <span class="opacity-50">Category:</span>
+                        <span
+                            class="px-2 py-0.5 border border-[var(--border-main)] text-xs"
+                        >
+                            {entry.data.category}
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Story Content -->
+            <div class="post-content prose prose-lg max-w-none">
+                <Content />
+            </div>
+        </article>
+    </div>
+</MinimalLayout>

@@ -1,0 +1,93 @@
+---
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import { getCollection } from "astro:content";
+
+const wikiEntries = await getCollection("wiki");
+
+// Build Tree Structure for Sidebar
+// Expects slugs like 'dev/lang/rust'
+// This is a simplified tree builder logic
+const tree = {};
+wikiEntries.forEach((entry) => {
+    const parts = entry.slug.split("/");
+    let currentref = tree;
+    parts.forEach((part, index) => {
+        if (!currentref[part]) {
+            currentref[part] = { _files: [] };
+        }
+        // If it's the last part, it's the file itself
+        if (index === parts.length - 1) {
+            currentref[part]._files.push({ ...entry.data, slug: entry.slug });
+        }
+        currentref = currentref[part];
+    });
+});
+
+// Helper component for recursive tree rendering could be done,
+// but for simplicity in this file we might need a distinct .astro component.
+// For now, let's just list them to ensure routing works, then iterate on the Tree UI.
+// Actually, let's do a simple Flat List grouped by Folder for the Index.
+---
+
+<MinimalLayout title="Wiki | Audiofool" description="Any Colour You Like">
+    <div class="flex flex-col md:flex-row h-full">
+        <!-- Sidebar / Tree Placeholder -->
+        <div
+            class="w-full md:w-72 border-b md:border-b-0 md:border-r border-[var(--border-main)] p-6 overflow-y-auto h-auto md:h-screen bg-[var(--bg-body)]"
+        >
+            <div class="mb-6">
+                <h2 class="font-bold text-xl mb-1">Wiki</h2>
+                <p class="text-xs font-mono text-[var(--text-muted)] uppercase">
+                    Index / Graph
+                </p>
+            </div>
+
+            <!-- Search Box Placeholder -->
+            <div class="mb-6">
+                <input
+                    type="text"
+                    placeholder="Cmd+K to search..."
+                    class="w-full bg-transparent border border-[var(--border-main)] px-3 py-2 text-sm font-mono focus:outline-none focus:bg-[var(--text-main)] focus:text-[var(--bg-body)] transition-colors"
+                />
+            </div>
+
+            <!-- Simple List of Entries -->
+            <nav class="space-y-1">
+                {
+                    wikiEntries.map((entry) => (
+                        <a
+                            href={`/wiki/${entry.slug}/`}
+                            class="block py-1 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] hover:pl-2 transition-all"
+                        >
+                            {entry.data.title}
+                        </a>
+                    ))
+                }
+                {
+                    wikiEntries.length === 0 && (
+                        <div class="text-sm text-[var(--text-muted)] italic">
+                            No nodes found. The prism is waiting for light.
+                        </div>
+                    )
+                }
+            </nav>
+        </div>
+
+        <!-- Right Pane: Introduction / Empty State -->
+        <div
+            class="flex-1 p-8 md:p-12 flex flex-col justify-center items-center text-center bg-[var(--bg-body)]"
+        >
+            <div
+                class="w-24 h-24 border border-[var(--border-main)] rounded-full flex items-center justify-center mb-6"
+            >
+                <span class="text-4xl">△</span>
+            </div>
+            <h1 class="text-3xl font-bold font-heading mb-4">The Prism</h1>
+            <p class="text-[var(--text-muted)] max-w-lg">
+                Knowledge enters as white light and refracts into the spectrum. <br
+                />
+                Select a node from the left to begin.
+            </p>
+        </div>
+    </div>
+</MinimalLayout>

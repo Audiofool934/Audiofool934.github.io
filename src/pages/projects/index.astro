@@ -1,0 +1,152 @@
+---
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+
+// Sort by date desc
+const sortedProjects = projects.sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+// Featured / Latest (top 3 most recent OR featured flag)
+const latestProjects =
+	sortedProjects.filter((p) => p.data.featured).length > 0
+		? sortedProjects.filter((p) => p.data.featured)
+		: sortedProjects.slice(0, 3);
+
+// Group remaining by category
+const categorizedProjects = sortedProjects
+	.filter((p) => !latestProjects.includes(p))
+	.reduce(
+		(acc, project) => {
+			const cat = project.data.category || "Other";
+			if (!acc[cat]) acc[cat] = [];
+			acc[cat].push(project);
+			return acc;
+		},
+		{} as Record<string, typeof projects>,
+	);
+
+// Also include latest projects' categories if they have one
+sortedProjects.forEach((project) => {
+	const cat = project.data.category || "Other";
+	if (!categorizedProjects[cat]) categorizedProjects[cat] = [];
+});
+
+const categoryOrder = ["Audio", "Dev", "Research", "Art", "Other"];
+const sortedCategories = Object.keys(categorizedProjects).sort((a, b) => {
+	const indexA = categoryOrder.indexOf(a);
+	const indexB = categoryOrder.indexOf(b);
+	return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+});
+---
+
+<MinimalLayout
+	title="Projects | Audiofool"
+	description="Welcome to the Machine"
+>
+	<div class="p-6 md:p-12">
+		<!-- Header -->
+		<div class="mb-12">
+			<h1 class="text-4xl font-bold font-heading mb-2">Projects</h1>
+			<p
+				class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
+			>
+				Welcome to the Machine
+			</p>
+		</div>
+
+		<!-- Latest Section -->
+		<section class="mb-16">
+			<h2
+				class="text-sm font-mono uppercase tracking-widest text-[var(--text-muted)] mb-6 flex items-center gap-2"
+			>
+				<span class="w-2 h-2 bg-[var(--text-main)] rounded-full"></span>
+				Latest
+			</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+				{
+					latestProjects.map((project) => (
+						<a
+							href={`/projects/${project.slug}/`}
+							class="group block p-6 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+						>
+							<div class="flex justify-between items-start mb-3">
+								<h3 class="text-xl font-bold">
+									{project.data.title}
+								</h3>
+								<span class="text-xs font-mono opacity-60">
+									{project.data.pubDate.getFullYear()}
+								</span>
+							</div>
+							<p class="text-sm text-[var(--text-muted)] group-hover:text-[var(--bg-body)] opacity-80 mb-4 line-clamp-2">
+								{project.data.description}
+							</p>
+							<div class="flex flex-wrap gap-2 text-xs font-mono opacity-50">
+								{project.data.stack.slice(0, 3).map((tech) => (
+									<span>#{tech}</span>
+								))}
+							</div>
+						</a>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- Categorized Sections -->
+		{
+			sortedCategories.map((category) => (
+				<section class="mb-12 border-t border-[var(--border-main)] pt-6">
+					<details class="group" open>
+						<summary class="cursor-pointer list-none flex items-center justify-between mb-6">
+							<h2 class="text-lg font-bold font-heading flex items-center gap-3">
+								<span class="text-xs font-mono text-[var(--text-muted)]">
+									[{categorizedProjects[category].length}]
+								</span>
+								{category}
+							</h2>
+							<span class="font-mono text-xs text-[var(--text-muted)] group-open:rotate-90 transition-transform">
+								→
+							</span>
+						</summary>
+
+						<div class="space-y-2">
+							{categorizedProjects[category].map((project) => (
+								<a
+									href={`/projects/${project.slug}/`}
+									class="group flex items-center justify-between py-3 px-4 border-b border-[var(--border-main)] last:border-b-0 hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+								>
+									<div class="flex items-center gap-4 min-w-0">
+										<span class="font-mono text-xs opacity-40 w-12">
+											{project.data.pubDate.getFullYear()}
+										</span>
+										<span class="font-bold truncate">
+											{project.data.title}
+										</span>
+									</div>
+									<div class="flex items-center gap-4">
+										<span class="text-xs text-[var(--text-muted)] group-hover:text-[var(--bg-body)] hidden md:block truncate max-w-[200px]">
+											{project.data.description}
+										</span>
+										<span class="opacity-0 group-hover:opacity-100 transition-opacity">
+											→
+										</span>
+									</div>
+								</a>
+							))}
+						</div>
+					</details>
+				</section>
+			))
+		}
+
+		{
+			sortedProjects.length === 0 && (
+				<div class="py-12 text-center text-[var(--text-muted)]">
+					No projects found. New machines are being built.
+				</div>
+			)
+		}
+	</div>
+</MinimalLayout>

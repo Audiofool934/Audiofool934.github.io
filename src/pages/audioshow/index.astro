@@ -1,0 +1,86 @@
+---
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import { getCollection } from "astro:content";
+
+const allEpisodes = await getCollection("audioshow");
+// Sort by episode number desc (assuming numeric or parseable)
+const sortedEpisodes = allEpisodes.sort((a, b) => {
+    const epA = Number(a.data.episode);
+    const epB = Number(b.data.episode);
+    if (!isNaN(epA) && !isNaN(epB)) return epB - epA;
+    return 0;
+});
+
+const featuredEpisodes = sortedEpisodes.filter((e) => e.data.featured);
+---
+
+<MinimalLayout
+    title="AudioShow | Audiofool"
+    description="The Great Gig in the Sky"
+>
+    <div class="p-6 md:p-12 mb-20 max-w-5xl mx-auto" transition:animate="fade">
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold font-heading mb-2">AudioShow</h1>
+            <p
+                class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
+            >
+                The Great Gig in the Sky
+            </p>
+        </div>
+
+        <!-- Filter (Visual) -->
+        <div
+            class="flex gap-4 mb-8 text-sm font-mono border-b border-[var(--border-main)] pb-4"
+        >
+            <button
+                class="text-[var(--text-main)] underline decoration-1 underline-offset-4"
+                >[ All Episodes ]</button
+            >
+            <button
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)]"
+                >[ Featured ]</button
+            >
+        </div>
+
+        <!-- Tracklist -->
+        <div class="flex flex-col border-t border-[var(--border-main)]">
+            {
+                sortedEpisodes.map((ep) => (
+                    <a
+                        href={`/audioshow/${ep.slug}/`}
+                        class="group flex items-center py-4 border-b border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors cursor-pointer px-2"
+                    >
+                        <div class="w-12 md:w-16 font-mono text-sm opacity-50">
+                            #{ep.data.episode}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-bold text-lg truncate">
+                                {ep.data.title}
+                            </div>
+                            <div class="text-xs font-mono opacity-60 md:hidden">
+                                {ep.data.duration}
+                            </div>
+                        </div>
+                        <div class="hidden md:block w-32 font-mono text-sm text-right opacity-60">
+                            {ep.data.pubDate.toLocaleDateString()}
+                        </div>
+                        <div class="hidden md:block w-24 font-mono text-sm text-right opacity-60">
+                            {ep.data.duration || "--:--"}
+                        </div>
+                        <div class="w-12 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+                            →
+                        </div>
+                    </a>
+                ))
+            }
+
+            {
+                sortedEpisodes.length === 0 && (
+                    <div class="py-12 text-[var(--text-muted)]">
+                        No episodes found.
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</MinimalLayout>
