@@ -1,88 +1,61 @@
 ---
-import MinimalLayout from '../../layouts/MinimalLayout.astro';
-import { getCollection } from 'astro:content';
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import { getCollection } from "astro:content";
 
-const posts = await getCollection('log');
-// Sort by date desc
-const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-// Group by Year for the Timeline
-const groupedByYear = sortedPosts.reduce((acc, post) => {
-	const year = post.data.pubDate.getFullYear();
-	if (!acc[year]) acc[year] = [];
-	acc[year].push(post);
-	return acc;
-}, {} as Record<number, typeof posts>);
-
-const years = Object.keys(groupedByYear).map(Number).sort((a, b) => b - a);
+const posts = await getCollection("log");
+const sortedPosts = posts.sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 
 function formatDate(date: Date) {
-	return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+	return date.toISOString().split("T")[0].replace(/-/g, ".");
 }
 ---
 
 <MinimalLayout title="Log | Audiofool" description="The Endless River">
-	<div class="flex flex-col md:flex-row h-full" transition:animate="fade">
-		
-		<!-- Timeline (Left Marker on MD+) -->
-		<div class="hidden md:block w-16 flex-shrink-0 border-r border-[var(--border-main)] p-4 text-xs font-mono text-right sticky top-0 h-screen overflow-y-auto pt-32">
-			{years.map(year => (
-				<div class="mb-4 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer">
-					{year}
-				</div>
-			))}
-		</div>
+	<div class="p-6 md:p-12" transition:animate="fade">
+		<header class="mb-12">
+			<h1 class="text-4xl font-bold font-heading mb-2">Log</h1>
+			<p
+				class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
+			>
+				The Endless River
+			</p>
+		</header>
 
-		<!-- Stream Content -->
-		<div class="flex-1 p-6 md:p-12">
-			<div class="mb-12">
-				<h1 class="text-4xl font-bold font-heading mb-2">Log</h1>
-				<p class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase">The Endless River</p>
-			</div>
+		<div class="space-y-1 font-mono text-sm max-w-4xl">
+			{
+				sortedPosts.map((post) => (
+					<a
+						href={`/log/${post.slug}/`}
+						class="group flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 py-3 border-b border-[var(--border-main)] md:border-transparent md:hover:border-[var(--border-main)] transition-colors text-[var(--text-muted)] hover:text-[var(--text-main)]"
+					>
+						<time class="flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity w-32">
+							[{formatDate(post.data.pubDate)}]
+						</time>
 
-			<div class="max-w-4xl space-y-16">
-				{years.map(year => (
-					<div class="relative pl-4 md:pl-0 border-l md:border-l-0 border-[var(--border-main)] md:border-none">
-						<!-- Year Marker for Mobile -->
-						<div class="md:hidden absolute -left-[17px] top-0 bg-[var(--bg-body)] pr-2 py-1 text-xs font-mono font-bold rotate-90 origin-left translate-y-4 text-[var(--text-muted)]">
-							{year}
-						</div>
+						<span class="flex-1 truncate md:overflow-visible md:whitespace-normal">
+							{post.data.title}
+						</span>
 
-						<div class="space-y-12">
-							{groupedByYear[year].map(post => (
-								<article class="group relative">
-									<a href={`/log/${post.slug}/`} class="block">
-										<div class="md:absolute md:-left-24 md:top-1.5 w-16 text-right text-xs font-mono text-[var(--text-muted)] group-hover:text-[var(--text-main)] transition-colors">
-											{formatDate(post.data.pubDate)}
-										</div>
-										<h2 class="text-xl md:text-2xl font-bold mb-2 group-hover:underline decoration-1 underline-offset-4 decoration-[var(--border-main)]">
-											{post.data.title}
-										</h2>
-										{post.data.description && (
-											<p class="text-[var(--text-muted)] leading-relaxed mb-3">
-												{post.data.description}
-											</p>
-										)}
-										<div class="flex gap-2">
-											{post.data.tags.map(tag => (
-												<span class="text-xs font-mono text-[var(--text-muted)] before:content-['#']">
-													{tag}
-												</span>
-											))}
-										</div>
-									</a>
-								</article>
-							))}
-						</div>
+						{post.data.tags.length > 0 && (
+							<div class="hidden md:flex gap-2 text-xs opacity-40 group-hover:opacity-60 transition-opacity">
+								{post.data.tags.slice(0, 2).map((tag) => (
+									<span>#{tag}</span>
+								))}
+							</div>
+						)}
+					</a>
+				))
+			}
+
+			{
+				sortedPosts.length === 0 && (
+					<div class="py-12 text-[var(--text-muted)]">
+						No signals detected.
 					</div>
-				))}
-
-                {sortedPosts.length === 0 && (
-                    <div class="py-12 text-[var(--text-muted)]">
-                        The river is quiet...
-                    </div>
-                )}
-			</div>
+				)
+			}
 		</div>
 	</div>
 </MinimalLayout>

@@ -3,67 +3,196 @@ import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { getCollection } from "astro:content";
 
 const wikiEntries = await getCollection("wiki");
+
+// Sort entries by title for clean listing
+wikiEntries.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+// 1. Define the Taxonomy Structure
+// A node can have 'tags' (to match content) OR 'children' (sub-folders)
+interface TaxonomyNode {
+    label: string;
+    tags?: string[]; // Tags to match content for this level
+    children?: TaxonomyNode[];
+    entries?: typeof wikiEntries; // Populated at runtime
+}
+
+// The "File System" Skeleton
+const taxonomy: TaxonomyNode[] = [
+    {
+        label: "Mathematics",
+        children: [
+            {
+                label: "Analysis",
+                tags: ["analysis", "calculus", "measure theory"],
+            },
+            { label: "Linear Algebra", tags: ["linear algebra", "matrix"] },
+            {
+                label: "Probability & Statistics",
+                tags: ["probability", "statistics", "stochastic"],
+            },
+        ],
+    },
+    {
+        label: "Computer Science",
+        children: [
+            { label: "Algorithms", tags: ["algorithm", "algorithms", "cs"] },
+            { label: "Systems", tags: ["systems", "distributed", "os"] },
+        ],
+    },
+    {
+        label: "Machine Learning",
+        children: [
+            {
+                label: "Theory",
+                tags: ["ml", "machine learning", "learning theory"],
+            },
+            {
+                label: "Deep Learning",
+                tags: ["dl", "deep learning", "neural network"],
+            },
+            {
+                label: "Reinforcement Learning",
+                tags: ["rl", "reinforcement learning"],
+            },
+            {
+                label: "Generative Models",
+                tags: ["generative", "diffusion", "flow matching"],
+            },
+        ],
+    },
+    {
+        label: "Signal Processing",
+        children: [
+            { label: "Theory", tags: ["dsp", "signal", "fourier", "systems"] },
+        ],
+    },
+    {
+        label: "Meta",
+        children: [
+            { label: "Philosophy", tags: ["philosophy", "meta"] },
+            { label: "Photography", tags: ["photography"] },
+        ],
+    },
+];
+
+// 2. Populate the Tree
+// We traverse the taxonomy and find matching entries for each leave/node
+// Note: An entry can appear in multiple places if it has multiple tags (Feature, not bug)
+const populatedTaxonomy = taxonomy.map((root) => {
+    // Helper to populate a single node
+    const populateNode = (node: TaxonomyNode): TaxonomyNode => {
+        // If node has tags, find matching entries
+        if (node.tags) {
+            node.entries = wikiEntries.filter((entry) =>
+                entry.data.tags.some((t) =>
+                    node.tags!.includes(t.toLowerCase()),
+                ),
+            );
+        }
+
+        // Recursively populate children
+        if (node.children) {
+            node.children = node.children.map(populateNode);
+        }
+
+        return node;
+    };
+
+    return populateNode(root);
+});
+
+// Helper to check if a node (or its children) has any content
+// We use this to hide empty folders if desired, or just style them differently
+function hasContent(node: TaxonomyNode): boolean {
+    if (node.entries && node.entries.length > 0) return true;
+    if (node.children) return node.children.some(hasContent);
+    return false;
+}
 ---
 
-<MinimalLayout title="Wiki | Audiofool" description="Any Colour You Like">
-    <div class="flex flex-col md:flex-row h-full" transition:animate="fade">
-        <!-- Sidebar / Tree Placeholder -->
-        <div
-            class="w-full md:w-72 border-b md:border-b-0 md:border-r border-[var(--border-main)] p-6 overflow-y-auto h-auto md:h-screen bg-[var(--bg-body)]"
-        >
-            <div class="mb-6">
-                <h2 class="font-bold text-xl mb-1">Wiki</h2>
-                <p class="text-xs font-mono text-[var(--text-muted)] uppercase">
-                    Index / Graph
-                </p>
-            </div>
-
-            <!-- Search Box Placeholder -->
-            <div class="mb-6">
-                <input
-                    type="text"
-                    placeholder="Cmd+K to search..."
-                    class="w-full bg-transparent border border-[var(--border-main)] px-3 py-2 text-sm font-mono focus:outline-none focus:bg-[var(--text-main)] focus:text-[var(--bg-body)] transition-colors"
-                />
-            </div>
-
-            <!-- Simple List of Entries -->
-            <nav class="space-y-1">
-                {
-                    wikiEntries.map((entry) => (
-                        <a
-                            href={`/wiki/${entry.slug}/`}
-                            class="block py-1 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] hover:pl-2 transition-all"
-                        >
-                            {entry.data.title}
-                        </a>
-                    ))
-                }
-                {
-                    wikiEntries.length === 0 && (
-                        <div class="text-sm text-[var(--text-muted)] italic">
-                            No nodes found. The prism is waiting for light.
-                        </div>
-                    )
-                }
-            </nav>
-        </div>
-
-        <!-- Right Pane: Introduction / Empty State -->
-        <div
-            class="flex-1 p-8 md:p-12 flex flex-col justify-center items-center text-center bg-[var(--bg-body)]"
-        >
-            <div
-                class="w-24 h-24 border border-[var(--border-main)] rounded-full flex items-center justify-center mb-6"
+<MinimalLayout title="Wiki | Audiofool" description="The Tree">
+    <div class="p-6 md:p-12 mb-20" transition:animate="fade">
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold font-heading mb-2">Wiki</h1>
+            <p
+                class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
             >
-                <span class="text-4xl">△</span>
-            </div>
-            <h1 class="text-3xl font-bold font-heading mb-4">The Prism</h1>
-            <p class="text-[var(--text-muted)] max-w-lg">
-                Knowledge enters as white light and refracts into the spectrum. <br
-                />
-                Select a node from the left to begin.
+                System Root
             </p>
+        </header>
+
+        <div class="max-w-3xl mx-auto font-mono text-sm">
+            {
+                populatedTaxonomy.map((rootNode) => (
+                    <div class="mb-8">
+                        {/* Top Level Folders are always "Open" visually (Headers) */}
+                        <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-[var(--text-main)] border-b border-[var(--border-main)] pb-2">
+                            <span class="opacity-50">/</span> {rootNode.label}
+                        </h2>
+
+                        <div class="pl-4 md:pl-6 border-l border-[var(--border-subtle)] space-y-4">
+                            {rootNode.children?.map((childNode) => (
+                                <details
+                                    class="group"
+                                    open={hasContent(childNode)}
+                                >
+                                    <summary class="cursor-pointer list-none py-1 flex items-center gap-2 hover:text-[var(--text-main)] text-[var(--text-muted)] transition-colors">
+                                        <span class="opacity-50 text-xs inline-block w-4 transition-transform group-open:rotate-90">
+                                            ▶
+                                        </span>
+                                        <span class="group-open:font-bold">
+                                            {childNode.label}
+                                        </span>
+                                        <span class="text-xs opacity-30">
+                                            {childNode.entries?.length
+                                                ? `(${childNode.entries.length})`
+                                                : hasContent(childNode)
+                                                  ? ""
+                                                  : "(0)"}
+                                        </span>
+                                    </summary>
+
+                                    <div class="pl-6 pt-2 pb-2 space-y-1">
+                                        {/* Sub-node entries */}
+                                        {childNode.entries?.map((entry) => (
+                                            <a
+                                                href={`/wiki/${entry.slug}/`}
+                                                class="block py-1 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:underline decoration-1 underline-offset-4 transition-colors flex items-baseline gap-2"
+                                            >
+                                                <span class="opacity-30 text-xs">
+                                                    📄
+                                                </span>
+                                                {entry.data.title}
+                                            </a>
+                                        ))}
+
+                                        {/* Recursive Children (if any - defined for depth support) */}
+                                        {/* Logic simplified for 2-level depth for now, can extend if needed */}
+
+                                        {/* Empty State for Node */}
+                                        {!childNode.entries?.length &&
+                                            !childNode.children?.length && (
+                                                <div class="text-xs opacity-30 italic py-1">
+                                                    Empty
+                                                </div>
+                                            )}
+                                    </div>
+                                </details>
+                            ))}
+
+                            {/* If Root has direct entries (rare in this taxonomy but possible) */}
+                            {rootNode.entries?.map((entry) => (
+                                <a
+                                    href={`/wiki/${entry.slug}/`}
+                                    class="block py-1 text-[var(--text-muted)] hover:text-[var(--text-main)] ml-6"
+                                >
+                                    {entry.data.title}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ))
+            }
         </div>
     </div>
 </MinimalLayout>

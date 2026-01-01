@@ -1,12 +1,12 @@
 ---
 title: 'MUSE: Probabilistic Text-to-Music at Scale'
-pubDate: '2024-12-20'
+pubDate: '2025-12-20'
 description: 'Parallel training & batch inference for diverse music generation using Flow Matching and Diffusion Transformers.'
 author: 'Audiofool'
 category: 'Research'
 featured: true
 stack: ['PyTorch', 'DDP', 'Flow Matching', 'DiT', 'Gradio']
-type: 'Product'
+type: 'Lib'
 url: '/muse/'
 image:
     url: '/images/projects/muse/muse.png'

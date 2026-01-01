@@ -9,4 +9,6 @@ image:
 tags: ["blogging", "lectures", "science", "mathematics", "learning", "ICBS 2024"]
 ---
 
+![ICBS Night of Math](/images/log/icbs_2024.jpg)
+
 ## [Richard S. Hamilton 1943-2024](https://www.math.columbia.edu/~woit/wordpress/?p=14157)

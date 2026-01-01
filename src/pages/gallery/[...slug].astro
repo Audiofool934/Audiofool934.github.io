@@ -39,9 +39,10 @@ function formatDate(date: Date) {
                 class="mb-8 border border-[var(--border-main)] overflow-hidden flex justify-center bg-[var(--bg-body)]"
             >
                 <img
+                    id="gallery-image"
                     src={entry.data.image}
                     alt={entry.data.title}
-                    class="max-h-[85vh] w-auto object-contain"
+                    class="max-h-[85vh] w-auto object-contain cursor-zoom-in transition-transform duration-300"
                 />
             </div>
 
@@ -74,6 +75,35 @@ function formatDate(date: Date) {
                             </div>
                         )
                     }
+                    {
+                        entry.data.lens && (
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-50">Lens:</span>
+                                <span>{entry.data.lens}</span>
+                            </div>
+                        )
+                    }
+                    {
+                        (entry.data.iso ||
+                            entry.data.aperture ||
+                            entry.data.shutterSpeed) && (
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-50">EXIF:</span>
+                                <span>
+                                    {[
+                                        entry.data.focalLength,
+                                        entry.data.aperture,
+                                        entry.data.shutterSpeed,
+                                        entry.data.iso
+                                            ? `ISO ${entry.data.iso}`
+                                            : null,
+                                    ]
+                                        .filter(Boolean)
+                                        .join(" · ")}
+                                </span>
+                            </div>
+                        )
+                    }
                     <div class="flex items-center gap-2">
                         <span class="opacity-50">Category:</span>
                         <span
@@ -91,4 +121,47 @@ function formatDate(date: Date) {
             </div>
         </article>
     </div>
+
+    <!-- Lightbox Overlay (Moved outside transition container) -->
+    <div
+        id="lightbox"
+        class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 cursor-zoom-out backdrop-blur-sm"
+    >
+        <img
+            id="lightbox-image"
+            src={entry.data.image}
+            alt={entry.data.title}
+            class="max-h-[95vh] max-w-[95vw] object-contain shadow-2xl"
+        />
+    </div>
+
+    <script is:inline>
+        document.addEventListener("astro:page-load", () => {
+            const galleryImage = document.getElementById("gallery-image");
+            const lightbox = document.getElementById("lightbox");
+
+            if (galleryImage && lightbox) {
+                galleryImage.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    lightbox.classList.remove(
+                        "opacity-0",
+                        "pointer-events-none",
+                    );
+                });
+
+                lightbox.addEventListener("click", () => {
+                    lightbox.classList.add("opacity-0", "pointer-events-none");
+                });
+
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Escape") {
+                        lightbox.classList.add(
+                            "opacity-0",
+                            "pointer-events-none",
+                        );
+                    }
+                });
+            }
+        });
+    </script>
 </MinimalLayout>

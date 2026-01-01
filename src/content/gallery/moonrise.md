@@ -1,13 +1,16 @@
 ---
 title: "Moonrise"
-image: "/images/gallery/moonrise.webp"
-date: 2024-12-01
-location: "Campus"
-camera: "iPhone"
-category: "Night"
+image: "/images/gallery/1-moonrise.webp"
+date: 2025-11-13
+# location: ""
+camera: "SONY ILCE-7RM2"
+lens: "Tamron E 50-400mm F4.5-6.3 A067"
+iso: 200
+focalLength: "400mm"
+aperture: "f8"
+shutterSpeed: "1/3s"
+category: "Scientific"
 featured: true
 ---
 
-A quiet evening on campus. The moon rose slowly over the horizon, casting a soft glow across the buildings.
-
-The stillness of the night was broken only by the distant hum of the city. I stood there, camera in hand, waiting for the perfect moment.
+Scientific Photography: Capturing the alignment of the rising moon and a human silhouette.
