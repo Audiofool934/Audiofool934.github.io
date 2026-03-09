@@ -1,6 +1,6 @@
 ---
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 const galleryItems = await getCollection("gallery");
 
@@ -9,34 +9,52 @@ const sortedGallery = galleryItems.sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
-// Featured items for horizontal scroll
-const featuredItems = sortedGallery.filter((item) => item.data.featured);
+// Render body content for each item
+const galleryWithBody = await Promise.all(
+    sortedGallery.map(async (item) => {
+        const { Content } = await render(item);
+        return { item, Content };
+    }),
+);
 
-// Group remaining by category
-const categorizedItems = sortedGallery
-    .filter((item) => !item.data.featured)
-    .reduce(
-        (acc, item) => {
-            const cat = item.data.category || "Other";
-            if (!acc[cat]) acc[cat] = [];
-            acc[cat].push(item);
-            return acc;
-        },
-        {} as Record<string, typeof galleryItems>,
-    );
+// Featured count
+const featuredCount = sortedGallery.filter(
+    (item) => item.data.featured,
+).length;
 
-const categoryOrder = ["Nature", "Urban", "Night", "Travel", "Other"];
-const sortedCategories = Object.keys(categorizedItems).sort((a, b) => {
-    const indexA = categoryOrder.indexOf(a);
-    const indexB = categoryOrder.indexOf(b);
-    return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
-});
+// Collect unique categories (preserving order of appearance)
+const categories = [
+    ...new Set(sortedGallery.map((item) => item.data.category || "Other")),
+];
+
+// Build metadata JSON for modal
+function buildMeta(item: (typeof sortedGallery)[0]) {
+    const d = item.data;
+    const exifParts = [
+        d.focalLength,
+        d.aperture,
+        d.shutterSpeed,
+        d.iso ? `ISO ${d.iso}` : null,
+    ]
+        .filter(Boolean)
+        .join(" · ");
+    return JSON.stringify({
+        title: d.title,
+        image: d.image,
+        date: d.date.toISOString().split("T")[0],
+        location: d.location || "",
+        camera: d.camera || "",
+        lens: d.lens || "",
+        exif: exifParts,
+        category: d.category || "Other",
+    });
+}
 ---
 
 <MinimalLayout title="Gallery | Audiofool" description="Obscured by Clouds">
     <div class="p-6 md:p-12" transition:animate="fade">
         <!-- Header -->
-        <div class="mb-12">
+        <div class="mb-8">
             <h1 class="text-4xl font-bold font-heading mb-2">Gallery</h1>
             <p
                 class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
@@ -45,85 +63,86 @@ const sortedCategories = Object.keys(categorizedItems).sort((a, b) => {
             </p>
         </div>
 
-        <!-- Featured Section - Horizontal Scroll -->
-        {
-            featuredItems.length > 0 && (
-                <section class="mb-16">
-                    <h2 class="text-sm font-mono uppercase tracking-widest text-[var(--text-muted)] mb-6 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-[var(--text-main)] rounded-full" />
-                        Featured
-                    </h2>
-                    
-                    <div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-                        {featuredItems.map((item) => (
-                            <a 
-                                href={`/gallery/${item.id}/`}
-                                class="group flex-shrink-0 snap-start relative border border-[var(--border-main)]"
-                            >
-                                <img 
-                                    src={item.data.image} 
-                                    alt={item.data.title}
-                                    class="h-[30vh] w-auto max-w-[80vw] object-contain"
-                                    loading="lazy"
-                                />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
-                                        <h3 class="font-bold text-lg">{item.data.title}</h3>
-                                        <div class="font-mono text-xs opacity-80">
-                                            {item.data.location || item.data.date.getFullYear()}
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        ))}
-                    </div>
-                </section>
-            )
-        }
+        <!-- Tab Filter -->
+        <div
+            class="flex gap-3 overflow-x-auto pb-4 mb-10 border-b border-[var(--border-main)] text-sm font-mono scrollbar-hide"
+        >
+            <button
+                data-filter="all"
+                class="gallery-tab active whitespace-nowrap transition-colors"
+            >
+                [ All <span class="opacity-50">{sortedGallery.length}</span> ]
+            </button>
+            {
+                featuredCount > 0 && (
+                    <button
+                        data-filter="featured"
+                        class="gallery-tab whitespace-nowrap transition-colors"
+                    >
+                        [ Featured{" "}
+                        <span class="opacity-50">{featuredCount}</span> ]
+                    </button>
+                )
+            }
+            {
+                categories.map((cat) => {
+                    const count = sortedGallery.filter(
+                        (i) => (i.data.category || "Other") === cat,
+                    ).length;
+                    return (
+                        <button
+                            data-filter={cat}
+                            class="gallery-tab whitespace-nowrap transition-colors"
+                        >
+                            [ {cat} <span class="opacity-50">{count}</span> ]
+                        </button>
+                    );
+                })
+            }
+        </div>
 
-        <!-- Categorized Sections -->
-        {
-            sortedCategories.map((category) => (
-                <section class="mb-12 border-t border-[var(--border-main)] pt-6">
-                    <details class="group" open>
-                        <summary class="cursor-pointer list-none flex items-center justify-between mb-6">
-                            <h2 class="text-lg font-bold font-heading flex items-center gap-3">
-                                <span class="text-xs font-mono text-[var(--text-muted)]">
-                                    [{categorizedItems[category].length}]
+        <!-- Masonry Layout -->
+        <div class="gallery-masonry">
+            {
+                galleryWithBody.map(({ item, Content }, i) => (
+                    <div
+                        data-category={item.data.category || "Other"}
+                        data-featured={item.data.featured ? "true" : "false"}
+                        data-meta={buildMeta(item)}
+                        data-index={i}
+                        class="gallery-item group block mb-4 break-inside-avoid border border-[var(--border-main)] overflow-hidden cursor-pointer"
+                    >
+                        <img
+                            src={item.data.image}
+                            alt={item.data.title}
+                            class="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.03]"
+                            loading="lazy"
+                        />
+                        <div class="p-3 border-t border-[var(--border-main)]">
+                            <h3 class="font-bold text-sm truncate">
+                                {item.data.title}
+                            </h3>
+                            <div class="flex items-center justify-between mt-1">
+                                <span class="font-mono text-[10px] text-[var(--text-muted)]">
+                                    {item.data.date
+                                        .toISOString()
+                                        .split("T")[0]}
                                 </span>
-                                {category}
-                            </h2>
-                            <span class="font-mono text-xs text-[var(--text-muted)] group-open:rotate-90 transition-transform">
-                                →
-                            </span>
-                        </summary>
-                        
-                        <!-- Masonry-like flex layout instead of strict grid for varying aspect ratios -->
-                        <div class="flex flex-wrap gap-4">
-                            {categorizedItems[category].map((item) => (
-                                <a 
-                                    href={`/gallery/${item.id}/`}
-                                    class="group relative border border-[var(--border-main)] overflow-hidden"
-                                >
-                                    <img 
-                                        src={item.data.image} 
-                                        alt={item.data.title}
-                                        class="h-[300px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                                        loading="lazy"
-                                    />
-                                    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3 text-white pointer-events-none">
-                                        <h3 class="font-bold text-sm truncate">{item.data.title}</h3>
-                                        <div class="font-mono text-[10px] opacity-80">
-                                            {item.data.date.getFullYear()}
-                                        </div>
-                                    </div>
-                                </a>
-                            ))}
+                                {item.data.location && (
+                                    <span class="font-mono text-[10px] text-[var(--text-muted)] truncate ml-2">
+                                        {item.data.location}
+                                    </span>
+                                )}
+                            </div>
                         </div>
-                    </details>
-                </section>
-            ))
-        }
+                        {/* Hidden body for modal */}
+                        <div class="gallery-body hidden">
+                            <Content />
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
 
         {
             sortedGallery.length === 0 && (
@@ -133,6 +152,546 @@ const sortedCategories = Object.keys(categorizedItems).sort((a, b) => {
             )
         }
     </div>
+
+    <!-- Modal Overlay -->
+    <div
+        id="gallery-modal"
+        class="fixed inset-0 z-[9999] opacity-0 pointer-events-none transition-opacity duration-200"
+        role="dialog"
+        aria-modal="true"
+    >
+        <!-- Backdrop -->
+        <div
+            id="modal-backdrop"
+            class="absolute inset-0 bg-black/90 backdrop-blur-sm"
+        >
+        </div>
+
+        <!-- Mobile layout: fixed split (top 2/3 image, bottom 1/3 info) -->
+        <!-- Desktop layout: centered card with left/right split -->
+        <div
+            id="modal-scroll"
+            class="absolute inset-0 flex flex-col xl:flex-row xl:items-center xl:justify-center xl:p-8"
+        >
+            <!-- Close button -->
+            <button
+                id="modal-close"
+                class="absolute top-3 right-3 xl:fixed xl:top-4 xl:right-4 z-20 font-mono text-white/70 hover:text-white text-2xl w-10 h-10 flex items-center justify-center transition-colors"
+                aria-label="Close"
+            >
+                &times;
+            </button>
+
+            <!-- Prev / Next arrows (wide desktop only, ≥1280px) -->
+            <button
+                id="modal-prev"
+                class="hidden xl:flex fixed left-4 top-1/2 -translate-y-1/2 z-10 font-mono text-white/50 hover:text-white text-3xl w-12 h-12 items-center justify-center transition-colors"
+                aria-label="Previous"
+            >
+                &#8249;
+            </button>
+            <button
+                id="modal-next"
+                class="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-10 font-mono text-white/50 hover:text-white text-3xl w-12 h-12 items-center justify-center transition-colors"
+                aria-label="Next"
+            >
+                &#8250;
+            </button>
+
+            <!-- Card -->
+            <div
+                id="modal-content"
+                class="relative w-full h-full xl:h-auto xl:max-w-5xl xl:max-h-[95vh] xl:overflow-y-auto bg-[var(--bg-body)] xl:border border-[var(--border-main)] flex flex-col xl:flex-row"
+            >
+                <!-- Image area: mobile takes ~65vh, desktop flexible -->
+                <div
+                    id="modal-image-wrap"
+                    class="modal-image-area xl:flex-1 xl:min-h-0 flex items-center justify-center bg-black/50"
+                >
+                    <img
+                        id="modal-image"
+                        src=""
+                        alt=""
+                        class="max-w-full max-h-full object-contain cursor-zoom-in transition-opacity duration-150 p-2 xl:p-0"
+                    />
+                </div>
+
+                <!-- Info panel: mobile fixed bottom, desktop side panel -->
+                <div
+                    id="modal-info"
+                    class="modal-info-area xl:w-72 2xl:w-80 flex-shrink-0 overflow-y-auto border-t xl:border-t-0 xl:border-l border-[var(--border-main)] flex flex-col xl:gap-4 bg-[var(--bg-body)]"
+                >
+                    <div class="p-4 xl:p-6 flex flex-col gap-2 xl:gap-4">
+                        <!-- Compact row with counter + title + nav (< 1280px) -->
+                        <div class="flex items-center justify-between xl:hidden">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span
+                                    id="modal-counter-mobile"
+                                    class="font-mono text-[10px] text-[var(--text-muted)] opacity-60 flex-shrink-0"
+                                ></span>
+                                <h2
+                                    id="modal-title-mobile"
+                                    class="text-base font-bold font-heading truncate"
+                                ></h2>
+                            </div>
+                            <div class="flex gap-1 flex-shrink-0 ml-2">
+                                <button
+                                    id="modal-prev-mobile"
+                                    class="w-8 h-8 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] active:bg-[var(--border-main)] transition-colors"
+                                >
+                                    &larr;
+                                </button>
+                                <button
+                                    id="modal-next-mobile"
+                                    class="w-8 h-8 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] active:bg-[var(--border-main)] transition-colors"
+                                >
+                                    &rarr;
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Scrollable meta (< 1280px) -->
+                        <div class="xl:hidden flex flex-col gap-1.5">
+                            <div
+                                id="modal-body-mobile"
+                                class="text-xs text-[var(--text-muted)] leading-relaxed"
+                            ></div>
+                            <div
+                                class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] text-[var(--text-muted)]"
+                            >
+                                <span id="modal-date-mobile"></span>
+                                <span id="modal-location-mobile"></span>
+                                <span id="modal-camera-mobile"></span>
+                                <span id="modal-lens-mobile"></span>
+                                <span id="modal-exif-mobile"></span>
+                            </div>
+                        </div>
+
+                        <!-- Desktop: full info (≥1280px) -->
+                        <div class="hidden xl:flex xl:flex-col xl:gap-4">
+                            <div
+                                id="modal-counter"
+                                class="font-mono text-[10px] text-[var(--text-muted)] opacity-60"
+                            >
+                            </div>
+
+                            <h2
+                                id="modal-title"
+                                class="text-xl font-bold font-heading"
+                            >
+                            </h2>
+
+                            <div
+                                id="modal-body"
+                                class="text-sm text-[var(--text-muted)] leading-relaxed"
+                            >
+                            </div>
+
+                            <div
+                                class="flex flex-col gap-2 font-mono text-xs text-[var(--text-muted)]"
+                            >
+                                <div id="modal-date"></div>
+                                <div id="modal-location"></div>
+                                <div id="modal-camera"></div>
+                                <div id="modal-lens"></div>
+                                <div id="modal-exif"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Lightbox -->
+    <div
+        id="lightbox"
+        class="fixed inset-0 z-[10000] bg-black/95 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 cursor-zoom-out backdrop-blur-sm"
+    >
+        <img
+            id="lightbox-image"
+            src=""
+            alt=""
+            class="max-h-[95vh] max-w-[95vw] object-contain"
+        />
+    </div>
+
+    <script is:inline>
+        (function () {
+            let cleanupFn = null;
+
+            document.addEventListener("astro:page-load", () => {
+                if (cleanupFn) {
+                    cleanupFn();
+                    cleanupFn = null;
+                }
+
+                const modal = document.getElementById("gallery-modal");
+                if (!modal) return;
+
+                const tabs = document.querySelectorAll(".gallery-tab");
+                const allItems = Array.from(
+                    document.querySelectorAll(".gallery-item"),
+                );
+                const modalImage = document.getElementById("modal-image");
+                // Desktop elements
+                const modalTitle = document.getElementById("modal-title");
+                const modalBody = document.getElementById("modal-body");
+                const modalDate = document.getElementById("modal-date");
+                const modalLocation =
+                    document.getElementById("modal-location");
+                const modalCamera = document.getElementById("modal-camera");
+                const modalLens = document.getElementById("modal-lens");
+                const modalExif = document.getElementById("modal-exif");
+                const modalCounter =
+                    document.getElementById("modal-counter");
+                // Mobile elements
+                const modalTitleMobile =
+                    document.getElementById("modal-title-mobile");
+                const modalCounterMobile =
+                    document.getElementById("modal-counter-mobile");
+                const modalDateMobile =
+                    document.getElementById("modal-date-mobile");
+                const modalLocationMobile =
+                    document.getElementById("modal-location-mobile");
+                const modalExifMobile =
+                    document.getElementById("modal-exif-mobile");
+                const modalCameraMobile =
+                    document.getElementById("modal-camera-mobile");
+                const modalLensMobile =
+                    document.getElementById("modal-lens-mobile");
+                const modalBodyMobile =
+                    document.getElementById("modal-body-mobile");
+                // Shared elements
+                const modalContent =
+                    document.getElementById("modal-content");
+                const backdrop = document.getElementById("modal-backdrop");
+                const closeBtn = document.getElementById("modal-close");
+                const prevBtn = document.getElementById("modal-prev");
+                const nextBtn = document.getElementById("modal-next");
+                const prevMobile =
+                    document.getElementById("modal-prev-mobile");
+                const nextMobile =
+                    document.getElementById("modal-next-mobile");
+                const modalScroll =
+                    document.getElementById("modal-scroll");
+                const lightbox = document.getElementById("lightbox");
+                const lightboxImage =
+                    document.getElementById("lightbox-image");
+
+                let currentIndex = -1;
+                let visibleItems = allItems;
+
+                function getVisibleItems() {
+                    return allItems.filter(
+                        (el) => el.style.display !== "none",
+                    );
+                }
+
+                // Safe text helper (no innerHTML XSS)
+                function metaRow(el, label, value) {
+                    if (value) {
+                        el.textContent = "";
+                        const span = document.createElement("span");
+                        span.className = "opacity-50";
+                        span.textContent = label + ": ";
+                        el.appendChild(span);
+                        el.appendChild(document.createTextNode(value));
+                        el.style.display = "";
+                    } else {
+                        el.style.display = "none";
+                    }
+                }
+
+                function openModal(index) {
+                    visibleItems = getVisibleItems();
+                    if (index < 0 || index >= visibleItems.length) return;
+                    currentIndex = index;
+                    const el = visibleItems[index];
+                    const meta = JSON.parse(el.dataset.meta);
+                    const bodyEl = el.querySelector(".gallery-body");
+                    const bodyHTML = bodyEl
+                        ? bodyEl.innerHTML.trim()
+                        : "";
+
+                    // Fade image on switch
+                    modalImage.style.opacity = "0";
+                    modalImage.src = meta.image;
+                    modalImage.alt = meta.title;
+                    modalImage.onload = function () {
+                        modalImage.style.opacity = "1";
+                    };
+
+                    const counterText =
+                        currentIndex + 1 + " / " + visibleItems.length;
+
+                    // Desktop info
+                    modalTitle.textContent = meta.title;
+                    modalBody.innerHTML = bodyHTML;
+                    modalBody.style.display = bodyHTML ? "" : "none";
+                    modalCounter.textContent = counterText;
+                    metaRow(modalDate, "Date", meta.date);
+                    metaRow(modalLocation, "Location", meta.location);
+                    metaRow(modalCamera, "Camera", meta.camera);
+                    metaRow(modalLens, "Lens", meta.lens);
+                    metaRow(modalExif, "EXIF", meta.exif);
+
+                    // Mobile info (compact)
+                    modalTitleMobile.textContent = meta.title;
+                    modalCounterMobile.textContent = counterText;
+                    modalDateMobile.textContent = meta.date || "";
+                    modalDateMobile.style.display = meta.date
+                        ? ""
+                        : "none";
+                    modalLocationMobile.textContent =
+                        meta.location || "";
+                    modalLocationMobile.style.display = meta.location
+                        ? ""
+                        : "none";
+                    modalExifMobile.textContent = meta.exif || "";
+                    modalExifMobile.style.display = meta.exif
+                        ? ""
+                        : "none";
+                    modalCameraMobile.textContent = meta.camera || "";
+                    modalCameraMobile.style.display = meta.camera
+                        ? ""
+                        : "none";
+                    modalLensMobile.textContent = meta.lens || "";
+                    modalLensMobile.style.display = meta.lens
+                        ? ""
+                        : "none";
+                    modalBodyMobile.innerHTML = bodyHTML;
+                    modalBodyMobile.style.display = bodyHTML
+                        ? ""
+                        : "none";
+
+                    const hasPrev = currentIndex > 0;
+                    const hasNext =
+                        currentIndex < visibleItems.length - 1;
+                    prevBtn.style.visibility = hasPrev
+                        ? "visible"
+                        : "hidden";
+                    nextBtn.style.visibility = hasNext
+                        ? "visible"
+                        : "hidden";
+                    prevMobile.disabled = !hasPrev;
+                    nextMobile.disabled = !hasNext;
+                    prevMobile.style.opacity = hasPrev ? "1" : "0.3";
+                    nextMobile.style.opacity = hasNext ? "1" : "0.3";
+
+                    // Show with animation
+                    modal.classList.remove("pointer-events-none");
+                    modal.style.opacity = "1";
+                    document.body.style.overflow = "hidden";
+                    modalScroll.scrollTop = 0;
+                }
+
+                function closeModal() {
+                    modal.style.opacity = "0";
+                    modal.classList.add("pointer-events-none");
+                    document.body.style.overflow = "";
+                    currentIndex = -1;
+                }
+
+                // Lightbox (fullscreen zoom)
+                function openLightbox() {
+                    lightboxImage.src = modalImage.src;
+                    lightboxImage.alt = modalImage.alt;
+                    lightbox.classList.remove(
+                        "opacity-0",
+                        "pointer-events-none",
+                    );
+                }
+
+                function closeLightbox() {
+                    lightbox.classList.add(
+                        "opacity-0",
+                        "pointer-events-none",
+                    );
+                }
+
+                modalImage.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    openLightbox();
+                });
+                lightbox.addEventListener("click", closeLightbox);
+
+                function navigate(dir) {
+                    visibleItems = getVisibleItems();
+                    const next = currentIndex + dir;
+                    if (next >= 0 && next < visibleItems.length) {
+                        openModal(next);
+                    }
+                }
+
+                // Card click → open modal
+                function onItemClick(e) {
+                    e.preventDefault();
+                    const el = e.currentTarget;
+                    visibleItems = getVisibleItems();
+                    const idx = visibleItems.indexOf(el);
+                    if (idx !== -1) openModal(idx);
+                }
+
+                allItems.forEach(function (item) {
+                    item.addEventListener("click", onItemClick);
+                });
+
+                // Close: backdrop click (but not modal-content click)
+                modalScroll.addEventListener("click", function (e) {
+                    if (e.target === modalScroll || e.target === backdrop) {
+                        closeModal();
+                    }
+                });
+                closeBtn.addEventListener("click", closeModal);
+
+                // Nav (desktop arrows + mobile buttons)
+                prevBtn.addEventListener("click", function () {
+                    navigate(-1);
+                });
+                nextBtn.addEventListener("click", function () {
+                    navigate(1);
+                });
+                prevMobile.addEventListener("click", function () {
+                    navigate(-1);
+                });
+                nextMobile.addEventListener("click", function () {
+                    navigate(1);
+                });
+
+                // Touch swipe on modal content area
+                let touchStartX = 0;
+                let touchStartY = 0;
+                function onTouchStart(e) {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }
+                function onTouchEnd(e) {
+                    const dx =
+                        e.changedTouches[0].clientX - touchStartX;
+                    const dy =
+                        e.changedTouches[0].clientY - touchStartY;
+                    if (
+                        Math.abs(dx) > 50 &&
+                        Math.abs(dx) > Math.abs(dy) * 1.5
+                    ) {
+                        navigate(dx > 0 ? -1 : 1);
+                    }
+                }
+                modalContent.addEventListener(
+                    "touchstart",
+                    onTouchStart,
+                    { passive: true },
+                );
+                modalContent.addEventListener("touchend", onTouchEnd);
+
+                // Keyboard
+                function isLightboxOpen() {
+                    return !lightbox.classList.contains(
+                        "pointer-events-none",
+                    );
+                }
+
+                function onKeydown(e) {
+                    if (isLightboxOpen()) {
+                        if (e.key === "Escape") closeLightbox();
+                        return;
+                    }
+                    if (currentIndex === -1) return;
+                    if (e.key === "Escape") closeModal();
+                    if (e.key === "ArrowLeft") navigate(-1);
+                    if (e.key === "ArrowRight") navigate(1);
+                }
+                document.addEventListener("keydown", onKeydown);
+
+                // Tab filter
+                tabs.forEach(function (tab) {
+                    tab.addEventListener("click", function () {
+                        const filter = tab.dataset.filter;
+                        tabs.forEach(function (t) {
+                            t.classList.remove("active");
+                        });
+                        tab.classList.add("active");
+
+                        allItems.forEach(function (item) {
+                            if (filter === "all") {
+                                item.style.display = "";
+                            } else if (filter === "featured") {
+                                item.style.display =
+                                    item.dataset.featured === "true"
+                                        ? ""
+                                        : "none";
+                            } else {
+                                item.style.display =
+                                    item.dataset.category === filter
+                                        ? ""
+                                        : "none";
+                            }
+                        });
+                    });
+                });
+
+                // Cleanup
+                cleanupFn = function () {
+                    allItems.forEach(function (item) {
+                        item.removeEventListener("click", onItemClick);
+                    });
+                    document.removeEventListener("keydown", onKeydown);
+                    modalContent.removeEventListener(
+                        "touchstart",
+                        onTouchStart,
+                    );
+                    modalContent.removeEventListener(
+                        "touchend",
+                        onTouchEnd,
+                    );
+                    closeModal();
+                };
+            });
+        })();
+    </script>
+
+    <style>
+        .gallery-masonry {
+            columns: 1;
+            column-gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .gallery-masonry {
+                columns: 2;
+            }
+        }
+        @media (min-width: 1024px) {
+            .gallery-masonry {
+                columns: 3;
+            }
+        }
+
+        /* Compact layout: fixed split (< 1280px) */
+        @media (max-width: 1279px) {
+            .modal-image-area {
+                height: 70vh;
+                flex-shrink: 0;
+            }
+            .modal-info-area {
+                height: 30vh;
+                flex-shrink: 0;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        .gallery-tab {
+            color: var(--text-muted);
+        }
+        .gallery-tab:hover {
+            color: var(--text-main);
+        }
+        .gallery-tab.active {
+            color: var(--text-main);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 1px;
+        }
+    </style>
 </MinimalLayout>
-
-

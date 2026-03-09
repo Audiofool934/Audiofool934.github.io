@@ -1,6 +1,6 @@
 ---
 title: "Moonrise"
-image: "/images/gallery/1-moonrise.webp"
+image: "/images/gallery/25-11-13.webp"
 date: 2025-11-13
 # location: ""
 camera: "SONY ILCE-7RM2"

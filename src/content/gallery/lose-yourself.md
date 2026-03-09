@@ -1,6 +1,6 @@
 ---
 title: "Lose Yourself"
-image: "/images/gallery/2-lose-yourself.webp"
+image: "/images/gallery/25-6-22.webp"
 date: 2025-06-22
 camera: "SONY ILCE-7RM2"
 lens: "Canon EF 70-200mm f/2.8L IS I USM (w/ Sigma MC11)"
