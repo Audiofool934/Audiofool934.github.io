@@ -1,26 +1,20 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import "../../style/post.css";
 
 export async function getStaticPaths() {
     const audioshowEntries = await getCollection("audioshow");
     return audioshowEntries.map((entry) => ({
-        params: { slug: entry.slug },
+        params: { slug: entry.id },
         props: { entry },
     }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+import { formatDateLong } from "../../utils/formatDate";
 
-function formatDate(date: Date) {
-    return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
 ---
 
 <MinimalLayout
@@ -47,7 +41,7 @@ function formatDate(date: Date) {
                         EP {entry.data.episode}
                     </span>
                     <time class="font-mono text-xs text-[var(--text-muted)]">
-                        {formatDate(entry.data.pubDate)}
+                        {formatDateLong(entry.data.pubDate)}
                     </time>
                 </div>
 
@@ -73,20 +67,6 @@ function formatDate(date: Date) {
 </MinimalLayout>
 
 <style>
-    .anime-fade-in-up {
-        animation: fadeInUp 0.5s ease-out;
-    }
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
     /* Center images in AudioShow posts */
     .post-content :global(img) {
         margin-left: auto;

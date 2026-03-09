@@ -1,26 +1,20 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import "../../style/post.css";
 
 export async function getStaticPaths() {
     const posts = await getCollection("log");
     return posts.map((entry) => ({
-        params: { slug: entry.slug },
+        params: { slug: entry.id },
         props: { entry },
     }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+import { formatDateLong } from "../../utils/formatDate";
 
-function formatDate(date: Date) {
-    return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
 ---
 
 <MinimalLayout title={`${entry.data.title} | Log`}>
@@ -33,7 +27,7 @@ function formatDate(date: Date) {
                 <time
                     class="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest mb-4 block"
                 >
-                    {formatDate(entry.data.pubDate)}
+                    {formatDateLong(entry.data.pubDate)}
                 </time>
                 <h1 class="text-3xl md:text-5xl font-bold font-heading mb-6">
                     {entry.data.title}
@@ -58,18 +52,3 @@ function formatDate(date: Date) {
     </div>
 </MinimalLayout>
 
-<style>
-    .anime-fade-in-up {
-        animation: fadeInUp 0.5s ease-out;
-    }
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-</style>

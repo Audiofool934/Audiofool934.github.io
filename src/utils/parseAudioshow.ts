@@ -119,14 +119,6 @@ export function parseEpisodesFromMarkdown(markdown: string, sourceFile: string):
 }
 
 /**
- * @deprecated Not used - episode reading is done directly in Astro components
- * Get all episodes from all audioshow markdown files
- */
-export async function getAllEpisodes(): Promise<Episode[]> {
-    return [];
-}
-
-/**
  * Sort episodes by number descending (most recent first)
  */
 export function sortEpisodesDesc(episodes: Episode[]): Episode[] {

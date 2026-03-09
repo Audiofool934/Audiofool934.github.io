@@ -1,18 +1,18 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import "../../style/post.css";
 
 export async function getStaticPaths() {
     const wikiEntries = await getCollection("wiki");
     return wikiEntries.map((entry) => ({
-        params: { slug: entry.slug },
+        params: { slug: entry.id },
         props: { entry },
     }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <MinimalLayout

@@ -5,8 +5,7 @@ import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 
 import preact from "@astrojs/preact";
-
-import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,9 +13,8 @@ export default defineConfig({
     syntaxHighlight: 'prism',
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
-    // syntaxHighlight: 'prism',
   },
-  site: "http://audiofool.net",
+  site: "https://audiofool.blog",
   trailingSlash: 'always',
-  integrations: [preact(), tailwind()]
+  integrations: [preact(), sitemap()]
 });

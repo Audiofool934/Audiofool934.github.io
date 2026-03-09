@@ -57,7 +57,7 @@ const sortedCategories = Object.keys(categorizedItems).sort((a, b) => {
                     <div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
                         {featuredItems.map((item) => (
                             <a 
-                                href={`/gallery/${item.slug}/`}
+                                href={`/gallery/${item.id}/`}
                                 class="group flex-shrink-0 snap-start relative border border-[var(--border-main)]"
                             >
                                 <img 
@@ -102,7 +102,7 @@ const sortedCategories = Object.keys(categorizedItems).sort((a, b) => {
                         <div class="flex flex-wrap gap-4">
                             {categorizedItems[category].map((item) => (
                                 <a 
-                                    href={`/gallery/${item.slug}/`}
+                                    href={`/gallery/${item.id}/`}
                                     class="group relative border border-[var(--border-main)] overflow-hidden"
                                 >
                                     <img 

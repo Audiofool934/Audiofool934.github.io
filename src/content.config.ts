@@ -1,15 +1,16 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const projects = defineCollection({
-    type: 'content',
+    loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
     schema: z.object({
         title: z.string(),
         description: z.string().optional(),
         pubDate: z.coerce.date(),
         stack: z.array(z.string()).default([]),
         type: z.enum(['Product', 'Lib', 'Art', 'Research', 'Experiment', 'Other']).optional(),
-        category: z.string().default('Other'), // Custom category for grouping
-        featured: z.boolean().default(false), // For "Latest" section
+        category: z.string().default('Other'),
+        featured: z.boolean().default(false),
         url: z.string().optional(),
         image: z.union([
             z.string(),
@@ -22,7 +23,7 @@ const projects = defineCollection({
 });
 
 const log = defineCollection({
-    type: 'content', // Stream
+    loader: glob({ pattern: '**/*.md', base: './src/content/log' }),
     schema: z.object({
         title: z.string(),
         pubDate: z.coerce.date(),
@@ -32,24 +33,25 @@ const log = defineCollection({
 });
 
 const wiki = defineCollection({
-    type: 'content', // Graph
+    loader: glob({ pattern: '**/*.md', base: './src/content/wiki' }),
     schema: z.object({
         title: z.string(),
+        pubDate: z.coerce.date().optional(),
         updatedDate: z.coerce.date().optional(),
-        parents: z.array(z.string()).optional(), // For graph structure
+        parents: z.array(z.string()).optional(),
         related: z.array(z.string()).optional(),
         tags: z.array(z.string()).default([]),
     }),
 });
 
 const audioshow = defineCollection({
-    type: 'content',
+    loader: glob({ pattern: '**/*.md', base: './src/content/audioshow' }),
     schema: z.object({
         title: z.string(),
-        episode: z.number().or(z.string()), // Handle existing string/number
+        episode: z.number().or(z.string()),
         description: z.string().optional(),
         pubDate: z.coerce.date(),
-        audioUrl: z.string().optional(), // For the player
+        audioUrl: z.string().optional(),
         duration: z.string().optional(),
         featured: z.boolean().default(false),
         tags: z.array(z.string()).default([]),
@@ -57,7 +59,7 @@ const audioshow = defineCollection({
 });
 
 const gallery = defineCollection({
-    type: 'content',
+    loader: glob({ pattern: '**/*.md', base: './src/content/gallery' }),
     schema: z.object({
         title: z.string(),
         image: z.string(),
@@ -77,7 +79,7 @@ const gallery = defineCollection({
 export const collections = {
     projects,
     log,
-    wiki, // Formerly notes
+    wiki,
     audioshow,
     gallery,
 };

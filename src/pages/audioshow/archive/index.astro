@@ -1,21 +1,9 @@
 ---
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
-import { parseEpisodesFromMarkdown, groupEpisodesByRange, type Episode } from "../../../utils/parseAudioshow";
-import fs from "node:fs";
-import path from "node:path";
+import { groupEpisodesByRange } from "../../../utils/parseAudioshow";
+import { loadAllEpisodes } from "../../../utils/loadEpisodes";
 
-// Read and parse all audioshow markdown files
-const audioshowDir = path.join(process.cwd(), "src/content/audioshow");
-const files = fs.readdirSync(audioshowDir).filter(f => f.endsWith(".md"));
-
-let allEpisodes: Episode[] = [];
-
-for (const file of files) {
-    const filePath = path.join(audioshowDir, file);
-    const content = fs.readFileSync(filePath, "utf-8");
-    const episodes = parseEpisodesFromMarkdown(content, file);
-    allEpisodes = [...allEpisodes, ...episodes];
-}
+const allEpisodes = loadAllEpisodes();
 
 // Group episodes by ranges of 50
 const groupedEpisodes = groupEpisodesByRange(allEpisodes, 50);
@@ -124,9 +112,15 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         </div>
 
                                         <!-- Play Button -->
-                                        <button 
+                                        <button
                                             class="w-8 text-center opacity-50 hover:opacity-100 transition-opacity"
-                                            onclick={ep.appleMusicUrl ? `window.playTrack({ type: '${ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local'}', url: '${ep.appleMusicUrl}', title: '${ep.songTitle.replace(/'/g, "\\'")}', artwork: '${ep.imageUrl || ''}' }); event.stopPropagation();` : 'event.stopPropagation();'}
+                                            data-play-track={ep.appleMusicUrl ? JSON.stringify({
+                                                type: ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local',
+                                                url: ep.appleMusicUrl,
+                                                title: ep.songTitle,
+                                                artist: ep.artist,
+                                                artwork: ep.imageUrl || ''
+                                            }) : undefined}
                                         >
                                             ▶
                                         </button>
@@ -173,53 +167,59 @@ const placeholderImage = "/images/placeholder-album.svg";
 </MinimalLayout>
 
 <script is:inline>
-    // Toggle individual episode lyrics
-    document.querySelectorAll('[data-ep-row]').forEach(row => {
-        row.addEventListener('click', (e) => {
-            const epItem = row.closest('.episode-item');
-            const lyricsContent = epItem.querySelector('.lyrics-content');
-            const arrow = epItem.querySelector('.lyrics-arrow');
-            
-            if (lyricsContent.classList.contains('hidden')) {
-                lyricsContent.classList.remove('hidden');
-                arrow.style.transform = 'rotate(180deg)';
-            } else {
-                lyricsContent.classList.add('hidden');
-                arrow.style.transform = 'rotate(0deg)';
-            }
+    document.addEventListener("astro:page-load", () => {
+        // Toggle individual episode lyrics
+        document.querySelectorAll('[data-ep-row]').forEach(row => {
+            row.addEventListener('click', () => {
+                const epItem = row.closest('.episode-item');
+                const lyricsContent = epItem.querySelector('.lyrics-content');
+                const arrow = epItem.querySelector('.lyrics-arrow');
+
+                if (lyricsContent.classList.contains('hidden')) {
+                    lyricsContent.classList.remove('hidden');
+                    arrow.style.transform = 'rotate(180deg)';
+                } else {
+                    lyricsContent.classList.add('hidden');
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            });
         });
+
+        // Play buttons
+        document.querySelectorAll('[data-play-track]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const track = JSON.parse(btn.dataset.playTrack);
+                window.playTrack(track);
+            });
+        });
+
+        // Toggle all lyrics in a range
+        window.toggleAllLyrics = function(range) {
+            const section = document.querySelector(`[data-range="${range}"]`);
+            const episodes = section.querySelectorAll('.episode-item');
+            const toggleBtn = section.querySelector(`[data-toggle-all="${range}"]`);
+
+            const allHidden = Array.from(episodes).every(ep =>
+                ep.querySelector('.lyrics-content').classList.contains('hidden')
+            );
+
+            episodes.forEach(ep => {
+                const lyricsContent = ep.querySelector('.lyrics-content');
+                const arrow = ep.querySelector('.lyrics-arrow');
+
+                if (allHidden) {
+                    lyricsContent.classList.remove('hidden');
+                    arrow.style.transform = 'rotate(180deg)';
+                } else {
+                    lyricsContent.classList.add('hidden');
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            toggleBtn.textContent = allHidden ? '[collapse]' : '[lyrics]';
+        };
     });
-
-    // Toggle all lyrics in a range
-    // Logic: if ALL are closed -> open all; if ANY are open -> close all
-    window.toggleAllLyrics = function(range) {
-        const section = document.querySelector(`[data-range="${range}"]`);
-        const episodes = section.querySelectorAll('.episode-item');
-        const toggleBtn = section.querySelector(`[data-toggle-all="${range}"]`);
-        
-        // Check if ALL are currently hidden (no open lyrics)
-        const allHidden = Array.from(episodes).every(ep => 
-            ep.querySelector('.lyrics-content').classList.contains('hidden')
-        );
-        
-        episodes.forEach(ep => {
-            const lyricsContent = ep.querySelector('.lyrics-content');
-            const arrow = ep.querySelector('.lyrics-arrow');
-            
-            if (allHidden) {
-                // All are closed, so open all
-                lyricsContent.classList.remove('hidden');
-                arrow.style.transform = 'rotate(180deg)';
-            } else {
-                // Some are open, so close all
-                lyricsContent.classList.add('hidden');
-                arrow.style.transform = 'rotate(0deg)';
-            }
-        });
-
-        // Update button text
-        toggleBtn.textContent = allHidden ? '[collapse]' : '[lyrics]';
-    };
 </script>
 
 <style>

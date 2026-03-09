@@ -130,7 +130,7 @@ function hasContent(node: TaxonomyNode): boolean {
                             <span class="opacity-50">/</span> {rootNode.label}
                         </h2>
 
-                        <div class="pl-4 md:pl-6 border-l border-[var(--border-subtle)] space-y-4">
+                        <div class="pl-4 md:pl-6 border-l border-[var(--border-main)] space-y-4">
                             {rootNode.children?.map((childNode) => (
                                 <details
                                     class="group"
@@ -156,7 +156,7 @@ function hasContent(node: TaxonomyNode): boolean {
                                         {/* Sub-node entries */}
                                         {childNode.entries?.map((entry) => (
                                             <a
-                                                href={`/wiki/${entry.slug}/`}
+                                                href={`/wiki/${entry.id}/`}
                                                 class="block py-1 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:underline decoration-1 underline-offset-4 transition-colors flex items-baseline gap-2"
                                             >
                                                 <span class="opacity-30 text-xs">
@@ -183,7 +183,7 @@ function hasContent(node: TaxonomyNode): boolean {
                             {/* If Root has direct entries (rare in this taxonomy but possible) */}
                             {rootNode.entries?.map((entry) => (
                                 <a
-                                    href={`/wiki/${entry.slug}/`}
+                                    href={`/wiki/${entry.id}/`}
                                     class="block py-1 text-[var(--text-muted)] hover:text-[var(--text-main)] ml-6"
                                 >
                                     {entry.data.title}

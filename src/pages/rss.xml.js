@@ -16,25 +16,25 @@ export async function GET(context) {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description || '',
-      link: `/projects/${post.slug}/`,
+      link: `/projects/${post.id}/`,
     })),
     ...logs.map(post => ({
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description || '',
-      link: `/log/${post.slug}/`,
+      link: `/log/${post.id}/`,
     })),
     ...wiki.map(post => ({
       title: post.data.title,
-      pubDate: post.data.pubDate || new Date(),
-      description: post.data.description || '',
-      link: `/wiki/${post.slug}/`,
+      pubDate: post.data.pubDate || post.data.updatedDate || new Date('2024-01-01'),
+      description: '',
+      link: `/wiki/${post.id}/`,
     })),
     ...audioshow.map(post => ({
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: `AudioShow Episode ${post.data.episode}`,
-      link: `/audioshow/${post.slug}/`,
+      link: `/audioshow/${post.id}/`,
     })),
   ];
 

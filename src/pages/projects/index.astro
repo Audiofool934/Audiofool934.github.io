@@ -28,8 +28,8 @@ const categorizedProjects = sortedProjects
 		{} as Record<string, typeof projects>,
 	);
 
-// Also include latest projects' categories if they have one
-sortedProjects.forEach((project) => {
+// Ensure categories from featured/latest projects also appear in the list
+latestProjects.forEach((project) => {
 	const cat = project.data.category || "Other";
 	if (!categorizedProjects[cat]) categorizedProjects[cat] = [];
 });
@@ -69,7 +69,7 @@ const sortedCategories = Object.keys(categorizedProjects).sort((a, b) => {
 				{
 					latestProjects.map((project) => (
 						<a
-							href={`/projects/${project.slug}/`}
+							href={`/projects/${project.id}/`}
 							class="group block p-6 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
 						>
 							<div class="flex justify-between items-start mb-3">
@@ -114,7 +114,7 @@ const sortedCategories = Object.keys(categorizedProjects).sort((a, b) => {
 						<div class="space-y-2">
 							{categorizedProjects[category].map((project) => (
 								<a
-									href={`/projects/${project.slug}/`}
+									href={`/projects/${project.id}/`}
 									class="group flex items-center justify-between py-3 px-4 border-b border-[var(--border-main)] last:border-b-0 hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
 								>
 									<div class="flex items-center gap-4 min-w-0">

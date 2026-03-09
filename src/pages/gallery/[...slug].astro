@@ -1,26 +1,20 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import "../../style/post.css";
 
 export async function getStaticPaths() {
     const galleryEntries = await getCollection("gallery");
     return galleryEntries.map((entry) => ({
-        params: { slug: entry.slug },
+        params: { slug: entry.id },
         props: { entry },
     }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+import { formatDateLong } from "../../utils/formatDate";
 
-function formatDate(date: Date) {
-    return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
 ---
 
 <MinimalLayout title={`${entry.data.title} | Gallery`}>
@@ -57,7 +51,7 @@ function formatDate(date: Date) {
                 >
                     <div class="flex items-center gap-2">
                         <span class="opacity-50">Date:</span>
-                        <time>{formatDate(entry.data.date)}</time>
+                        <time>{formatDateLong(entry.data.date)}</time>
                     </div>
                     {
                         entry.data.location && (
@@ -136,32 +130,37 @@ function formatDate(date: Date) {
     </div>
 
     <script is:inline>
-        document.addEventListener("astro:page-load", () => {
-            const galleryImage = document.getElementById("gallery-image");
-            const lightbox = document.getElementById("lightbox");
+        (function() {
+            let escHandler = null;
 
-            if (galleryImage && lightbox) {
-                galleryImage.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    lightbox.classList.remove(
-                        "opacity-0",
-                        "pointer-events-none",
-                    );
-                });
+            document.addEventListener("astro:page-load", () => {
+                // Clean up previous ESC handler to prevent listener accumulation
+                if (escHandler) {
+                    document.removeEventListener("keydown", escHandler);
+                    escHandler = null;
+                }
 
-                lightbox.addEventListener("click", () => {
-                    lightbox.classList.add("opacity-0", "pointer-events-none");
-                });
+                const galleryImage = document.getElementById("gallery-image");
+                const lightbox = document.getElementById("lightbox");
 
-                document.addEventListener("keydown", (e) => {
-                    if (e.key === "Escape") {
-                        lightbox.classList.add(
-                            "opacity-0",
-                            "pointer-events-none",
-                        );
-                    }
-                });
-            }
-        });
+                if (galleryImage && lightbox) {
+                    galleryImage.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        lightbox.classList.remove("opacity-0", "pointer-events-none");
+                    });
+
+                    lightbox.addEventListener("click", () => {
+                        lightbox.classList.add("opacity-0", "pointer-events-none");
+                    });
+
+                    escHandler = (e) => {
+                        if (e.key === "Escape") {
+                            lightbox.classList.add("opacity-0", "pointer-events-none");
+                        }
+                    };
+                    document.addEventListener("keydown", escHandler);
+                }
+            });
+        })();
     </script>
 </MinimalLayout>

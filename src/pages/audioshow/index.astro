@@ -1,22 +1,9 @@
 ---
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
-import { getCollection } from "astro:content";
-import { parseEpisodesFromMarkdown, sortEpisodesDesc, type Episode } from "../../utils/parseAudioshow";
-import fs from "node:fs";
-import path from "node:path";
+import { sortEpisodesDesc } from "../../utils/parseAudioshow";
+import { loadAllEpisodes } from "../../utils/loadEpisodes";
 
-// Read and parse all audioshow markdown files
-const audioshowDir = path.join(process.cwd(), "src/content/audioshow");
-const files = fs.readdirSync(audioshowDir).filter(f => f.endsWith(".md"));
-
-let allEpisodes: Episode[] = [];
-
-for (const file of files) {
-    const filePath = path.join(audioshowDir, file);
-    const content = fs.readFileSync(filePath, "utf-8");
-    const episodes = parseEpisodesFromMarkdown(content, file);
-    allEpisodes = [...allEpisodes, ...episodes];
-}
+const allEpisodes = loadAllEpisodes();
 
 // Sort by episode number descending and get recent 10
 const sortedEpisodes = sortEpisodesDesc(allEpisodes);
@@ -60,15 +47,15 @@ const placeholderImage = "/images/placeholder-album.svg";
                 <div class="flex-shrink-0 w-8 md:w-16"></div>
                 
                 {recentEpisodes.map((ep) => (
-                    <div 
+                    <div
                         class="group flex-shrink-0 snap-center w-[360px] md:w-[420px] border border-[var(--border-main)] bg-[var(--bg-body)] cursor-pointer transition-all hover:shadow-lg hover:border-[var(--text-main)] relative"
-                        onclick={ep.appleMusicUrl ? `playTrack({
-                            type: '${ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local'}',
-                            url: '${ep.appleMusicUrl}',
-                            title: '${ep.songTitle.replace(/'/g, "\\'")}',
-                            artist: '${ep.artist.replace(/'/g, "\\'")}',
-                            artwork: '${ep.imageUrl || placeholderImage}'
-                        })` : ''}
+                        data-track={ep.appleMusicUrl ? JSON.stringify({
+                            type: ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local',
+                            url: ep.appleMusicUrl,
+                            title: ep.songTitle,
+                            artist: ep.artist,
+                            artwork: ep.imageUrl || placeholderImage
+                        }) : undefined}
                     >
                         <!-- Album Artwork -->
                         <div class="relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900">
@@ -140,12 +127,13 @@ const placeholderImage = "/images/placeholder-album.svg";
     </div>
 </MinimalLayout>
 
-<style>
-    /* Line clamp for quote */
-    .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-</style>
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll("[data-track]").forEach((el) => {
+            el.addEventListener("click", () => {
+                const track = JSON.parse(el.dataset.track);
+                window.playTrack(track);
+            });
+        });
+    });
+</script>
