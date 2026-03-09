@@ -42,23 +42,25 @@ const placeholderImage = "/images/placeholder-album.svg";
         <!-- Recent Episodes - Horizontal Scroll -->
         <section class="relative">
             <!-- Scrollable Container -->
-            <div class="flex gap-6 overflow-x-auto pb-8 pt-4 snap-x snap-mandatory scrollbar-hide">
+            <div class="flex gap-4 md:gap-6 overflow-x-auto pb-6 md:pb-8 pt-4 snap-x snap-mandatory scrollbar-hide">
                 <!-- Left Spacer - smaller for less empty space -->
                 <div class="flex-shrink-0 w-8 md:w-16"></div>
                 
                 {recentEpisodes.map((ep) => (
                     <div
-                        class="group flex-shrink-0 snap-center w-[360px] md:w-[420px] border border-[var(--border-main)] bg-[var(--bg-body)] cursor-pointer transition-all hover:shadow-lg hover:border-[var(--text-main)] relative"
-                        data-track={ep.appleMusicUrl ? JSON.stringify({
-                            type: ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local',
-                            url: ep.appleMusicUrl,
-                            title: ep.songTitle,
-                            artist: ep.artist,
-                            artwork: ep.imageUrl || placeholderImage
-                        }) : undefined}
+                        class="ep-card group flex-shrink-0 snap-center border border-[var(--border-main)] bg-[var(--bg-body)] transition-all hover:shadow-lg hover:border-[var(--text-main)] relative"
                     >
-                        <!-- Album Artwork -->
-                        <div class="relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+                        <!-- Album Artwork - click to play -->
+                        <div
+                            class="ep-artwork relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer"
+                            data-track={ep.appleMusicUrl ? JSON.stringify({
+                                type: ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local',
+                                url: ep.appleMusicUrl,
+                                title: ep.songTitle,
+                                artist: ep.artist,
+                                artwork: ep.imageUrl || placeholderImage
+                            }) : undefined}
+                        >
                             <img 
                                 src={ep.imageUrl || placeholderImage}
                                 alt={`${ep.songTitle} - ${ep.artist}`}
@@ -68,35 +70,35 @@ const placeholderImage = "/images/placeholder-album.svg";
                             />
                             <!-- Play Overlay -->
                             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <span class="text-white text-5xl">▶</span>
+                                <span class="text-white text-4xl">▶</span>
                             </div>
                         </div>
 
-                        <!-- Card Content - Centered -->
-                        <div class="p-6 pb-8 text-center">
-                            <!-- Quote - Full display with line breaks -->
-                            <p class="text-sm italic text-[var(--text-muted)] mb-5 whitespace-pre-line min-h-[4rem]" set:html={`"${ep.quote.replace(/\n/g, '<br/>')}"`}>
+                        <!-- Card Content - Fixed height, scrollable -->
+                        <div class="ep-content overflow-y-auto overscroll-contain text-center">
+                            <!-- Quote -->
+                            <p class="ep-quote italic text-[var(--text-muted)] whitespace-pre-line" set:html={`"${ep.quote.replace(/\n/g, '<br/>')}"`}>
                             </p>
 
                             <!-- Song Info -->
-                            <h3 class="font-bold text-xl leading-tight mb-2">
+                            <h3 class="ep-title font-bold leading-tight">
                                 {ep.songTitle}
                             </h3>
-                            <p class="text-sm text-[var(--text-muted)] mb-3">
+                            <p class="ep-artist text-[var(--text-muted)]">
                                 {ep.artist}
                             </p>
-                            
-                            <!-- Album & Year - Centered -->
-                            <div class="text-xs font-mono text-[var(--text-muted)]">
+
+                            <!-- Album & Year -->
+                            <div class="ep-meta font-mono text-[var(--text-muted)]">
                                 <span>{ep.album}</span>
-                                <span class="mx-2">•</span>
+                                <span class="mx-1">•</span>
                                 <span>{ep.year}</span>
                             </div>
-                        </div>
 
-                        <!-- Episode Number Badge - Fixed to Card Border Bottom Right -->
-                        <div class="absolute bottom-2 right-3 text-xs font-mono text-[var(--text-muted)]">
-                            #{ep.number}
+                            <!-- Episode Number -->
+                            <div class="ep-number font-mono text-[var(--text-muted)]">
+                                #{ep.number}
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -126,6 +128,39 @@ const placeholderImage = "/images/placeholder-album.svg";
         </div>
     </div>
 </MinimalLayout>
+
+<style>
+    /* Default: large cards (vh > 1100px) */
+    .ep-card { width: 420px; }
+    .ep-content { max-height: 190px; padding: 1rem; -webkit-overflow-scrolling: touch; }
+    .ep-quote { font-size: 0.8rem; margin-bottom: 0.75rem; }
+    .ep-title { font-size: 1.125rem; margin-bottom: 0.25rem; }
+    .ep-artist { font-size: 0.75rem; margin-bottom: 0.375rem; }
+    .ep-meta { font-size: 0.75rem; }
+    .ep-number { font-size: 0.7rem; margin-top: 0.5rem; }
+
+    /* Medium: 800px < vh <= 1100px */
+    @media (max-height: 1100px) {
+        .ep-card { width: 320px; }
+        .ep-content { max-height: 165px; padding: 0.75rem; }
+        .ep-quote { font-size: 0.75rem; margin-bottom: 0.5rem; }
+        .ep-title { font-size: 1rem; margin-bottom: 0.25rem; }
+        .ep-artist { font-size: 0.7rem; margin-bottom: 0.25rem; }
+        .ep-meta { font-size: 0.65rem; }
+        .ep-number { font-size: 0.6rem; margin-top: 0.375rem; }
+    }
+
+    /* Compact: vh <= 800px */
+    @media (max-height: 800px) {
+        .ep-card { width: 220px; }
+        .ep-content { max-height: 130px; padding: 0.625rem; }
+        .ep-quote { font-size: 0.65rem; margin-bottom: 0.375rem; }
+        .ep-title { font-size: 0.875rem; margin-bottom: 0.125rem; }
+        .ep-artist { font-size: 0.65rem; margin-bottom: 0.125rem; }
+        .ep-meta { font-size: 0.6rem; }
+        .ep-number { font-size: 0.55rem; margin-top: 0.25rem; }
+    }
+</style>
 
 <script is:inline>
     document.addEventListener("astro:page-load", () => {
