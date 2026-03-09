@@ -116,8 +116,18 @@ const placeholderImage = "/images/placeholder-album.svg";
             </div>
         )}
 
+        <!-- Scroll Navigation (desktop only) -->
+        <div class="hidden md:flex items-center justify-center gap-6 mt-8" id="scroll-nav">
+            <button id="scroll-left" class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors font-mono text-sm" aria-label="Scroll left">
+                ← prev
+            </button>
+            <button id="scroll-right" class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors font-mono text-sm" aria-label="Scroll right">
+                next →
+            </button>
+        </div>
+
         <!-- Stats -->
-        <div class="mt-12 pt-8 border-t border-[var(--border-main)] flex items-center justify-between text-sm font-mono text-[var(--text-muted)]">
+        <div class="mt-8 pt-8 border-t border-[var(--border-main)] flex items-center justify-between text-sm font-mono text-[var(--text-muted)]">
             <span>{allEpisodes.length} episodes total</span>
             <a 
                 href="/audioshow/archive/"
@@ -138,6 +148,14 @@ const placeholderImage = "/images/placeholder-album.svg";
     .ep-artist { font-size: 0.75rem; margin-bottom: 0.375rem; }
     .ep-meta { font-size: 0.75rem; }
     .ep-number { font-size: 0.7rem; margin-top: 0.5rem; }
+
+    /* Hide scrollbar in text area but keep scrollable */
+    .ep-content {
+        scrollbar-width: none; /* Firefox */
+    }
+    .ep-content::-webkit-scrollbar {
+        display: none; /* Chrome/Safari/Edge */
+    }
 
     /* Medium: 800px < vh <= 1100px */
     @media (max-height: 1100px) {
@@ -170,5 +188,20 @@ const placeholderImage = "/images/placeholder-album.svg";
                 window.playTrack(track);
             });
         });
+
+        // Scroll navigation buttons
+        const container = document.querySelector(".scrollbar-hide");
+        const leftBtn = document.getElementById("scroll-left");
+        const rightBtn = document.getElementById("scroll-right");
+        if (container && leftBtn && rightBtn) {
+            const card = container.querySelector(".ep-card");
+            const scrollAmount = () => card ? card.offsetWidth + 24 : 340;
+            leftBtn.addEventListener("click", () => {
+                container.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+            });
+            rightBtn.addEventListener("click", () => {
+                container.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+            });
+        }
     });
 </script>

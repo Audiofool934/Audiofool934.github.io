@@ -182,17 +182,17 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                 &times;
             </button>
 
-            <!-- Prev / Next arrows (wide desktop only, ≥1280px) -->
+            <!-- Prev / Next: full-height strips in backdrop beside the card (desktop only) -->
             <button
                 id="modal-prev"
-                class="hidden xl:flex fixed left-4 top-1/2 -translate-y-1/2 z-10 font-mono text-white/50 hover:text-white text-3xl w-12 h-12 items-center justify-center transition-colors"
+                class="hidden xl:flex fixed left-0 top-0 bottom-0 w-[calc((100vw-64rem)/2)] min-w-[3rem] z-10 font-mono text-white/40 hover:text-white text-4xl items-center justify-center transition-colors"
                 aria-label="Previous"
             >
                 &#8249;
             </button>
             <button
                 id="modal-next"
-                class="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-10 font-mono text-white/50 hover:text-white text-3xl w-12 h-12 items-center justify-center transition-colors"
+                class="hidden xl:flex fixed right-0 top-0 bottom-0 w-[calc((100vw-64rem)/2)] min-w-[3rem] z-10 font-mono text-white/40 hover:text-white text-4xl items-center justify-center transition-colors"
                 aria-label="Next"
             >
                 &#8250;
