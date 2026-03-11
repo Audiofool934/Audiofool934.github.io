@@ -137,7 +137,7 @@ const NAV_ITEMS = [
                             id="mobile-menu-toggle"
                             class="font-mono text-sm border border-[var(--border-main)] px-2 py-1 hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
                         >
-                            <span id="menu-icon">[≡]</span>
+                            <span id="menu-icon">[ ≡ ]</span>
                         </button>
                         <button
                             id="theme-toggle-mobile"
@@ -181,7 +181,7 @@ const NAV_ITEMS = [
                                     href={item.href}
                                     class="nav-link text-lg font-medium hover:underline underline-offset-4 decoration-1 decoration-[var(--border-main)]"
                                 >
-                                    [{item.label}]
+                                    [ {item.label} ]
                                 </a>
                             ))
                         }
@@ -297,11 +297,11 @@ const NAV_ITEMS = [
                         if (isHidden) {
                             navContent.classList.remove("hidden");
                             navContent.classList.add("flex");
-                            menuIcon.textContent = "[×]";
+                            menuIcon.textContent = "[ × ]";
                         } else {
                             navContent.classList.add("hidden");
                             navContent.classList.remove("flex");
-                            menuIcon.textContent = "[≡]";
+                            menuIcon.textContent = "[ ≡ ]";
                         }
                     };
 
@@ -311,7 +311,7 @@ const NAV_ITEMS = [
                         link.addEventListener("click", () => {
                             navContent.classList.add("hidden");
                             navContent.classList.remove("flex");
-                            menuIcon.textContent = "[≡]";
+                            menuIcon.textContent = "[ ≡ ]";
                         });
                     });
                 }

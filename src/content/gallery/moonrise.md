@@ -2,12 +2,12 @@
 title: "Moonrise"
 image: "/images/gallery/25-11-13.webp"
 date: 2025-11-13
-# location: ""
+location: "北京"
 camera: "SONY ILCE-7RM2"
 lens: "Tamron E 50-400mm F4.5-6.3 A067"
 iso: 200
 focalLength: "400mm"
-aperture: "f8"
+aperture: "f/8"
 shutterSpeed: "1/3s"
 category: "Scientific"
 featured: true
