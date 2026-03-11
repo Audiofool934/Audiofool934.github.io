@@ -213,8 +213,8 @@
 }
 
 .post-content th {
-  background: var(--text-main);
-  color: var(--bg-body);
+  background: var(--border-subtle);
+  color: var(--text-main);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -264,4 +264,57 @@
 /* Custom for data tables inside text */
 .post-content table code {
   white-space: nowrap;
+}
+
+/* --------------------- Wiki Content Overrides --------------------- */
+/* Tighter spacing for reference-style notes vs. long-form blog posts */
+
+.wiki-content h2 {
+  margin-top: 3rem !important;
+  margin-bottom: 1rem !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+.wiki-content h3 {
+  margin-top: 2.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.wiki-content h4 {
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.wiki-content hr {
+  margin: 2.5rem 0;
+}
+
+.wiki-content p {
+  margin-bottom: 1.25rem;
+}
+
+.wiki-content ul,
+.wiki-content ol {
+  margin-bottom: 1.25rem;
+}
+
+.wiki-content blockquote {
+  margin: 1.5rem 0;
+}
+
+.wiki-content .katex-display {
+  margin: 1.5rem 0;
+}
+
+.wiki-content pre {
+  margin: 1.5rem 0;
+}
+
+.wiki-content table {
+  margin: 1.5rem 0;
+}
+
+.wiki-content img {
+  margin: 1.5rem 0;
 }

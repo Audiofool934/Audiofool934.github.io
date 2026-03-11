@@ -3,7 +3,7 @@ title: 'Conditional Expectation as Projection'
 updatedDate: 2026-01-01
 tags: ["Probability", "Math", "Regression"]
 parents: []
-related: []
+related: ["martingales", "bias-variance", "measure-theory"]
 ---
 
 ## The Geometry of Uncertainty
