@@ -3,64 +3,56 @@ import MinimalLayout from "../layouts/MinimalLayout.astro";
 ---
 
 <MinimalLayout title="Audiofool">
-	<div
-		class="p-8 md:p-12 min-h-[60vh] flex flex-col justify-center"
-		transition:animate="fade"
-	>
-		<!-- Introduction -->
-		<h1
-			class="text-4xl md:text-6xl font-bold tracking-tight mb-8 font-heading"
-		>
-			Audiofool
-		</h1>
+	<div class="index-hero relative overflow-clip flex flex-col" transition:animate="fade">
+		<!-- Background -->
+		<div class="absolute bottom-0 right-0 pointer-events-none max-h-[50%] max-w-[66%] md:max-w-[50%]">
+			<img
+				src="/images/BG.webp"
+				alt=""
+				class="w-full h-full object-cover object-right-bottom opacity-50"
+			/>
+			<div class="absolute inset-0 bg-gradient-to-br from-[var(--bg-body)] via-transparent to-transparent"></div>
+		</div>
 
-		<p
-			class="text-xl md:text-2xl leading-relaxed max-w-2xl text-[var(--text-muted)] mb-12"
-		>
-			Die-hard Pink Floyd fan. Developer. <br />
-			Exploring the intersection of <span
-				class="text-[var(--text-main)] font-medium">Logic</span
-			> and <span class="text-[var(--text-main)] font-medium">Sound</span
-			>.
-		</p>
-
-		<!-- Navigation Grid / Quick Links (Optional, since Sidebar exists) -->
-		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md">
-			<a
-				href="/projects/"
-				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+		<!-- Content -->
+		<div class="relative p-8 md:p-12 flex-1 flex flex-col justify-start pt-[15%] md:pt-[12%]">
+			<h1
+				class="text-4xl md:text-6xl font-bold tracking-tight font-heading mb-12 md:mb-16"
 			>
-				<span class="font-mono">/projects</span>
-				<span class="opacity-0 group-hover:opacity-100">-></span>
-			</a>
-			<a
-				href="/log/"
-				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
-			>
-				<span class="font-mono">/log</span>
-				<span class="opacity-0 group-hover:opacity-100">-></span>
-			</a>
-			<a
-				href="/wiki/"
-				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
-			>
-				<span class="font-mono">/wiki</span>
-				<span class="opacity-0 group-hover:opacity-100">-></span>
-			</a>
-			<a
-				href="/audioshow/"
-				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
-			>
-				<span class="font-mono">/audioshow</span>
-				<span class="opacity-0 group-hover:opacity-100">-></span>
-			</a>
-			<a
-				href="/gallery/"
-				class="group flex items-center justify-between p-4 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
-			>
-				<span class="font-mono">/gallery</span>
-				<span class="opacity-0 group-hover:opacity-100">-></span>
-			</a>
+				Audiofool
+			</h1>
+			<div class="max-w-2xl text-[var(--text-muted)] text-base md:text-lg leading-relaxed space-y-5 index-intro">
+				<p>
+					Developer and music nerd. Interested in generative models, signal processing, and the places where math meets sound.
+				</p>
+				<p>
+					I keep a <a href="/wiki/">wiki</a> of technical notes on probability, machine learning, and DSP. The <a href="/log/">log</a> tracks what I've been up to — new ideas, ongoing work, things I noticed along the way. <a href="/projects/">Projects</a> documents the things I build. The <a href="/audioshow/">AudioShow</a> is a long-running music journal: one song per episode, 250+ so far. And the <a href="/gallery/">gallery</a> is for photography, mostly shot in Beijing.
+				</p>
+			</div>
 		</div>
 	</div>
 </MinimalLayout>
+
+<style>
+	.index-hero {
+		min-height: calc(100vh - 160px); /* mobile: nav + bottom player */
+	}
+	@media (min-width: 768px) {
+		.index-hero {
+			min-height: calc(100vh - 2rem);
+		}
+	}
+
+	.index-intro a {
+		color: var(--text-main);
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 3px;
+		transition: all 0.2s ease;
+	}
+	.index-intro a:hover {
+		background-color: var(--text-main);
+		color: var(--bg-body);
+		text-decoration: none;
+	}
+</style>
