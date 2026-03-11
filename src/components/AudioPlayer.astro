@@ -1,6 +1,21 @@
 ---
 // AudioPlayer Component - Persistent music player with state management
 // State persists across View Transitions via window.__audioPlayerState
+import { loadAllEpisodes } from "../utils/loadEpisodes";
+import { sortEpisodesDesc } from "../utils/parseAudioshow";
+
+const placeholderImage = "/images/placeholder-album.svg";
+const allEpisodes = loadAllEpisodes();
+const playlist = sortEpisodesDesc(allEpisodes)
+    .filter((ep) => ep.appleMusicUrl)
+    .map((ep) => ({
+        n: ep.number,
+        t: ep.songTitle,
+        a: ep.artist,
+        url: ep.appleMusicUrl,
+        img: ep.imageUrl || placeholderImage,
+        type: ep.appleMusicUrl!.includes("music.apple.com") ? "apple" : "local",
+    }));
 ---
 
 <div id="audio-player-bar" transition:persist>
@@ -90,13 +105,48 @@
                 class="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]"
             >
                 <span id="player-current-time">0:00</span>
-                <button
-                    id="player-play-btn"
-                    class="hover:text-[var(--text-main)] transition-colors disabled:opacity-30 p-1"
-                    disabled
-                >
-                    <span id="play-icon" class="text-xl">▶</span>
-                </button>
+                <div class="flex items-center gap-2">
+                    <button
+                        id="player-shuffle-btn"
+                        class="hover:text-[var(--text-main)] transition-colors p-1"
+                        title="Shuffle"
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 3 21 3 21 8" />
+                            <line x1="4" y1="20" x2="21" y2="3" />
+                            <polyline points="21 16 21 21 16 21" />
+                            <line x1="15" y1="15" x2="21" y2="21" />
+                            <line x1="4" y1="4" x2="9" y2="9" />
+                        </svg>
+                    </button>
+                    <button
+                        id="player-prev-btn"
+                        class="hover:text-[var(--text-main)] transition-colors p-1"
+                        title="Previous"
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="19 20 9 12 19 4" />
+                            <line x1="5" y1="19" x2="5" y2="5" />
+                        </svg>
+                    </button>
+                    <button
+                        id="player-play-btn"
+                        class="hover:text-[var(--text-main)] transition-colors disabled:opacity-30 p-1"
+                        disabled
+                    >
+                        <span id="play-icon" class="text-xl">▶</span>
+                    </button>
+                    <button
+                        id="player-next-btn"
+                        class="hover:text-[var(--text-main)] transition-colors p-1"
+                        title="Next"
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 4 15 12 5 20" />
+                            <line x1="19" y1="5" x2="19" y2="19" />
+                        </svg>
+                    </button>
+                </div>
                 <span id="player-duration">0:00</span>
             </div>
         </div>
@@ -106,7 +156,7 @@
     <div
         class="md:hidden fixed bottom-0 left-0 right-0 bg-[var(--bg-body)] border-t border-[var(--border-main)] z-[200] px-4 py-3 safe-area-inset-bottom"
     >
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
             <!-- Mini Artwork -->
             <div
                 class="w-12 h-12 flex-shrink-0 border border-[var(--border-main)] relative overflow-hidden bg-[var(--bg-body)]"
@@ -140,13 +190,46 @@
                 </div>
             </div>
 
-            <!-- Play Button -->
+            <!-- Controls -->
+            <button
+                id="player-shuffle-btn-mobile"
+                class="w-8 h-8 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                title="Shuffle"
+            >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 3 21 3 21 8" />
+                    <line x1="4" y1="20" x2="21" y2="3" />
+                    <polyline points="21 16 21 21 16 21" />
+                    <line x1="15" y1="15" x2="21" y2="21" />
+                    <line x1="4" y1="4" x2="9" y2="9" />
+                </svg>
+            </button>
+            <button
+                id="player-prev-btn-mobile"
+                class="w-8 h-8 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                title="Previous"
+            >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="19 20 9 12 19 4" />
+                    <line x1="5" y1="19" x2="5" y2="5" />
+                </svg>
+            </button>
             <button
                 id="player-play-btn-mobile"
                 class="w-10 h-10 flex items-center justify-center border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors disabled:opacity-30"
                 disabled
             >
                 <span id="play-icon-mobile" class="text-lg">▶</span>
+            </button>
+            <button
+                id="player-next-btn-mobile"
+                class="w-8 h-8 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                title="Next"
+            >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 4 15 12 5 20" />
+                    <line x1="19" y1="5" x2="19" y2="19" />
+                </svg>
             </button>
         </div>
 
@@ -161,25 +244,15 @@
     </div>
 </div>
 
-<script is:inline>
+<script is:inline define:vars={{ playlist }}>
     // Audio Player State Management - Single Source of Truth Pattern
     (function () {
-        // ========================================
-        // STATE: Lives on window, survives View Transitions
-        // ========================================
-        // window.__audioPlayerState = {
-        //     initialized: false,     // Has setup() run?
-        //     track: null,            // { title, artist, artwork, url }
-        //     isPlaying: false
-        // };
-
         // ========================================
         // DOM REFERENCES (resolved fresh each time)
         // ========================================
         function getElements() {
             return {
                 audio: document.getElementById("main-audio-element"),
-                // Desktop elements
                 playBtn: document.getElementById("player-play-btn"),
                 playIcon: document.getElementById("play-icon"),
                 seekContainer: document.getElementById("player-seek-container"),
@@ -189,42 +262,81 @@
                 trackNameEl: document.getElementById("player-track-name"),
                 artistNameEl: document.getElementById("player-artist-name"),
                 artImg: document.getElementById("player-art-img"),
-                artPlaceholder: document.getElementById(
-                    "player-art-placeholder",
-                ),
-                // Mobile elements
-                playBtnMobile: document.getElementById(
-                    "player-play-btn-mobile",
-                ),
+                artPlaceholder: document.getElementById("player-art-placeholder"),
+                prevBtn: document.getElementById("player-prev-btn"),
+                nextBtn: document.getElementById("player-next-btn"),
+                shuffleBtn: document.getElementById("player-shuffle-btn"),
+                // Mobile
+                playBtnMobile: document.getElementById("player-play-btn-mobile"),
                 playIconMobile: document.getElementById("play-icon-mobile"),
-                progressBarMobile: document.getElementById(
-                    "player-progress-bar-mobile",
-                ),
-                trackNameMobile: document.getElementById(
-                    "player-track-name-mobile",
-                ),
-                artistNameMobile: document.getElementById(
-                    "player-artist-name-mobile",
-                ),
+                progressBarMobile: document.getElementById("player-progress-bar-mobile"),
+                trackNameMobile: document.getElementById("player-track-name-mobile"),
+                artistNameMobile: document.getElementById("player-artist-name-mobile"),
                 artImgMobile: document.getElementById("player-art-img-mobile"),
-                artPlaceholderMobile: document.getElementById(
-                    "player-art-placeholder-mobile",
-                ),
+                artPlaceholderMobile: document.getElementById("player-art-placeholder-mobile"),
+                prevBtnMobile: document.getElementById("player-prev-btn-mobile"),
+                nextBtnMobile: document.getElementById("player-next-btn-mobile"),
+                shuffleBtnMobile: document.getElementById("player-shuffle-btn-mobile"),
             };
         }
 
         // ========================================
-        // UI SYNC: One-way state → DOM (Desktop + Mobile)
+        // PLAYLIST HELPERS
+        // ========================================
+        function generateShuffledOrder(length) {
+            var order = [];
+            for (var i = 0; i < length; i++) order.push(i);
+            for (var i = length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+            }
+            return order;
+        }
+
+        function getPlaylistTrack(index) {
+            var ep = playlist[index];
+            if (!ep) return null;
+            return { type: ep.type, url: ep.url, title: ep.t, artist: ep.a, artwork: ep.img, _plIdx: index };
+        }
+
+        // Resolve the "real" index in playlist order, accounting for shuffle
+        function resolveIndex(state, offset) {
+            var len = playlist.length;
+            if (len === 0) return -1;
+            var currentPos = state.playlistPos >= 0 ? state.playlistPos : -1;
+            var nextPos = currentPos + offset;
+            // Wrap around
+            if (nextPos >= len) nextPos = 0;
+            if (nextPos < 0) nextPos = len - 1;
+            if (state.shuffleMode && state.shuffledOrder) {
+                return state.shuffledOrder[nextPos];
+            }
+            return nextPos;
+        }
+
+        // Find playlist position for a given playlist index
+        function findPos(state, plIdx) {
+            if (state.shuffleMode && state.shuffledOrder) {
+                for (var i = 0; i < state.shuffledOrder.length; i++) {
+                    if (state.shuffledOrder[i] === plIdx) return i;
+                }
+            }
+            return plIdx;
+        }
+
+        // ========================================
+        // UI SYNC
         // ========================================
         function syncUIWithState() {
-            const state = window.__audioPlayerState;
-            const els = getElements();
+            var state = window.__audioPlayerState;
+            var els = getElements();
             if (!els.audio) return;
 
-            const track = state?.track;
-            const isPlaying = state?.isPlaying;
+            var track = state?.track;
+            var isPlaying = state?.isPlaying;
+            var shuffleOn = state?.shuffleMode;
 
-            // Update Desktop UI
+            // Desktop
             if (els.playBtn) {
                 if (track) {
                     els.trackNameEl.textContent = track.title || "Unknown";
@@ -238,13 +350,17 @@
                 els.playIcon.textContent = isPlaying ? "II" : "▶";
                 els.playBtn.disabled = false;
             }
+            // Shuffle active state (desktop)
+            if (els.shuffleBtn) {
+                els.shuffleBtn.style.color = shuffleOn ? "var(--text-main)" : "";
+                els.shuffleBtn.style.opacity = shuffleOn ? "1" : "";
+            }
 
-            // Update Mobile UI
+            // Mobile
             if (els.playBtnMobile) {
                 if (track) {
                     els.trackNameMobile.textContent = track.title || "Unknown";
-                    els.artistNameMobile.textContent =
-                        track.artist || "AudioShow";
+                    els.artistNameMobile.textContent = track.artist || "AudioShow";
                     if (track.artwork) {
                         els.artImgMobile.src = track.artwork;
                         els.artImgMobile.style.opacity = "1";
@@ -254,39 +370,37 @@
                 els.playIconMobile.textContent = isPlaying ? "II" : "▶";
                 els.playBtnMobile.disabled = false;
             }
+            // Shuffle active state (mobile)
+            if (els.shuffleBtnMobile) {
+                els.shuffleBtnMobile.style.color = shuffleOn ? "var(--text-main)" : "";
+                els.shuffleBtnMobile.style.opacity = shuffleOn ? "1" : "";
+            }
         }
 
         // ========================================
-        // PROVIDERS: Type-specific metadata resolution
+        // PROVIDERS
         // ========================================
-        const providers = {
+        var providers = {
             apple: {
                 name: "Apple Music",
                 async resolve(track) {
-                    let trackId = track.id;
+                    var trackId = track.id;
                     if (!trackId && track.url) {
-                        const match = track.url.match(/[?&]i=(\d+)/);
+                        var match = track.url.match(/[?&]i=(\d+)/);
                         trackId = match ? match[1] : null;
                     }
                     if (!trackId) throw new Error("Invalid Apple Music ID");
-
-                    const resp = await fetch(
-                        `https://itunes.apple.com/lookup?id=${trackId}&country=cn`,
+                    var resp = await fetch(
+                        "https://itunes.apple.com/lookup?id=" + trackId + "&country=cn"
                     );
-                    const data = await resp.json();
+                    var data = await resp.json();
                     if (data.resultCount > 0) {
-                        const info = data.results[0];
+                        var info = data.results[0];
                         return {
                             url: info.previewUrl,
                             title: info.trackName,
                             artist: info.artistName,
-                            // Use provided artwork, fallback to API artwork
-                            artwork:
-                                track.artwork ||
-                                info.artworkUrl100?.replace(
-                                    "100x100",
-                                    "300x300",
-                                ),
+                            artwork: track.artwork || info.artworkUrl100?.replace("100x100", "300x300"),
                         };
                     }
                     throw new Error("Track not found");
@@ -306,27 +420,42 @@
         };
 
         // ========================================
-        // INIT: Called on every page-load
+        // INIT
         // ========================================
         function initPlayer() {
-            // Ensure state object exists
             if (!window.__audioPlayerState) {
                 window.__audioPlayerState = {
                     initialized: false,
                     track: null,
                     isPlaying: false,
-                    currentTime: 0, // Store playback position
+                    currentTime: 0,
+                    // Playlist state
+                    playlistIndex: 0,   // index into playlist array
+                    playlistPos: 0,     // position in play order (may differ when shuffled)
+                    shuffleMode: false,
+                    shuffledOrder: null,
                 };
             }
 
-            const state = window.__audioPlayerState;
-            const els = getElements();
+            var state = window.__audioPlayerState;
+            var els = getElements();
             if (!els.audio) return;
 
-            // First time: load default track
+            // First time: load first track in playlist (latest episode)
             if (!state.initialized) {
                 state.initialized = true;
-                if (!state.track && window.__defaultAudioShowTrack) {
+                if (!state.track && playlist.length > 0) {
+                    var first = getPlaylistTrack(0);
+                    state.track = {
+                        title: first.title,
+                        artist: first.artist,
+                        artwork: first.artwork,
+                        url: first.url,
+                        type: first.type,
+                    };
+                    state.playlistIndex = 0;
+                    state.playlistPos = 0;
+                } else if (!state.track && window.__defaultAudioShowTrack) {
                     state.track = {
                         title: window.__defaultAudioShowTrack.title,
                         artist: window.__defaultAudioShowTrack.artist,
@@ -337,21 +466,26 @@
                 }
             }
 
-            // ALWAYS re-attach event handlers (DOM may have been recreated)
+            // --- Helpers ---
             function formatTime(seconds) {
                 if (!seconds || isNaN(seconds)) return "0:00";
-                const mins = Math.floor(seconds / 60);
-                const secs = Math.floor(seconds % 60);
-                return `${mins}:${secs.toString().padStart(2, "0")}`;
+                var mins = Math.floor(seconds / 60);
+                var secs = Math.floor(seconds % 60);
+                return mins + ":" + secs.toString().padStart(2, "0");
             }
 
-            // Shared play/pause handler
+            function playIndex(plIdx) {
+                var t = getPlaylistTrack(plIdx);
+                if (!t) return;
+                state.playlistIndex = plIdx;
+                state.playlistPos = findPos(state, plIdx);
+                window.playTrack(t);
+            }
+
+            // --- Play/Pause ---
             async function handlePlayPause() {
-                const audio = els.audio;
-                const noSource =
-                    !audio.src ||
-                    audio.src === "" ||
-                    audio.src === window.location.href;
+                var audio = els.audio;
+                var noSource = !audio.src || audio.src === "" || audio.src === window.location.href;
 
                 if (noSource && state.track && state.track.url) {
                     audio.src = state.track.url;
@@ -359,95 +493,127 @@
                         audio.currentTime = state.currentTime;
                     }
                 }
-
                 if (audio.paused) {
-                    try {
-                        await audio.play();
-                    } catch (e) {
-                        console.error("Playback failed:", e);
-                    }
+                    try { await audio.play(); } catch (e) { console.error("Playback failed:", e); }
                 } else {
                     audio.pause();
                 }
             }
 
-            // Desktop Play Button
-            if (els.playBtn) {
-                els.playBtn.onclick = handlePlayPause;
+            if (els.playBtn) els.playBtn.onclick = handlePlayPause;
+            if (els.playBtnMobile) els.playBtnMobile.onclick = handlePlayPause;
+
+            // --- Prev / Next ---
+            function handleNext() {
+                var nextIdx = resolveIndex(state, 1);
+                if (nextIdx >= 0) playIndex(nextIdx);
+            }
+            function handlePrev() {
+                // If more than 3s in, restart current track
+                if (els.audio.currentTime > 3) {
+                    els.audio.currentTime = 0;
+                    return;
+                }
+                var prevIdx = resolveIndex(state, -1);
+                if (prevIdx >= 0) playIndex(prevIdx);
             }
 
-            // Mobile Play Button
-            if (els.playBtnMobile) {
-                els.playBtnMobile.onclick = handlePlayPause;
+            if (els.prevBtn) els.prevBtn.onclick = handlePrev;
+            if (els.nextBtn) els.nextBtn.onclick = handleNext;
+            if (els.prevBtnMobile) els.prevBtnMobile.onclick = handlePrev;
+            if (els.nextBtnMobile) els.nextBtnMobile.onclick = handleNext;
+
+            // --- Shuffle Toggle ---
+            function handleShuffleToggle() {
+                state.shuffleMode = !state.shuffleMode;
+                if (state.shuffleMode) {
+                    state.shuffledOrder = generateShuffledOrder(playlist.length);
+                    // Put current track at position 0 so "next" continues from here
+                    if (state.playlistIndex >= 0) {
+                        var currentInShuffle = state.shuffledOrder.indexOf(state.playlistIndex);
+                        if (currentInShuffle > 0) {
+                            var tmp = state.shuffledOrder[0];
+                            state.shuffledOrder[0] = state.shuffledOrder[currentInShuffle];
+                            state.shuffledOrder[currentInShuffle] = tmp;
+                        }
+                        state.playlistPos = 0;
+                    }
+                } else {
+                    state.shuffledOrder = null;
+                    state.playlistPos = state.playlistIndex;
+                }
+                syncUIWithState();
             }
 
-            // Audio Events
-            els.audio.onplay = () => {
-                state.isPlaying = true;
-                syncUIWithState();
-            };
-            els.audio.onpause = () => {
-                state.isPlaying = false;
-                syncUIWithState();
-            };
-            els.audio.ontimeupdate = () => {
+            if (els.shuffleBtn) els.shuffleBtn.onclick = handleShuffleToggle;
+            if (els.shuffleBtnMobile) els.shuffleBtnMobile.onclick = handleShuffleToggle;
+
+            // --- Audio Events ---
+            els.audio.onplay = function () { state.isPlaying = true; syncUIWithState(); };
+            els.audio.onpause = function () { state.isPlaying = false; syncUIWithState(); };
+            els.audio.ontimeupdate = function () {
                 state.currentTime = els.audio.currentTime;
-                const percent =
-                    (els.audio.currentTime / els.audio.duration) * 100;
-                // Update desktop progress
-                if (els.progressBar) {
-                    els.progressBar.style.width = `${percent}%`;
-                }
-                // Update mobile progress
-                if (els.progressBarMobile) {
-                    els.progressBarMobile.style.width = `${percent}%`;
-                }
-                if (els.currTimeEl) {
-                    els.currTimeEl.textContent = formatTime(
-                        els.audio.currentTime,
-                    );
-                }
+                var percent = (els.audio.currentTime / els.audio.duration) * 100;
+                if (els.progressBar) els.progressBar.style.width = percent + "%";
+                if (els.progressBarMobile) els.progressBarMobile.style.width = percent + "%";
+                if (els.currTimeEl) els.currTimeEl.textContent = formatTime(els.audio.currentTime);
             };
-            els.audio.onloadedmetadata = () => {
-                if (els.durationEl) {
-                    els.durationEl.textContent = formatTime(els.audio.duration);
-                }
+            els.audio.onloadedmetadata = function () {
+                if (els.durationEl) els.durationEl.textContent = formatTime(els.audio.duration);
+            };
+            // Auto-advance on track end
+            els.audio.onended = function () {
+                handleNext();
             };
 
-            // Seeking (Desktop only)
+            // Seeking (Desktop)
             if (els.seekContainer) {
-                els.seekContainer.onclick = (e) => {
-                    const rect = els.seekContainer.getBoundingClientRect();
-                    const pos = (e.clientX - rect.left) / rect.width;
+                els.seekContainer.onclick = function (e) {
+                    var rect = els.seekContainer.getBoundingClientRect();
+                    var pos = (e.clientX - rect.left) / rect.width;
                     els.audio.currentTime = pos * els.audio.duration;
                 };
             }
 
-            // Restore audio src if it was lost but we have track state
-            const audioHasNoSrc =
-                !els.audio.src ||
-                els.audio.src === "" ||
-                els.audio.src === window.location.href;
+            // Restore audio src if lost
+            var audioHasNoSrc = !els.audio.src || els.audio.src === "" || els.audio.src === window.location.href;
             if (audioHasNoSrc && state.track && state.track.url) {
                 els.audio.src = state.track.url;
-                // If was playing, resume
                 if (state.isPlaying) {
                     els.audio.currentTime = state.currentTime || 0;
-                    els.audio.play().catch(() => {});
+                    els.audio.play().catch(function () {});
                 }
             }
 
-            // --- Global playTrack Function ---
+            // --- Global playTrack ---
             window.playTrack = async function (track) {
                 if (!track || !track.type || !track.url) {
                     console.error("Invalid track object", track);
                     return;
                 }
-
-                const provider = providers[track.type];
+                var provider = providers[track.type];
                 if (!provider) {
                     console.error("Unknown provider:", track.type);
                     return;
+                }
+
+                // Update playlist position if this track came from playlist
+                if (typeof track._plIdx === "number") {
+                    state.playlistIndex = track._plIdx;
+                    state.playlistPos = findPos(state, track._plIdx);
+                } else {
+                    // External play (e.g. AudioShow card click) — try to match
+                    var matched = -1;
+                    for (var i = 0; i < playlist.length; i++) {
+                        if (playlist[i].url === track.url) { matched = i; break; }
+                    }
+                    if (matched >= 0) {
+                        state.playlistIndex = matched;
+                        state.playlistPos = findPos(state, matched);
+                    } else {
+                        state.playlistIndex = -1;
+                        state.playlistPos = -1;
+                    }
                 }
 
                 // Immediate UI feedback
@@ -462,43 +628,30 @@
                 syncUIWithState();
 
                 try {
-                    const meta = await provider.resolve(track);
-
-                    // Update state with resolved metadata
-                    state.track = { ...meta, type: track.type };
+                    var meta = await provider.resolve(track);
+                    state.track = Object.assign({}, meta, { type: track.type });
                     syncUIWithState();
-
-                    // Play
                     els.audio.src = meta.url;
-                    els.audio
-                        .play()
-                        .catch((e) => console.error("Playback failed:", e));
+                    els.audio.play().catch(function (e) { console.error("Playback failed:", e); });
                 } catch (error) {
                     console.error("Provider error:", error);
-                    state.track = {
-                        title: track.title || "Error",
-                        artist: "Playback Failed",
-                        artwork: track.artwork,
-                    };
+                    state.track = { title: track.title || "Error", artist: "Playback Failed", artwork: track.artwork };
                     syncUIWithState();
                 }
             };
 
             // --- Legacy toggleMusic ---
             window.toggleMusic = function (playerType, url) {
-                const clickedImg = window.event?.target;
-                let title = clickedImg?.getAttribute("alt") || "";
-                let artwork = clickedImg?.getAttribute("src") || "";
-                let type = url.includes("music.apple.com") ? "apple" : "local";
-
-                window.playTrack({ type, url, title, artwork });
+                var clickedImg = window.event?.target;
+                var title = clickedImg?.getAttribute("alt") || "";
+                var artwork = clickedImg?.getAttribute("src") || "";
+                var type = url.includes("music.apple.com") ? "apple" : "local";
+                window.playTrack({ type: type, url: url, title: title, artwork: artwork });
             };
 
-            // Always sync UI
             syncUIWithState();
         }
 
-        // Listen for page loads
         document.addEventListener("astro:page-load", initPlayer);
     })();
 </script>
