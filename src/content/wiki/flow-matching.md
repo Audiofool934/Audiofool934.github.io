@@ -65,7 +65,7 @@ Sample a time $t$, a data point $x_1$, a noise vector $z$, form $x_t = (1-t)z + 
 
 ### 3. Why Straight Paths Matter
 
-Compare with diffusion models, which follow **curved** trajectories dictated by a stochastic differential equation (see [Diffusion Models](/wiki/diffusion-models/)). The diffusion forward process adds noise gradually:
+Compare with diffusion models, which follow **curved** trajectories dictated by a stochastic differential equation (see [Diffusion Models](/notes/diffusion-models/)). The diffusion forward process adds noise gradually:
 
 $$
 dx_t = -\frac{1}{2}\beta(t) x_t \, dt + \sqrt{\beta(t)} \, dW_t

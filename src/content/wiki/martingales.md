@@ -23,7 +23,7 @@ But "flat on average" conceals remarkable structure.
 
 ### 1. The Right Way to Think About It
 
-Recall that conditional expectation $\mathbb{E}[\cdot | \mathcal{F}_n]$ is a **projection** (cf. [Conditional Expectation as Projection](/wiki/Conditional-Expectation-Variance/)). The martingale property says:
+Recall that conditional expectation $\mathbb{E}[\cdot | \mathcal{F}_n]$ is a **projection** (cf. [Conditional Expectation as Projection](/notes/Conditional-Expectation-Variance/)). The martingale property says:
 
 $$
 \text{Projection of } M_{n+1} \text{ onto the information at time } n = M_n

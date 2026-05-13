@@ -94,7 +94,7 @@ $$
 
 The term $A_t = R_t - V(s_t)$ is the **advantage**: how much better this action was compared to the average. Actions better than expected get reinforced; worse-than-expected get suppressed.
 
-**Connection to martingales**: The advantage $A_t$ is a martingale difference sequence—its conditional expectation given $s_t$ is zero. This orthogonality (cf. [Martingales](/wiki/martingales/)) is precisely why the baseline reduces variance without introducing bias.
+**Connection to martingales**: The advantage $A_t$ is a martingale difference sequence—its conditional expectation given $s_t$ is zero. This orthogonality (cf. [Martingales](/notes/martingales/)) is precisely why the baseline reduces variance without introducing bias.
 
 
 ### 5. From REINFORCE to Actor-Critic
@@ -112,7 +112,7 @@ The term $A_t = R_t - V(s_t)$ is the **advantage**: how much better this action 
 - $\lambda = 1$: Full Monte Carlo return (unbiased, high variance)
 - $\lambda = 0$: One-step TD (biased, low variance)
 
-This is exactly the [bias-variance tradeoff](/wiki/bias-variance/) in a new guise: more bootstrapping (lower $\lambda$) reduces variance at the cost of bias from the value function approximation.
+This is exactly the [bias-variance tradeoff](/notes/bias-variance/) in a new guise: more bootstrapping (lower $\lambda$) reduces variance at the cost of bias from the value function approximation.
 
 
 ### The Takeaway

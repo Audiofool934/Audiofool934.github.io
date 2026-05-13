@@ -37,7 +37,7 @@ Choose the action $a$ that minimizes the immediate cost $c(s, a)$ plus the optim
 
 ### 2. The Structure of Recursion: Same as Renewal Theory
 
-The Bellman equation has the same architecture as the [Renewal Equation](/wiki/renewal-process/):
+The Bellman equation has the same architecture as the [Renewal Equation](/notes/renewal-process/):
 
 $$
 m(t) = F(t) + \int_0^t m(t - x) \, dF(x)

@@ -34,7 +34,7 @@ $$
 
 Three terms:
 
-1. **Irreducible error $\sigma^2$**: The noise in $Y$ that no model can predict. This is $\mathbb{E}[\operatorname{Var}(Y|X)]$—the exact quantity from the [Law of Total Variance](/wiki/Conditional-Expectation-Variance/).
+1. **Irreducible error $\sigma^2$**: The noise in $Y$ that no model can predict. This is $\mathbb{E}[\operatorname{Var}(Y|X)]$—the exact quantity from the [Law of Total Variance](/notes/Conditional-Expectation-Variance/).
 
 2. **Bias²**: How far the average prediction (over all possible training sets) deviates from the truth. This is systematic error—the model class cannot express $f$.
 
@@ -43,7 +43,7 @@ Three terms:
 
 ### 3. The Geometric View
 
-Recall from [Conditional Expectation as Projection](/wiki/Conditional-Expectation-Variance/): in $L^2$ space, $f(x) = \mathbb{E}[Y|X=x]$ is the **orthogonal projection** of $Y$ onto the subspace of functions of $X$.
+Recall from [Conditional Expectation as Projection](/notes/Conditional-Expectation-Variance/): in $L^2$ space, $f(x) = \mathbb{E}[Y|X=x]$ is the **orthogonal projection** of $Y$ onto the subspace of functions of $X$.
 
 Now introduce a model class $\mathcal{H}$ (linear functions, decision trees, neural networks). This is a **further restriction**—a subspace within the subspace of all measurable functions of $X$.
 
@@ -64,7 +64,7 @@ Fit degree-$k$ polynomials to data from $f(x) = \sin(x)$ with noise.
 - $k = 15$: Low bias (the polynomial can fit the sine wave closely), high variance (16 parameters estimated from noisy data → wildly different fits for different samples).
 - **Optimal $k$**: Somewhere in between. The sweet spot depends on $n$ (more data → can afford higher $k$) and $\sigma^2$ (more noise → need lower $k$).
 
-The singular values of the design matrix $X$ (cf. [SVD](/wiki/svd/)) reveal this directly: the $k$-th singular value determines how well the $k$-th polynomial component can be estimated. When $\sigma_k$ is small relative to the noise level, that component's estimate is dominated by variance.
+The singular values of the design matrix $X$ (cf. [SVD](/notes/svd/)) reveal this directly: the $k$-th singular value determines how well the $k$-th polynomial component can be estimated. When $\sigma_k$ is small relative to the noise level, that component's estimate is dominated by variance.
 
 
 ### 5. Why This Tradeoff Is Fundamental

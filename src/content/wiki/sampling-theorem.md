@@ -32,7 +32,7 @@ Each sample contributes a scaled sinc function. The sum of these sincs exactly r
 
 ### 2. Why Sinc? The Fourier Perspective
 
-The sampling theorem is a direct consequence of Fourier duality (see [Fourier Transform](/wiki/fourier-transform/)).
+The sampling theorem is a direct consequence of Fourier duality (see [Fourier Transform](/notes/fourier-transform/)).
 
 **Step 1**: Sampling in time = multiplication by a Dirac comb $\sum \delta(t - nT_s)$.
 
@@ -63,7 +63,7 @@ The Nyquist criterion $f_s > 2B$ is not a guideline. It is a **hard information-
 
 ### 4. The Uncertainty Connection
 
-The sampling theorem is intimately connected to the [uncertainty principle](/wiki/fourier-transform/):
+The sampling theorem is intimately connected to the [uncertainty principle](/notes/fourier-transform/):
 
 - A bandlimited signal ($\hat{f}$ has compact support in frequency) **cannot** be time-limited (it must extend over all time). This is the uncertainty principle in action.
 - Sampling at rate $f_s$ gives frequency resolution up to $f_s/2$. Increasing time resolution (more samples per second) increases frequency resolution proportionally. You cannot have both arbitrarily fine time resolution and arbitrarily fine frequency resolution from a finite record.

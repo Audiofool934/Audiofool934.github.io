@@ -97,7 +97,7 @@ $$
 
 The DFT inherits all the structure above (duality, Parseval, convolution theorem) but introduces a new phenomenon: **aliasing**. Frequencies above the Nyquist limit $N/2$ are indistinguishable from lower frequencies. A 15 kHz tone sampled at 16 kHz looks identical to a 1 kHz tone.
 
-This is not a defect of the DFT. It is the discrete manifestation of the uncertainty principle: finite sampling resolution limits frequency discrimination. See [Sampling Theorem](/wiki/sampling-theorem/) for the full story.
+This is not a defect of the DFT. It is the discrete manifestation of the uncertainty principle: finite sampling resolution limits frequency discrimination. See [Sampling Theorem](/notes/sampling-theorem/) for the full story.
 
 
 ### The Takeaway

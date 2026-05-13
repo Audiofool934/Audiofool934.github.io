@@ -47,7 +47,7 @@ Empirically, the attention matrix $A$ tends to be approximately **low-rank**. Th
 
 Why? Because natural data has structure. In language, most tokens attend to a small number of syntactically or semantically relevant positions. In images, most patches attend to spatially or semantically nearby patches. The full $n \times n$ matrix has $n^2$ degrees of freedom, but the data only requires $O(n \cdot r)$ for some effective rank $r \ll n$.
 
-This connects directly to the [SVD](/wiki/svd/): the dominant singular values of $A$ capture the essential attention patterns. The trailing singular values correspond to noise or irrelevant interactions.
+This connects directly to the [SVD](/notes/svd/): the dominant singular values of $A$ capture the essential attention patterns. The trailing singular values correspond to noise or irrelevant interactions.
 
 **Practical consequence**: this is why efficient attention methods (linear attention, sparse attention, low-rank approximations) work. They exploit the fact that the information-theoretic content of $A$ is far less than $n^2$.
 

@@ -1,0 +1,160 @@
+---
+import { getCollection, render } from "astro:content";
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import "../../style/post.css";
+
+export async function getStaticPaths() {
+    const wikiEntries = await getCollection("wiki");
+    return wikiEntries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// Resolve connections
+const allWiki = await getCollection("wiki");
+const lookup = new Map(allWiki.map((e) => [e.id, e]));
+
+const parentEntries = (entry.data.parents || [])
+    .map((id) => lookup.get(id))
+    .filter(Boolean) as (typeof allWiki)[number][];
+
+const relatedEntries = (entry.data.related || [])
+    .map((id) => lookup.get(id))
+    .filter(Boolean) as (typeof allWiki)[number][];
+
+// Incoming references (entries that link to this one)
+const referencedBy = allWiki.filter(
+    (e) =>
+        e.id !== entry.id &&
+        [...(e.data.parents || []), ...(e.data.related || [])].includes(
+            entry.id,
+        ),
+);
+
+// Deduplicate across all three
+const seen = new Set<string>();
+const allConnections: {
+    entry: (typeof allWiki)[number];
+    type: "parent" | "related" | "incoming";
+}[] = [];
+
+for (const e of parentEntries) {
+    if (!seen.has(e.id)) {
+        seen.add(e.id);
+        allConnections.push({ entry: e, type: "parent" });
+    }
+}
+for (const e of relatedEntries) {
+    if (!seen.has(e.id)) {
+        seen.add(e.id);
+        allConnections.push({ entry: e, type: "related" });
+    }
+}
+for (const e of referencedBy) {
+    if (!seen.has(e.id)) {
+        seen.add(e.id);
+        allConnections.push({ entry: e, type: "incoming" });
+    }
+}
+---
+
+<MinimalLayout
+    title={`${entry.data.title} | Notes`}
+    description="Personal notes and working ideas"
+>
+    <!-- Breadcrumb -->
+    <div
+        class="border-b border-[var(--border-main)] bg-[var(--bg-body)] sticky top-0 z-10"
+    >
+        <div
+            class="max-w-4xl mx-auto px-6 md:px-12 py-3 font-mono text-xs text-[var(--text-muted)] flex items-center gap-2"
+        >
+            <a
+                href="/notes/"
+                class="hover:text-[var(--text-main)] transition-colors">Notes</a
+            >
+            <span class="opacity-30">/</span>
+            <span class="text-[var(--text-main)] truncate"
+                >{entry.data.title}</span
+            >
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <article
+        class="p-6 md:p-12 max-w-4xl mx-auto"
+        transition:animate="fade"
+    >
+        <header class="mb-12 border-b border-[var(--border-main)] pb-6">
+            <h1 class="text-3xl md:text-4xl font-bold font-heading mb-4">
+                {entry.data.title}
+            </h1>
+
+            <div class="flex flex-wrap gap-3 items-center justify-between">
+                <div class="flex flex-wrap gap-2">
+                    {
+                        entry.data.tags.map((tag) => (
+                            <a
+                                href={`/notes/?tag=${tag.toLowerCase()}`}
+                                class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-main)] px-1.5 py-0.5 border border-[var(--border-subtle)] hover:border-[var(--text-main)] transition-colors"
+                            >
+                                #{tag}
+                            </a>
+                        ))
+                    }
+                </div>
+
+                {
+                    entry.data.updatedDate && (
+                        <div class="font-mono text-xs text-[var(--text-muted)] opacity-50">
+                            {entry.data.updatedDate.toISOString().split("T")[0]}
+                        </div>
+                    )
+                }
+            </div>
+        </header>
+
+        <div
+            class="post-content wiki-content prose max-w-none prose-headings:font-heading prose-a:text-[var(--text-main)] prose-code:font-mono"
+        >
+            <Content />
+        </div>
+
+        <!-- Connected Nodes -->
+        {
+            allConnections.length > 0 && (
+                <div class="mt-20 pt-8 border-t border-[var(--border-main)]">
+                    <h3 class="font-mono text-xs uppercase mb-6 text-[var(--text-muted)] tracking-wider">
+                        Connected Nodes · {allConnections.length}
+                    </h3>
+                    <div class="space-y-1">
+                        {allConnections.map(({ entry: e, type }) => (
+                            <a
+                                href={`/notes/${e.id}/`}
+                                class="flex items-center gap-3 py-2.5 px-3 -mx-3 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors group border-b border-transparent hover:border-[var(--border-subtle)]"
+                            >
+                                <span class="font-mono text-[10px] opacity-40 w-4 flex-shrink-0">
+                                    {type === "parent"
+                                        ? "↑"
+                                        : type === "related"
+                                          ? "↔"
+                                          : "←"}
+                                </span>
+                                <span class="text-sm group-hover:underline decoration-1 underline-offset-4">
+                                    {e.data.title}
+                                </span>
+                                <span class="font-mono text-[9px] opacity-20 ml-auto flex-shrink-0">
+                                    {type}
+                                </span>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            )
+        }
+    </article>
+</MinimalLayout>
