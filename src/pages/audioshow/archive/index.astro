@@ -112,18 +112,22 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         </div>
 
                                         <!-- Play Button -->
-                                        <button
-                                            class="w-8 text-center opacity-50 hover:opacity-100 transition-opacity"
-                                            data-play-track={ep.appleMusicUrl ? JSON.stringify({
-                                                type: ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local',
-                                                url: ep.appleMusicUrl,
-                                                title: ep.songTitle,
-                                                artist: ep.artist,
-                                                artwork: ep.imageUrl || ''
-                                            }) : undefined}
-                                        >
-                                            ▶
-                                        </button>
+                                        {ep.appleMusicUrl ? (
+                                            <button
+                                                class="w-8 text-center opacity-50 hover:opacity-100 transition-opacity"
+                                                data-play-track={JSON.stringify({
+                                                    type: ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local',
+                                                    url: ep.appleMusicUrl,
+                                                    title: ep.songTitle,
+                                                    artist: ep.artist,
+                                                    artwork: ep.imageUrl || ''
+                                                })}
+                                            >
+                                                ▶
+                                            </button>
+                                        ) : (
+                                            <div class="w-8" aria-hidden="true"></div>
+                                        )}
 
                                         <!-- Expand Arrow -->
                                         <div class="w-6 text-center text-[var(--text-muted)] lyrics-arrow transition-transform">
@@ -133,9 +137,42 @@ const placeholderImage = "/images/placeholder-album.svg";
 
                                     <!-- Lyrics (Hidden by default) -->
                                     <div class="lyrics-content hidden px-4 pb-4">
-                                        <div class="ml-[76px] pl-4 border-l-2 border-[var(--border-main)]">
-                                            <p class="text-sm italic text-[var(--text-muted)] whitespace-pre-line" set:html={`"${ep.quote.replace(/\n/g, '<br/>')}"`}>
+                                        <div class="ml-[76px] pl-4 border-l-2 border-[var(--border-main)] space-y-3">
+                                            <p class="text-sm italic text-[var(--text-muted)] whitespace-pre-line" set:html={`"${ep.lyricExcerpt.replace(/\n/g, '<br/>')}"`}>
                                             </p>
+                                            {ep.spotifyEmbedUrl && (
+                                                <div class="audioshow-embed border border-[var(--border-main)] bg-[var(--bg-body)] p-2 max-w-xl">
+                                                    <div class="flex items-center justify-between pb-2 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
+                                                        <span>Official Player</span>
+                                                        <span>Spotify</span>
+                                                    </div>
+                                                    <iframe
+                                                        class="w-full block"
+                                                        src={ep.spotifyEmbedUrl}
+                                                        height="152"
+                                                        frameborder="0"
+                                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                                        loading="lazy"
+                                                        title={`${ep.songTitle} Spotify player`}
+                                                    ></iframe>
+                                                </div>
+                                            )}
+                                            {ep.projectLinks.length > 0 && (
+                                                <div class="flex flex-wrap gap-2 pt-1">
+                                                    {ep.projectLinks
+                                                        .filter((link) => !link.url.includes("open.spotify.com/embed/"))
+                                                        .map((link) => (
+                                                            <a
+                                                                href={link.url}
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                class="text-xs font-mono border border-[var(--border-main)] px-2 py-1 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--text-main)]/5 transition-colors"
+                                                            >
+                                                                {link.label}
+                                                            </a>
+                                                        ))}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

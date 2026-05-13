@@ -3,16 +3,26 @@
  * Parses markdown files to extract individual episode data
  */
 
+export interface AudioProjectLink {
+    label: string;
+    url: string;
+}
+
 export interface Episode {
     number: number;
     quote: string;
+    lyricExcerpt: string;
     songTitle: string;
     artist: string;
     album: string;
     year: number;
     composer?: string;
     imageUrl?: string;
+    coverImage?: string;
+    coverAlt?: string;
     appleMusicUrl?: string;
+    spotifyEmbedUrl?: string;
+    projectLinks: AudioProjectLink[];
     sourceFile: string;
 }
 
@@ -71,13 +81,16 @@ function parseEpisodeSection(section: string, sourceFile: string): Episode | nul
     const year = parseInt(metaLines[2] || '0', 10);
     const composer = metaLines[3] || undefined;
 
-    // Parse image tag for imageUrl and appleMusicUrl
+    // Parse album cover and playable Apple/local URL from legacy image HTML.
     let imageUrl: string | undefined;
+    let coverAlt: string | undefined;
     let appleMusicUrl: string | undefined;
 
     const imgMatch = section.match(/<img[^>]*src="([^"]+)"[^>]*>/i);
     if (imgMatch) {
         imageUrl = imgMatch[1];
+        const altMatch = imgMatch[0].match(/alt="([^"]*)"/i);
+        coverAlt = altMatch?.[1];
     }
 
     const onclickMatch = section.match(/onclick="toggleMusic\([^,]+,\s*'([^']+)'\)"/i);
@@ -85,16 +98,40 @@ function parseEpisodeSection(section: string, sourceFile: string): Episode | nul
         appleMusicUrl = onclickMatch[1];
     }
 
+    // Parse optional project links from a lightweight markdown section:
+    // Project Links
+    // - [Apple Music](https://...)
+    const projectLinks: AudioProjectLink[] = [];
+    let spotifyEmbedUrl: string | undefined;
+    const projectSectionMatch = section.match(/(?:^|\n)Project Links\s*\n([\s\S]*?)(?=\n###\s|$)/i);
+    if (projectSectionMatch) {
+        const linkRe = /-\s*\[([^\]]+)\]\(([^)]+)\)/g;
+        let linkMatch: RegExpExecArray | null;
+        while ((linkMatch = linkRe.exec(projectSectionMatch[1])) !== null) {
+            const label = linkMatch[1];
+            const url = linkMatch[2];
+            projectLinks.push({ label, url });
+            if (/spotify/i.test(label) && url.includes("open.spotify.com/embed/")) {
+                spotifyEmbedUrl = url;
+            }
+        }
+    }
+
     return {
         number,
         quote,
+        lyricExcerpt: quote,
         songTitle,
         artist,
         album,
         year,
         composer,
         imageUrl,
+        coverImage: imageUrl,
+        coverAlt,
         appleMusicUrl,
+        spotifyEmbedUrl,
+        projectLinks,
         sourceFile,
     };
 }

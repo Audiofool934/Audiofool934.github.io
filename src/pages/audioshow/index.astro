@@ -64,21 +64,23 @@ const placeholderImage = "/images/placeholder-album.svg";
                         >
                             <img 
                                 src={ep.imageUrl || placeholderImage}
-                                alt={`${ep.songTitle} - ${ep.artist}`}
+                                alt={ep.coverAlt || `${ep.songTitle} - ${ep.artist}`}
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 loading="lazy"
                                 onerror={`this.src='${placeholderImage}'`}
                             />
                             <!-- Play Overlay -->
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <span class="text-white text-4xl">▶</span>
-                            </div>
+                            {ep.appleMusicUrl && (
+                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <span class="text-white text-4xl">▶</span>
+                                </div>
+                            )}
                         </div>
 
                         <!-- Card Content - Fixed height, scrollable -->
                         <div class="ep-content overflow-y-auto overscroll-contain text-center">
                             <!-- Quote -->
-                            <p class="ep-quote italic text-[var(--text-muted)] whitespace-pre-line" set:html={`"${ep.quote.replace(/\n/g, '<br/>')}"`}>
+                            <p class="ep-quote italic text-[var(--text-muted)] whitespace-pre-line" set:html={`"${ep.lyricExcerpt.replace(/\n/g, '<br/>')}"`}>
                             </p>
 
                             <!-- Song Info -->
