@@ -15,8 +15,26 @@ function getType(post: (typeof sortedPosts)[number]) {
     if (tags.includes("photography") || tags.includes("gallery")) return "photo";
     if (tags.includes("math") || tags.includes("dsp")) return "note";
     if (tags.includes("update") || tags.includes("meta")) return "site";
-    return "entry";
+    return "post";
 }
+
+const typeLabels: Record<string, string> = {
+    note: "Notes",
+    post: "Posts",
+    music: "Music",
+    photo: "Photos",
+    site: "Site Changes",
+};
+
+const filterOrder = ["note", "post", "music", "photo", "site"];
+const typeCounts = new Map<string, number>();
+for (const post of sortedPosts) {
+    const type = getType(post);
+    typeCounts.set(type, (typeCounts.get(type) || 0) + 1);
+}
+const filters = filterOrder
+    .filter((type) => typeCounts.has(type))
+    .map((type) => ({ type, label: typeLabels[type], count: typeCounts.get(type)! }));
 ---
 
 <MinimalLayout
@@ -24,14 +42,35 @@ function getType(post: (typeof sortedPosts)[number]) {
     description="A chronological record of notes, posts, music, photos, and site changes."
 >
     <div class="p-6 md:p-12" transition:animate="fade">
-        <header class="mb-12">
+        <header class="mb-8">
             <h1 class="text-4xl font-bold font-heading mb-2">Timeline</h1>
             <p
                 class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
             >
-                Notes · Posts · Music · Photos · Site Changes
+                A chronological record
             </p>
         </header>
+
+        <div
+            class="flex flex-wrap gap-3 pb-4 mb-8 border-b border-[var(--border-main)] text-sm font-mono"
+        >
+            <button
+                data-type="all"
+                class="timeline-filter active whitespace-nowrap transition-colors"
+            >
+                [ All <span class="opacity-50">{sortedPosts.length}</span> ]
+            </button>
+            {
+                filters.map(({ type, label, count }) => (
+                    <button
+                        data-type={type}
+                        class="timeline-filter whitespace-nowrap transition-colors"
+                    >
+                        [ {label} <span class="opacity-50">{count}</span> ]
+                    </button>
+                ))
+            }
+        </div>
 
         <div class="max-w-4xl border-l border-[var(--border-main)] pl-5 md:pl-8">
             {
@@ -40,7 +79,8 @@ function getType(post: (typeof sortedPosts)[number]) {
                     return (
                         <a
                             href={`/timeline/${post.id}/`}
-                            class="group relative block pb-8 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                            class="timeline-entry group relative block pb-8 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                            data-type={type}
                         >
                             <span class="absolute -left-[1.65rem] md:-left-[2.15rem] top-1 h-2 w-2 rounded-full bg-[var(--bg-body)] border border-[var(--text-main)] group-hover:bg-[var(--text-main)] transition-colors" />
 
@@ -69,6 +109,13 @@ function getType(post: (typeof sortedPosts)[number]) {
                 })
             }
 
+            <div
+                id="timeline-empty"
+                class="hidden py-12 text-[var(--text-muted)] font-mono text-sm"
+            >
+                No entries in this lane yet.
+            </div>
+
             {
                 sortedPosts.length === 0 && (
                     <div class="py-12 text-[var(--text-muted)]">
@@ -79,3 +126,70 @@ function getType(post: (typeof sortedPosts)[number]) {
         </div>
     </div>
 </MinimalLayout>
+
+<style>
+    .timeline-filter {
+        color: var(--text-muted);
+    }
+    .timeline-filter:hover {
+        color: var(--text-main);
+    }
+    .timeline-filter.active {
+        color: var(--text-main);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 1px;
+    }
+</style>
+
+<script is:inline>
+    (function () {
+        let cleanupFn = null;
+
+        document.addEventListener("astro:page-load", () => {
+            if (cleanupFn) {
+                cleanupFn();
+                cleanupFn = null;
+            }
+
+            const filters = document.querySelectorAll(".timeline-filter");
+            const entries = document.querySelectorAll(".timeline-entry");
+            const empty = document.getElementById("timeline-empty");
+            if (!filters.length) return;
+
+            function applyFilter(filter) {
+                filters.forEach((item) => item.classList.remove("active"));
+                var btn = document.querySelector(
+                    '.timeline-filter[data-type="' + filter + '"]',
+                );
+                if (btn) btn.classList.add("active");
+
+                var visible = 0;
+                entries.forEach((entry) => {
+                    var show = filter === "all" || entry.dataset.type === filter;
+                    entry.style.display = show ? "" : "none";
+                    if (show) visible += 1;
+                });
+
+                if (empty) empty.classList.toggle("hidden", visible > 0);
+            }
+
+            function onClick(e) {
+                applyFilter(e.currentTarget.dataset.type);
+            }
+
+            filters.forEach((filter) => {
+                filter.addEventListener("click", onClick);
+            });
+
+            var urlType = new URLSearchParams(window.location.search).get("type");
+            if (urlType) applyFilter(urlType.toLowerCase());
+
+            cleanupFn = function () {
+                filters.forEach((filter) =>
+                    filter.removeEventListener("click", onClick),
+                );
+            };
+        });
+    })();
+</script>
