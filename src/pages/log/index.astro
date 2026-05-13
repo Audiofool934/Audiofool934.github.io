@@ -1,59 +1,16 @@
 ---
-import MinimalLayout from "../../layouts/MinimalLayout.astro";
-import { getCollection } from "astro:content";
-
-const posts = await getCollection("log");
-import { formatDateCompact } from "../../utils/formatDate";
-
-const sortedPosts = posts.sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const target = "/timeline/";
 ---
 
-<MinimalLayout title="Log | Audiofool" description="The Endless River">
-	<div class="p-6 md:p-12" transition:animate="fade">
-		<header class="mb-12">
-			<h1 class="text-4xl font-bold font-heading mb-2">Log</h1>
-			<p
-				class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
-			>
-				The Endless River
-			</p>
-		</header>
-
-		<div class="space-y-1 font-mono text-sm max-w-4xl">
-			{
-				sortedPosts.map((post) => (
-					<a
-						href={`/log/${post.id}/`}
-						class="group flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 py-3 border-b border-[var(--border-main)] md:border-transparent md:hover:border-[var(--border-main)] transition-colors text-[var(--text-muted)] hover:text-[var(--text-main)]"
-					>
-						<time class="flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity w-32">
-							[{formatDateCompact(post.data.pubDate)}]
-						</time>
-
-						<span class="flex-1 truncate md:overflow-visible md:whitespace-normal">
-							{post.data.title}
-						</span>
-
-						{post.data.tags.length > 0 && (
-							<div class="hidden md:flex gap-2 text-xs opacity-40 group-hover:opacity-60 transition-opacity">
-								{post.data.tags.slice(0, 2).map((tag) => (
-									<span>#{tag}</span>
-								))}
-							</div>
-						)}
-					</a>
-				))
-			}
-
-			{
-				sortedPosts.length === 0 && (
-					<div class="py-12 text-[var(--text-muted)]">
-						No signals detected.
-					</div>
-				)
-			}
-		</div>
-	</div>
-</MinimalLayout>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="refresh" content={`0; url=${target}`} />
+        <link rel="canonical" href={target} />
+        <title>Timeline | Audiofool</title>
+    </head>
+    <body>
+        <p>This section is now <a href={target}>Timeline</a>.</p>
+    </body>
+</html>

@@ -1,0 +1,81 @@
+---
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import { getCollection } from "astro:content";
+import { formatDateCompact } from "../../utils/formatDate";
+
+const posts = await getCollection("log");
+
+const sortedPosts = posts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+function getType(post: (typeof sortedPosts)[number]) {
+    const tags = post.data.tags.map((tag) => tag.toLowerCase());
+    if (tags.includes("audioshow") || tags.includes("music")) return "music";
+    if (tags.includes("photography") || tags.includes("gallery")) return "photo";
+    if (tags.includes("math") || tags.includes("dsp")) return "note";
+    if (tags.includes("update") || tags.includes("meta")) return "site";
+    return "entry";
+}
+---
+
+<MinimalLayout
+    title="Timeline | Audiofool"
+    description="A chronological record of notes, posts, music, photos, and site changes."
+>
+    <div class="p-6 md:p-12" transition:animate="fade">
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold font-heading mb-2">Timeline</h1>
+            <p
+                class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
+            >
+                Notes · Posts · Music · Photos · Site Changes
+            </p>
+        </header>
+
+        <div class="max-w-4xl border-l border-[var(--border-main)] pl-5 md:pl-8">
+            {
+                sortedPosts.map((post) => {
+                    const type = getType(post);
+                    return (
+                        <a
+                            href={`/timeline/${post.id}/`}
+                            class="group relative block pb-8 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                        >
+                            <span class="absolute -left-[1.65rem] md:-left-[2.15rem] top-1 h-2 w-2 rounded-full bg-[var(--bg-body)] border border-[var(--text-main)] group-hover:bg-[var(--text-main)] transition-colors" />
+
+                            <div class="grid gap-1 md:grid-cols-[8rem_5rem_minmax(0,1fr)] md:gap-4 md:items-baseline font-mono text-sm">
+                                <time class="text-xs uppercase tracking-wider opacity-55 group-hover:opacity-80 transition-opacity">
+                                    {formatDateCompact(post.data.pubDate)}
+                                </time>
+
+                                <span class="text-[10px] uppercase tracking-wider opacity-45 group-hover:opacity-70 transition-opacity">
+                                    {type}
+                                </span>
+
+                                <div class="min-w-0">
+                                    <h2 class="font-sans text-base font-semibold text-[var(--text-main)] group-hover:underline decoration-1 underline-offset-4">
+                                        {post.data.title}
+                                    </h2>
+                                    {post.data.description && (
+                                        <p class="mt-1 font-sans text-sm leading-relaxed opacity-65">
+                                            {post.data.description}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </a>
+                    );
+                })
+            }
+
+            {
+                sortedPosts.length === 0 && (
+                    <div class="py-12 text-[var(--text-muted)]">
+                        No timeline entries yet.
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</MinimalLayout>

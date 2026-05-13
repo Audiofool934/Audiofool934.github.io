@@ -22,7 +22,7 @@ export async function GET(context) {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description || '',
-      link: `/log/${post.id}/`,
+      link: `/timeline/${post.id}/`,
     })),
     ...wiki.map(post => ({
       title: post.data.title,
@@ -43,7 +43,7 @@ export async function GET(context) {
 
   return rss({
     title: 'Audiofool Studio',
-    description: 'Projects, notes, photography, and Audioshow logs.',
+    description: 'Projects, notes, photography, AudioShow, and timeline updates.',
     site: context.site,
     items: allItems,
     customData: `<language>en-us</language>`,
