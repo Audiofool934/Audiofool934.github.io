@@ -17,9 +17,15 @@ import MinimalLayout from "../layouts/MinimalLayout.astro";
 		<!-- Content -->
 		<div class="relative p-8 md:p-12 flex-1 flex flex-col justify-start pt-[15%] md:pt-[12%]">
 			<h1
-				class="text-4xl md:text-6xl font-bold tracking-tight font-heading mb-12 md:mb-16"
+				class="flex items-center gap-3 md:gap-4 text-4xl md:text-6xl font-bold tracking-tight font-heading mb-12 md:mb-16"
 			>
-				Audiofool
+				<img
+					src="/images/audiofool-seal.png"
+					alt=""
+					class="audiofool-seal h-12 w-12 md:h-16 md:w-16 shrink-0 opacity-90"
+					aria-hidden="true"
+				/>
+				<span>Audiofool</span>
 			</h1>
 			<div class="max-w-2xl text-[var(--text-muted)] text-base md:text-lg leading-relaxed space-y-5 index-intro">
 				<p>
@@ -41,6 +47,16 @@ import MinimalLayout from "../layouts/MinimalLayout.astro";
 		.index-hero {
 			min-height: calc(100vh - 2rem);
 		}
+	}
+
+	.audiofool-seal {
+		image-rendering: auto;
+		filter: none;
+	}
+
+	:global(html.dark) .audiofool-seal {
+		filter: invert(1);
+		opacity: 0.82;
 	}
 
 	.index-intro a {
