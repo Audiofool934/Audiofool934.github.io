@@ -1,5 +1,6 @@
 ---
 title: 'Conditional Expectation as Projection'
+kind: Concept
 updatedDate: 2026-01-01
 tags: ["Probability", "Math", "Regression"]
 parents: []

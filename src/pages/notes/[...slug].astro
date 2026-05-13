@@ -95,15 +95,18 @@ for (const e of referencedBy) {
             </h1>
 
             <div class="flex flex-wrap gap-3 items-center justify-between">
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap items-center gap-2">
+                    <a
+                        href={`/notes/?kind=${entry.data.kind.toLowerCase()}`}
+                        class="text-xs font-mono text-[var(--text-main)] px-1.5 py-0.5 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+                    >
+                        {entry.data.kind}
+                    </a>
                     {
                         entry.data.tags.map((tag) => (
-                            <a
-                                href={`/notes/?tag=${tag.toLowerCase()}`}
-                                class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-main)] px-1.5 py-0.5 border border-[var(--border-subtle)] hover:border-[var(--text-main)] transition-colors"
-                            >
-                                #{tag}
-                            </a>
+                            <span class="text-xs font-mono text-[var(--text-muted)] opacity-55 px-1 py-0.5">
+                                {tag.toLowerCase()}
+                            </span>
                         ))
                     }
                 </div>

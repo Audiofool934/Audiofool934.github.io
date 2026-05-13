@@ -1,5 +1,6 @@
 ---
 title: 'Measure Theory: What Goes Wrong Without It'
+kind: Concept
 updatedDate: 2026-03-10
 tags: ["analysis", "measure theory", "probability", "math"]
 parents: []

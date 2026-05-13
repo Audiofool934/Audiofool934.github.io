@@ -1,5 +1,6 @@
 ---
 title: 'Diffusion Models: Score, Noise, and Reversal'
+kind: Model
 updatedDate: 2026-03-10
 tags: ["generative", "diffusion", "deep learning", "probability"]
 parents: []

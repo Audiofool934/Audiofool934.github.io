@@ -36,6 +36,7 @@ const wiki = defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/wiki' }),
     schema: z.object({
         title: z.string(),
+        kind: z.enum(['Concept', 'Method', 'Model', 'Essay', 'Reference']).default('Concept'),
         pubDate: z.coerce.date().optional(),
         updatedDate: z.coerce.date().optional(),
         parents: z.array(z.string()).optional(),

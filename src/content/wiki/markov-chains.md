@@ -1,5 +1,6 @@
 ---
 title: 'Markov Chains: Forgetting and Mixing'
+kind: Concept
 updatedDate: 2026-03-10
 tags: ["stochastic", "probability", "math"]
 parents: []

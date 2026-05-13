@@ -1,5 +1,6 @@
 ---
 title: 'Fourier Transform: Uncertainty and Duality'
+kind: Concept
 updatedDate: 2026-03-10
 tags: ["analysis", "fourier", "signal", "dsp", "math"]
 parents: []

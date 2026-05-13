@@ -1,5 +1,6 @@
 ---
 title: 'Bias-Variance: The Irreducible Geometry of Prediction'
+kind: Concept
 updatedDate: 2026-03-10
 tags: ["ml", "machine learning", "probability", "regression"]
 parents: []

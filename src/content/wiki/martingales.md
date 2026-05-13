@@ -1,5 +1,6 @@
 ---
 title: 'Martingales: Conservation Under Uncertainty'
+kind: Concept
 updatedDate: 2026-03-10
 tags: ["probability", "stochastic", "math"]
 parents: []

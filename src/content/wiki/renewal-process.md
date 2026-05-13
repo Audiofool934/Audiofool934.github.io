@@ -1,5 +1,6 @@
 ---
 title: 'Renewal Process: Intuition & The Renewal Argument'
+kind: Concept
 updatedDate: 2026-01-03
 tags: ["stochastic", "probability", "math"]
 parents: []

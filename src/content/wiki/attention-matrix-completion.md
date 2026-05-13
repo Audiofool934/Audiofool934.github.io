@@ -1,5 +1,6 @@
 ---
 title: 'Attention Is Learned Association'
+kind: Model
 updatedDate: 2026-03-10
 tags: ["deep learning", "neural network", "linear algebra"]
 parents: []

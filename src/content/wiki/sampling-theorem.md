@@ -1,5 +1,6 @@
 ---
 title: 'Sampling Theorem: The Bridge Between Continuous and Discrete'
+kind: Concept
 updatedDate: 2026-03-10
 tags: ["dsp", "signal", "fourier", "math"]
 parents: []

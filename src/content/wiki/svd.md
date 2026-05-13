@@ -1,5 +1,6 @@
 ---
 title: 'SVD: The Fundamental Theorem of Data'
+kind: Concept
 updatedDate: 2026-03-10
 tags: ["linear algebra", "matrix", "math", "ml"]
 parents: []

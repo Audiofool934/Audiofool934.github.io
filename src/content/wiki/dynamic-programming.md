@@ -1,5 +1,6 @@
 ---
 title: 'Dynamic Programming: Recursion Without Redundancy'
+kind: Method
 updatedDate: 2026-03-10
 tags: ["algorithm", "algorithms", "cs", "math"]
 parents: []

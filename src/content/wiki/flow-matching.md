@@ -1,5 +1,6 @@
 ---
 title: 'Flow Matching: Straightening the Path'
+kind: Method
 updatedDate: 2026-03-10
 tags: ["generative", "flow matching", "deep learning", "math"]
 parents: []
