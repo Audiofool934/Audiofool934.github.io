@@ -11,9 +11,15 @@ const sortedPosts = posts.sort(
 
 function getType(post: (typeof sortedPosts)[number]) {
     const tags = post.data.tags.map((tag) => tag.toLowerCase());
-    if (tags.includes("audioshow") || tags.includes("music")) return "music";
     if (tags.includes("photography") || tags.includes("gallery")) return "photo";
-    if (tags.includes("math") || tags.includes("dsp")) return "note";
+    if (
+        tags.includes("notes") ||
+        tags.includes("note") ||
+        tags.includes("essay") ||
+        tags.includes("math") ||
+        tags.includes("dsp")
+    ) return "note";
+    if (tags.includes("audioshow") || tags.includes("music")) return "music";
     if (tags.includes("update") || tags.includes("meta")) return "site";
     return "post";
 }
