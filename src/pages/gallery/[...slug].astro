@@ -78,6 +78,14 @@ const { Content } = await render(entry);
                         )
                     }
                     {
+                        entry.data.filmStock && (
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-50">Film:</span>
+                                <span>{entry.data.filmStock}</span>
+                            </div>
+                        )
+                    }
+                    {
                         (entry.data.iso ||
                             entry.data.aperture ||
                             entry.data.shutterSpeed) && (

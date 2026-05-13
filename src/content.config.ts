@@ -67,6 +67,7 @@ const gallery = defineCollection({
         location: z.string().optional(),
         camera: z.string().optional(),
         lens: z.string().optional(),
+        filmStock: z.string().optional(),
         iso: z.number().optional(),
         focalLength: z.string().optional(),
         aperture: z.string().optional(),

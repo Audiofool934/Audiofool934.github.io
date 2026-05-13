@@ -45,6 +45,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
         location: d.location || "",
         camera: d.camera || "",
         lens: d.lens || "",
+        filmStock: d.filmStock || "",
         exif: exifParts,
         category: d.category || "Other",
     });
@@ -263,6 +264,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                                 <span id="modal-location-mobile"></span>
                                 <span id="modal-camera-mobile"></span>
                                 <span id="modal-lens-mobile"></span>
+                                <span id="modal-film-mobile"></span>
                                 <span id="modal-exif-mobile"></span>
                             </div>
                         </div>
@@ -294,6 +296,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                                 <div id="modal-location"></div>
                                 <div id="modal-camera"></div>
                                 <div id="modal-lens"></div>
+                                <div id="modal-film"></div>
                                 <div id="modal-exif"></div>
                             </div>
                         </div>
@@ -343,6 +346,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                 const modalCamera = document.getElementById("modal-camera");
                 const modalLens = document.getElementById("modal-lens");
                 const modalExif = document.getElementById("modal-exif");
+                const modalFilm = document.getElementById("modal-film");
                 const modalCounter =
                     document.getElementById("modal-counter");
                 // Mobile elements
@@ -356,6 +360,8 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     document.getElementById("modal-location-mobile");
                 const modalExifMobile =
                     document.getElementById("modal-exif-mobile");
+                const modalFilmMobile =
+                    document.getElementById("modal-film-mobile");
                 const modalCameraMobile =
                     document.getElementById("modal-camera-mobile");
                 const modalLensMobile =
@@ -434,6 +440,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     metaRow(modalLocation, "Location", meta.location);
                     metaRow(modalCamera, "Camera", meta.camera);
                     metaRow(modalLens, "Lens", meta.lens);
+                    metaRow(modalFilm, "Film", meta.filmStock);
                     metaRow(modalExif, "EXIF", meta.exif);
 
                     // Mobile info (compact)
@@ -458,6 +465,10 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                         : "none";
                     modalLensMobile.textContent = meta.lens || "";
                     modalLensMobile.style.display = meta.lens
+                        ? ""
+                        : "none";
+                    modalFilmMobile.textContent = meta.filmStock || "";
+                    modalFilmMobile.style.display = meta.filmStock
                         ? ""
                         : "none";
                     modalBodyMobile.innerHTML = bodyHTML;
