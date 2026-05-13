@@ -21,7 +21,7 @@ export interface Episode {
     coverImage?: string;
     coverAlt?: string;
     appleMusicUrl?: string;
-    spotifyEmbedUrl?: string;
+    audioPreviewUrl?: string;
     projectLinks: AudioProjectLink[];
     sourceFile: string;
 }
@@ -98,11 +98,18 @@ function parseEpisodeSection(section: string, sourceFile: string): Episode | nul
         appleMusicUrl = onclickMatch[1];
     }
 
+    // Parse an optional official preview audio URL. This is intended for
+    // provider-hosted short preview files, not full-song streams.
+    let audioPreviewUrl: string | undefined;
+    const previewMatch = section.match(/(?:^|\n)(?:Audio Preview|Preview Audio)\s*\n\s*(https?:\/\/\S+)/i);
+    if (previewMatch) {
+        audioPreviewUrl = previewMatch[1].trim();
+    }
+
     // Parse optional project links from a lightweight markdown section:
     // Project Links
     // - [Apple Music](https://...)
     const projectLinks: AudioProjectLink[] = [];
-    let spotifyEmbedUrl: string | undefined;
     const projectSectionMatch = section.match(/(?:^|\n)Project Links\s*\n([\s\S]*?)(?=\n###\s|$)/i);
     if (projectSectionMatch) {
         const linkRe = /-\s*\[([^\]]+)\]\(([^)]+)\)/g;
@@ -111,9 +118,6 @@ function parseEpisodeSection(section: string, sourceFile: string): Episode | nul
             const label = linkMatch[1];
             const url = linkMatch[2];
             projectLinks.push({ label, url });
-            if (/spotify/i.test(label) && url.includes("open.spotify.com/embed/")) {
-                spotifyEmbedUrl = url;
-            }
         }
     }
 
@@ -130,7 +134,7 @@ function parseEpisodeSection(section: string, sourceFile: string): Episode | nul
         coverImage: imageUrl,
         coverAlt,
         appleMusicUrl,
-        spotifyEmbedUrl,
+        audioPreviewUrl,
         projectLinks,
         sourceFile,
     };

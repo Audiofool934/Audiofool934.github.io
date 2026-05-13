@@ -53,7 +53,7 @@ const audioshow = defineCollection({
         pubDate: z.coerce.date(),
         audioUrl: z.string().optional(),
         appleMusicEmbedUrl: z.string().optional(),
-        spotifyEmbedUrl: z.string().optional(),
+        audioPreviewUrl: z.string().optional(),
         localAudioUrl: z.string().optional(),
         coverImage: z.string().optional(),
         coverAlt: z.string().optional(),

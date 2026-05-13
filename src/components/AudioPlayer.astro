@@ -7,15 +7,18 @@ import { sortEpisodesDesc } from "../utils/parseAudioshow";
 const placeholderImage = "/images/placeholder-album.svg";
 const allEpisodes = loadAllEpisodes();
 const playlist = sortEpisodesDesc(allEpisodes)
-    .filter((ep) => ep.appleMusicUrl)
-    .map((ep) => ({
-        n: ep.number,
-        t: ep.songTitle,
-        a: ep.artist,
-        url: ep.appleMusicUrl,
-        img: ep.imageUrl || placeholderImage,
-        type: ep.appleMusicUrl!.includes("music.apple.com") ? "apple" : "local",
-    }));
+    .filter((ep) => ep.appleMusicUrl || ep.audioPreviewUrl)
+    .map((ep) => {
+        const url = ep.appleMusicUrl || ep.audioPreviewUrl;
+        return {
+            n: ep.number,
+            t: ep.songTitle,
+            a: ep.artist,
+            url,
+            img: ep.imageUrl || placeholderImage,
+            type: url!.includes("music.apple.com") ? "apple" : "local",
+        };
+    });
 ---
 
 <div id="audio-player-bar" transition:persist>

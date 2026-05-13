@@ -54,9 +54,9 @@ const placeholderImage = "/images/placeholder-album.svg";
                         <!-- Album Artwork - click to play -->
                         <div
                             class="ep-artwork relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer"
-                            data-track={ep.appleMusicUrl ? JSON.stringify({
-                                type: ep.appleMusicUrl.includes('music.apple.com') ? 'apple' : 'local',
-                                url: ep.appleMusicUrl,
+                            data-track={(ep.appleMusicUrl || ep.audioPreviewUrl) ? JSON.stringify({
+                                type: ep.appleMusicUrl?.includes('music.apple.com') ? 'apple' : 'local',
+                                url: ep.appleMusicUrl || ep.audioPreviewUrl,
                                 title: ep.songTitle,
                                 artist: ep.artist,
                                 artwork: ep.imageUrl || placeholderImage
@@ -70,7 +70,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                                 onerror={`this.src='${placeholderImage}'`}
                             />
                             <!-- Play Overlay -->
-                            {ep.appleMusicUrl && (
+                            {(ep.appleMusicUrl || ep.audioPreviewUrl) && (
                                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                     <span class="text-white text-4xl">▶</span>
                                 </div>
