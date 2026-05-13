@@ -9,7 +9,9 @@ const allEpisodes = loadAllEpisodes();
 const playlist = sortEpisodesDesc(allEpisodes)
     .filter((ep) => ep.appleMusicUrl || ep.audioPreviewUrl)
     .map((ep) => {
-        const url = ep.appleMusicUrl || ep.audioPreviewUrl;
+        // Prefer direct preview/local audio so the persistent player has a real
+        // audio source immediately. Apple Music links remain as a fallback.
+        const url = ep.audioPreviewUrl || ep.appleMusicUrl;
         return {
             n: ep.number,
             t: ep.songTitle,
