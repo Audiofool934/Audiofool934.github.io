@@ -50,13 +50,15 @@ import MinimalLayout from "../layouts/MinimalLayout.astro";
 	}
 
 	.audiofool-seal {
+		border-radius: 9999px;
+		outline: 1px solid var(--border-main);
+		filter: invert(1);
 		image-rendering: auto;
-		filter: none;
 	}
 
 	:global(html.dark) .audiofool-seal {
-		filter: invert(1);
-		opacity: 0.82;
+		filter: none;
+		opacity: 0.86;
 	}
 
 	.index-intro a {
