@@ -27,7 +27,7 @@ const categorizedProjects = sortedProjects.reduce(
 	{} as Record<string, typeof projects>,
 );
 
-const categoryOrder = ["Personal Website", "Music Generation", "Course Project", "Agent", "Audio", "Web", "Dev", "Research", "Art", "Other"];
+const categoryOrder = ["Personal Website", "Music Generation", "Agent", "Course Project", "Audio", "Web", "Dev", "Research", "Art", "Other"];
 const sortedCategories = Object.keys(categorizedProjects).sort((a, b) => {
 	const indexA = categoryOrder.indexOf(a);
 	const indexB = categoryOrder.indexOf(b);

@@ -4,7 +4,7 @@ pubDate: '2025-01-16'
 description: 'A course project on music data visualization, lyrics, audio features, sentiment, artists, and playlists.'
 category: 'Course Project'
 status: 'archived'
-featured: true
+featured: false
 stack: ['Jupyter Notebook', 'Data Visualization', 'Music Analysis', 'NLP', 'Audio Features']
 type: 'Research'
 githubRepo: 'Audiofool934/Can-You-See-The-Music'

@@ -22,7 +22,7 @@ const githubMeta = githubProjects.projects.find((item) => item.project === entry
 const repoUrl = githubMeta?.url || (entry.data.githubRepo ? `https://github.com/${entry.data.githubRepo}` : "");
 const repoLabel = entry.data.githubRepo || githubMeta?.repo;
 const pushedDate = githubMeta?.pushedAt ? new Date(githubMeta.pushedAt) : null;
-const syncedDate = readme?.data.syncedAt || (githubProjects.syncedAt ? new Date(githubProjects.syncedAt) : null);
+const syncedDate = readme?.data.syncedAt || null;
 
 function compactDate(date: Date | null) {
     return date ? date.toISOString().split("T")[0].replace(/-/g, ".") : "—";

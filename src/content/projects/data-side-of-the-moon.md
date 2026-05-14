@@ -2,9 +2,9 @@
 title: 'Data Side of the Moon'
 pubDate: '2026-03-12'
 description: 'An unsupervised music representation project that maps Pink Floyd through learned audio latent space.'
-category: 'Music Generation'
+category: 'Course Project'
 status: 'research'
-featured: true
+featured: false
 stack: ['Jupyter Notebook', 'Autoencoder', 'Mel Spectrogram', 'Clustering', 'Music Analysis']
 type: 'Research'
 githubRepo: 'Audiofool934/Data-Side-of-the-Moon'

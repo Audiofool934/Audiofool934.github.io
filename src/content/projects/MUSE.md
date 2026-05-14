@@ -1,12 +1,12 @@
 ---
-title: 'MUSE: Probabilistic Text-to-Music at Scale'
+title: 'MUSE / T2M'
 pubDate: '2025-12-20'
-description: 'Parallel training & batch inference for diverse music generation using Flow Matching and Diffusion Transformers.'
+description: 'A text-to-music research line around probabilistic generation, Flow Matching, MuQ-MuLan anchors, and Diffusion Transformers.'
 author: 'Audiofool'
 category: 'Music Generation'
 status: 'research'
 featured: true
-stack: ['PyTorch', 'DDP', 'Flow Matching', 'DiT', 'Gradio']
+stack: ['PyTorch', 'Flow Matching', 'T2M', 'MuQ-MuLan', 'DiT']
 type: 'Lib'
 url: '/muse/'
 githubRepo: 'Audiofool934/muse'

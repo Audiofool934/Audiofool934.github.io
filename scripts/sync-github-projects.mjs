@@ -11,6 +11,10 @@ function frontmatterValue(source, key) {
   return match?.[1]?.trim();
 }
 
+function frontmatterBool(source, key) {
+  return frontmatterValue(source, key) === 'true';
+}
+
 function stripReadmeFrontmatter(markdown) {
   return markdown.replace(/^---\n[\s\S]*?\n---\n?/, '');
 }
@@ -60,6 +64,7 @@ async function syncProject(file) {
   const fullPath = path.join(projectsDir, file);
   const source = await readFile(fullPath, 'utf8');
   const githubRepo = frontmatterValue(source, 'githubRepo');
+  const shouldSyncReadme = frontmatterBool(source, 'githubReadme');
   if (!githubRepo) return null;
 
   const id = file.replace(/\.mdx?$/, '').toLowerCase();
@@ -71,13 +76,15 @@ async function syncProject(file) {
   const branch = meta.default_branch || 'main';
 
   let readmeMarkdown = '';
-  try {
-    const readmeRes = await githubFetch(`https://api.github.com/repos/${owner}/${repo}/readme`);
-    const readmeMeta = await readmeRes.json();
-    const rawRes = await githubFetch(readmeMeta.download_url);
-    readmeMarkdown = await rawRes.text();
-  } catch (error) {
-    console.warn(`[github-projects] README unavailable for ${githubRepo}: ${error.message}`);
+  if (shouldSyncReadme) {
+    try {
+      const readmeRes = await githubFetch(`https://api.github.com/repos/${owner}/${repo}/readme`);
+      const readmeMeta = await readmeRes.json();
+      const rawRes = await githubFetch(readmeMeta.download_url);
+      readmeMarkdown = await rawRes.text();
+    } catch (error) {
+      console.warn(`[github-projects] README unavailable for ${githubRepo}: ${error.message}`);
+    }
   }
 
   if (readmeMarkdown.trim()) {
