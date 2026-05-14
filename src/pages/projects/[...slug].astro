@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import githubProjects from "../../data/github-projects.json";
 import "../../style/post.css"; // Standard typography
 
 export async function getStaticPaths() {
@@ -13,8 +14,19 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+const readmes = await getCollection("projectReadmes");
+const readme = readmes.find((item) => item.data.project === entry.id);
+const ReadmeContent = readme ? (await render(readme)).Content : null;
+const githubMeta = githubProjects.projects.find((item) => item.project === entry.id);
 
-// Logic: If there is a 'url' in frontmatter, show a "Launch" button.
+const repoUrl = githubMeta?.url || (entry.data.githubRepo ? `https://github.com/${entry.data.githubRepo}` : "");
+const repoLabel = entry.data.githubRepo || githubMeta?.repo;
+const pushedDate = githubMeta?.pushedAt ? new Date(githubMeta.pushedAt) : null;
+const syncedDate = readme?.data.syncedAt || (githubProjects.syncedAt ? new Date(githubProjects.syncedAt) : null);
+
+function compactDate(date: Date | null) {
+    return date ? date.toISOString().split("T")[0].replace(/-/g, ".") : "—";
+}
 ---
 
 <MinimalLayout
@@ -34,7 +46,7 @@ const { Content } = await render(entry);
                     <div
                         class="font-mono text-xs text-[var(--accent)] mb-2 uppercase tracking-wider"
                     >
-                        {entry.data.type || "Project"} / {
+                        {entry.data.type || "Project"} / {entry.data.status} / {
                             entry.data.pubDate.getFullYear()
                         }
                     </div>
@@ -43,18 +55,32 @@ const { Content } = await render(entry);
                     </h1>
                 </div>
 
-                {
-                    entry.data.url && (
-                        <a
-                            href={entry.data.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="px-6 py-3 bg-[var(--text-main)] text-[var(--bg-body)] font-mono text-sm hover:opacity-80 transition-opacity flex items-center gap-2"
-                        >
-                            [ Launch Machine ]<span class="text-xs">↗</span>
-                        </a>
-                    )
-                }
+                <div class="flex flex-wrap gap-2">
+                    {
+                        entry.data.url && (
+                            <a
+                                href={entry.data.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="px-5 py-3 bg-[var(--text-main)] text-[var(--bg-body)] font-mono text-sm hover:opacity-80 transition-opacity"
+                            >
+                                [ Launch ] ↗
+                            </a>
+                        )
+                    }
+                    {
+                        repoUrl && (
+                            <a
+                                href={repoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="px-5 py-3 border border-[var(--border-main)] font-mono text-sm hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+                            >
+                                [ Source ] ↗
+                            </a>
+                        )
+                    }
+                </div>
             </div>
 
             <p
@@ -75,10 +101,101 @@ const { Content } = await render(entry);
             </div>
         </header>
 
-        <!-- Content (Case Study / Blog) -->
-        <div class="post-content">
-            <Content />
-        </div>
+        {
+            (repoLabel || githubMeta) && (
+                <section class="mb-12 border border-[var(--border-main)]">
+                    <div class="grid md:grid-cols-[10rem_minmax(0,1fr)] border-b border-[var(--border-main)]">
+                        <div class="p-4 border-b md:border-b-0 md:border-r border-[var(--border-main)] font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                            GitHub
+                        </div>
+                        <div class="p-4 font-mono text-sm break-words">
+                            {repoLabel}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 text-sm font-mono">
+                        <div class="p-4 border-r border-b md:border-b-0 border-[var(--border-main)]">
+                            <div class="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-1">
+                                Language
+                            </div>
+                            <div>{githubMeta?.language || "—"}</div>
+                        </div>
+                        <div class="p-4 md:border-r border-b md:border-b-0 border-[var(--border-main)]">
+                            <div class="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-1">
+                                Stars
+                            </div>
+                            <div>{githubMeta?.stars ?? "—"}</div>
+                        </div>
+                        <div class="p-4 border-r border-[var(--border-main)]">
+                            <div class="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-1">
+                                Last Push
+                            </div>
+                            <div>{compactDate(pushedDate)}</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-1">
+                                README Sync
+                            </div>
+                            <div>{compactDate(syncedDate)}</div>
+                        </div>
+                    </div>
+                    {
+                        githubMeta?.description && (
+                            <div class="p-4 border-t border-[var(--border-main)] text-sm text-[var(--text-muted)]">
+                                {githubMeta.description}
+                            </div>
+                        )
+                    }
+                </section>
+            )
+        }
+
+        <!-- Human-edited project brief -->
+        <section class="mb-12">
+            <div class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)] mb-6">
+                [ Project Brief ]
+            </div>
+            <div class="post-content project-brief-content">
+                <Content />
+            </div>
+        </section>
+
+        {
+            ReadmeContent && (
+                <section class="mt-16 pt-10 border-t border-[var(--border-main)]">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 mb-8">
+                        <div>
+                            <div class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)] mb-2">
+                                [ Synced from GitHub README ]
+                            </div>
+                            <h2 class="text-2xl font-bold font-heading">
+                                Repository Document
+                            </h2>
+                        </div>
+                        {repoUrl && (
+                            <a
+                                href={repoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="font-mono text-xs text-[var(--text-muted)] hover:text-[var(--text-main)] underline underline-offset-4"
+                            >
+                                source ↗
+                            </a>
+                        )}
+                    </div>
+                    <div class="post-content github-readme-content">
+                        <ReadmeContent />
+                    </div>
+                </section>
+            )
+        }
     </article>
 </MinimalLayout>
 
+<style>
+    .project-brief-content :global(h1:first-child),
+    .project-brief-content :global(h2:first-child),
+    .github-readme-content :global(h1:first-child),
+    .github-readme-content :global(h2:first-child) {
+        margin-top: 0 !important;
+    }
+</style>

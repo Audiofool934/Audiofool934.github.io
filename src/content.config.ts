@@ -10,8 +10,11 @@ const projects = defineCollection({
         stack: z.array(z.string()).default([]),
         type: z.enum(['Product', 'Lib', 'Art', 'Research', 'Experiment', 'Other']).optional(),
         category: z.string().default('Other'),
+        status: z.enum(['active', 'paused', 'archived', 'research', 'prototype']).default('active'),
         featured: z.boolean().default(false),
         url: z.string().optional(),
+        githubRepo: z.string().optional(),
+        githubReadme: z.boolean().default(false),
         image: z.union([
             z.string(),
             z.object({
@@ -19,6 +22,16 @@ const projects = defineCollection({
                 alt: z.string().optional()
             })
         ]).optional(),
+    }),
+});
+
+const projectReadmes = defineCollection({
+    loader: glob({ pattern: '**/*.md', base: './src/content/project-readmes' }),
+    schema: z.object({
+        project: z.string(),
+        repo: z.string(),
+        sourceUrl: z.string().url(),
+        syncedAt: z.coerce.date(),
     }),
 });
 
@@ -90,6 +103,7 @@ const gallery = defineCollection({
 
 export const collections = {
     projects,
+    projectReadmes,
     log,
     wiki,
     audioshow,

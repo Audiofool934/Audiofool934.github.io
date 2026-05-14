@@ -4,10 +4,13 @@ pubDate: '2025-12-20'
 description: 'Parallel training & batch inference for diverse music generation using Flow Matching and Diffusion Transformers.'
 author: 'Audiofool'
 category: 'Research'
+status: 'research'
 featured: true
 stack: ['PyTorch', 'DDP', 'Flow Matching', 'DiT', 'Gradio']
 type: 'Lib'
 url: '/muse/'
+githubRepo: 'Audiofool934/muse'
+githubReadme: true
 image:
     url: '/images/projects/muse/muse.png'
     alt: 'MUSE Logo'

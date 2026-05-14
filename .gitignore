@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # blueprint drafts
 blueprint.md
+# generated GitHub project sync cache
+src/content/project-readmes/*.md
+src/data/github-projects.json

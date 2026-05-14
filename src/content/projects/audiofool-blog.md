@@ -3,10 +3,13 @@ title: 'audiofool.blog'
 pubDate: '2026-05-14'
 description: 'A personal archive for notes, music, photography, projects, and public traces of ongoing work.'
 category: 'Web'
+status: 'active'
 featured: true
 stack: ['Astro', 'Content Collections', 'Notes', 'Gallery', 'AudioShow']
 type: 'Art'
 url: '/'
+githubRepo: 'Audiofool934/Audiofool934.github.io'
+githubReadme: true
 ---
 
 ## Overview
