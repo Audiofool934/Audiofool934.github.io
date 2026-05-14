@@ -8,7 +8,8 @@
     "build": "rm -rf .astro node_modules/.astro && npm run sync:github-projects && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync:github-projects": "node scripts/sync-github-projects.mjs"
+    "sync:github-projects": "node scripts/sync-github-projects.mjs",
+    "sync:audioshow-previews": "node scripts/sync-audioshow-preview-cache.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
