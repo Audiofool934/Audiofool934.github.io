@@ -5,6 +5,7 @@ description: 'A research project on unified multimodal music generation and retr
 category: 'Music Generation'
 status: 'research'
 featured: true
+pinned: true
 stack: ['Python', 'Flow Matching', 'Retrieval', 'MuQ', 'Multimodal']
 type: 'Research'
 ---

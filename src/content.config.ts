@@ -12,6 +12,7 @@ const projects = defineCollection({
         category: z.string().default('Other'),
         status: z.enum(['active', 'paused', 'archived', 'research', 'prototype']).default('active'),
         featured: z.boolean().default(false),
+        pinned: z.boolean().default(false),
         url: z.string().optional(),
         githubRepo: z.string().optional(),
         githubReadme: z.boolean().default(false),

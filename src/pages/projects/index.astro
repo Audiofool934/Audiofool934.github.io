@@ -1,145 +1,316 @@
 ---
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { getCollection } from "astro:content";
+import { formatDateCompact } from "../../utils/formatDate";
 
 const projects = await getCollection("projects");
 
-// Sort by date desc
-const sortedProjects = projects.sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+const sortedProjects = [...projects].sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-// Featured / Latest (top 3 most recent OR featured flag)
-const latestProjects =
-	sortedProjects.filter((p) => p.data.featured).length > 0
-		? sortedProjects.filter((p) => p.data.featured)
-		: sortedProjects.slice(0, 3);
+const pinnedProjects = sortedProjects.filter((project) => project.data.pinned);
+const latestProjects = sortedProjects.slice(0, 8);
 
-// Group all projects by category. Featured projects can also appear in their
-// category, so the index works both as a highlight shelf and a catalog.
 const categorizedProjects = sortedProjects.reduce(
-	(acc, project) => {
-		const cat = project.data.category || "Other";
-		if (!acc[cat]) acc[cat] = [];
-		acc[cat].push(project);
-		return acc;
-	},
-	{} as Record<string, typeof projects>,
+    (acc, project) => {
+        const cat = project.data.category || "Other";
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(project);
+        return acc;
+    },
+    {} as Record<string, typeof projects>,
 );
 
-const categoryOrder = ["Personal Website", "Music Generation", "Agent", "Course Project", "Audio", "Web", "Dev", "Research", "Art", "Other"];
+const categoryOrder = [
+    "Personal Website",
+    "Music Generation",
+    "Agent",
+    "Course Project",
+    "Audio",
+    "Web",
+    "Dev",
+    "Research",
+    "Art",
+    "Other",
+];
 const sortedCategories = Object.keys(categorizedProjects).sort((a, b) => {
-	const indexA = categoryOrder.indexOf(a);
-	const indexB = categoryOrder.indexOf(b);
-	return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+    const indexA = categoryOrder.indexOf(a);
+    const indexB = categoryOrder.indexOf(b);
+    return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
 });
+
+function projectHref(project: (typeof sortedProjects)[number]) {
+    return `/projects/${project.id}/`;
+}
+
+function projectMeta(project: (typeof sortedProjects)[number]) {
+    return [project.data.category, project.data.status, project.data.type]
+        .filter(Boolean)
+        .join(" / ");
+}
 ---
 
 <MinimalLayout
-	title="Projects | Audiofool"
-	description="Welcome to the Machine"
+    title="Projects | Audiofool"
+    description="Welcome to the Machine"
 >
-	<div class="p-6 md:p-12" transition:animate="fade">
-		<!-- Header -->
-		<div class="mb-12">
-			<h1 class="text-4xl font-bold font-heading mb-2">Projects</h1>
-			<p
-				class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
-			>
-				Welcome to the Machine
-			</p>
-		</div>
+    <div class="p-6 md:p-12" transition:animate="fade">
+        <header class="mb-10">
+            <h1 class="text-4xl font-bold font-heading mb-2">Projects</h1>
+            <p
+                class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase"
+            >
+                Welcome to the Machine
+            </p>
+        </header>
 
-		<!-- Latest Section -->
-		<section class="mb-16">
-			<h2
-				class="text-sm font-mono uppercase tracking-widest text-[var(--text-muted)] mb-6 flex items-center gap-2"
-			>
-				<span class="w-2 h-2 bg-[var(--text-main)] rounded-full"></span>
-				Latest
-			</h2>
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{
-					latestProjects.map((project) => (
-						<a
-							href={`/projects/${project.id}/`}
-							class="group block p-6 border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
-						>
-							<div class="flex justify-between items-start mb-3">
-								<h3 class="text-xl font-bold">
-									{project.data.title}
-								</h3>
-								<span class="text-xs font-mono opacity-60">
-									{project.data.pubDate.getFullYear()}
-								</span>
-							</div>
-							<p class="text-sm text-[var(--text-muted)] group-hover:text-[var(--bg-body)] opacity-80 mb-4 line-clamp-2">
-								{project.data.description}
-							</p>
-							<div class="flex flex-wrap gap-2 text-xs font-mono opacity-50">
-								{project.data.stack.slice(0, 3).map((tech) => (
-									<span>#{tech}</span>
-								))}
-							</div>
-						</a>
-					))
-				}
-			</div>
-		</section>
+        {
+            pinnedProjects.length > 0 && (
+                <section class="mb-14">
+                    <div class="flex items-baseline justify-between gap-4 mb-5 border-b border-[var(--border-main)] pb-3">
+                        <h2 class="text-sm font-mono uppercase tracking-widest text-[var(--text-muted)]">
+                            Pinned
+                        </h2>
+                        <span class="font-mono text-xs text-[var(--text-muted)] opacity-55">
+                            {pinnedProjects.length} selected
+                        </span>
+                    </div>
 
-		<!-- Categorized Sections -->
-		{
-			sortedCategories.map((category) => (
-				<section class="mb-12 border-t border-[var(--border-main)] pt-6">
-					<details class="group" open>
-						<summary class="cursor-pointer list-none flex items-center justify-between mb-6">
-							<h2 class="text-lg font-bold font-heading flex items-center gap-3">
-								<span class="text-xs font-mono text-[var(--text-muted)]">
-									[{categorizedProjects[category].length}]
-								</span>
-								{category}
-							</h2>
-							<span class="font-mono text-xs text-[var(--text-muted)] group-open:rotate-90 transition-transform">
-								→
-							</span>
-						</summary>
+                    <div class="grid gap-3 md:grid-cols-2">
+                        {pinnedProjects.map((project, index) => (
+                            <a
+                                href={projectHref(project)}
+                                class="group border border-[var(--border-main)] p-5 hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
+                            >
+                                <div class="flex items-start justify-between gap-4 mb-5">
+                                    <span class="font-mono text-xs text-[var(--text-muted)] group-hover:text-[var(--bg-body)] opacity-60">
+                                        PIN {String(index + 1).padStart(2, "0")}
+                                    </span>
+                                    <span class="font-mono text-xs opacity-45">
+                                        {formatDateCompact(project.data.pubDate)}
+                                    </span>
+                                </div>
+                                <h2 class="text-2xl font-bold font-heading mb-3">
+                                    {project.data.title}
+                                </h2>
+                                <p class="text-sm leading-relaxed text-[var(--text-muted)] group-hover:text-[var(--bg-body)] opacity-75 mb-5">
+                                    {project.data.description}
+                                </p>
+                                <div class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-wider opacity-55">
+                                    <span>{project.data.category}</span>
+                                    <span>/</span>
+                                    <span>{project.data.status}</span>
+                                    <span>/</span>
+                                    <span>{project.data.stack[0]}</span>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </section>
+            )
+        }
 
-						<div class="space-y-2">
-							{categorizedProjects[category].map((project) => (
-								<a
-									href={`/projects/${project.id}/`}
-									class="group flex items-center justify-between py-3 px-4 border-b border-[var(--border-main)] last:border-b-0 hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
-								>
-									<div class="flex items-center gap-4 min-w-0">
-										<span class="font-mono text-xs opacity-40 w-12">
-											{project.data.pubDate.getFullYear()}
-										</span>
-										<span class="font-bold truncate">
-											{project.data.title}
-										</span>
-									</div>
-									<div class="flex items-center gap-4">
-										<span class="text-xs text-[var(--text-muted)] group-hover:text-[var(--bg-body)] hidden md:block truncate max-w-[200px]">
-											{project.data.description}
-										</span>
-										<span class="opacity-0 group-hover:opacity-100 transition-opacity">
-											→
-										</span>
-									</div>
-								</a>
-							))}
-						</div>
-					</details>
-				</section>
-			))
-		}
+        <section>
+            <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between pb-4 mb-8 border-b border-[var(--border-main)]">
+                <div>
+                    <h2 class="text-sm font-mono uppercase tracking-widest text-[var(--text-muted)] mb-2">
+                        Project Index
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] max-w-2xl">
+                        A compact project browser. Latest is chronological; All keeps the current categorized archive.
+                    </p>
+                </div>
 
-		{
-			sortedProjects.length === 0 && (
-				<div class="py-12 text-center text-[var(--text-muted)]">
-					No projects found. New machines are being built.
-				</div>
-			)
-		}
-	</div>
+                <div class="flex flex-wrap gap-3 text-sm font-mono">
+                    <button
+                        data-view="latest"
+                        class="project-view-filter active whitespace-nowrap transition-colors"
+                    >
+                        [ Latest <span class="opacity-50">{latestProjects.length}</span> ]
+                    </button>
+                    <button
+                        data-view="all"
+                        class="project-view-filter whitespace-nowrap transition-colors"
+                    >
+                        [ All <span class="opacity-50">{sortedProjects.length}</span> ]
+                    </button>
+                </div>
+            </div>
+
+            <div data-project-view="latest" class="project-view-panel max-w-4xl border-l border-[var(--border-main)] pl-5 md:pl-8">
+                {latestProjects.map((project) => (
+                    <a
+                        href={projectHref(project)}
+                        class="group relative block pb-8 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                    >
+                        <span class="absolute -left-[1.65rem] md:-left-[2.15rem] top-1 h-2 w-2 rounded-full bg-[var(--bg-body)] border border-[var(--text-main)] group-hover:bg-[var(--text-main)] transition-colors" />
+
+                        <div class="grid gap-1 md:grid-cols-[8rem_8rem_minmax(0,1fr)] md:gap-4 md:items-baseline font-mono text-sm">
+                            <time class="text-xs uppercase tracking-wider opacity-55 group-hover:opacity-80 transition-opacity">
+                                {formatDateCompact(project.data.pubDate)}
+                            </time>
+
+                            <span class="text-[10px] uppercase tracking-wider opacity-45 group-hover:opacity-70 transition-opacity">
+                                {project.data.category}
+                            </span>
+
+                            <div class="min-w-0">
+                                <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                                    <h3 class="font-sans text-base font-semibold text-[var(--text-main)] group-hover:underline decoration-1 underline-offset-4">
+                                        {project.data.title}
+                                    </h3>
+                                    {project.data.pinned && (
+                                        <span class="font-mono text-[10px] uppercase tracking-wider opacity-45">
+                                            pinned
+                                        </span>
+                                    )}
+                                </div>
+                                {project.data.description && (
+                                    <p class="mt-1 font-sans text-sm leading-relaxed opacity-65">
+                                        {project.data.description}
+                                    </p>
+                                )}
+                                <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-wider opacity-40">
+                                    <span>{project.data.status}</span>
+                                    <span>{project.data.type}</span>
+                                    {project.data.stack.slice(0, 3).map((tech) => (
+                                        <span>{tech}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                ))}
+            </div>
+
+            <div data-project-view="all" class="project-view-panel hidden max-w-5xl">
+                {sortedCategories.map((category) => (
+                    <section class="mb-10 border-t border-[var(--border-main)] pt-5 first:border-t-0 first:pt-0">
+                        <details class="group" open>
+                            <summary class="cursor-pointer list-none flex items-center justify-between mb-5">
+                                <h3 class="text-lg font-bold font-heading flex items-center gap-3">
+                                    <span class="text-xs font-mono text-[var(--text-muted)]">
+                                        [{categorizedProjects[category].length}]
+                                    </span>
+                                    {category}
+                                </h3>
+                                <span class="font-mono text-xs text-[var(--text-muted)] group-open:rotate-90 transition-transform">
+                                    →
+                                </span>
+                            </summary>
+
+                            <div class="border-l border-[var(--border-main)] pl-5 md:pl-8">
+                                {categorizedProjects[category].map((project) => (
+                                    <a
+                                        href={projectHref(project)}
+                                        class="group relative block pb-6 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                                    >
+                                        <span class="absolute -left-[1.65rem] md:-left-[2.15rem] top-1 h-2 w-2 rounded-full bg-[var(--bg-body)] border border-[var(--text-main)] group-hover:bg-[var(--text-main)] transition-colors" />
+
+                                        <div class="grid gap-1 md:grid-cols-[8rem_minmax(0,1fr)_7rem] md:gap-4 md:items-baseline font-mono text-sm">
+                                            <time class="text-xs uppercase tracking-wider opacity-55">
+                                                {formatDateCompact(project.data.pubDate)}
+                                            </time>
+
+                                            <div class="min-w-0">
+                                                <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                                                    <h4 class="font-sans text-base font-semibold text-[var(--text-main)] group-hover:underline decoration-1 underline-offset-4">
+                                                        {project.data.title}
+                                                    </h4>
+                                                    {project.data.pinned && (
+                                                        <span class="font-mono text-[10px] uppercase tracking-wider opacity-45">
+                                                            pinned
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                {project.data.description && (
+                                                    <p class="mt-1 font-sans text-sm leading-relaxed opacity-65">
+                                                        {project.data.description}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            <span class="hidden md:block text-[10px] uppercase tracking-wider opacity-45 text-right">
+                                                {projectMeta(project)}
+                                            </span>
+                                        </div>
+                                    </a>
+                                ))}
+                            </div>
+                        </details>
+                    </section>
+                ))}
+            </div>
+        </section>
+
+        {
+            sortedProjects.length === 0 && (
+                <div class="py-12 text-center text-[var(--text-muted)]">
+                    No projects found. New machines are being built.
+                </div>
+            )
+        }
+    </div>
 </MinimalLayout>
+
+<style>
+    .project-view-filter {
+        color: var(--text-muted);
+    }
+    .project-view-filter:hover {
+        color: var(--text-main);
+    }
+    .project-view-filter.active {
+        color: var(--text-main);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 1px;
+    }
+</style>
+
+<script is:inline>
+    (function () {
+        let cleanupFn = null;
+
+        document.addEventListener("astro:page-load", () => {
+            if (cleanupFn) {
+                cleanupFn();
+                cleanupFn = null;
+            }
+
+            const filters = document.querySelectorAll(".project-view-filter");
+            const panels = document.querySelectorAll(".project-view-panel");
+            if (!filters.length || !panels.length) return;
+
+            function applyView(view) {
+                filters.forEach((item) => item.classList.remove("active"));
+                const btn = document.querySelector(
+                    '.project-view-filter[data-view="' + view + '"]',
+                );
+                if (btn) btn.classList.add("active");
+
+                panels.forEach((panel) => {
+                    panel.classList.toggle("hidden", panel.dataset.projectView !== view);
+                });
+            }
+
+            function onClick(e) {
+                applyView(e.currentTarget.dataset.view || "latest");
+            }
+
+            filters.forEach((filter) => {
+                filter.addEventListener("click", onClick);
+            });
+
+            const urlView = new URLSearchParams(window.location.search).get("view");
+            if (urlView === "all" || urlView === "latest") applyView(urlView);
+
+            cleanupFn = function () {
+                filters.forEach((filter) =>
+                    filter.removeEventListener("click", onClick),
+                );
+            };
+        });
+    })();
+</script>
