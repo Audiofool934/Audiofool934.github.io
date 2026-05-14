@@ -496,9 +496,25 @@ const playlist = sortEpisodesDesc(allEpisodes)
                 var noSource = !audio.src || audio.src === "" || audio.src === window.location.href;
 
                 if (noSource && state.track && state.track.url) {
-                    audio.src = state.track.url;
-                    if (state.currentTime > 0) {
-                        audio.currentTime = state.currentTime;
+                    var provider = providers[state.track.type];
+                    if (provider) {
+                        try {
+                            var meta = await provider.resolve(state.track);
+                            state.track = Object.assign({}, meta, { type: state.track.type });
+                            syncUIWithState();
+                            audio.src = meta.url;
+                            if (state.currentTime > 0) {
+                                audio.currentTime = state.currentTime;
+                            }
+                        } catch (e) {
+                            console.error("Provider error:", e);
+                            return;
+                        }
+                    } else {
+                        audio.src = state.track.url;
+                        if (state.currentTime > 0) {
+                            audio.currentTime = state.currentTime;
+                        }
                     }
                 }
                 if (audio.paused) {
