@@ -61,7 +61,7 @@ function getType(post: (typeof timelinePosts)[number]) {
 			{
 				timelinePosts.length > 0 && (
 					<section class="mt-12 md:mt-16 max-w-3xl index-news">
-						<div class="flex items-baseline justify-between gap-4 mb-3">
+						<div class="flex items-baseline gap-4 mb-3">
 							<h2 class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">
 								Updates
 							</h2>
@@ -79,9 +79,9 @@ function getType(post: (typeof timelinePosts)[number]) {
 								return (
 									<a
 										href={`/timeline/${post.id}/`}
-										class="group block text-sm md:text-base text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+										class="group block text-xs md:text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
 									>
-										<span class="font-mono text-[10px] uppercase tracking-wider opacity-55 group-hover:opacity-80">
+										<span class="font-mono uppercase tracking-wider opacity-65 group-hover:opacity-85">
 											{formatDateCompact(post.data.pubDate)} · {type}
 										</span>
 										<span class="mx-2 opacity-35">—</span>
