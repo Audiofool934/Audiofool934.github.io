@@ -61,7 +61,7 @@ function getType(post: (typeof timelinePosts)[number]) {
 			{
 				timelinePosts.length > 0 && (
 					<section class="mt-12 md:mt-16 max-w-3xl index-news">
-						<div class="flex items-baseline justify-between gap-4 border-b border-[var(--border-main)] pb-3 mb-5">
+						<div class="flex items-baseline justify-between gap-4 mb-3">
 							<h2 class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">
 								Updates
 							</h2>
@@ -73,21 +73,21 @@ function getType(post: (typeof timelinePosts)[number]) {
 							</a>
 						</div>
 
-						<div class="divide-y divide-[var(--border-main)] border-y border-[var(--border-main)]">
+						<div class="space-y-1.5">
 							{timelinePosts.map((post) => {
 								const type = getType(post);
 								return (
 									<a
 										href={`/timeline/${post.id}/`}
-										class="group grid gap-1 py-2.5 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors md:grid-cols-[6.5rem_minmax(0,1fr)] md:items-baseline"
+										class="group block text-sm md:text-base text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
 									>
-										<div class="flex items-center gap-3 font-mono text-[10px] uppercase tracking-wider opacity-55 group-hover:opacity-80">
-											<time>{formatDateCompact(post.data.pubDate)}</time>
-											<span>{type}</span>
-										</div>
-										<h3 class="min-w-0 truncate font-sans text-sm md:text-base text-[var(--text-main)] group-hover:underline decoration-1 underline-offset-4">
+										<span class="font-mono text-[10px] uppercase tracking-wider opacity-55 group-hover:opacity-80">
+											{formatDateCompact(post.data.pubDate)} · {type}
+										</span>
+										<span class="mx-2 opacity-35">—</span>
+										<span class="text-[var(--text-main)] group-hover:underline decoration-1 underline-offset-4">
 											{post.data.title}
-										</h3>
+										</span>
 									</a>
 								);
 							})}
