@@ -142,7 +142,7 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                 {latestProjects.map((project) => (
                     <a
                         href={projectHref(project)}
-                        class="group relative block pb-8 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                        class="group relative block pb-8 text-[var(--text-main)] transition-colors"
                     >
                         <span class="absolute -left-[1.65rem] md:-left-[2.15rem] top-1 h-2 w-2 rounded-full bg-[var(--bg-body)] border border-[var(--text-main)] group-hover:bg-[var(--text-main)] transition-colors" />
 
@@ -167,7 +167,7 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                                     )}
                                 </div>
                                 {project.data.description && (
-                                    <p class="mt-1 font-sans text-sm leading-relaxed opacity-65">
+                                    <p class="mt-1 font-sans text-sm leading-relaxed text-[var(--text-muted)] opacity-80">
                                         {project.data.description}
                                     </p>
                                 )}
@@ -187,7 +187,7 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
             <div data-project-view="all" class="project-view-panel hidden max-w-5xl">
                 {sortedCategories.map((category) => (
                     <section class="mb-10 border-t border-[var(--border-main)] pt-5 first:border-t-0 first:pt-0">
-                        <details class="group" open>
+                        <details open>
                             <summary class="cursor-pointer list-none flex items-center justify-between mb-5">
                                 <h3 class="text-lg font-bold font-heading flex items-center gap-3">
                                     <span class="text-xs font-mono text-[var(--text-muted)]">
@@ -195,8 +195,8 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                                     </span>
                                     {category}
                                 </h3>
-                                <span class="font-mono text-xs text-[var(--text-muted)] group-open:rotate-90 transition-transform">
-                                    →
+                                <span class="font-mono text-xs text-[var(--text-muted)]">
+                                    ↓
                                 </span>
                             </summary>
 
@@ -204,7 +204,7 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                                 {categorizedProjects[category].map((project) => (
                                     <a
                                         href={projectHref(project)}
-                                        class="group relative block pb-6 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                                        class="group relative block pb-6 text-[var(--text-main)] transition-colors"
                                     >
                                         <span class="absolute -left-[1.65rem] md:-left-[2.15rem] top-1 h-2 w-2 rounded-full bg-[var(--bg-body)] border border-[var(--text-main)] group-hover:bg-[var(--text-main)] transition-colors" />
 
@@ -225,7 +225,7 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                                                     )}
                                                 </div>
                                                 {project.data.description && (
-                                                    <p class="mt-1 font-sans text-sm leading-relaxed opacity-65">
+                                                    <p class="mt-1 font-sans text-sm leading-relaxed text-[var(--text-muted)] opacity-80">
                                                         {project.data.description}
                                                     </p>
                                                 )}
