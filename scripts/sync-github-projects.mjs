@@ -26,25 +26,57 @@ function normalizeMarkdown(markdown) {
     .replace(/```bibtex\b/gi, '```text');
 }
 
-function rewriteMarkdownUrls(markdown, owner, repo, branch) {
+function isAbsoluteOrSpecialUrl(url) {
+  return /^(?:[a-z][a-z0-9+.-]*:|#)/i.test(url.trim());
+}
+
+function encodeRepoPath(repoPath) {
+  const [pathWithQuery, hash = ''] = repoPath.split('#');
+  const [pathname, query = ''] = pathWithQuery.split('?');
+  const encodedPath = pathname
+    .split('/')
+    .filter(Boolean)
+    .map(encodeURIComponent)
+    .join('/');
+  return encodedPath + (query ? `?${query}` : '') + (hash ? `#${hash}` : '');
+}
+
+function resolveRepoUrl(url, owner, repo, branch, readmeDir, kind) {
+  const trimmed = url.trim();
+  if (!trimmed || isAbsoluteOrSpecialUrl(trimmed)) return url;
+
   const rawBase = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
   const blobBase = `https://github.com/${owner}/${repo}/blob/${branch}/`;
+  const baseDir = trimmed.startsWith('/') ? '' : readmeDir;
+  const repoPath = path.posix.normalize(path.posix.join(baseDir, trimmed.replace(/^\//, '')));
+  const encoded = encodeRepoPath(repoPath.replace(/^\.\//, ''));
+  return (kind === 'asset' ? rawBase : blobBase) + encoded;
+}
 
-  return markdown.replace(/(!?)\[([^\]]*)\]\(([^)]+)\)/g, (full, bang, label, url) => {
-    const trimmed = url.trim();
-    if (
-      trimmed.startsWith('http://') ||
-      trimmed.startsWith('https://') ||
-      trimmed.startsWith('#') ||
-      trimmed.startsWith('mailto:') ||
-      trimmed.startsWith('data:')
-    ) return full;
+function rewriteMarkdownUrls(markdown, owner, repo, branch, readmePath = 'README.md') {
+  const readmeDir = path.posix.dirname(readmePath);
+  const baseDir = readmeDir === '.' ? '' : readmeDir;
 
-    const clean = trimmed.replace(/^\.\//, '');
-    const encoded = clean.split('/').map(encodeURIComponent).join('/');
-    const target = bang ? rawBase + encoded : blobBase + encoded;
-    return `${bang}[${label}](${target})`;
-  });
+  return markdown
+    // Markdown image/link syntax. Images need raw.githubusercontent.com; links go to GitHub blob pages.
+    .replace(/(!?)\[([^\]]*)\]\(([^)]+)\)/g, (full, bang, label, url) => {
+      const target = resolveRepoUrl(url, owner, repo, branch, baseDir, bang ? 'asset' : 'link');
+      return target === url ? full : `${bang}[${label}](${target})`;
+    })
+    // Many READMEs use raw HTML for sized screenshots/logos. Astro preserves the HTML,
+    // so markdown URL rewriting above never sees these image sources.
+    .replace(/(<img\b[^>]*\bsrc\s*=\s*)(["'])([^"']+)(\2)/gi, (full, prefix, quote, src, suffix) => {
+      const target = resolveRepoUrl(src, owner, repo, branch, baseDir, 'asset');
+      return target === src ? full : `${prefix}${quote}${target}${suffix}`;
+    })
+    .replace(/(<source\b[^>]*\bsrc\s*=\s*)(["'])([^"']+)(\2)/gi, (full, prefix, quote, src, suffix) => {
+      const target = resolveRepoUrl(src, owner, repo, branch, baseDir, 'asset');
+      return target === src ? full : `${prefix}${quote}${target}${suffix}`;
+    })
+    .replace(/(<a\b[^>]*\bhref\s*=\s*)(["'])([^"']+)(\2)/gi, (full, prefix, quote, href, suffix) => {
+      const target = resolveRepoUrl(href, owner, repo, branch, baseDir, 'link');
+      return target === href ? full : `${prefix}${quote}${target}${suffix}`;
+    });
 }
 
 async function githubFetch(url) {
@@ -82,13 +114,22 @@ async function syncProject(file) {
       const readmeMeta = await readmeRes.json();
       const rawRes = await githubFetch(readmeMeta.download_url);
       readmeMarkdown = await rawRes.text();
+      readmeMarkdown = { body: readmeMarkdown, path: readmeMeta.path || 'README.md' };
     } catch (error) {
       console.warn(`[github-projects] README unavailable for ${githubRepo}: ${error.message}`);
     }
   }
 
-  if (readmeMarkdown.trim()) {
-    const body = normalizeMarkdown(rewriteMarkdownUrls(stripReadmeFrontmatter(readmeMarkdown), owner, repo, branch)).trim();
+  if (readmeMarkdown && readmeMarkdown.body.trim()) {
+    const body = normalizeMarkdown(
+      rewriteMarkdownUrls(
+        stripReadmeFrontmatter(readmeMarkdown.body),
+        owner,
+        repo,
+        branch,
+        readmeMarkdown.path,
+      ),
+    ).trim();
     const generated = `---\nproject: ${JSON.stringify(id)}\nrepo: ${JSON.stringify(githubRepo)}\nsourceUrl: ${JSON.stringify(meta.html_url)}\nsyncedAt: ${JSON.stringify(new Date().toISOString())}\n---\n\n${body}\n`;
     await writeFile(path.join(readmesDir, `readme-${id}.md`), generated, 'utf8');
   }
