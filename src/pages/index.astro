@@ -1,5 +1,27 @@
 ---
 import MinimalLayout from "../layouts/MinimalLayout.astro";
+import { getCollection } from "astro:content";
+import { formatDateCompact } from "../utils/formatDate";
+
+const timelinePosts = (await getCollection("log"))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+
+function getType(post: (typeof timelinePosts)[number]) {
+	const tags = post.data.tags.map((tag) => tag.toLowerCase());
+	if (tags.includes("photography") || tags.includes("gallery")) return "photo";
+	if (
+		tags.includes("notes") ||
+		tags.includes("note") ||
+		tags.includes("essay") ||
+		tags.includes("math") ||
+		tags.includes("dsp")
+	) return "note";
+	if (tags.includes("audioshow") || tags.includes("music")) return "music";
+	if (tags.includes("project") || tags.includes("projects")) return "project";
+	if (tags.includes("update") || tags.includes("meta")) return "site";
+	return "post";
+}
 ---
 
 <MinimalLayout title="Audiofool">
@@ -32,9 +54,54 @@ import MinimalLayout from "../layouts/MinimalLayout.astro";
 					I build and study creative AI, with a focus on multimodal understanding/generation and agentic tools.
 				</p>
 				<p>
-					The <a href="/timeline/">timeline</a> is the front door: a chronological trace of notes, projects, music, photos, and site changes. <a href="/projects/">Projects</a> collects the systems and research threads I am building. <a href="/notes/">Notes</a> holds probability, machine learning, DSP, and ideas in progress. <a href="/audioshow/">AudioShow</a> is my long-running music journal — one song per episode, 250+ so far. The <a href="/gallery/">gallery</a> keeps selected photographs, mostly from Beijing.
+					The <a href="/timeline/">timeline</a> is a chronological trace of notes, projects, music, photos, and site changes. <a href="/projects/">Projects</a> collects what I’m building. <a href="/notes/">Notes</a> holds math, AI/ML, and ideas in progress. <a href="/audioshow/">AudioShow</a> is my long-running music journal — one song per episode, 200+ so far. <a href="/gallery/">Gallery</a> keeps selected photographs I took.
 				</p>
 			</div>
+
+			{
+				timelinePosts.length > 0 && (
+					<section class="mt-12 md:mt-16 max-w-3xl index-news">
+						<div class="flex items-baseline justify-between gap-4 border-b border-[var(--border-main)] pb-3 mb-5">
+							<h2 class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">
+								Updates
+							</h2>
+							<a
+								href="/timeline/"
+								class="font-mono text-xs text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+							>
+								[ View timeline ]
+							</a>
+						</div>
+
+						<div class="grid gap-3">
+							{timelinePosts.map((post) => {
+								const type = getType(post);
+								return (
+									<a
+										href={`/timeline/${post.id}/`}
+										class="group grid gap-2 border border-[var(--border-main)] p-4 text-[var(--text-muted)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors md:grid-cols-[6.5rem_minmax(0,1fr)] md:items-baseline"
+									>
+										<div class="flex items-center gap-3 font-mono text-[10px] uppercase tracking-wider opacity-55">
+											<time>{formatDateCompact(post.data.pubDate)}</time>
+											<span>{type}</span>
+										</div>
+										<div class="min-w-0">
+											<h3 class="font-sans text-base font-semibold text-[var(--text-main)] group-hover:text-[var(--bg-body)]">
+												{post.data.title}
+											</h3>
+											{post.data.description && (
+												<p class="mt-1 text-sm leading-relaxed opacity-65">
+													{post.data.description}
+												</p>
+											)}
+										</div>
+									</a>
+								);
+							})}
+						</div>
+					</section>
+				)
+			}
 		</div>
 	</div>
 </MinimalLayout>
