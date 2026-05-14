@@ -34,7 +34,7 @@ latestProjects.forEach((project) => {
 	if (!categorizedProjects[cat]) categorizedProjects[cat] = [];
 });
 
-const categoryOrder = ["Audio", "Dev", "Research", "Art", "Other"];
+const categoryOrder = ["Agent", "Audio", "Web", "Dev", "Research", "Art", "Other"];
 const sortedCategories = Object.keys(categorizedProjects).sort((a, b) => {
 	const indexA = categoryOrder.indexOf(a);
 	const indexB = categoryOrder.indexOf(b);

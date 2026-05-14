@@ -20,6 +20,7 @@ function getType(post: (typeof sortedPosts)[number]) {
         tags.includes("dsp")
     ) return "note";
     if (tags.includes("audioshow") || tags.includes("music")) return "music";
+    if (tags.includes("project") || tags.includes("projects")) return "project";
     if (tags.includes("update") || tags.includes("meta")) return "site";
     return "post";
 }
@@ -29,10 +30,11 @@ const typeLabels: Record<string, string> = {
     post: "Posts",
     music: "Music",
     photo: "Photos",
+    project: "Projects",
     site: "Site Changes",
 };
 
-const filterOrder = ["note", "post", "music", "photo", "site"];
+const filterOrder = ["note", "post", "music", "photo", "project", "site"];
 const typeCounts = new Map<string, number>();
 for (const post of sortedPosts) {
     const type = getType(post);
