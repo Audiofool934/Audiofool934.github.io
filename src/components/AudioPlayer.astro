@@ -21,6 +21,9 @@ const playlist = sortEpisodesDesc(allEpisodes)
             type: url!.includes("music.apple.com") ? "apple" : "local",
         };
     });
+const directlyPlayableIndexes = playlist
+    .map((track, index) => (track.type === "local" ? index : -1))
+    .filter((index) => index >= 0);
 ---
 
 <div id="audio-player-bar" transition:persist>
@@ -249,7 +252,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
     </div>
 </div>
 
-<script is:inline define:vars={{ playlist }}>
+<script is:inline define:vars={{ playlist, directlyPlayableIndexes }}>
     // Audio Player State Management - Single Source of Truth Pattern
     (function () {
         // ========================================
@@ -452,7 +455,10 @@ const playlist = sortEpisodesDesc(allEpisodes)
             if (!state.initialized) {
                 state.initialized = true;
                 if (!state.track && playlist.length > 0) {
-                    var initialIndex = Math.floor(Math.random() * playlist.length);
+                    var initialPool = directlyPlayableIndexes.length > 0
+                        ? directlyPlayableIndexes
+                        : playlist.map(function (_, index) { return index; });
+                    var initialIndex = initialPool[Math.floor(Math.random() * initialPool.length)];
                     var first = getPlaylistTrack(initialIndex);
                     state.track = {
                         title: first.title,
@@ -496,24 +502,31 @@ const playlist = sortEpisodesDesc(allEpisodes)
                 var noSource = !audio.src || audio.src === "" || audio.src === window.location.href;
 
                 if (noSource && state.track && state.track.url) {
-                    var provider = providers[state.track.type];
-                    if (provider) {
-                        try {
-                            var meta = await provider.resolve(state.track);
-                            state.track = Object.assign({}, meta, { type: state.track.type });
-                            syncUIWithState();
-                            audio.src = meta.url;
-                            if (state.currentTime > 0) {
-                                audio.currentTime = state.currentTime;
-                            }
-                        } catch (e) {
-                            console.error("Provider error:", e);
-                            return;
-                        }
-                    } else {
+                    if (state.track.type === "local") {
                         audio.src = state.track.url;
                         if (state.currentTime > 0) {
                             audio.currentTime = state.currentTime;
+                        }
+                    } else {
+                        var provider = providers[state.track.type];
+                        if (provider) {
+                            try {
+                                var meta = await provider.resolve(state.track);
+                                state.track = Object.assign({}, meta, { type: state.track.type });
+                                syncUIWithState();
+                                audio.src = meta.url;
+                                if (state.currentTime > 0) {
+                                    audio.currentTime = state.currentTime;
+                                }
+                            } catch (e) {
+                                console.error("Provider error:", e);
+                                return;
+                            }
+                        } else {
+                            audio.src = state.track.url;
+                            if (state.currentTime > 0) {
+                                audio.currentTime = state.currentTime;
+                            }
                         }
                     }
                 }
