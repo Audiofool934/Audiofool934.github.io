@@ -446,11 +446,14 @@ const playlist = sortEpisodesDesc(allEpisodes)
             var els = getElements();
             if (!els.audio) return;
 
-            // First time: load first track in playlist (latest episode)
+            // First full page load: seed the player with a random playable AudioShow entry.
+            // View transitions keep window.__audioPlayerState alive, so internal navigation
+            // preserves the current track instead of re-randomizing on every click.
             if (!state.initialized) {
                 state.initialized = true;
                 if (!state.track && playlist.length > 0) {
-                    var first = getPlaylistTrack(0);
+                    var initialIndex = Math.floor(Math.random() * playlist.length);
+                    var first = getPlaylistTrack(initialIndex);
                     state.track = {
                         title: first.title,
                         artist: first.artist,
@@ -458,8 +461,8 @@ const playlist = sortEpisodesDesc(allEpisodes)
                         url: first.url,
                         type: first.type,
                     };
-                    state.playlistIndex = 0;
-                    state.playlistPos = 0;
+                    state.playlistIndex = initialIndex;
+                    state.playlistPos = initialIndex;
                 } else if (!state.track && window.__defaultAudioShowTrack) {
                     state.track = {
                         title: window.__defaultAudioShowTrack.title,
