@@ -21,9 +21,6 @@ const playlist = sortEpisodesDesc(allEpisodes)
             type: url!.includes("music.apple.com") ? "apple" : "local",
         };
     });
-const directlyPlayableIndexes = playlist
-    .map((track, index) => (track.type === "local" ? index : -1))
-    .filter((index) => index >= 0);
 ---
 
 <div id="audio-player-bar" transition:persist>
@@ -252,7 +249,7 @@ const directlyPlayableIndexes = playlist
     </div>
 </div>
 
-<script is:inline define:vars={{ playlist, directlyPlayableIndexes }}>
+<script is:inline define:vars={{ playlist }}>
     // Audio Player State Management - Single Source of Truth Pattern
     (function () {
         // ========================================
@@ -427,6 +424,19 @@ const directlyPlayableIndexes = playlist
             },
         };
 
+        function primeSeededTrack(track) {
+            if (!track || track.type !== "apple" || !track.url) return;
+            var originalUrl = track.url;
+            providers.apple.resolve(track).then(function (meta) {
+                var state = window.__audioPlayerState;
+                if (!state?.track || state.track.url !== originalUrl || state.isPlaying) return;
+                state.track = Object.assign({}, meta, { type: "local", url: meta.url });
+                syncUIWithState();
+            }).catch(function (error) {
+                console.error("Seed track pre-resolve failed:", error);
+            });
+        }
+
         // ========================================
         // INIT
         // ========================================
@@ -455,10 +465,7 @@ const directlyPlayableIndexes = playlist
             if (!state.initialized) {
                 state.initialized = true;
                 if (!state.track && playlist.length > 0) {
-                    var initialPool = directlyPlayableIndexes.length > 0
-                        ? directlyPlayableIndexes
-                        : playlist.map(function (_, index) { return index; });
-                    var initialIndex = initialPool[Math.floor(Math.random() * initialPool.length)];
+                    var initialIndex = Math.floor(Math.random() * playlist.length);
                     var first = getPlaylistTrack(initialIndex);
                     state.track = {
                         title: first.title,
@@ -469,6 +476,7 @@ const directlyPlayableIndexes = playlist
                     };
                     state.playlistIndex = initialIndex;
                     state.playlistPos = initialIndex;
+                    primeSeededTrack(first);
                 } else if (!state.track && window.__defaultAudioShowTrack) {
                     state.track = {
                         title: window.__defaultAudioShowTrack.title,
