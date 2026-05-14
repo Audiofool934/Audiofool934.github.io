@@ -1,6 +1,12 @@
 ---
 title: "From the Great Wall to the Sea"
-image: "/images/gallery/26-5-1-from-great-wall-to-sea.webp"
+image: "/images/gallery/26-5-1-from-great-wall-to-sea-1.webp"
+images:
+  - "/images/gallery/26-5-1-from-great-wall-to-sea-1.webp"
+  - "/images/gallery/26-5-1-from-great-wall-to-sea-2.webp"
+  - "/images/gallery/26-5-1-from-great-wall-to-sea-3.webp"
+  - "/images/gallery/26-5-1-from-great-wall-to-sea-4.webp"
+  - "/images/gallery/26-5-1-from-great-wall-to-sea-5.webp"
 date: 2026-05-01
 location: "Jinshanling · Guanting Reservoir · Qinhuangdao"
 category: "Travel"

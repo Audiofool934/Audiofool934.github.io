@@ -41,6 +41,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
     return JSON.stringify({
         title: d.title,
         image: d.image,
+        images: d.images && d.images.length > 0 ? d.images : [d.image],
         date: d.date.toISOString().split("T")[0],
         location: d.location || "",
         camera: d.camera || "",
@@ -129,7 +130,11 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                                         .toISOString()
                                         .split("T")[0]}
                                 </span>
-                                {item.data.location && (
+                                {item.data.images && item.data.images.length > 1 ? (
+                                    <span class="font-mono text-[10px] text-[var(--text-muted)] truncate ml-2">
+                                        Set · {item.data.images.length}
+                                    </span>
+                                ) : item.data.location && (
                                     <span class="font-mono text-[10px] text-[var(--text-muted)] truncate ml-2">
                                         {item.data.location}
                                     </span>
@@ -164,7 +169,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
         <!-- Backdrop -->
         <div
             id="modal-backdrop"
-            class="absolute inset-0 bg-black/90 backdrop-blur-sm"
+            class="absolute inset-0 bg-black"
         >
         </div>
 
@@ -172,7 +177,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
         <!-- Desktop layout: centered card with left/right split -->
         <div
             id="modal-scroll"
-            class="absolute inset-0 flex flex-col xl:flex-row xl:items-center xl:justify-center xl:p-8"
+            class="absolute inset-0 flex flex-col xl:flex-row xl:items-center xl:justify-center xl:p-8 overflow-hidden"
         >
             <!-- Close button -->
             <button
@@ -202,18 +207,18 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
             <!-- Card -->
             <div
                 id="modal-content"
-                class="relative w-full h-full xl:h-auto xl:max-w-5xl xl:max-h-[95vh] xl:overflow-y-auto bg-[var(--bg-body)] xl:border border-[var(--border-main)] flex flex-col xl:flex-row"
+                class="relative w-full h-[100dvh] max-h-[100dvh] overflow-hidden xl:h-auto xl:max-w-5xl xl:max-h-[95vh] xl:overflow-y-auto bg-[var(--bg-body)] xl:border border-[var(--border-main)] flex flex-col xl:flex-row"
             >
                 <!-- Image area: mobile takes ~65vh, desktop flexible -->
                 <div
                     id="modal-image-wrap"
-                    class="modal-image-area xl:flex-1 xl:min-h-0 flex items-center justify-center bg-black/50"
+                    class="modal-image-area xl:flex-1 xl:min-h-0 flex items-center justify-center bg-black overflow-hidden"
                 >
                     <img
                         id="modal-image"
                         src=""
                         alt=""
-                        class="max-w-full max-h-full object-contain cursor-zoom-in transition-opacity duration-150 p-2 xl:p-0"
+                        class="max-w-full max-h-full object-contain cursor-zoom-in transition-opacity duration-150 p-2 xl:p-0 block"
                     />
                 </div>
 
@@ -386,6 +391,8 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     document.getElementById("lightbox-image");
 
                 let currentIndex = -1;
+                let currentFrameIndex = 0;
+                let currentMeta = null;
                 let visibleItems = allItems;
 
                 function getVisibleItems() {
@@ -409,12 +416,20 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     }
                 }
 
-                function openModal(index) {
+                function openModal(index, frameIndex = 0) {
                     visibleItems = getVisibleItems();
                     if (index < 0 || index >= visibleItems.length) return;
                     currentIndex = index;
                     const el = visibleItems[index];
                     const meta = JSON.parse(el.dataset.meta);
+                    const images = Array.isArray(meta.images) && meta.images.length
+                        ? meta.images
+                        : [meta.image];
+                    currentFrameIndex = Math.max(
+                        0,
+                        Math.min(frameIndex, images.length - 1),
+                    );
+                    currentMeta = meta;
                     const bodyEl = el.querySelector(".gallery-body");
                     const bodyHTML = bodyEl
                         ? bodyEl.innerHTML.trim()
@@ -422,14 +437,19 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
 
                     // Fade image on switch
                     modalImage.style.opacity = "0";
-                    modalImage.src = meta.image;
-                    modalImage.alt = meta.title;
+                    modalImage.src = images[currentFrameIndex];
+                    modalImage.alt = images.length > 1
+                        ? `${meta.title} (${currentFrameIndex + 1}/${images.length})`
+                        : meta.title;
                     modalImage.onload = function () {
                         modalImage.style.opacity = "1";
                     };
 
-                    const counterText =
+                    const itemCounter =
                         currentIndex + 1 + " / " + visibleItems.length;
+                    const counterText = images.length > 1
+                        ? itemCounter + " · frame " + (currentFrameIndex + 1) + " / " + images.length
+                        : itemCounter;
 
                     // Desktop info
                     modalTitle.textContent = meta.title;
@@ -476,8 +496,9 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                         ? ""
                         : "none";
 
-                    const hasPrev = currentIndex > 0;
+                    const hasPrev = currentIndex > 0 || currentFrameIndex > 0;
                     const hasNext =
+                        currentFrameIndex < images.length - 1 ||
                         currentIndex < visibleItems.length - 1;
                     prevBtn.style.visibility = hasPrev
                         ? "visible"
@@ -502,6 +523,8 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     modal.classList.add("pointer-events-none");
                     document.body.style.overflow = "";
                     currentIndex = -1;
+                    currentFrameIndex = 0;
+                    currentMeta = null;
                 }
 
                 // Lightbox (fullscreen zoom)
@@ -527,11 +550,39 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                 });
                 lightbox.addEventListener("click", closeLightbox);
 
+                function getItemMeta(index) {
+                    const el = visibleItems[index];
+                    return el ? JSON.parse(el.dataset.meta) : null;
+                }
+
+                function getMetaImages(meta) {
+                    return Array.isArray(meta?.images) && meta.images.length
+                        ? meta.images
+                        : meta?.image
+                            ? [meta.image]
+                            : [];
+                }
+
                 function navigate(dir) {
                     visibleItems = getVisibleItems();
+                    const images = getMetaImages(currentMeta);
+
+                    if (dir > 0 && currentFrameIndex < images.length - 1) {
+                        openModal(currentIndex, currentFrameIndex + 1);
+                        return;
+                    }
+                    if (dir < 0 && currentFrameIndex > 0) {
+                        openModal(currentIndex, currentFrameIndex - 1);
+                        return;
+                    }
+
                     const next = currentIndex + dir;
                     if (next >= 0 && next < visibleItems.length) {
-                        openModal(next);
+                        const nextImages = getMetaImages(getItemMeta(next));
+                        openModal(
+                            next,
+                            dir < 0 ? Math.max(0, nextImages.length - 1) : 0,
+                        );
                     }
                 }
 
@@ -678,16 +729,21 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
             }
         }
 
-        /* Compact layout: fixed split (< 1280px) */
+        /* Compact layout: isolated one-photo viewer (< 1280px).
+           Use dynamic viewport units so mobile browser chrome does not create
+           an accidental scroll stack of the gallery behind the modal. */
         @media (max-width: 1279px) {
             .modal-image-area {
-                height: 70vh;
-                flex-shrink: 0;
+                height: 70dvh;
+                min-height: 0;
+                flex: 0 0 70dvh;
             }
             .modal-info-area {
-                height: 30vh;
-                flex-shrink: 0;
+                height: 30dvh;
+                min-height: 0;
+                flex: 0 0 30dvh;
                 overflow-y: auto;
+                overscroll-behavior: contain;
                 -webkit-overflow-scrolling: touch;
             }
         }

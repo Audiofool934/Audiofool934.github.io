@@ -88,6 +88,7 @@ const gallery = defineCollection({
     schema: z.object({
         title: z.string(),
         image: z.string(),
+        images: z.array(z.string()).optional(),
         date: z.coerce.date(),
         location: z.string().optional(),
         camera: z.string().optional(),
