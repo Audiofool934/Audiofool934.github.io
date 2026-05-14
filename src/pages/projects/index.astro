@@ -15,24 +15,17 @@ const latestProjects =
 		? sortedProjects.filter((p) => p.data.featured)
 		: sortedProjects.slice(0, 3);
 
-// Group remaining by category
-const categorizedProjects = sortedProjects
-	.filter((p) => !latestProjects.includes(p))
-	.reduce(
-		(acc, project) => {
-			const cat = project.data.category || "Other";
-			if (!acc[cat]) acc[cat] = [];
-			acc[cat].push(project);
-			return acc;
-		},
-		{} as Record<string, typeof projects>,
-	);
-
-// Ensure categories from featured/latest projects also appear in the list
-latestProjects.forEach((project) => {
-	const cat = project.data.category || "Other";
-	if (!categorizedProjects[cat]) categorizedProjects[cat] = [];
-});
+// Group all projects by category. Featured projects can also appear in their
+// category, so the index works both as a highlight shelf and a catalog.
+const categorizedProjects = sortedProjects.reduce(
+	(acc, project) => {
+		const cat = project.data.category || "Other";
+		if (!acc[cat]) acc[cat] = [];
+		acc[cat].push(project);
+		return acc;
+	},
+	{} as Record<string, typeof projects>,
+);
 
 const categoryOrder = ["Personal Website", "Music Generation", "Course Project", "Agent", "Audio", "Web", "Dev", "Research", "Art", "Other"];
 const sortedCategories = Object.keys(categorizedProjects).sort((a, b) => {
