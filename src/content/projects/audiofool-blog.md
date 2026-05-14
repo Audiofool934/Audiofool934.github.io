@@ -2,7 +2,7 @@
 title: 'audiofool.blog'
 pubDate: '2026-05-14'
 description: 'A personal archive for notes, music, photography, projects, and public traces of ongoing work.'
-category: 'Web'
+category: 'Personal Website'
 status: 'active'
 featured: true
 stack: ['Astro', 'Content Collections', 'Notes', 'Gallery', 'AudioShow']

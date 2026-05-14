@@ -15,6 +15,13 @@ function stripReadmeFrontmatter(markdown) {
   return markdown.replace(/^---\n[\s\S]*?\n---\n?/, '');
 }
 
+function normalizeMarkdown(markdown) {
+  return markdown
+    // Prism in the site build does not ship every GitHub code fence alias.
+    // Keep the content, render unsupported fences as plain text.
+    .replace(/```bibtex\b/gi, '```text');
+}
+
 function rewriteMarkdownUrls(markdown, owner, repo, branch) {
   const rawBase = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
   const blobBase = `https://github.com/${owner}/${repo}/blob/${branch}/`;
@@ -74,7 +81,7 @@ async function syncProject(file) {
   }
 
   if (readmeMarkdown.trim()) {
-    const body = rewriteMarkdownUrls(stripReadmeFrontmatter(readmeMarkdown), owner, repo, branch).trim();
+    const body = normalizeMarkdown(rewriteMarkdownUrls(stripReadmeFrontmatter(readmeMarkdown), owner, repo, branch)).trim();
     const generated = `---\nproject: ${JSON.stringify(id)}\nrepo: ${JSON.stringify(githubRepo)}\nsourceUrl: ${JSON.stringify(meta.html_url)}\nsyncedAt: ${JSON.stringify(new Date().toISOString())}\n---\n\n${body}\n`;
     await writeFile(path.join(readmesDir, `readme-${id}.md`), generated, 'utf8');
   }

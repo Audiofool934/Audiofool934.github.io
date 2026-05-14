@@ -2,7 +2,8 @@
 title: 'DJ Claw'
 pubDate: '2026-05-14'
 description: 'A personal radio agent for music generation, taste memory, and station-like creative workflows.'
-category: 'Agent'
+category: 'Music Generation'
+status: 'active'
 featured: true
 stack: ['OpenClaw', 'Agents', 'Music Generation', 'Memory', 'Radio']
 type: 'Experiment'
