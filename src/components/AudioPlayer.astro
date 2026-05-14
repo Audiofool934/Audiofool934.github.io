@@ -3,24 +3,34 @@
 // State persists across View Transitions via window.__audioPlayerState
 import { loadAllEpisodes } from "../utils/loadEpisodes";
 import { sortEpisodesDesc } from "../utils/parseAudioshow";
+import previewCache from "../data/audioshow-preview-cache.json";
 
 const placeholderImage = "/images/placeholder-album.svg";
 const allEpisodes = loadAllEpisodes();
 const playlist = sortEpisodesDesc(allEpisodes)
-    .filter((ep) => ep.appleMusicUrl || ep.audioPreviewUrl)
     .map((ep) => {
-        // Prefer direct preview/local audio so the persistent player has a real
-        // audio source immediately. Apple Music links remain as a fallback.
-        const url = ep.audioPreviewUrl || ep.appleMusicUrl;
+        // The persistent player needs a direct browser-playable audio URL.
+        // Newer episodes provide Audio Preview in markdown. Older Apple-backed
+        // episodes use a build-time preview cache so the browser does not need
+        // to call the iTunes lookup API at play time.
+        const cachedPreview = ep.appleMusicUrl
+            ? previewCache[ep.appleMusicUrl as keyof typeof previewCache]
+            : undefined;
+        const legacyDirectUrl = ep.appleMusicUrl && !ep.appleMusicUrl.includes("music.apple.com")
+            ? ep.appleMusicUrl
+            : undefined;
+        const url = ep.audioPreviewUrl || cachedPreview?.previewUrl || legacyDirectUrl;
+        if (!url) return null;
         return {
             n: ep.number,
             t: ep.songTitle,
             a: ep.artist,
             url,
-            img: ep.imageUrl || placeholderImage,
-            type: url!.includes("music.apple.com") ? "apple" : "local",
+            img: ep.imageUrl || cachedPreview?.artwork || placeholderImage,
+            type: url.includes("music.apple.com") ? "apple" : "local",
         };
-    });
+    })
+    .filter((track): track is NonNullable<typeof track> => Boolean(track));
 ---
 
 <div id="audio-player-bar" transition:persist>
