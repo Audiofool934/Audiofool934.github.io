@@ -490,6 +490,30 @@ const playlist = sortEpisodesDesc(allEpisodes)
                 window.playTrack(t);
             }
 
+            function shouldUseBlobAudio(url) {
+                return /^https:\/\/audio-ssl\.itunes\.apple\.com\//.test(url || "");
+            }
+
+            async function resolvePlayableAudioUrl(url) {
+                if (!shouldUseBlobAudio(url)) return url;
+                if (!window.__audioBlobUrlCache) window.__audioBlobUrlCache = {};
+                if (window.__audioBlobUrlCache[url]) return window.__audioBlobUrlCache[url];
+
+                var response = await fetch(url, { mode: "cors" });
+                if (!response.ok) throw new Error("Audio preview fetch failed: " + response.status);
+                var sourceBlob = await response.blob();
+                var playableBlob = sourceBlob.type === "audio/mp4"
+                    ? sourceBlob
+                    : new Blob([sourceBlob], { type: "audio/mp4" });
+                var blobUrl = URL.createObjectURL(playableBlob);
+                window.__audioBlobUrlCache[url] = blobUrl;
+                return blobUrl;
+            }
+
+            async function setAudioSource(audio, url) {
+                audio.src = await resolvePlayableAudioUrl(url);
+            }
+
             // --- Play/Pause ---
             async function handlePlayPause() {
                 var audio = els.audio;
@@ -497,7 +521,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
 
                 if (noSource && state.track && state.track.url) {
                     if (state.track.type === "local") {
-                        audio.src = state.track.url;
+                        await setAudioSource(audio, state.track.url);
                         if (state.currentTime > 0) {
                             audio.currentTime = state.currentTime;
                         }
@@ -508,7 +532,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                                 var meta = await provider.resolve(state.track);
                                 state.track = Object.assign({}, meta, { type: state.track.type });
                                 syncUIWithState();
-                                audio.src = meta.url;
+                                await setAudioSource(audio, meta.url);
                                 if (state.currentTime > 0) {
                                     audio.currentTime = state.currentTime;
                                 }
@@ -517,7 +541,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                                 return;
                             }
                         } else {
-                            audio.src = state.track.url;
+                            await setAudioSource(audio, state.track.url);
                             if (state.currentTime > 0) {
                                 audio.currentTime = state.currentTime;
                             }
@@ -609,11 +633,14 @@ const playlist = sortEpisodesDesc(allEpisodes)
             // Restore audio src if lost
             var audioHasNoSrc = !els.audio.src || els.audio.src === "" || els.audio.src === window.location.href;
             if (audioHasNoSrc && state.track && state.track.url) {
-                els.audio.src = state.track.url;
-                if (state.isPlaying) {
-                    els.audio.currentTime = state.currentTime || 0;
-                    els.audio.play().catch(function () {});
-                }
+                setAudioSource(els.audio, state.track.url).then(function () {
+                    if (state.isPlaying) {
+                        els.audio.currentTime = state.currentTime || 0;
+                        els.audio.play().catch(function () {});
+                    }
+                }).catch(function (e) {
+                    console.error("Audio restore failed:", e);
+                });
             }
 
             // --- Global playTrack ---
@@ -662,7 +689,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                     var meta = await provider.resolve(track);
                     state.track = Object.assign({}, meta, { type: track.type });
                     syncUIWithState();
-                    els.audio.src = meta.url;
+                    await setAudioSource(els.audio, meta.url);
                     els.audio.play().catch(function (e) { console.error("Playback failed:", e); });
                 } catch (error) {
                     console.error("Provider error:", error);
