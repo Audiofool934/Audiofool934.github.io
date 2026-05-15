@@ -146,7 +146,7 @@ const placeholderImage = "/images/placeholder-album.svg";
     .audioshow-carousel {
         --ep-card-width: 420px;
         --ep-card-gap: 1.5rem;
-        scroll-snap-type: x proximity;
+        scroll-snap-type: x mandatory;
         scroll-padding-inline: max(1.5rem, calc((100% - var(--ep-card-width)) / 2));
         scroll-behavior: smooth;
         overscroll-behavior-x: contain;
@@ -172,7 +172,7 @@ const placeholderImage = "/images/placeholder-album.svg";
     }
 
     /* Default: large cards (vh > 1100px) */
-    .ep-card { width: var(--ep-card-width); scroll-snap-align: center; }
+    .ep-card { width: var(--ep-card-width); scroll-snap-align: center; scroll-snap-stop: always; }
     .ep-content { max-height: 190px; padding: 1rem; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
     .ep-quote { font-size: 0.8rem; margin-bottom: 0.75rem; }
     .ep-title { font-size: 1.125rem; margin-bottom: 0.25rem; }
@@ -225,11 +225,11 @@ const placeholderImage = "/images/placeholder-album.svg";
             });
         });
 
-        // Scroll navigation buttons
+        // Scroll navigation + mobile shelf snapping
         const container = document.querySelector(".audioshow-carousel");
         const leftBtn = document.getElementById("scroll-left");
         const rightBtn = document.getElementById("scroll-right");
-        if (container && leftBtn && rightBtn) {
+        if (container) {
             const cards = () => Array.from(container.querySelectorAll(".ep-card"));
             const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
             const currentIndex = () => {
@@ -267,8 +267,35 @@ const placeholderImage = "/images/placeholder-album.svg";
                     behavior: "smooth",
                 });
             };
-            leftBtn.addEventListener("click", () => scrollToCard(currentIndex() - 1));
-            rightBtn.addEventListener("click", () => scrollToCard(currentIndex() + 1));
+
+            if (leftBtn && rightBtn) {
+                leftBtn.addEventListener("click", () => scrollToCard(currentIndex() - 1));
+                rightBtn.addEventListener("click", () => scrollToCard(currentIndex() + 1));
+            }
+
+            let gesture = null;
+            container.addEventListener("pointerdown", (event) => {
+                if (isDesktop() || event.pointerType === "mouse") return;
+                gesture = {
+                    x: event.clientX,
+                    y: event.clientY,
+                    index: currentIndex(),
+                };
+            });
+            container.addEventListener("pointerup", (event) => {
+                if (!gesture || isDesktop() || event.pointerType === "mouse") return;
+                const dx = event.clientX - gesture.x;
+                const dy = event.clientY - gesture.y;
+                const horizontal = Math.abs(dx) > 28 && Math.abs(dx) > Math.abs(dy) * 1.2;
+                const target = horizontal
+                    ? gesture.index + (dx < 0 ? 1 : -1)
+                    : currentIndex();
+                gesture = null;
+                scrollToCard(target);
+            });
+            container.addEventListener("pointercancel", () => {
+                gesture = null;
+            });
         }
     });
 </script>
