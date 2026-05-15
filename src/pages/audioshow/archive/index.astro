@@ -116,7 +116,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                                             <button
                                                 class="w-8 text-center opacity-50 hover:opacity-100 transition-opacity"
                                                 data-play-track={JSON.stringify({
-                                                    type: ep.audioPreviewUrl ? 'local' : 'apple',
+                                                    type: (ep.audioPreviewUrl || ep.appleMusicUrl)?.includes('music.apple.com') ? 'apple' : 'local',
                                                     url: ep.audioPreviewUrl || ep.appleMusicUrl,
                                                     title: ep.songTitle,
                                                     artist: ep.artist,

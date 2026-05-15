@@ -55,7 +55,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                         <div
                             class="ep-artwork relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer"
                             data-track={(ep.appleMusicUrl || ep.audioPreviewUrl) ? JSON.stringify({
-                                type: ep.audioPreviewUrl ? 'local' : 'apple',
+                                type: (ep.audioPreviewUrl || ep.appleMusicUrl)?.includes('music.apple.com') ? 'apple' : 'local',
                                 url: ep.audioPreviewUrl || ep.appleMusicUrl,
                                 title: ep.songTitle,
                                 artist: ep.artist,
