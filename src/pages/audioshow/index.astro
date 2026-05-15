@@ -49,7 +49,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                 
                 {recentEpisodes.map((ep) => (
                     <div
-                        class="ep-card group flex-shrink-0 border border-[var(--border-main)] bg-[var(--bg-body)] transition-all hover:shadow-lg hover:border-[var(--text-main)] relative"
+                        class="ep-card flex-shrink-0 border border-[var(--border-main)] bg-[var(--bg-body)] transition-all relative"
                     >
                         <!-- Album Artwork - click to play -->
                         <div
@@ -65,13 +65,13 @@ const placeholderImage = "/images/placeholder-album.svg";
                             <img 
                                 src={ep.imageUrl || placeholderImage}
                                 alt={ep.coverAlt || `${ep.songTitle} - ${ep.artist}`}
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                class="ep-cover-image w-full h-full object-cover transition-transform duration-500"
                                 loading="lazy"
                                 onerror={`this.src='${placeholderImage}'`}
                             />
                             <!-- Play Overlay -->
                             {(ep.appleMusicUrl || ep.audioPreviewUrl) && (
-                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <div class="ep-play-overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
                                     <span class="text-white text-4xl">▶</span>
                                 </div>
                             )}
@@ -173,6 +173,63 @@ const placeholderImage = "/images/placeholder-album.svg";
 
     /* Default: large cards (vh > 1100px) */
     .ep-card { width: var(--ep-card-width); scroll-snap-align: center; scroll-snap-stop: always; }
+
+    .ep-play-overlay {
+        pointer-events: none;
+    }
+
+    /* Keep hover cinematic on desktop, but avoid sticky :hover states after taps on touch screens. */
+    @media (hover: hover) and (pointer: fine) {
+        .ep-card:hover {
+            border-color: var(--text-main);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .ep-card:hover .ep-cover-image {
+            transform: scale(1.05);
+        }
+        .ep-card:hover .ep-play-overlay {
+            opacity: 1;
+        }
+    }
+
+    /* Touch screens get a short tap response, then return to the clean resting state. */
+    @media (hover: none), (pointer: coarse) {
+        .ep-card:hover {
+            border-color: var(--border-main);
+            box-shadow: none;
+        }
+        .ep-card:hover .ep-cover-image {
+            transform: none;
+        }
+        .ep-card:hover .ep-play-overlay {
+            opacity: 0;
+        }
+        .ep-card.is-tap-feedback {
+            animation: ep-tap-card 260ms ease-out;
+        }
+        .ep-card.is-tap-feedback .ep-cover-image {
+            transform: scale(0.985);
+        }
+        .ep-card.is-tap-feedback .ep-play-overlay {
+            opacity: 1;
+        }
+    }
+
+    @keyframes ep-tap-card {
+        0% {
+            border-color: var(--border-main);
+            box-shadow: none;
+        }
+        35% {
+            border-color: var(--text-main);
+            box-shadow: 0 8px 18px -8px rgb(0 0 0 / 0.35);
+        }
+        100% {
+            border-color: var(--border-main);
+            box-shadow: none;
+        }
+    }
+
     .ep-content { max-height: 190px; padding: 1rem; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
     .ep-quote { font-size: 0.8rem; margin-bottom: 0.75rem; }
     .ep-title { font-size: 1.125rem; margin-bottom: 0.25rem; }
@@ -218,8 +275,17 @@ const placeholderImage = "/images/placeholder-album.svg";
 
 <script is:inline>
     document.addEventListener("astro:page-load", () => {
+        const hasCoarsePointer = () => window.matchMedia("(hover: none), (pointer: coarse)").matches;
         document.querySelectorAll("[data-track]").forEach((el) => {
             el.addEventListener("click", () => {
+                const card = el.closest(".ep-card");
+                if (card && hasCoarsePointer()) {
+                    card.classList.remove("is-tap-feedback");
+                    void card.offsetWidth;
+                    card.classList.add("is-tap-feedback");
+                    window.setTimeout(() => card.classList.remove("is-tap-feedback"), 280);
+                }
+
                 const track = JSON.parse(el.dataset.track);
                 window.playTrack(track);
             });
