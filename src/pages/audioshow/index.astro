@@ -205,7 +205,7 @@ const placeholderImage = "/images/placeholder-album.svg";
             opacity: 0;
         }
         .ep-card.is-tap-feedback .ep-cover-image {
-            animation: ep-tap-cover 500ms cubic-bezier(.2, .8, .2, 1);
+            animation: ep-tap-cover 420ms cubic-bezier(.22, 1, .36, 1);
         }
         .ep-card.is-tap-feedback .ep-play-overlay {
             opacity: 0;
@@ -213,9 +213,9 @@ const placeholderImage = "/images/placeholder-album.svg";
     }
 
     @keyframes ep-tap-cover {
-        0% { transform: scale(1); }
-        28% { transform: scale(0.985); }
-        100% { transform: scale(1); }
+        0% { transform: scale(1); filter: brightness(1); }
+        35% { transform: scale(0.993); filter: brightness(0.97); }
+        100% { transform: scale(1); filter: brightness(1); }
     }
 
     .ep-content { max-height: 190px; padding: 1rem; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
@@ -271,7 +271,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                     card.classList.remove("is-tap-feedback");
                     void card.offsetWidth;
                     card.classList.add("is-tap-feedback");
-                    window.setTimeout(() => card.classList.remove("is-tap-feedback"), 520);
+                    window.setTimeout(() => card.classList.remove("is-tap-feedback"), 440);
                 }
 
                 const track = JSON.parse(el.dataset.track);
