@@ -130,11 +130,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                                         .toISOString()
                                         .split("T")[0]}
                                 </span>
-                                {item.data.images && item.data.images.length > 1 ? (
-                                    <span class="font-mono text-[10px] text-[var(--text-muted)] truncate ml-2">
-                                        Set · {item.data.images.length}
-                                    </span>
-                                ) : item.data.location && (
+                                {item.data.location && (
                                     <span class="font-mono text-[10px] text-[var(--text-muted)] truncate ml-2">
                                         {item.data.location}
                                     </span>
