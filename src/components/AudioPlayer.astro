@@ -490,14 +490,32 @@ const playlist = sortEpisodesDesc(allEpisodes)
                 window.playTrack(t);
             }
 
+            function audioTypeForUrl(url) {
+                if (/^https:\/\/audio-ssl\.itunes\.apple\.com\//.test(url || "")) return "audio/mp4";
+                if (/\.mp3(?:[?#]|$)/i.test(url || "") || /^https:\/\/p\.scdn\.co\//.test(url || "")) return "audio/mpeg";
+                return "";
+            }
+
+            function setAudioSource(audio, url) {
+                while (audio.firstChild) audio.removeChild(audio.firstChild);
+                audio.removeAttribute("src");
+
+                var source = document.createElement("source");
+                source.src = url;
+                var type = audioTypeForUrl(url);
+                if (type) source.type = type;
+                audio.appendChild(source);
+                audio.load();
+            }
+
             // --- Play/Pause ---
             async function handlePlayPause() {
                 var audio = els.audio;
-                var noSource = !audio.src || audio.src === "" || audio.src === window.location.href;
+                var noSource = !audio.currentSrc && (!audio.src || audio.src === "" || audio.src === window.location.href);
 
                 if (noSource && state.track && state.track.url) {
                     if (state.track.type === "local") {
-                        audio.src = state.track.url;
+                        setAudioSource(audio, state.track.url);
                         if (state.currentTime > 0) {
                             audio.currentTime = state.currentTime;
                         }
@@ -508,7 +526,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                                 var meta = await provider.resolve(state.track);
                                 state.track = Object.assign({}, meta, { type: state.track.type });
                                 syncUIWithState();
-                                audio.src = meta.url;
+                                setAudioSource(audio, meta.url);
                                 if (state.currentTime > 0) {
                                     audio.currentTime = state.currentTime;
                                 }
@@ -517,7 +535,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                                 return;
                             }
                         } else {
-                            audio.src = state.track.url;
+                            setAudioSource(audio, state.track.url);
                             if (state.currentTime > 0) {
                                 audio.currentTime = state.currentTime;
                             }
@@ -607,9 +625,9 @@ const playlist = sortEpisodesDesc(allEpisodes)
             }
 
             // Restore audio src if lost
-            var audioHasNoSrc = !els.audio.src || els.audio.src === "" || els.audio.src === window.location.href;
+            var audioHasNoSrc = !els.audio.currentSrc && (!els.audio.src || els.audio.src === "" || els.audio.src === window.location.href);
             if (audioHasNoSrc && state.track && state.track.url) {
-                els.audio.src = state.track.url;
+                setAudioSource(els.audio, state.track.url);
                 if (state.isPlaying) {
                     els.audio.currentTime = state.currentTime || 0;
                     els.audio.play().catch(function () {});
@@ -662,7 +680,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                     var meta = await provider.resolve(track);
                     state.track = Object.assign({}, meta, { type: track.type });
                     syncUIWithState();
-                    els.audio.src = meta.url;
+                    setAudioSource(els.audio, meta.url);
                     els.audio.play().catch(function (e) { console.error("Playback failed:", e); });
                 } catch (error) {
                     console.error("Provider error:", error);
