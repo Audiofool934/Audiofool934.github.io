@@ -51,9 +51,9 @@ function getType(post: (typeof timelinePosts)[number]) {
 			</h1>
 			<div class="max-w-2xl text-[var(--text-muted)] text-base md:text-lg leading-relaxed space-y-5 index-intro">
 				<p>
-					I build and study creative AI, with a focus on
-					<span class="index-tag">multimodal understanding/generation</span>
-					and <span class="index-tag">AI agent</span>.
+					I build and study <strong>creative AI</strong>, with a focus on
+					<strong>multimodal understanding/generation</strong> and
+					<strong>AI agent</strong>.
 				</p>
 				<p>
 					The <a href="/timeline/">timeline</a> is a chronological trace of notes, projects, music, photos, and site changes. <a href="/projects/">Projects</a> collects what I’m building. <a href="/notes/">Notes</a> holds math, AI/ML, and ideas in progress. <a href="/audioshow/">AudioShow</a> is my long-running music journal — one song per episode, 200+ so far. <a href="/gallery/">Gallery</a> keeps selected photographs I took.
@@ -123,16 +123,9 @@ function getType(post: (typeof timelinePosts)[number]) {
 		opacity: 0.86;
 	}
 
-	.index-tag {
-		display: inline-block;
-		margin: 0 0.12rem;
-		padding: 0.02rem 0.32rem;
-		border: 1px solid var(--border-main);
+	.index-intro strong {
 		color: var(--text-main);
-		font-family: var(--font-mono);
-		font-size: 0.72em;
-		letter-spacing: 0.02em;
-		vertical-align: 0.08em;
+		font-weight: 700;
 	}
 
 	.index-intro a {
