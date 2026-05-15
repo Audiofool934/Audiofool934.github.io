@@ -205,7 +205,7 @@ const placeholderImage = "/images/placeholder-album.svg";
             opacity: 0;
         }
         .ep-card.is-tap-feedback {
-            animation: ep-tap-card 260ms ease-out;
+            animation: ep-tap-card 500ms ease-out;
         }
         .ep-card.is-tap-feedback .ep-cover-image {
             transform: scale(0.985);
@@ -283,7 +283,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                     card.classList.remove("is-tap-feedback");
                     void card.offsetWidth;
                     card.classList.add("is-tap-feedback");
-                    window.setTimeout(() => card.classList.remove("is-tap-feedback"), 280);
+                    window.setTimeout(() => card.classList.remove("is-tap-feedback"), 520);
                 }
 
                 const track = JSON.parse(el.dataset.track);
