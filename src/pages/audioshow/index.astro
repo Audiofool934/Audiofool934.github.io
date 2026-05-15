@@ -43,13 +43,13 @@ const placeholderImage = "/images/placeholder-album.svg";
         <!-- Recent Episodes - Horizontal Scroll -->
         <section class="relative">
             <!-- Scrollable Container -->
-            <div class="flex gap-4 md:gap-6 overflow-x-auto pb-6 md:pb-8 pt-4 snap-x snap-mandatory scrollbar-hide">
-                <!-- Left Spacer - smaller for less empty space -->
-                <div class="flex-shrink-0 w-8 md:w-16"></div>
+            <div class="audioshow-carousel flex gap-4 md:gap-6 overflow-x-auto pb-6 md:pb-8 pt-4 scrollbar-hide">
+                <!-- Edge spacers let the first/last card settle cleanly in the viewing lane. -->
+                <div class="carousel-edge-spacer" aria-hidden="true"></div>
                 
                 {recentEpisodes.map((ep) => (
                     <div
-                        class="ep-card group flex-shrink-0 snap-center border border-[var(--border-main)] bg-[var(--bg-body)] transition-all hover:shadow-lg hover:border-[var(--text-main)] relative"
+                        class="ep-card group flex-shrink-0 border border-[var(--border-main)] bg-[var(--bg-body)] transition-all hover:shadow-lg hover:border-[var(--text-main)] relative"
                     >
                         <!-- Album Artwork - click to play -->
                         <div
@@ -107,7 +107,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                 ))}
                 
                 <!-- Right Spacer -->
-                <div class="flex-shrink-0 w-8 md:w-16"></div>
+                <div class="carousel-edge-spacer" aria-hidden="true"></div>
             </div>
         </section>
 
@@ -143,9 +143,37 @@ const placeholderImage = "/images/placeholder-album.svg";
 </MinimalLayout>
 
 <style>
+    .audioshow-carousel {
+        --ep-card-width: 420px;
+        --ep-card-gap: 1.5rem;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: max(1.5rem, calc((100% - var(--ep-card-width)) / 2));
+        scroll-behavior: smooth;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel-edge-spacer {
+        flex: 0 0 max(1.5rem, calc((100% - var(--ep-card-width)) / 2));
+        min-width: 0;
+    }
+
+    @media (min-width: 768px) {
+        .audioshow-carousel {
+            scroll-snap-type: none;
+            scroll-padding-inline: 4rem;
+        }
+        .carousel-edge-spacer {
+            flex-basis: 4rem;
+        }
+        .ep-card {
+            scroll-snap-align: start;
+        }
+    }
+
     /* Default: large cards (vh > 1100px) */
-    .ep-card { width: 420px; }
-    .ep-content { max-height: 190px; padding: 1rem; -webkit-overflow-scrolling: touch; }
+    .ep-card { width: var(--ep-card-width); scroll-snap-align: center; }
+    .ep-content { max-height: 190px; padding: 1rem; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
     .ep-quote { font-size: 0.8rem; margin-bottom: 0.75rem; }
     .ep-title { font-size: 1.125rem; margin-bottom: 0.25rem; }
     .ep-artist { font-size: 0.75rem; margin-bottom: 0.375rem; }
@@ -162,7 +190,7 @@ const placeholderImage = "/images/placeholder-album.svg";
 
     /* Medium: 800px < vh <= 1100px */
     @media (max-height: 1100px) {
-        .ep-card { width: 320px; }
+        .audioshow-carousel { --ep-card-width: 320px; }
         .ep-content { max-height: 165px; padding: 0.75rem; }
         .ep-quote { font-size: 0.75rem; margin-bottom: 0.5rem; }
         .ep-title { font-size: 1rem; margin-bottom: 0.25rem; }
@@ -173,13 +201,18 @@ const placeholderImage = "/images/placeholder-album.svg";
 
     /* Compact: vh <= 800px */
     @media (max-height: 800px) {
-        .ep-card { width: 220px; }
+        .audioshow-carousel { --ep-card-width: 220px; }
         .ep-content { max-height: 130px; padding: 0.625rem; }
         .ep-quote { font-size: 0.65rem; margin-bottom: 0.375rem; }
         .ep-title { font-size: 0.875rem; margin-bottom: 0.125rem; }
         .ep-artist { font-size: 0.65rem; margin-bottom: 0.125rem; }
         .ep-meta { font-size: 0.6rem; }
         .ep-number { font-size: 0.55rem; margin-top: 0.25rem; }
+    }
+
+    /* Phones should size the shelf by viewport width, not just viewport height. */
+    @media (max-width: 767px) {
+        .audioshow-carousel { --ep-card-width: min(74vw, 280px); }
     }
 </style>
 
@@ -193,18 +226,49 @@ const placeholderImage = "/images/placeholder-album.svg";
         });
 
         // Scroll navigation buttons
-        const container = document.querySelector(".scrollbar-hide");
+        const container = document.querySelector(".audioshow-carousel");
         const leftBtn = document.getElementById("scroll-left");
         const rightBtn = document.getElementById("scroll-right");
         if (container && leftBtn && rightBtn) {
-            const card = container.querySelector(".ep-card");
-            const scrollAmount = () => card ? card.offsetWidth + 24 : 340;
-            leftBtn.addEventListener("click", () => {
-                container.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
-            });
-            rightBtn.addEventListener("click", () => {
-                container.scrollBy({ left: scrollAmount(), behavior: "smooth" });
-            });
+            const cards = () => Array.from(container.querySelectorAll(".ep-card"));
+            const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
+            const currentIndex = () => {
+                const containerRect = container.getBoundingClientRect();
+                const styles = getComputedStyle(container);
+                const paddingLeft = parseFloat(styles.scrollPaddingLeft) || 0;
+                const targetLine = isDesktop()
+                    ? containerRect.left + paddingLeft
+                    : containerRect.left + containerRect.width / 2;
+                return cards().reduce((best, card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    const cardLine = isDesktop()
+                        ? rect.left
+                        : rect.left + rect.width / 2;
+                    const distance = Math.abs(cardLine - targetLine);
+                    return distance < best.distance ? { index, distance } : best;
+                }, { index: 0, distance: Infinity }).index;
+            };
+            const scrollToCard = (index) => {
+                const list = cards();
+                const target = list[Math.max(0, Math.min(index, list.length - 1))];
+                if (!target) return;
+
+                const containerRect = container.getBoundingClientRect();
+                const targetRect = target.getBoundingClientRect();
+                const styles = getComputedStyle(container);
+                const paddingLeft = parseFloat(styles.scrollPaddingLeft) || 0;
+                const targetLeft = targetRect.left - containerRect.left + container.scrollLeft;
+                const desiredInset = isDesktop()
+                    ? paddingLeft
+                    : (container.clientWidth - targetRect.width) / 2;
+
+                container.scrollTo({
+                    left: Math.max(0, targetLeft - desiredInset),
+                    behavior: "smooth",
+                });
+            };
+            leftBtn.addEventListener("click", () => scrollToCard(currentIndex() - 1));
+            rightBtn.addEventListener("click", () => scrollToCard(currentIndex() + 1));
         }
     });
 </script>
