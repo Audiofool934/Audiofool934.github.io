@@ -118,7 +118,19 @@ const groupedTracks = crate.sections.map((section) => ({
 
                         <div>
                             {section.tracks.map((track) => (
-                                <div class="grid grid-cols-[48px_1fr] gap-4 border-b border-[var(--border-main)] p-4 last:border-b-0 md:grid-cols-[56px_56px_minmax(0,1fr)_220px] md:items-center">
+                                <div
+                                    class="track-row group grid cursor-pointer grid-cols-[48px_minmax(0,1fr)_32px] gap-4 border-b border-[var(--border-main)] p-4 transition-colors last:border-b-0 md:grid-cols-[56px_56px_minmax(0,1fr)_220px_40px] md:items-center"
+                                    data-crate-track={JSON.stringify({
+                                        type: "local",
+                                        url: track.audioPreviewUrl,
+                                        title: track.title,
+                                        artist: track.artists,
+                                        artwork: track.cover,
+                                    })}
+                                    tabindex="0"
+                                    role="button"
+                                    aria-label={`Play preview: ${track.title}`}
+                                >
                                     <div class="h-12 w-12 overflow-hidden border border-[var(--border-main)] md:h-14 md:w-14">
                                         <img
                                             src={track.cover}
@@ -152,6 +164,13 @@ const groupedTracks = crate.sections.map((section) => ({
                                     <div class="col-start-2 truncate text-sm text-[var(--text-muted)] md:col-start-auto">
                                         {track.artists}
                                     </div>
+
+                                    <span
+                                        class="col-start-3 row-span-2 row-start-1 self-center text-center text-sm text-[var(--text-muted)] transition-colors group-hover:text-[var(--text-main)] md:col-start-auto md:row-span-1 md:row-start-auto"
+                                        aria-hidden="true"
+                                    >
+                                        ▶
+                                    </span>
                                 </div>
                             ))}
                         </div>
@@ -161,3 +180,34 @@ const groupedTracks = crate.sections.map((section) => ({
         </article>
     </div>
 </MinimalLayout>
+
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll("[data-crate-track]").forEach((row) => {
+            const playTrack = () => {
+                const data = row.dataset.crateTrack;
+                if (!data || !window.playTrack) return;
+                window.playTrack(JSON.parse(data));
+            };
+
+            row.addEventListener("click", playTrack);
+            row.addEventListener("keydown", (event) => {
+                if (event.key !== "Enter" && event.key !== " ") return;
+                event.preventDefault();
+                playTrack();
+            });
+        });
+    });
+</script>
+
+<style>
+    .track-row:hover,
+    .track-row:focus-visible {
+        background: color-mix(in srgb, var(--text-main) 5%, transparent);
+    }
+
+    .track-row:focus-visible {
+        outline: 2px solid var(--text-main);
+        outline-offset: -2px;
+    }
+</style>

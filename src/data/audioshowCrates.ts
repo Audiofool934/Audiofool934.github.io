@@ -6,6 +6,7 @@ export type AudioShowCrateTrack = {
     album: string;
     year: string;
     spotifyUrl: string;
+    audioPreviewUrl: string;
     cover: string;
 };
 
@@ -71,6 +72,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Fight Club (Original Motion Picture Score)",
                 year: "1999",
                 spotifyUrl: "https://open.spotify.com/track/4CHUtW0YPiyJwUdJKIk6cp",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/14d90618184310b515b16a51091f93f44a5c6773",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/01-4CHUtW0YPiyJwUdJKIk6cp.webp",
             },
             {
@@ -81,6 +83,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Screamadelica",
                 year: "1991",
                 spotifyUrl: "https://open.spotify.com/track/7dSBZzVmyBaLDxT2v3EJHB",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/e85deb7f28b44a4bcbd3b3f8544e3c379d4d268a",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/02-7dSBZzVmyBaLDxT2v3EJHB.webp",
             },
             {
@@ -91,6 +94,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Exit Planet Dust",
                 year: "1995",
                 spotifyUrl: "https://open.spotify.com/track/4mFDB35IaTzrzqMn4spMqo",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/c10ce430a9f419e479c61ddd84afadb94e0323a5",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/03-4mFDB35IaTzrzqMn4spMqo.webp",
             },
             {
@@ -101,6 +105,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Decksandrumsandrockandroll 20th anniversary",
                 year: "1998",
                 spotifyUrl: "https://open.spotify.com/track/6po71PeJnTDHZdqYcFfAY1",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/f52c05023071fe880f83d196658af7d902588014",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/04-6po71PeJnTDHZdqYcFfAY1.webp",
             },
             {
@@ -111,6 +116,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Pigeonhed's Flash Bulb Emergency Overflow Cavalcade of Remixes",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/5Q8TJJf4X18GRemriCEUs2",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/d0d5dc305cf4aa813a831fc604ef5f4e2469a7cd",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/05-5Q8TJJf4X18GRemriCEUs2.webp",
             },
             {
@@ -121,6 +127,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Vegas",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/43F49A8ReVXhH7l0jGMViS",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/f89e20bdbcff613d6dc3816de2b677738c8bc458",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/06-43F49A8ReVXhH7l0jGMViS.webp",
             },
             {
@@ -131,6 +138,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Fight Club (Original Motion Picture Score)",
                 year: "1999",
                 spotifyUrl: "https://open.spotify.com/track/6NOId30dbtZ0rU3em9KqT9",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/dfbc912c033ef03c68213b58987be70fe431b837",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/07-6NOId30dbtZ0rU3em9KqT9.webp",
             },
             {
@@ -141,6 +149,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Dig Your Own Hole",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/1FNvrp5K02oThumS6gllzp",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/24fcbec29f873880900df342cd7cd2f2a28ae1db",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/08-1FNvrp5K02oThumS6gllzp.webp",
             },
             {
@@ -151,6 +160,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Actual Sounds + Voices",
                 year: "1998",
                 spotifyUrl: "https://open.spotify.com/track/1PuEx5VByUrl2T7ZKwdlJF",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/ea97c86d001ed49c1ec0c6d7169b7e081834434e",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/09-1PuEx5VByUrl2T7ZKwdlJF.webp",
             },
             {
@@ -161,6 +171,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "The Fat of the Land",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/1TfNHfBWSRibIvGBuuIA6S",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/5454051485c680dbb257e7026e2f0ff7c72203c3",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/10-1TfNHfBWSRibIvGBuuIA6S.webp",
             },
             {
@@ -171,6 +182,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Bentley's Gonna Sort You Out / Run On The Spot [playlist 1]",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/6zkzVqF9cR4uHYyytxQ8Dz",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/d47cb2ef9b270bf820c9c1fd5b8a336f3f2bd198",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/11-6zkzVqF9cR4uHYyytxQ8Dz.webp",
             },
             {
@@ -181,6 +193,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "The Antidote",
                 year: "1998",
                 spotifyUrl: "https://open.spotify.com/track/3IBDXz8f3k78Tb46ipwQau",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/dd3d3f2b67a932661624a78962a18e43934ae6c3",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/12-3IBDXz8f3k78Tb46ipwQau.webp",
             },
             {
@@ -191,6 +204,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Ill Communication",
                 year: "1994",
                 spotifyUrl: "https://open.spotify.com/track/0Puj4YlTm6xNzDDADXHMI9",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/48ade18a4f29b0682ef4a0bfd88a6f3e13dde9b4",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/13-0Puj4YlTm6xNzDDADXHMI9.webp",
             },
             {
@@ -201,6 +215,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Wreckage",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/1HeCBrZd0A2ub1E8aeZJie",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/16ef4fa11fd948fa7e9e4870bbe8ab0f3ba6ee1a",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/14-1HeCBrZd0A2ub1E8aeZJie.webp",
             },
             {
@@ -211,6 +226,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Fight Club (Original Motion Picture Score)",
                 year: "1999",
                 spotifyUrl: "https://open.spotify.com/track/1fnvySkLufh3fE3dobFkUL",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/4675d9c0d7d30d23ff41b03c442389cc396e1e1f",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/15-1fnvySkLufh3fE3dobFkUL.webp",
             },
             {
@@ -221,6 +237,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Endtroducing.....",
                 year: "1996",
                 spotifyUrl: "https://open.spotify.com/track/4Ms0GKHCtr5Lpg4dKOhO2I",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/38eb48f234f0b1ee891da6d7546dc8cabce26f9f",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/16-4Ms0GKHCtr5Lpg4dKOhO2I.webp",
             },
             {
@@ -231,6 +248,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Endtroducing.....",
                 year: "1996",
                 spotifyUrl: "https://open.spotify.com/track/6RCn8kS0gg3clXjhioVbrR",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/434a990396dffe8ff1e205e269602b92db4628b2",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/17-6RCn8kS0gg3clXjhioVbrR.webp",
             },
             {
@@ -241,6 +259,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Dr. Octagonecologyst",
                 year: "1996",
                 spotifyUrl: "https://open.spotify.com/track/1xQ1v0xnKgZyQX90f75bKt",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/e4285bc0b8b62b0f62b65ab3188ba27373a03b24",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/18-1xQ1v0xnKgZyQX90f75bKt.webp",
             },
             {
@@ -251,6 +270,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Psyence Fiction",
                 year: "1998",
                 spotifyUrl: "https://open.spotify.com/track/2bfRktPJr29R7gm880ojXc",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/4fdfbc6fbbade7e64a424338fb3494eaf6c9420d",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/19-2bfRktPJr29R7gm880ojXc.webp",
             },
             {
@@ -261,6 +281,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Mezzanine",
                 year: "1998",
                 spotifyUrl: "https://open.spotify.com/track/7uv632EkfwYhXoqf8rhYrg",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/bf35426762db02d161ca834044d48ab355fc97e2",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/20-7uv632EkfwYhXoqf8rhYrg.webp",
             },
             {
@@ -271,6 +292,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Dummy",
                 year: "1994",
                 spotifyUrl: "https://open.spotify.com/track/2O6X9nPVVQSefg3xOQAo5u",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/eb019583c1701ce3b435e5d949d859ee70d7022d",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/21-2O6X9nPVVQSefg3xOQAo5u.webp",
             },
             {
@@ -281,6 +303,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "6 Underground",
                 year: "1996",
                 spotifyUrl: "https://open.spotify.com/track/5co3lJr6JzX0auDZHDbhjX",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/132bbe9933b58152b8e0224c4053f5a2a1745d21",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/22-5co3lJr6JzX0auDZHDbhjX.webp",
             },
             {
@@ -291,6 +314,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Fight Club (Original Motion Picture Score)",
                 year: "1999",
                 spotifyUrl: "https://open.spotify.com/track/1g629VHR1XCIuWNXUSgThh",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/61b4e820c8ee8d51bf09cc429e97d390114c1fad",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/23-1g629VHR1XCIuWNXUSgThh.webp",
             },
             {
@@ -301,6 +325,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Surrender",
                 year: "1999",
                 spotifyUrl: "https://open.spotify.com/track/65lXKIwtMPW2HCr4CvLPiZ",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/bb1753eda1ffcfb24f7b3e2b7b704f4815c4d670",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/24-65lXKIwtMPW2HCr4CvLPiZ.webp",
             },
             {
@@ -311,6 +336,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Rhythm and Stealth",
                 year: "1999",
                 spotifyUrl: "https://open.spotify.com/track/3cR4v4R9tl8vZkOAgqiMQh",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/69b5682b02a27b6b292fb7168d788f8f6261e144",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/25-3cR4v4R9tl8vZkOAgqiMQh.webp",
             },
             {
@@ -321,6 +347,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "The Fat of the Land",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/32rLiB4MPCGWrIBypX8WYf",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/dabba528dd8bf69eace9f0157a2adc4b8ee3a390",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/26-32rLiB4MPCGWrIBypX8WYf.webp",
             },
             {
@@ -331,6 +358,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Vegas",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/3MmAMXCl5e3oJFMzhpfXkM",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/82b94153cfcb760dc844353ee1c8e1be73405194",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/27-3MmAMXCl5e3oJFMzhpfXkM.webp",
             },
             {
@@ -341,6 +369,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "The Contino Sessions",
                 year: "1999",
                 spotifyUrl: "https://open.spotify.com/track/5nt6NJgwLa8p0xWpjCWk5p",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/f18177012f774e9fe0f8c0fad1b27694bed35f40",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/28-5nt6NJgwLa8p0xWpjCWk5p.webp",
             },
             {
@@ -351,6 +380,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Psyence Fiction",
                 year: "1998",
                 spotifyUrl: "https://open.spotify.com/track/6CQiD0STiKFsjSdVKtztjJ",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/8f8c5920b4c335e4d08a47950d51ef669bccb257",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/29-6CQiD0STiKFsjSdVKtztjJ.webp",
             },
             {
@@ -361,6 +391,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Psyence Fiction",
                 year: "1998",
                 spotifyUrl: "https://open.spotify.com/track/2LmFeLBe39IfY0XfqJ0vOi",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/4b6cd3be3dbf722282366e428eb7a387d52c8913",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/30-2LmFeLBe39IfY0XfqJ0vOi.webp",
             },
             {
@@ -371,6 +402,7 @@ export const audioshowCrates: AudioShowCrate[] = [
                 album: "Death to the Pixies",
                 year: "1997",
                 spotifyUrl: "https://open.spotify.com/track/0KzAbK6nItSqNh8q70tb0K",
+                audioPreviewUrl: "https://p.scdn.co/mp3-preview/8414c9d0e363c390f38e74a2fc735bb0bca666cd",
                 cover: "/images/audioshow/crates/the-first-rule/tracks/31-0KzAbK6nItSqNh8q70tb0K.webp",
             },
         ],
