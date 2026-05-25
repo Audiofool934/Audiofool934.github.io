@@ -412,11 +412,11 @@ export const audioshowCrates: AudioShowCrate[] = [
         "number": "002",
         "title": "A Pink Floyd Experience",
         "premise": "A long-form path through Pink Floyd's psychedelic, pastoral, monumental, and post-war worlds.",
-        "curatorNote": "Everett's own Pink Floyd map: Syd-era color, pastoral long-form space, classic album architecture, The Wall and The Final Cut as trauma theater, then late Gilmour afterglow.",
+        "curatorNote": "Everett's own Pink Floyd map, now filed by his chapter titles: Pink Spirit, Set the Controls, Echoes, Dark Side, Stones or Bricks, Learning to Floyd, and The Endless Journey.",
         "cover": "/images/audioshow/crates/a-pink-floyd-experience/cover.webp",
         "spotifyUrl": "https://open.spotify.com/playlist/2MbHOBGydKfKLVe9X9ApkE",
-        "trackCount": 69,
-        "duration": "5h45m",
+        "trackCount": 71,
+        "duration": "6h04m",
         "updated": "May 2026",
         "tags": [
             "pink floyd",
@@ -426,30 +426,38 @@ export const audioshowCrates: AudioShowCrate[] = [
         ],
         "sections": [
             {
-                "title": "Psychedelic Ignition",
-                "note": "Syd-era color, soundtrack oddities, and early cosmic experiments."
+                "title": "Smells Like Pink Spirit",
+                "note": "Nervana as false door, then the Syd-era singles and Piper sparks."
             },
             {
-                "title": "Pastoral Machines",
-                "note": "Meddle-to-Obscured drift: motor pulse, open fields, and side-long scale."
+                "title": "Set the Controls",
+                "note": "Early soundtrack and space-rock control room: More, Ummagumma, Saucerful, and the sun."
             },
             {
-                "title": "Monumental Orbit",
-                "note": "The canonical eclipse: absence, money, time, and full album-circle logic."
+                "title": "Echoes (Between Atom&Cloud)",
+                "note": "Meddle, Atom Heart Mother, and Obscured by Clouds finding the wide pastoral machine."
             },
             {
-                "title": "Wall / War Room",
-                "note": "The Wall and The Final Cut as theater, fracture, and testimony."
+                "title": "There is no Dark Side",
+                "note": "Wish You Were Here and Dark Side folding absence, time, money, and eclipse into one orbit."
             },
             {
-                "title": "Afterglow",
-                "note": "Late-period flight, Gilmour space, and the river returning to silence."
+                "title": "Stones or Bricks",
+                "note": "Animals, The Wall, and The Final Cut as theater, indictment, and post-war memory."
+            },
+            {
+                "title": "Learning to Floyd",
+                "note": "Late-80s/90s flight: Gilmour skies, Division Bell distance, and final-war sunset."
+            },
+            {
+                "title": "The Endless Journey",
+                "note": "Endless River fragments and late afterglow closing the route."
             }
         ],
         "tracks": [
             {
                 "number": 1,
-                "section": "Psychedelic Ignition",
+                "section": "Smells Like Pink Spirit",
                 "title": "Nervana",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
@@ -460,7 +468,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 2,
-                "section": "Psychedelic Ignition",
+                "section": "Smells Like Pink Spirit",
                 "title": "Astronomy Domine",
                 "artists": "Pink Floyd",
                 "album": "The Piper at the Gates of Dawn",
@@ -471,7 +479,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 3,
-                "section": "Psychedelic Ignition",
+                "section": "Smells Like Pink Spirit",
                 "title": "Arnold Layne",
                 "artists": "Pink Floyd",
                 "album": "Relics",
@@ -482,7 +490,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 4,
-                "section": "Psychedelic Ignition",
+                "section": "Smells Like Pink Spirit",
                 "title": "Interstellar Overdrive",
                 "artists": "Pink Floyd",
                 "album": "The Piper at the Gates of Dawn",
@@ -493,7 +501,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 5,
-                "section": "Psychedelic Ignition",
+                "section": "Smells Like Pink Spirit",
                 "title": "See Emily Play",
                 "artists": "Pink Floyd",
                 "album": "Relics",
@@ -504,7 +512,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 6,
-                "section": "Psychedelic Ignition",
+                "section": "Smells Like Pink Spirit",
                 "title": "Bike",
                 "artists": "Pink Floyd",
                 "album": "The Piper at the Gates of Dawn",
@@ -515,7 +523,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 7,
-                "section": "Psychedelic Ignition",
+                "section": "Set the Controls",
                 "title": "Cirrus Minor",
                 "artists": "Pink Floyd",
                 "album": "More",
@@ -526,7 +534,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 8,
-                "section": "Psychedelic Ignition",
+                "section": "Set the Controls",
                 "title": "Sysyphus, Pt. 1",
                 "artists": "Pink Floyd",
                 "album": "Ummagumma",
@@ -537,7 +545,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 9,
-                "section": "Psychedelic Ignition",
+                "section": "Set the Controls",
                 "title": "Sysyphus, Pt. 2",
                 "artists": "Pink Floyd",
                 "album": "Ummagumma",
@@ -548,7 +556,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 10,
-                "section": "Psychedelic Ignition",
+                "section": "Set the Controls",
                 "title": "The Nile Song",
                 "artists": "Pink Floyd",
                 "album": "More",
@@ -559,7 +567,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 11,
-                "section": "Psychedelic Ignition",
+                "section": "Set the Controls",
                 "title": "Remember a Day",
                 "artists": "Pink Floyd",
                 "album": "A Saucerful of Secrets",
@@ -570,7 +578,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 12,
-                "section": "Psychedelic Ignition",
+                "section": "Set the Controls",
                 "title": "Let There Be More Light",
                 "artists": "Pink Floyd",
                 "album": "A Saucerful of Secrets",
@@ -581,7 +589,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 13,
-                "section": "Psychedelic Ignition",
+                "section": "Set the Controls",
                 "title": "Set the Controls for the Heart of the Sun",
                 "artists": "Pink Floyd",
                 "album": "A Saucerful of Secrets",
@@ -592,7 +600,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 14,
-                "section": "Psychedelic Ignition",
+                "section": "Set the Controls",
                 "title": "Jugband Blues",
                 "artists": "Pink Floyd",
                 "album": "A Saucerful of Secrets",
@@ -603,7 +611,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 15,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "One of These Days",
                 "artists": "Pink Floyd",
                 "album": "Meddle",
@@ -614,7 +622,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 16,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "Atom Heart Mother",
                 "artists": "Pink Floyd",
                 "album": "Atom Heart Mother",
@@ -625,7 +633,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 17,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "Fearless",
                 "artists": "Pink Floyd",
                 "album": "Meddle",
@@ -636,7 +644,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 18,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "If",
                 "artists": "Pink Floyd",
                 "album": "Atom Heart Mother",
@@ -647,7 +655,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 19,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "Obscured by Clouds",
                 "artists": "Pink Floyd",
                 "album": "Obscured by Clouds",
@@ -658,7 +666,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 20,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "Fat Old Sun",
                 "artists": "Pink Floyd",
                 "album": "Atom Heart Mother",
@@ -669,7 +677,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 21,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "Wot's...Uh the Deal",
                 "artists": "Pink Floyd",
                 "album": "Obscured by Clouds",
@@ -680,7 +688,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 22,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "Echoes",
                 "artists": "Pink Floyd",
                 "album": "Meddle",
@@ -691,7 +699,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 23,
-                "section": "Pastoral Machines",
+                "section": "Echoes (Between Atom&Cloud)",
                 "title": "Childhood's End",
                 "artists": "Pink Floyd",
                 "album": "Obscured by Clouds",
@@ -702,7 +710,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 24,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "Wish You Were Here",
                 "artists": "Pink Floyd",
                 "album": "Wish You Were Here",
@@ -713,7 +721,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 25,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "Time",
                 "artists": "Pink Floyd",
                 "album": "The Dark Side of the Moon",
@@ -724,7 +732,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 26,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "The Great Gig in the Sky",
                 "artists": "Pink Floyd",
                 "album": "The Dark Side of the Moon",
@@ -735,8 +743,8 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 27,
-                "section": "Monumental Orbit",
-                "title": "Shine On You Crazy Diamond (Pts. 1-5)",
+                "section": "There is no Dark Side",
+                "title": "Shine On You Crazy Diamond, Pts. 1-5",
                 "artists": "Pink Floyd",
                 "album": "Wish You Were Here",
                 "year": "1975",
@@ -746,7 +754,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 28,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "Have a Cigar",
                 "artists": "Pink Floyd",
                 "album": "Wish You Were Here",
@@ -757,7 +765,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 29,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "Money",
                 "artists": "Pink Floyd",
                 "album": "The Dark Side of the Moon",
@@ -768,7 +776,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 30,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "Us and Them",
                 "artists": "Pink Floyd",
                 "album": "The Dark Side of the Moon",
@@ -779,7 +787,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 31,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "Any Colour You Like",
                 "artists": "Pink Floyd",
                 "album": "The Dark Side of the Moon",
@@ -790,7 +798,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 32,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "Brain Damage",
                 "artists": "Pink Floyd",
                 "album": "The Dark Side of the Moon",
@@ -801,7 +809,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 33,
-                "section": "Monumental Orbit",
+                "section": "There is no Dark Side",
                 "title": "Eclipse",
                 "artists": "Pink Floyd",
                 "album": "The Dark Side of the Moon",
@@ -812,8 +820,8 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 34,
-                "section": "Wall / War Room",
-                "title": "Pigs on the Wing 1",
+                "section": "Stones or Bricks",
+                "title": "Pigs On The Wing (Part One)",
                 "artists": "Pink Floyd",
                 "album": "Animals",
                 "year": "1977",
@@ -823,7 +831,29 @@ export const audioshowCrates: AudioShowCrate[] = [
             },
             {
                 "number": 35,
-                "section": "Wall / War Room",
+                "section": "Stones or Bricks",
+                "title": "Dogs",
+                "artists": "Pink Floyd",
+                "album": "Animals",
+                "year": "1977",
+                "spotifyUrl": "https://open.spotify.com/track/2jvuMDqBK04WvCYYz5qjvG",
+                "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/63/d0/43/63d0438b-5d7d-db37-44f1-1908fe6045e2/mzaf_14283977508359678850.plus.aac.p.m4a",
+                "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/34-19tHmIQsRnebkyK09m2UXE.webp"
+            },
+            {
+                "number": 36,
+                "section": "Stones or Bricks",
+                "title": "Pigs On The Wing (Part Two)",
+                "artists": "Pink Floyd",
+                "album": "Animals",
+                "year": "1977",
+                "spotifyUrl": "https://open.spotify.com/track/1OzTJHmUMMYPQpMLxZYHlU",
+                "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/23/56/15/235615c5-95fe-3a48-0852-7bae9cf860b8/mzaf_7124095861728147946.plus.aac.p.m4a",
+                "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/34-19tHmIQsRnebkyK09m2UXE.webp"
+            },
+            {
+                "number": 37,
+                "section": "Stones or Bricks",
                 "title": "When the Tigers Broke Free",
                 "artists": "Pink Floyd",
                 "album": "The Final Cut",
@@ -833,8 +863,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/35-23ItRtrVX4vF30wGrzfznf.webp"
             },
             {
-                "number": 36,
-                "section": "Wall / War Room",
+                "number": 38,
+                "section": "Stones or Bricks",
                 "title": "The Thin Ice",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -844,8 +874,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/36-62zuXt6X5B6YQOBNFV2eXG.webp"
             },
             {
-                "number": 37,
-                "section": "Wall / War Room",
+                "number": 39,
+                "section": "Stones or Bricks",
                 "title": "Another Brick in the Wall, Pt. 1",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -855,8 +885,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/37-7K6xMPtAjTuLPNlJMLf5bS.webp"
             },
             {
-                "number": 38,
-                "section": "Wall / War Room",
+                "number": 40,
+                "section": "Stones or Bricks",
                 "title": "The Happiest Days of Our Lives",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -866,8 +896,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/38-2O3l4X1yTua8oMMCtazkyo.webp"
             },
             {
-                "number": 39,
-                "section": "Wall / War Room",
+                "number": 41,
+                "section": "Stones or Bricks",
                 "title": "Another Brick in the Wall, Pt. 2",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -877,8 +907,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/39-4gMgiXfqyzZLMhsksGmbQV.webp"
             },
             {
-                "number": 40,
-                "section": "Wall / War Room",
+                "number": 42,
+                "section": "Stones or Bricks",
                 "title": "Mother",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -888,8 +918,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/40-1GEOSS415bZVHNuXWlCT6b.webp"
             },
             {
-                "number": 41,
-                "section": "Wall / War Room",
+                "number": 43,
+                "section": "Stones or Bricks",
                 "title": "Young Lust",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -899,8 +929,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/41-3xGJuHvSxFJxxYlHj5BIoT.webp"
             },
             {
-                "number": 42,
-                "section": "Wall / War Room",
+                "number": 44,
+                "section": "Stones or Bricks",
                 "title": "Another Brick in the Wall, Pt. 3",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -910,8 +940,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/42-5A7eooPKJHtr0UJmatjH4a.webp"
             },
             {
-                "number": 43,
-                "section": "Wall / War Room",
+                "number": 45,
+                "section": "Stones or Bricks",
                 "title": "Goodbye Cruel World",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -921,8 +951,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/43-0ZXkKRO789QKBR6ME7pIDF.webp"
             },
             {
-                "number": 44,
-                "section": "Wall / War Room",
+                "number": 46,
+                "section": "Stones or Bricks",
                 "title": "Hey You",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -932,8 +962,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/44-7F02x6EKYIQV3VcTaTm7oN.webp"
             },
             {
-                "number": 45,
-                "section": "Wall / War Room",
+                "number": 47,
+                "section": "Stones or Bricks",
                 "title": "The Hero's Return",
                 "artists": "Pink Floyd",
                 "album": "The Final Cut",
@@ -943,8 +973,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/45-0s9iofqbQdsmWZQJ1TZh1c.webp"
             },
             {
-                "number": 46,
-                "section": "Wall / War Room",
+                "number": 48,
+                "section": "Stones or Bricks",
                 "title": "The Gunner's Dream",
                 "artists": "Pink Floyd",
                 "album": "The Final Cut",
@@ -954,8 +984,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/46-1057KuzIH4fWCyI5Gb5kX2.webp"
             },
             {
-                "number": 47,
-                "section": "Wall / War Room",
+                "number": 49,
+                "section": "Stones or Bricks",
                 "title": "Comfortably Numb",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -965,8 +995,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/47-5HNCy40Ni5BZJFw1TKzRsC.webp"
             },
             {
-                "number": 48,
-                "section": "Wall / War Room",
+                "number": 50,
+                "section": "Stones or Bricks",
                 "title": "The Show Must Go On",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -976,8 +1006,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/48-077OhUjy58qkjscrXjW696.webp"
             },
             {
-                "number": 49,
-                "section": "Wall / War Room",
+                "number": 51,
+                "section": "Stones or Bricks",
                 "title": "Run Like Hell",
                 "artists": "Pink Floyd",
                 "album": "The Wall",
@@ -987,8 +1017,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/49-0EaLRxrtnq7Mqhdf8q9txr.webp"
             },
             {
-                "number": 50,
-                "section": "Wall / War Room",
+                "number": 52,
+                "section": "Stones or Bricks",
                 "title": "The Final Cut",
                 "artists": "Pink Floyd",
                 "album": "The Final Cut",
@@ -998,8 +1028,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/50-5y1Uc72BAKxaleTEXpcJJq.webp"
             },
             {
-                "number": 51,
-                "section": "Afterglow",
+                "number": 53,
+                "section": "Learning to Floyd",
                 "title": "Signs of Life",
                 "artists": "Pink Floyd",
                 "album": "A Momentary Lapse of Reason",
@@ -1009,8 +1039,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/51-5IuSQa3vuy5ZGw0ZxJ9z3a.webp"
             },
             {
-                "number": 52,
-                "section": "Afterglow",
+                "number": 54,
+                "section": "Learning to Floyd",
                 "title": "Learning to Fly",
                 "artists": "Pink Floyd",
                 "album": "A Momentary Lapse of Reason",
@@ -1020,8 +1050,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/52-3ieDOGcOqVxScs2VZBzidt.webp"
             },
             {
-                "number": 53,
-                "section": "Afterglow",
+                "number": 55,
+                "section": "Learning to Floyd",
                 "title": "A Great Day for Freedom",
                 "artists": "Pink Floyd",
                 "album": "The Division Bell",
@@ -1031,8 +1061,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/53-2dxfyqdrI8XVOT3H1YcOsU.webp"
             },
             {
-                "number": 54,
-                "section": "Afterglow",
+                "number": 56,
+                "section": "Learning to Floyd",
                 "title": "Poles Apart",
                 "artists": "Pink Floyd",
                 "album": "The Division Bell",
@@ -1042,8 +1072,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/54-6uE9hF8fIb6shBXrrzA12U.webp"
             },
             {
-                "number": 55,
-                "section": "Afterglow",
+                "number": 57,
+                "section": "Learning to Floyd",
                 "title": "On the Turning Away",
                 "artists": "Pink Floyd",
                 "album": "A Momentary Lapse of Reason",
@@ -1053,8 +1083,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/55-7KA6U0WOHdGxWWLGPYN2Sb.webp"
             },
             {
-                "number": 56,
-                "section": "Afterglow",
+                "number": 58,
+                "section": "Learning to Floyd",
                 "title": "The Dogs of War",
                 "artists": "Pink Floyd",
                 "album": "A Momentary Lapse of Reason",
@@ -1064,8 +1094,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/56-4ggDbvTME5EAso1xfGX2M0.webp"
             },
             {
-                "number": 57,
-                "section": "Afterglow",
+                "number": 59,
+                "section": "Learning to Floyd",
                 "title": "Two Suns in the Sunset",
                 "artists": "Pink Floyd",
                 "album": "The Final Cut",
@@ -1075,8 +1105,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/57-3KvKMHMlRj30a7IjHXQVzu.webp"
             },
             {
-                "number": 58,
-                "section": "Afterglow",
+                "number": 60,
+                "section": "Learning to Floyd",
                 "title": "Marooned",
                 "artists": "Pink Floyd",
                 "album": "The Division Bell",
@@ -1086,8 +1116,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/58-6bIPHR8AJG5HAcn9oF21Ma.webp"
             },
             {
-                "number": 59,
-                "section": "Afterglow",
+                "number": 61,
+                "section": "Learning to Floyd",
                 "title": "Sorrow",
                 "artists": "Pink Floyd",
                 "album": "A Momentary Lapse of Reason",
@@ -1097,9 +1127,9 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/59-0u90NnJ2p3Q2MIP9IaAsg5.webp"
             },
             {
-                "number": 60,
-                "section": "Afterglow",
-                "title": "Side 3, Pt. 1: The Lost Art of Conversation",
+                "number": 62,
+                "section": "The Endless Journey",
+                "title": "The Lost Art Of Conversation",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
                 "year": "2014",
@@ -1108,9 +1138,9 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/60-5a2AbdlDvBRpu7yg6fTehj.webp"
             },
             {
-                "number": 61,
-                "section": "Afterglow",
-                "title": "Side 3, Pt. 2: On Noodle Street",
+                "number": 63,
+                "section": "The Endless Journey",
+                "title": "On Noodle Street",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
                 "year": "2014",
@@ -1119,9 +1149,9 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/61-7npQbR646LjCg0qBhvWE2s.webp"
             },
             {
-                "number": 62,
-                "section": "Afterglow",
-                "title": "Side 3, Pt. 3: Night Light",
+                "number": 64,
+                "section": "The Endless Journey",
+                "title": "Night Light",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
                 "year": "2014",
@@ -1130,9 +1160,9 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/62-2M9kdmwWuGSNYYzzOxFKyB.webp"
             },
             {
-                "number": 63,
-                "section": "Afterglow",
-                "title": "Side 3, Pt. 4: Allons-y (1)",
+                "number": 65,
+                "section": "The Endless Journey",
+                "title": "Allons-y (1)",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
                 "year": "2014",
@@ -1141,9 +1171,9 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/63-5Cs8YMRH3hfaLK4HPUFe9l.webp"
             },
             {
-                "number": 64,
-                "section": "Afterglow",
-                "title": "Side 3, Pt. 5: Autumn '68",
+                "number": 66,
+                "section": "The Endless Journey",
+                "title": "Autumn '68",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
                 "year": "2014",
@@ -1152,9 +1182,9 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/64-2wWncVXYwtlorzhk8S1jU5.webp"
             },
             {
-                "number": 65,
-                "section": "Afterglow",
-                "title": "Side 3, Pt. 6: Allons-y (2)",
+                "number": 67,
+                "section": "The Endless Journey",
+                "title": "Allons-y (2)",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
                 "year": "2014",
@@ -1163,9 +1193,9 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/65-618H64JuNjoDCzgf4SFJOH.webp"
             },
             {
-                "number": 66,
-                "section": "Afterglow",
-                "title": "Side 3, Pt. 7: Talkin' Hawkin'",
+                "number": 68,
+                "section": "The Endless Journey",
+                "title": "Talkin' Hawkin'",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
                 "year": "2014",
@@ -1174,8 +1204,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/66-5zezxlbGoSr1q3GJ4PMRUW.webp"
             },
             {
-                "number": 67,
-                "section": "Afterglow",
+                "number": 69,
+                "section": "The Endless Journey",
                 "title": "Lost for Words",
                 "artists": "Pink Floyd",
                 "album": "The Division Bell",
@@ -1185,8 +1215,8 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/67-4Ev1LZ4uzjnSvDHpgdyBZK.webp"
             },
             {
-                "number": 68,
-                "section": "Afterglow",
+                "number": 70,
+                "section": "The Endless Journey",
                 "title": "High Hopes",
                 "artists": "Pink Floyd",
                 "album": "The Division Bell",
@@ -1196,9 +1226,9 @@ export const audioshowCrates: AudioShowCrate[] = [
                 "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/68-5a4MgIUSf9K8wXLSm6xPEx.webp"
             },
             {
-                "number": 69,
-                "section": "Afterglow",
-                "title": "Side 4, Pt. 4: Louder Than Words",
+                "number": 71,
+                "section": "The Endless Journey",
+                "title": "Louder Than Words",
                 "artists": "Pink Floyd",
                 "album": "The Endless River",
                 "year": "2014",
