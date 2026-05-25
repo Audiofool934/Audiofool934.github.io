@@ -118,7 +118,7 @@ const groupedTracks = crate.sections.map((section) => ({
 
                         <div>
                             {section.tracks.map((track) => (
-                                <div class="track-row grid grid-cols-[48px_1fr] gap-4 border-b border-[var(--border-main)] p-4 last:border-b-0 md:grid-cols-[56px_56px_1fr_180px_96px] md:items-center">
+                                <div class="grid grid-cols-[48px_1fr] gap-4 border-b border-[var(--border-main)] p-4 last:border-b-0 md:grid-cols-[56px_56px_minmax(0,1fr)_220px] md:items-center">
                                     <div class="h-12 w-12 overflow-hidden border border-[var(--border-main)] md:h-14 md:w-14">
                                         <img
                                             src={track.cover}
@@ -152,15 +152,6 @@ const groupedTracks = crate.sections.map((section) => ({
                                     <div class="col-start-2 truncate text-sm text-[var(--text-muted)] md:col-start-auto">
                                         {track.artists}
                                     </div>
-
-                                    <a
-                                        href={track.spotifyUrl}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        class="col-start-2 font-mono text-xs text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors md:col-start-auto md:text-right"
-                                    >
-                                        Spotify ->
-                                    </a>
                                 </div>
                             ))}
                         </div>
@@ -170,9 +161,3 @@ const groupedTracks = crate.sections.map((section) => ({
         </article>
     </div>
 </MinimalLayout>
-
-<style>
-    .track-row:hover {
-        background: color-mix(in srgb, var(--text-main) 5%, transparent);
-    }
-</style>
