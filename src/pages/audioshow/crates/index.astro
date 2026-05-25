@@ -1,0 +1,118 @@
+---
+import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import { audioshowCrates } from "../../../data/audioshowCrates";
+
+const crateCount = audioshowCrates.length;
+---
+
+<MinimalLayout
+    title="Crates | AudioShow | Audiofool"
+    description="DJ-built listening paths from AudioShow."
+>
+    <div class="p-6 md:p-12 mb-20" transition:animate="fade">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold font-heading mb-2">AudioShow Crates</h1>
+            <p class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase">
+                {crateCount} DJ-built listening paths
+            </p>
+        </div>
+
+        <div class="flex gap-4 mb-10 text-sm font-mono border-b border-[var(--border-main)] pb-4">
+            <a
+                href="/audioshow/"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+            >
+                [ Recent ]
+            </a>
+            <span class="text-[var(--text-main)] underline decoration-1 underline-offset-4">
+                [ Crates ]
+            </span>
+            <a
+                href="/audioshow/archive/"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+            >
+                [ Archive ]
+            </a>
+        </div>
+
+        <section class="space-y-6">
+            {audioshowCrates.map((crate) => (
+                <article class="crate-card border border-[var(--border-main)] bg-[var(--bg-body)] transition-colors">
+                    <div class="grid gap-5 p-4 md:grid-cols-[160px_1fr] md:gap-6">
+                        <div class="aspect-square overflow-hidden border border-[var(--border-main)] bg-neutral-100 dark:bg-neutral-900">
+                            <img
+                                src={crate.cover}
+                                alt={`${crate.title} cover`}
+                                class="h-full w-full object-cover"
+                                loading="lazy"
+                            />
+                        </div>
+
+                        <div class="min-w-0">
+                            <div class="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                                <span>Crate {crate.number}</span>
+                                <span>{crate.trackCount} tracks</span>
+                                <span>{crate.duration}</span>
+                                <span>{crate.updated}</span>
+                            </div>
+
+                            <h2 class="mb-2 text-2xl font-bold font-heading leading-tight">
+                                {crate.title}
+                            </h2>
+
+                            <p class="mb-4 max-w-3xl text-sm md:text-base text-[var(--text-muted)] leading-relaxed">
+                                {crate.premise}
+                            </p>
+
+                            <div class="mb-5 flex flex-wrap gap-2">
+                                {crate.tags.map((tag) => (
+                                    <span class="border border-[var(--border-main)] px-2 py-1 font-mono text-xs text-[var(--text-muted)]">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+
+                            <div class="flex flex-wrap gap-3 font-mono text-xs">
+                                <a
+                                    href={`/audioshow/crates/${crate.slug}/`}
+                                    class="text-[var(--text-main)] hover:underline underline-offset-4"
+                                >
+                                    Open crate ->
+                                </a>
+                                <a
+                                    href={crate.spotifyUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+                                >
+                                    Spotify ->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            ))}
+        </section>
+
+        {crateCount === 0 && (
+            <div class="py-16 text-center text-[var(--text-muted)]">
+                <p>No crates filed yet.</p>
+            </div>
+        )}
+
+        <div class="mt-12 pt-8 border-t border-[var(--border-main)]">
+            <a
+                href="/audioshow/"
+                class="text-sm font-mono text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+            >
+                Back to Recent
+            </a>
+        </div>
+    </div>
+</MinimalLayout>
+
+<style>
+    .crate-card:hover {
+        border-color: var(--text-main);
+    }
+</style>

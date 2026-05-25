@@ -1,0 +1,178 @@
+---
+import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import { audioshowCrates, type AudioShowCrate } from "../../../data/audioshowCrates";
+
+export function getStaticPaths() {
+    return audioshowCrates.map((crate) => ({
+        params: { slug: crate.slug },
+        props: { crate },
+    }));
+}
+
+const { crate } = Astro.props as { crate: AudioShowCrate };
+const groupedTracks = crate.sections.map((section) => ({
+    ...section,
+    tracks: crate.tracks.filter((track) => track.section === section.title),
+}));
+---
+
+<MinimalLayout
+    title={`${crate.title} | AudioShow Crates | Audiofool`}
+    description={crate.premise}
+>
+    <div class="p-6 md:p-12 mb-20" transition:animate="fade">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold font-heading mb-2">AudioShow Crates</h1>
+            <p class="font-mono text-sm text-[var(--text-muted)] tracking-wider uppercase">
+                Curated listening paths
+            </p>
+        </div>
+
+        <div class="flex gap-4 mb-10 text-sm font-mono border-b border-[var(--border-main)] pb-4">
+            <a
+                href="/audioshow/"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+            >
+                [ Recent ]
+            </a>
+            <a
+                href="/audioshow/crates/"
+                class="text-[var(--text-main)] underline decoration-1 underline-offset-4"
+            >
+                [ Crates ]
+            </a>
+            <a
+                href="/audioshow/archive/"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
+            >
+                [ Archive ]
+            </a>
+        </div>
+
+        <article>
+            <header class="mb-10 grid gap-6 border-b border-[var(--border-main)] pb-8 md:grid-cols-[220px_1fr] md:gap-8">
+                <div class="aspect-square overflow-hidden border border-[var(--border-main)] bg-neutral-100 dark:bg-neutral-900">
+                    <img
+                        src={crate.cover}
+                        alt={`${crate.title} cover`}
+                        class="h-full w-full object-cover"
+                        loading="eager"
+                    />
+                </div>
+
+                <div class="min-w-0 self-end">
+                    <div class="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                        <span>Crate {crate.number}</span>
+                        <span>{crate.trackCount} tracks</span>
+                        <span>{crate.duration}</span>
+                        <span>{crate.updated}</span>
+                    </div>
+
+                    <h2 class="mb-3 text-3xl md:text-5xl font-bold font-heading leading-tight">
+                        {crate.title}
+                    </h2>
+
+                    <p class="mb-5 max-w-3xl text-base md:text-lg text-[var(--text-muted)] leading-relaxed">
+                        {crate.premise}
+                    </p>
+
+                    <p class="mb-5 max-w-3xl text-sm leading-relaxed">
+                        {crate.curatorNote}
+                    </p>
+
+                    <div class="flex flex-wrap gap-3 font-mono text-xs">
+                        <a
+                            href={crate.spotifyUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            class="border border-[var(--border-main)] px-3 py-2 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--text-main)]/5 transition-colors"
+                        >
+                            Open full crate on Spotify
+                        </a>
+                        <a
+                            href="/audioshow/crates/"
+                            class="border border-[var(--border-main)] px-3 py-2 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--text-main)]/5 transition-colors"
+                        >
+                            Back to Crates
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="space-y-8">
+                {groupedTracks.map((section) => (
+                    <section class="border border-[var(--border-main)]">
+                        <div class="border-b border-[var(--border-main)] p-4">
+                            <div class="flex flex-wrap items-baseline justify-between gap-3">
+                                <h3 class="text-xl font-bold font-heading">
+                                    {section.title}
+                                </h3>
+                                <span class="font-mono text-xs text-[var(--text-muted)]">
+                                    {section.tracks.length} tracks
+                                </span>
+                            </div>
+                            <p class="mt-2 max-w-3xl text-sm text-[var(--text-muted)] leading-relaxed">
+                                {section.note}
+                            </p>
+                        </div>
+
+                        <div>
+                            {section.tracks.map((track) => (
+                                <div class="track-row grid grid-cols-[48px_1fr] gap-4 border-b border-[var(--border-main)] p-4 last:border-b-0 md:grid-cols-[56px_56px_1fr_180px_96px] md:items-center">
+                                    <div class="h-12 w-12 overflow-hidden border border-[var(--border-main)] md:h-14 md:w-14">
+                                        <img
+                                            src={track.cover}
+                                            alt={`${track.album} cover`}
+                                            class="h-full w-full object-cover"
+                                            loading="lazy"
+                                        />
+                                    </div>
+
+                                    <div class="hidden font-mono text-sm text-[var(--text-muted)] md:block">
+                                        {track.number.toString().padStart(2, "0")}
+                                    </div>
+
+                                    <div class="min-w-0">
+                                        <div class="flex items-baseline gap-2 md:hidden">
+                                            <span class="font-mono text-xs text-[var(--text-muted)]">
+                                                {track.number.toString().padStart(2, "0")}
+                                            </span>
+                                            <h4 class="truncate font-bold leading-tight">
+                                                {track.title}
+                                            </h4>
+                                        </div>
+                                        <h4 class="hidden truncate font-bold leading-tight md:block">
+                                            {track.title}
+                                        </h4>
+                                        <div class="truncate text-xs text-[var(--text-muted)]">
+                                            {track.album} ({track.year})
+                                        </div>
+                                    </div>
+
+                                    <div class="col-start-2 truncate text-sm text-[var(--text-muted)] md:col-start-auto">
+                                        {track.artists}
+                                    </div>
+
+                                    <a
+                                        href={track.spotifyUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        class="col-start-2 font-mono text-xs text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors md:col-start-auto md:text-right"
+                                    >
+                                        Spotify ->
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                ))}
+            </div>
+        </article>
+    </div>
+</MinimalLayout>
+
+<style>
+    .track-row:hover {
+        background: color-mix(in srgb, var(--text-main) 5%, transparent);
+    }
+</style>
