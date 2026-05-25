@@ -37,7 +37,14 @@ const crateCount = audioshowCrates.length;
 
         <section class="space-y-6">
             {audioshowCrates.map((crate) => (
-                <article class="crate-card border border-[var(--border-main)] bg-[var(--bg-body)] transition-colors">
+                <article
+                    class="crate-card cursor-pointer border border-[var(--border-main)] bg-[var(--bg-body)] transition-colors"
+                    data-crate-card
+                    data-crate-url={`/audioshow/crates/${crate.slug}/`}
+                    tabindex="0"
+                    role="link"
+                    aria-label={`Open ${crate.title}`}
+                >
                     <div class="grid gap-5 p-4 md:grid-cols-[160px_1fr] md:gap-6">
                         <div class="aspect-square overflow-hidden border border-[var(--border-main)] bg-neutral-100 dark:bg-neutral-900">
                             <img
@@ -74,12 +81,6 @@ const crateCount = audioshowCrates.length;
 
                             <div class="flex flex-wrap gap-3 font-mono text-xs">
                                 <a
-                                    href={`/audioshow/crates/${crate.slug}/`}
-                                    class="text-[var(--text-main)] hover:underline underline-offset-4"
-                                >
-                                    Open crate ->
-                                </a>
-                                <a
                                     href={crate.spotifyUrl}
                                     target="_blank"
                                     rel="noreferrer"
@@ -111,8 +112,36 @@ const crateCount = audioshowCrates.length;
     </div>
 </MinimalLayout>
 
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        document.querySelectorAll("[data-crate-card]").forEach((card) => {
+            const openCrate = () => {
+                const url = card.dataset.crateUrl;
+                if (url) window.location.href = url;
+            };
+
+            card.addEventListener("click", (event) => {
+                const target = event.target;
+                if (target?.closest?.("a")) return;
+                openCrate();
+            });
+
+            card.addEventListener("keydown", (event) => {
+                if (event.key !== "Enter" && event.key !== " ") return;
+                event.preventDefault();
+                openCrate();
+            });
+        });
+    });
+</script>
+
 <style>
     .crate-card:hover {
         border-color: var(--text-main);
+    }
+
+    .crate-card:focus-visible {
+        outline: 2px solid var(--text-main);
+        outline-offset: 4px;
     }
 </style>
