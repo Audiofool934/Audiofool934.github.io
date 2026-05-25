@@ -251,6 +251,9 @@ const playlist = sortEpisodesDesc(allEpisodes)
 <script is:inline define:vars={{ playlist }}>
     // Audio Player State Management - Single Source of Truth Pattern
     (function () {
+        var defaultPlaylist = playlist;
+        var activePlaylist = defaultPlaylist;
+
         // ========================================
         // DOM REFERENCES (resolved fresh each time)
         // ========================================
@@ -287,6 +290,77 @@ const playlist = sortEpisodesDesc(allEpisodes)
         // ========================================
         // PLAYLIST HELPERS
         // ========================================
+        function getActivePlaylist() {
+            return activePlaylist && activePlaylist.length ? activePlaylist : defaultPlaylist;
+        }
+
+        function normalizePlaylist(items) {
+            if (!Array.isArray(items)) return [];
+            return items
+                .map(function (item, index) {
+                    var url = item.url;
+                    if (!url) return null;
+                    return {
+                        n: item.n || item.number || index + 1,
+                        t: item.t || item.title || "Untitled",
+                        a: item.a || item.artist || "AudioShow",
+                        url: url,
+                        img: item.img || item.artwork || "",
+                        type: item.type || (url.includes("music.apple.com") ? "apple" : "local"),
+                    };
+                })
+                .filter(Boolean);
+        }
+
+        function findPlaylistIndexByUrl(list, url) {
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].url === url) return i;
+            }
+            return -1;
+        }
+
+        function setActivePlaylist(items, options) {
+            var normalized = normalizePlaylist(items);
+            activePlaylist = normalized.length ? normalized : defaultPlaylist;
+
+            var state = window.__audioPlayerState;
+            if (!state) return;
+
+            var currentIndex =
+                options && typeof options.currentIndex === "number"
+                    ? options.currentIndex
+                    : -1;
+            if (currentIndex < 0 && options && options.currentUrl) {
+                currentIndex = findPlaylistIndexByUrl(activePlaylist, options.currentUrl);
+            }
+
+            if (currentIndex >= 0 && currentIndex < activePlaylist.length) {
+                state.playlistIndex = currentIndex;
+                state.playlistPos = findPos(state, currentIndex);
+            } else if (state.playlistIndex >= activePlaylist.length) {
+                state.playlistIndex = 0;
+                state.playlistPos = 0;
+            }
+
+            if (state.shuffleMode) {
+                state.shuffledOrder = generateShuffledOrder(activePlaylist.length);
+                if (state.playlistIndex >= 0) {
+                    var currentInShuffle = state.shuffledOrder.indexOf(state.playlistIndex);
+                    if (currentInShuffle > 0) {
+                        var tmp = state.shuffledOrder[0];
+                        state.shuffledOrder[0] = state.shuffledOrder[currentInShuffle];
+                        state.shuffledOrder[currentInShuffle] = tmp;
+                    }
+                    state.playlistPos = findPos(state, state.playlistIndex);
+                }
+            }
+        }
+
+        window.setAudioPlaylist = function (items, options) {
+            setActivePlaylist(items, options || {});
+            syncUIWithState();
+        };
+
         function generateShuffledOrder(length) {
             var order = [];
             for (var i = 0; i < length; i++) order.push(i);
@@ -298,14 +372,14 @@ const playlist = sortEpisodesDesc(allEpisodes)
         }
 
         function getPlaylistTrack(index) {
-            var ep = playlist[index];
+            var ep = getActivePlaylist()[index];
             if (!ep) return null;
             return { type: ep.type, url: ep.url, title: ep.t, artist: ep.a, artwork: ep.img, _plIdx: index };
         }
 
         // Resolve the "real" index in playlist order, accounting for shuffle
         function resolveIndex(state, offset) {
-            var len = playlist.length;
+            var len = getActivePlaylist().length;
             if (len === 0) return -1;
             var currentPos = state.playlistPos >= 0 ? state.playlistPos : -1;
             var nextPos = currentPos + offset;
@@ -451,8 +525,8 @@ const playlist = sortEpisodesDesc(allEpisodes)
             // preserves the current track instead of re-randomizing on every click.
             if (!state.initialized) {
                 state.initialized = true;
-                if (!state.track && playlist.length > 0) {
-                    var initialIndex = Math.floor(Math.random() * playlist.length);
+                if (!state.track && getActivePlaylist().length > 0) {
+                    var initialIndex = Math.floor(Math.random() * getActivePlaylist().length);
                     var first = getPlaylistTrack(initialIndex);
                     state.track = {
                         title: first.title,
@@ -558,7 +632,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
             function handleShuffleToggle() {
                 state.shuffleMode = !state.shuffleMode;
                 if (state.shuffleMode) {
-                    state.shuffledOrder = generateShuffledOrder(playlist.length);
+                    state.shuffledOrder = generateShuffledOrder(getActivePlaylist().length);
                     // Put current track at position 0 so "next" continues from here
                     if (state.playlistIndex >= 0) {
                         var currentInShuffle = state.shuffledOrder.indexOf(state.playlistIndex);
@@ -628,15 +702,29 @@ const playlist = sortEpisodesDesc(allEpisodes)
                     return;
                 }
 
+                if (Array.isArray(track._playlist)) {
+                    setActivePlaylist(track._playlist, {
+                        currentIndex: track._plIdx,
+                        currentUrl: track.url,
+                    });
+                }
+
                 // Update playlist position if this track came from playlist
                 if (typeof track._plIdx === "number") {
                     state.playlistIndex = track._plIdx;
                     state.playlistPos = findPos(state, track._plIdx);
                 } else {
                     // External play (e.g. AudioShow card click) — try to match
-                    var matched = -1;
-                    for (var i = 0; i < playlist.length; i++) {
-                        if (playlist[i].url === track.url) { matched = i; break; }
+                    // the current queue first, then fall back to the default show queue.
+                    var matched = findPlaylistIndexByUrl(getActivePlaylist(), track.url);
+                    if (matched < 0 && getActivePlaylist() !== defaultPlaylist) {
+                        matched = findPlaylistIndexByUrl(defaultPlaylist, track.url);
+                        if (matched >= 0) {
+                            setActivePlaylist(defaultPlaylist, {
+                                currentIndex: matched,
+                                currentUrl: track.url,
+                            });
+                        }
                     }
                     if (matched >= 0) {
                         state.playlistIndex = matched;

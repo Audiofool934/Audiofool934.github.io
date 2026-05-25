@@ -14,6 +14,13 @@ const groupedTracks = crate.sections.map((section) => ({
     ...section,
     tracks: crate.tracks.filter((track) => track.section === section.title),
 }));
+const cratePlaylist = crate.tracks.map((track) => ({
+    type: "local",
+    url: track.audioPreviewUrl,
+    title: track.title,
+    artist: track.artists,
+    artwork: track.cover,
+}));
 ---
 
 <MinimalLayout
@@ -127,6 +134,7 @@ const groupedTracks = crate.sections.map((section) => ({
                                         artist: track.artists,
                                         artwork: track.cover,
                                     })}
+                                    data-crate-index={track.number - 1}
                                     tabindex="0"
                                     role="button"
                                     aria-label={`Play preview: ${track.title}`}
@@ -181,13 +189,21 @@ const groupedTracks = crate.sections.map((section) => ({
     </div>
 </MinimalLayout>
 
-<script is:inline>
+<script is:inline define:vars={{ cratePlaylist }}>
     document.addEventListener("astro:page-load", () => {
         document.querySelectorAll("[data-crate-track]").forEach((row) => {
             const playTrack = () => {
                 const data = row.dataset.crateTrack;
                 if (!data || !window.playTrack) return;
-                window.playTrack(JSON.parse(data));
+                const trackIndex = Number(row.dataset.crateIndex);
+                if (window.setAudioPlaylist) {
+                    window.setAudioPlaylist(cratePlaylist, { currentIndex: trackIndex });
+                }
+                window.playTrack({
+                    ...JSON.parse(data),
+                    _plIdx: trackIndex,
+                    _playlist: cratePlaylist,
+                });
             };
 
             row.addEventListener("click", playTrack);
