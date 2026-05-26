@@ -1,4 +1,5 @@
 import { qingXiangWoKaiPaoCrate } from "./audioshowCratesQing";
+import { posthumanWarCrate } from "./audioshowCratesPosthumanWar";
 
 export type AudioShowCrateTrack = {
     number: number;
@@ -1241,6 +1242,7 @@ export const audioshowCrates: AudioShowCrate[] = [
         ]
     },
     qingXiangWoKaiPaoCrate,
+    posthumanWarCrate,
 ];
 
 export function getAudioShowCrate(slug: string) {
