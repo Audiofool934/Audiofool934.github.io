@@ -1,3 +1,5 @@
+import { qingXiangWoKaiPaoCrate } from "./audioshowCratesQing";
+
 export type AudioShowCrateTrack = {
     number: number;
     section: string;
@@ -1238,6 +1240,7 @@ export const audioshowCrates: AudioShowCrate[] = [
             }
         ]
     },
+    qingXiangWoKaiPaoCrate,
 ];
 
 export function getAudioShowCrate(slug: string) {
