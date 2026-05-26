@@ -10,6 +10,9 @@ on:
     - cron: '0 */6 * * *'
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
+  # Fallback manual trigger for automation when workflow_dispatch is unavailable.
+  repository_dispatch:
+    types: [deploy-pages]
 
 # Allow this job to clone the repo and create a page deployment
 permissions:
