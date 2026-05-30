@@ -3,12 +3,13 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "npm run sync:github-projects && astro dev",
-    "start": "npm run sync:github-projects && astro dev",
-    "build": "rm -rf .astro node_modules/.astro && npm run sync:github-projects && astro build",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "rm -rf .astro node_modules/.astro && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync:github-projects": "node scripts/sync-github-projects.mjs"
+    "refresh:github-projects": "node scripts/sync-github-projects.mjs",
+    "sync:github-projects": "npm run refresh:github-projects"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
@@ -17,10 +18,15 @@
     "@astrojs/sitemap": "^3.7.0",
     "astro": "^5.18.0",
     "autoprefixer": "^10.4.27",
+    "mdast-util-from-markdown": "^2.0.3",
+    "mdast-util-gfm": "^3.1.0",
+    "mdast-util-to-markdown": "^2.1.2",
+    "micromark-extension-gfm": "^3.0.0",
     "preact": "^10.23.2",
     "prismjs": "^1.29.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
+    "sanitize-html": "^2.17.4",
     "tailwindcss": "^3.4.18"
   },
   "devDependencies": {
