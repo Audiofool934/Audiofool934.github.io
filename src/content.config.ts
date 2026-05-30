@@ -72,6 +72,15 @@ const audioshow = defineCollection({
         localAudioUrl: z.string().optional(),
         coverImage: z.string().optional(),
         coverAlt: z.string().optional(),
+        // Batch files author cover art as `image: { url, alt }` (or a bare
+        // string); kept in the schema so it survives to the page for og:image.
+        image: z.union([
+            z.string(),
+            z.object({
+                url: z.string(),
+                alt: z.string().optional(),
+            }),
+        ]).optional(),
         lyricExcerpt: z.string().optional(),
         projectLinks: z.array(z.object({
             label: z.string(),

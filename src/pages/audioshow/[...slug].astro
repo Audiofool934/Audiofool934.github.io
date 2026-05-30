@@ -15,10 +15,19 @@ import { formatDateLong } from "../../utils/formatDate";
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+const ogImage =
+    (typeof entry.data.image === "string"
+        ? entry.data.image
+        : entry.data.image?.url) ?? entry.data.coverImage;
 ---
 
 <MinimalLayout
     title={`EP ${entry.data.episode}: ${entry.data.title} | AudioShow`}
+    description={entry.data.description ??
+        `AudioShow Episode ${entry.data.episode} — ${entry.data.title}`}
+    image={ogImage}
+    ogType="article"
 >
     <div class="p-6 md:p-12 mb-20 max-w-5xl mx-auto" transition:animate="fade">
         <!-- Back Link -->
@@ -65,6 +74,35 @@ const { Content } = await render(entry);
         </article>
     </div>
 </MinimalLayout>
+
+<script is:inline>
+    // The batch-markdown episode artwork is authored as <img onclick=...>, which
+    // is not keyboard- or screen-reader-operable. Upgrade each into a real button
+    // role with a focusable tabindex, a meaningful label, and Enter/Space support.
+    function upgradeAudioshowImages() {
+        document
+            .querySelectorAll(".audioshow-image[onclick]")
+            .forEach((img) => {
+                if (img.dataset.a11yUpgraded) return;
+                img.dataset.a11yUpgraded = "true";
+                img.setAttribute("role", "button");
+                img.setAttribute("tabindex", "0");
+                const alt = img.getAttribute("alt") || "";
+                const label = alt
+                    .replace(/^EP[_-]?\d+[_-]?/i, "")
+                    .replace(/_/g, " ")
+                    .trim();
+                img.setAttribute("aria-label", "Play" + (label ? ": " + label : ""));
+                img.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        img.click();
+                    }
+                });
+            });
+    }
+    document.addEventListener("astro:page-load", upgradeAudioshowImages);
+</script>
 
 <style>
     /* Center images in AudioShow posts */

@@ -15,9 +15,19 @@ import { formatDateLong } from "../../utils/formatDate";
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+const galleryDescription =
+    [entry.data.title, entry.data.location, entry.data.camera]
+        .filter(Boolean)
+        .join(" · ") + " — Photography by Audiofool";
 ---
 
-<MinimalLayout title={`${entry.data.title} | Gallery`}>
+<MinimalLayout
+    title={`${entry.data.title} | Gallery`}
+    description={galleryDescription}
+    image={entry.data.image}
+    ogType="article"
+>
     <div class="p-6 md:p-12" transition:animate="fade">
         <!-- Back Link -->
         <a

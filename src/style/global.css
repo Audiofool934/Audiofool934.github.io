@@ -33,14 +33,24 @@
     font-size: 16px;
   }
 
-  /* 
+  /*
    * The "Line" Aesthetic
-   * All borders are solid 1px by default 
+   * All borders are solid 1px by default
    */
   *,
   *::before,
   *::after {
     border-color: var(--border-main);
+  }
+
+  /*
+   * Visible keyboard focus. Tailwind Preflight strips the UA outline, so we
+   * re-add an on-brand one for every interactive element (keyboard only).
+   */
+  :where(a, button, input, select, textarea, summary, [tabindex], [role="button"], [role="slider"]):focus-visible {
+    outline: 2px solid var(--text-main);
+    outline-offset: 2px;
+    border-radius: 1px;
   }
 }
 
@@ -96,5 +106,28 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /*
+   * Bottom padding that clears the iOS/Android home indicator for the fixed
+   * mobile audio player. Requires viewport-fit=cover (set in the layout head).
+   */
+  .safe-area-inset-bottom {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+}
+
+/*
+ * Respect users who ask for less motion: neutralize entry animations,
+ * view-transition crossfades, hover scaling, and smooth scrolling.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

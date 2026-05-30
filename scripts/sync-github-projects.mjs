@@ -26,8 +26,40 @@ function normalizeMarkdown(markdown) {
     .replace(/```bibtex\b/gi, '```text');
 }
 
+// Synced READMEs are third-party content (e.g. forks of external repos) and are
+// rendered as raw HTML by Astro's markdown pipeline with no sanitizer in the
+// chain. Strip the executable surface so a hostile README cannot inject
+// first-party JS at build time. (Trade-off: also neutralizes any raw <script>/
+// on*= shown verbatim inside README prose — acceptable for safety.)
+function sanitizeReadmeHtml(markdown) {
+  return markdown
+    // Remove entire <script>/<style>/<iframe>/<object>/<embed> blocks
+    .replace(/<\s*(script|style|iframe|object|embed)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, '')
+    // Remove self-closing or unclosed dangerous tags
+    .replace(/<\s*(script|iframe|object|embed)\b[^>]*\/?>/gi, '')
+    // Strip inline event-handler attributes (onclick, onerror, onload, ...)
+    .replace(/\son[a-z]+\s*=\s*"[^"]*"/gi, '')
+    .replace(/\son[a-z]+\s*=\s*'[^']*'/gi, '')
+    .replace(/\son[a-z]+\s*=\s*[^\s>]+/gi, '')
+    // Neutralize javascript:/vbscript: and non-image data: URIs in href/src
+    // (quoted attributes)
+    .replace(/(\b(?:href|src)\s*=\s*)(["'])\s*(?:javascript|vbscript):[^"']*\2/gi, '$1$2#$2')
+    .replace(/(\b(?:href|src)\s*=\s*)(["'])\s*data:(?!image\/)[^"']*\2/gi, '$1$2#$2')
+    // ...and unquoted attributes (e.g. href=javascript:alert(1))
+    .replace(/(\b(?:href|src)\s*=\s*)(?:javascript|vbscript):[^\s>]*/gi, '$1#')
+    .replace(/(\b(?:href|src)\s*=\s*)data:(?!image\/)[^\s>]*/gi, '$1#');
+}
+
 function isAbsoluteOrSpecialUrl(url) {
   return /^(?:[a-z][a-z0-9+.-]*:|#)/i.test(url.trim());
+}
+
+// javascript:/vbscript:/non-image data: URLs execute or smuggle script when a
+// visitor clicks them. Astro's markdown renderer does NOT sanitize these, so we
+// neutralize them at the URL-resolution layer (covers markdown links/images and
+// quoted raw-HTML attributes that flow through resolveRepoUrl).
+function isDangerousUrl(url) {
+  return /^\s*(?:javascript|vbscript):/i.test(url) || /^\s*data:(?!image\/)/i.test(url);
 }
 
 function encodeRepoPath(repoPath) {
@@ -43,6 +75,7 @@ function encodeRepoPath(repoPath) {
 
 function resolveRepoUrl(url, owner, repo, branch, readmeDir, kind) {
   const trimmed = url.trim();
+  if (isDangerousUrl(trimmed)) return '#';
   if (!trimmed || isAbsoluteOrSpecialUrl(trimmed)) return url;
 
   const rawBase = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
@@ -122,12 +155,14 @@ async function syncProject(file) {
 
   if (readmeMarkdown && readmeMarkdown.body.trim()) {
     const body = normalizeMarkdown(
-      rewriteMarkdownUrls(
-        stripReadmeFrontmatter(readmeMarkdown.body),
-        owner,
-        repo,
-        branch,
-        readmeMarkdown.path,
+      sanitizeReadmeHtml(
+        rewriteMarkdownUrls(
+          stripReadmeFrontmatter(readmeMarkdown.body),
+          owner,
+          repo,
+          branch,
+          readmeMarkdown.path,
+        ),
       ),
     ).trim();
     const generated = `---\nproject: ${JSON.stringify(id)}\nrepo: ${JSON.stringify(githubRepo)}\nsourceUrl: ${JSON.stringify(meta.html_url)}\nsyncedAt: ${JSON.stringify(new Date().toISOString())}\n---\n\n${body}\n`;
@@ -156,14 +191,32 @@ async function syncProject(file) {
 await mkdir(readmesDir, { recursive: true });
 await mkdir(dataDir, { recursive: true });
 
+// Load the committed last-known-good snapshot so a transient GitHub outage or
+// rate-limit does not wipe a project's metadata (the build is otherwise green
+// but every project page silently loses its GitHub box + README). The synced
+// files are committed to the repo, so this is a refresh, not a hard dependency.
+let previous = { projects: [] };
+try {
+  previous = JSON.parse(await readFile(path.join(dataDir, 'github-projects.json'), 'utf8'));
+} catch {
+  // no prior snapshot (first run) — nothing to fall back to
+}
+const prevById = new Map((previous.projects || []).map((p) => [p.project, p]));
+
 const files = (await readdir(projectsDir)).filter((file) => file.endsWith('.md'));
 const metadata = [];
 for (const file of files) {
+  const id = file.replace(/\.mdx?$/, '').toLowerCase();
   try {
     const item = await syncProject(file);
     if (item) metadata.push(item);
   } catch (error) {
     console.warn(`[github-projects] Failed to sync ${file}: ${error.message}`);
+    const prev = prevById.get(id);
+    if (prev) {
+      metadata.push(prev);
+      console.warn(`[github-projects]   ↳ reused last-known-good metadata for ${id}`);
+    }
   }
 }
 
