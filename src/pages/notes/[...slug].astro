@@ -64,7 +64,8 @@ for (const e of referencedBy) {
 
 <MinimalLayout
     title={`${entry.data.title} | Notes`}
-    description="Personal notes and working ideas"
+    description={`${entry.data.kind} · ${entry.data.title}${entry.data.tags?.length ? " — " + entry.data.tags.join(", ") : ""}`}
+    ogType="article"
 >
     <!-- Breadcrumb -->
     <div

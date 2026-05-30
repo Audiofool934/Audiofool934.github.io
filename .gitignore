@@ -25,6 +25,7 @@ pnpm-debug.log*
 
 # blueprint drafts
 blueprint.md
-# generated GitHub project sync cache
-src/content/project-readmes/*.md
-src/data/github-projects.json
+
+# NOTE: the GitHub project sync output (src/data/github-projects.json and
+# src/content/project-readmes/*.md) is intentionally committed as a
+# last-known-good fallback so deploys don't depend on the GitHub API being up.

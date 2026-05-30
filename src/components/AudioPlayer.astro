@@ -66,6 +66,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
             <div
                 class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
                 onclick="document.getElementById('player-play-btn').click()"
+                aria-hidden="true"
             >
                 <span class="text-white text-3xl opacity-80 hover:opacity-100"
                     >⏯</span
@@ -74,7 +75,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
         </div>
 
         <!-- Track Info -->
-        <div class="flex flex-col min-w-0">
+        <div class="flex flex-col min-w-0" aria-live="polite" aria-atomic="true">
             <div
                 id="player-track-name"
                 class="text-sm font-bold truncate leading-tight"
@@ -94,6 +95,12 @@ const playlist = sortEpisodesDesc(allEpisodes)
             <div
                 class="w-full h-1 bg-[var(--text-muted)]/30 relative group cursor-pointer"
                 id="player-seek-container"
+                role="slider"
+                tabindex="0"
+                aria-label="Seek"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
             >
                 <div
                     id="player-progress-bar"
@@ -112,6 +119,8 @@ const playlist = sortEpisodesDesc(allEpisodes)
                 <div class="flex items-center gap-2">
                     <button
                         id="player-shuffle-btn"
+                        aria-label="Shuffle"
+                        aria-pressed="false"
                         class="hover:text-[var(--text-main)] transition-colors p-1"
                         title="Shuffle"
                     >
@@ -125,6 +134,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                     </button>
                     <button
                         id="player-prev-btn"
+                        aria-label="Previous track"
                         class="hover:text-[var(--text-main)] transition-colors p-1"
                         title="Previous"
                     >
@@ -135,6 +145,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                     </button>
                     <button
                         id="player-play-btn"
+                        aria-label="Play"
                         class="hover:text-[var(--text-main)] transition-colors disabled:opacity-30 p-1"
                         disabled
                     >
@@ -142,6 +153,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                     </button>
                     <button
                         id="player-next-btn"
+                        aria-label="Next track"
                         class="hover:text-[var(--text-main)] transition-colors p-1"
                         title="Next"
                     >
@@ -158,7 +170,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
 
     <!-- ==================== MOBILE PLAYER (Fixed Bottom Bar) ==================== -->
     <div
-        class="md:hidden fixed bottom-0 left-0 right-0 bg-[var(--bg-body)] border-t border-[var(--border-main)] z-[200] px-4 py-3 safe-area-inset-bottom"
+        class="md:hidden fixed bottom-0 left-0 right-0 bg-[var(--bg-body)] border-t border-[var(--border-main)] z-[200] px-4 pt-3 safe-area-inset-bottom"
     >
         <div class="flex items-center gap-2">
             <!-- Mini Artwork -->
@@ -179,7 +191,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
             </div>
 
             <!-- Track Info -->
-            <div class="flex-1 min-w-0">
+            <div class="flex-1 min-w-0" aria-live="polite" aria-atomic="true">
                 <div
                     id="player-track-name-mobile"
                     class="text-sm font-bold truncate"
@@ -197,6 +209,8 @@ const playlist = sortEpisodesDesc(allEpisodes)
             <!-- Controls -->
             <button
                 id="player-shuffle-btn-mobile"
+                aria-label="Shuffle"
+                aria-pressed="false"
                 class="w-8 h-8 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
                 title="Shuffle"
             >
@@ -210,6 +224,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
             </button>
             <button
                 id="player-prev-btn-mobile"
+                aria-label="Previous track"
                 class="w-8 h-8 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
                 title="Previous"
             >
@@ -220,6 +235,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
             </button>
             <button
                 id="player-play-btn-mobile"
+                aria-label="Play"
                 class="w-10 h-10 flex items-center justify-center border border-[var(--border-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors disabled:opacity-30"
                 disabled
             >
@@ -227,6 +243,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
             </button>
             <button
                 id="player-next-btn-mobile"
+                aria-label="Next track"
                 class="w-8 h-8 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
                 title="Next"
             >
@@ -427,11 +444,13 @@ const playlist = sortEpisodesDesc(allEpisodes)
                 }
                 els.playIcon.textContent = isPlaying ? "II" : "▶";
                 els.playBtn.disabled = false;
+                els.playBtn.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
             }
             // Shuffle active state (desktop)
             if (els.shuffleBtn) {
                 els.shuffleBtn.style.color = shuffleOn ? "var(--text-main)" : "";
                 els.shuffleBtn.style.opacity = shuffleOn ? "1" : "";
+                els.shuffleBtn.setAttribute("aria-pressed", shuffleOn ? "true" : "false");
             }
 
             // Mobile
@@ -447,11 +466,13 @@ const playlist = sortEpisodesDesc(allEpisodes)
                 }
                 els.playIconMobile.textContent = isPlaying ? "II" : "▶";
                 els.playBtnMobile.disabled = false;
+                els.playBtnMobile.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
             }
             // Shuffle active state (mobile)
             if (els.shuffleBtnMobile) {
                 els.shuffleBtnMobile.style.color = shuffleOn ? "var(--text-main)" : "";
                 els.shuffleBtnMobile.style.opacity = shuffleOn ? "1" : "";
+                els.shuffleBtnMobile.setAttribute("aria-pressed", shuffleOn ? "true" : "false");
             }
         }
 
@@ -658,9 +679,15 @@ const playlist = sortEpisodesDesc(allEpisodes)
             els.audio.onpause = function () { state.isPlaying = false; syncUIWithState(); };
             els.audio.ontimeupdate = function () {
                 state.currentTime = els.audio.currentTime;
-                var percent = (els.audio.currentTime / els.audio.duration) * 100;
+                var dur = els.audio.duration;
+                var percent =
+                    dur > 0 && isFinite(dur)
+                        ? (els.audio.currentTime / dur) * 100
+                        : 0;
                 if (els.progressBar) els.progressBar.style.width = percent + "%";
                 if (els.progressBarMobile) els.progressBarMobile.style.width = percent + "%";
+                if (els.seekContainer)
+                    els.seekContainer.setAttribute("aria-valuenow", String(Math.round(percent)));
                 if (els.currTimeEl) els.currTimeEl.textContent = formatTime(els.audio.currentTime);
             };
             els.audio.onloadedmetadata = function () {
@@ -670,13 +697,56 @@ const playlist = sortEpisodesDesc(allEpisodes)
             els.audio.onended = function () {
                 handleNext();
             };
+            // Surface load/decode failures instead of freezing on a dead source
+            els.audio.onerror = function () {
+                state.isPlaying = false;
+                if (state.track) {
+                    state.track = {
+                        title:
+                            state.track.title && state.track.title !== "Loading..."
+                                ? state.track.title
+                                : "Playback error",
+                        artist: "Source unavailable",
+                        artwork: state.track.artwork,
+                    };
+                }
+                syncUIWithState();
+            };
 
-            // Seeking (Desktop)
+            // Seeking (Desktop) — pointer + keyboard
             if (els.seekContainer) {
                 els.seekContainer.onclick = function (e) {
+                    var dur = els.audio.duration;
+                    if (!dur || !isFinite(dur)) return;
                     var rect = els.seekContainer.getBoundingClientRect();
                     var pos = (e.clientX - rect.left) / rect.width;
-                    els.audio.currentTime = pos * els.audio.duration;
+                    els.audio.currentTime = Math.max(0, Math.min(1, pos)) * dur;
+                };
+                els.seekContainer.onkeydown = function (e) {
+                    var dur = els.audio.duration;
+                    if (!dur || !isFinite(dur)) return;
+                    var t = els.audio.currentTime;
+                    var step = 5;
+                    switch (e.key) {
+                        case "ArrowRight":
+                        case "ArrowUp":
+                            t = Math.min(dur, t + step);
+                            break;
+                        case "ArrowLeft":
+                        case "ArrowDown":
+                            t = Math.max(0, t - step);
+                            break;
+                        case "Home":
+                            t = 0;
+                            break;
+                        case "End":
+                            t = dur;
+                            break;
+                        default:
+                            return;
+                    }
+                    e.preventDefault();
+                    els.audio.currentTime = t;
                 };
             }
 

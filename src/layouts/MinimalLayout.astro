@@ -10,13 +10,22 @@ interface Props {
     title: string;
     description?: string;
     lang?: string;
+    image?: string;
+    ogType?: string;
 }
 
 const {
     title,
-    description = "Audiofool Personal Website",
+    description = "Audiofool — creative AI, notes, an AudioShow music journal, and photography.",
     lang = "en",
+    image = "/images/audiofool-seal.png",
+    ogType = "website",
 } = Astro.props;
+
+// Absolute URLs for canonical + social cards (Astro.site = https://audiofool.blog).
+// new URL() leaves already-absolute image URLs (e.g. Apple artwork) untouched.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.site);
 
 // Get the latest episode for the default track (runs at build time, so available on every page)
 let defaultTrackData = null;
@@ -51,11 +60,45 @@ const NAV_ITEMS = [
 <html lang={lang} class="scroll-smooth">
     <head>
         <meta charset="UTF-8" />
-        <meta name="description" content={description} />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <meta name="generator" content={Astro.generator} />
+        <meta name="viewport" content="width=device-width, viewport-fit=cover" />
         <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalURL} />
+        <meta name="generator" content={Astro.generator} />
+        <meta
+            name="theme-color"
+            content="#0a0a0a"
+            media="(prefers-color-scheme: dark)"
+        />
+        <meta
+            name="theme-color"
+            content="#fafafa"
+            media="(prefers-color-scheme: light)"
+        />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Audiofool"
+            href="/rss.xml"
+        />
+
+        <!-- Open Graph -->
+        <meta property="og:type" content={ogType} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:site_name" content="Audiofool" />
+        <meta property="og:image" content={socialImageURL} />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@Audiofool934" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={socialImageURL} />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -116,6 +159,12 @@ const NAV_ITEMS = [
     <body
         class="min-h-screen flex flex-col font-sans bg-[var(--bg-body)] text-[var(--text-main)] transition-colors duration-300"
     >
+        <a
+            href="#main-content"
+            class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[300] focus:bg-[var(--bg-body)] focus:text-[var(--text-main)] focus:border focus:border-[var(--border-main)] focus:px-3 focus:py-2 focus:font-mono focus:text-sm"
+        >
+            Skip to content
+        </a>
         <!-- Main Grid Layout -->
         <div
             class="min-h-screen flex flex-col md:flex-row max-w-[1440px] mx-auto w-full border-x border-[var(--border-main)] pb-20 md:pb-0"
@@ -135,12 +184,16 @@ const NAV_ITEMS = [
                     <div class="flex items-center gap-3">
                         <button
                             id="mobile-menu-toggle"
+                            aria-label="Toggle navigation menu"
+                            aria-expanded="false"
+                            aria-controls="nav-content"
                             class="font-mono text-sm border border-[var(--border-main)] px-2 py-1 hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
                         >
                             <span id="menu-icon">[ ≡ ]</span>
                         </button>
                         <button
                             id="theme-toggle-mobile"
+                            aria-label="Toggle light/dark theme"
                             class="text-xl hover:rotate-12 transition-transform"
                             title="Toggle Theme"
                         >
@@ -165,6 +218,7 @@ const NAV_ITEMS = [
                         </a>
                         <button
                             id="theme-toggle"
+                            aria-label="Toggle light/dark theme"
                             class="text-xl hover:rotate-12 transition-transform"
                             title="Toggle Dark Side of the Moon"
                         >
@@ -196,6 +250,7 @@ const NAV_ITEMS = [
                                 rel="noopener noreferrer"
                                 class="hover:text-[var(--text-main)] transition-colors opacity-60 hover:opacity-100"
                                 title="GitHub"
+                                aria-label="GitHub profile"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -214,6 +269,7 @@ const NAV_ITEMS = [
                                 rel="noopener noreferrer"
                                 class="hover:text-[var(--text-main)] transition-colors opacity-60 hover:opacity-100"
                                 title="X"
+                                aria-label="X (Twitter) profile"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +291,7 @@ const NAV_ITEMS = [
             </aside>
 
             <!-- Main Content Area -->
-            <main class="flex-1 min-w-0 w-full">
+            <main id="main-content" tabindex="-1" class="flex-1 min-w-0 w-full outline-none">
                 <!-- Content Slot -->
                 <slot />
             </main>
@@ -291,6 +347,12 @@ const NAV_ITEMS = [
 
                 // Mobile menu toggle
                 if (menuToggle && navContent && menuIcon) {
+                    const closeMenu = () => {
+                        navContent.classList.add("hidden");
+                        navContent.classList.remove("flex");
+                        menuIcon.textContent = "[ ≡ ]";
+                        menuToggle.setAttribute("aria-expanded", "false");
+                    };
                     menuToggle.onclick = () => {
                         const isHidden =
                             navContent.classList.contains("hidden");
@@ -298,27 +360,32 @@ const NAV_ITEMS = [
                             navContent.classList.remove("hidden");
                             navContent.classList.add("flex");
                             menuIcon.textContent = "[ × ]";
+                            menuToggle.setAttribute("aria-expanded", "true");
                         } else {
-                            navContent.classList.add("hidden");
-                            navContent.classList.remove("flex");
-                            menuIcon.textContent = "[ ≡ ]";
+                            closeMenu();
                         }
                     };
 
                     // Close menu when clicking a nav link
                     const navLinks = navContent.querySelectorAll(".nav-link");
                     navLinks.forEach((link) => {
-                        link.addEventListener("click", () => {
-                            navContent.classList.add("hidden");
-                            navContent.classList.remove("flex");
-                            menuIcon.textContent = "[ ≡ ]";
-                        });
+                        link.addEventListener("click", closeMenu);
                     });
                 }
             }
 
+            // Move keyboard focus to the main region after a client-side
+            // navigation so screen-reader users land on the new page content
+            // instead of staying on a now-removed link.
+            function focusMain() {
+                const main = document.getElementById("main-content");
+                if (main) main.focus({ preventScroll: true });
+            }
+
             // Apply theme immediately after swap to prevent flash/reset
             document.addEventListener("astro:after-swap", applyTheme);
+            // Reset focus to main content after client-side navigations only
+            document.addEventListener("astro:after-swap", focusMain);
 
             // Attach interactive listeners on load
             document.addEventListener("astro:page-load", attachToggle);

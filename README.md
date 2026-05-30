@@ -15,7 +15,7 @@ The site is built with Astro and maintained as a set of small, typed content sys
 | **Notes** | Personal essays, technical ideas, models, methods, and references |
 | **AudioShow** | A curated listening archive with playable legal previews |
 | **Gallery** | Selected photographs with camera, lens, and film metadata |
-| **Projects** | Project dossiers backed by GitHub metadata and README sync |
+| **Projects** | Project dossiers backed by GitHub metadata and README snapshots |
 | **Timeline** | A curated chronological record of public site activity |
 
 ---
@@ -37,7 +37,7 @@ External services can provide data, but the site owns the presentation.
 
 ## GitHub-backed Projects
 
-Project pages can link to a GitHub repository and sync its README at build time.
+Project pages can link to a GitHub repository and render a committed README snapshot.
 
 ```yaml
 ---
@@ -53,7 +53,7 @@ githubReadme: true
 ---
 ```
 
-During `npm run build`, `scripts/sync-github-projects.mjs` fetches repository metadata and README content, then Astro renders the result inside the site’s own project layout.
+Run `npm run refresh:github-projects` to fetch repository metadata and README content, sanitize third-party README HTML, and update the committed snapshot. `npm run build` uses that snapshot, so deploys do not depend on the GitHub API being reachable at build time.
 
 The GitHub README can serve as the public project document. The website turns it into a designed project page.
 
@@ -72,6 +72,7 @@ Useful scripts:
 
 ```bash
 npm run sync:github-projects
+npm run refresh:github-projects
 ```
 
 ---
@@ -82,13 +83,13 @@ npm run sync:github-projects
 src/
 ├── content/
 │   ├── projects/            # Human-edited project metadata and briefs
-│   ├── project-readmes/     # Generated README cache, ignored by git
+│   ├── project-readmes/     # Committed GitHub README snapshot
 │   ├── wiki/                # Notes content collection
 │   ├── log/                 # Timeline entries
 │   ├── audioshow/           # AudioShow markdown archive
 │   └── gallery/             # Gallery metadata
 ├── data/
-│   └── github-projects.json # Generated GitHub metadata cache, ignored by git
+│   └── github-projects.json # Committed GitHub metadata snapshot
 ├── pages/
 │   ├── projects/
 │   ├── notes/

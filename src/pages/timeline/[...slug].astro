@@ -17,7 +17,11 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<MinimalLayout title={`${entry.data.title} | Timeline`}>
+<MinimalLayout
+    title={`${entry.data.title} | Timeline`}
+    description={entry.data.description}
+    ogType="article"
+>
     <div class="p-6 md:p-12 flex justify-center" transition:animate="fade">
         <article class="max-w-4xl w-full anime-fade-in-up">
             <!-- Timeline Header -->
