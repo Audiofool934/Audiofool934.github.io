@@ -5,12 +5,12 @@ export const longLiveRockCrate: AudioShowCrate = {
     "number": "006",
     "title": "Long Live Rock",
     "premise": "A cross-album album about whether rock dies, how it is remembered, and how it comes back electric.",
-    "curatorNote": "Built from Everett's long-started Spotify playlist and polished as an authored crate: acoustic question, public memory, title ignition, guitar witness, hard-rock voltage, rupture, stadium myth, and a Neil Young electric return.",
+    "curatorNote": "Built from Everett's long-started Spotify playlist and polished as an authored crate: acoustic question, public memory, Plant/Krauss roots resurrection, title ignition, guitar witness, hard-rock voltage, rupture, stadium myth, and a Neil Young electric return.",
     "cover": "/images/audioshow/crates/long-live-rock/cover.webp",
     "spotifyUrl": "https://open.spotify.com/playlist/5DnLWFIoJupGVVuf7I9vZC",
-    "trackCount": 60,
-    "duration": "5h13m",
-    "updated": "May 2026",
+    "trackCount": 61,
+    "duration": "5h18m",
+    "updated": "June 2026",
     "tags": [
         "classic rock",
         "hard rock",
@@ -20,7 +20,7 @@ export const longLiveRockCrate: AudioShowCrate = {
     "sections": [
         {
             "title": "Memory Before Ignition",
-            "note": "Acoustic survival, personal memory, generational handoff, and public myth before the title even catches fire."
+            "note": "Acoustic survival, personal memory, generational handoff, public myth, and a 21st-century roots echo before the title catches fire."
         },
         {
             "title": "Rock & Roll Saves",
@@ -138,6 +138,17 @@ export const longLiveRockCrate: AudioShowCrate = {
         },
         {
             "number": 9,
+            "section": "Memory Before Ignition",
+            "title": "The Price Of Love",
+            "artists": "Robert Plant, Alison Krauss",
+            "album": "Raise The Roof",
+            "year": "2021",
+            "spotifyUrl": "https://open.spotify.com/track/3YSKEy7zNqugQtz4FH6UcG",
+            "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0a/b0/86/0ab086fd-049d-60e3-83c9-9e0668091174/mzaf_13246027871042116724.plus.aac.p.m4a",
+            "cover": "/images/audioshow/crates/long-live-rock/tracks/09-3YSKEy7zNqugQtz4FH6UcG.webp"
+        },
+        {
+            "number": 10,
             "section": "Rock & Roll Saves",
             "title": "Rock & Roll - Full Length Version; 2015 Remaster",
             "artists": "The Velvet Underground",
@@ -148,7 +159,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/09-0ZfP7K8NoyJRjEfWWk8Mlv.webp"
         },
         {
-            "number": 10,
+            "number": 11,
             "section": "Rock & Roll Saves",
             "title": "Long Live Rock - Single Mix",
             "artists": "The Who",
@@ -159,7 +170,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/10-1Pq1ySROrhPJ1ljTcZPy83.webp"
         },
         {
-            "number": 11,
+            "number": 12,
             "section": "Rock & Roll Saves",
             "title": "It's a Long Way to the Top (If You Wanna Rock 'N' Roll)",
             "artists": "AC/DC",
@@ -170,7 +181,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/11-7nemcVsXVFZF01iqpIIo2Y.webp"
         },
         {
-            "number": 12,
+            "number": 13,
             "section": "Rock & Roll Saves",
             "title": "Rock and Roll - Remaster",
             "artists": "Led Zeppelin",
@@ -181,7 +192,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/12-4PRGxHpCpF2yoOHYKQIEwD.webp"
         },
         {
-            "number": 13,
+            "number": 14,
             "section": "Rock & Roll Saves",
             "title": "You Really Got Me",
             "artists": "The Kinks",
@@ -192,7 +203,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/13-6tZdL3Zp8JgrfDbsSeSV1S.webp"
         },
         {
-            "number": 14,
+            "number": 15,
             "section": "Rock & Roll Saves",
             "title": "Sunshine Of Your Love",
             "artists": "Cream",
@@ -203,7 +214,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/14-2K2M0TcglCRLLpFOzKeFZA.webp"
         },
         {
-            "number": 15,
+            "number": 16,
             "section": "Rock & Roll Saves",
             "title": "Hey Joe",
             "artists": "Jimi Hendrix",
@@ -214,7 +225,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/15-0NWPxcsf5vdjdiFUI8NgkP.webp"
         },
         {
-            "number": 16,
+            "number": 17,
             "section": "Rock & Roll Saves",
             "title": "All Along the Watchtower",
             "artists": "Jimi Hendrix",
@@ -225,7 +236,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/16-2aoo2jlRnM3A0NyLQqMN2f.webp"
         },
         {
-            "number": 17,
+            "number": 18,
             "section": "Guitar as Witness",
             "title": "While My Guitar Gently Weeps - Remastered 2009",
             "artists": "The Beatles",
@@ -236,7 +247,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/17-389QX9Q1eUOEZ19vtzzI9O.webp"
         },
         {
-            "number": 18,
+            "number": 19,
             "section": "Guitar as Witness",
             "title": "Layla",
             "artists": "Derek & The Dominos",
@@ -247,7 +258,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/18-2kkvB3RNRzwjFdGhaUA0tz.webp"
         },
         {
-            "number": 19,
+            "number": 20,
             "section": "Guitar as Witness",
             "title": "Sultans of Swing",
             "artists": "Dire Straits",
@@ -258,7 +269,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/19-6cr6UDpkjEaMQ80OjWqEBQ.webp"
         },
         {
-            "number": 20,
+            "number": 21,
             "section": "Guitar as Witness",
             "title": "Jessica",
             "artists": "Allman Brothers Band",
@@ -269,7 +280,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/20-7AN22wQYwiCG49qYosygFq.webp"
         },
         {
-            "number": 21,
+            "number": 22,
             "section": "Guitar as Witness",
             "title": "Sweet Home Alabama",
             "artists": "Lynyrd Skynyrd",
@@ -280,7 +291,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/21-4NzwgM69bvQU9b5pmL19Ei.webp"
         },
         {
-            "number": 22,
+            "number": 23,
             "section": "Guitar as Witness",
             "title": "Free Bird - Live At Fox Theatre, Atlanta, 1976 / Undubbed",
             "artists": "Lynyrd Skynyrd",
@@ -291,7 +302,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/22-7BNnwuJj2w023oJKjM82P9.webp"
         },
         {
-            "number": 23,
+            "number": 24,
             "section": "Guitar as Witness",
             "title": "Comfortably Numb",
             "artists": "Pink Floyd",
@@ -302,7 +313,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/23-5HNCy40Ni5BZJFw1TKzRsC.webp"
         },
         {
-            "number": 24,
+            "number": 25,
             "section": "Guitar as Witness",
             "title": "Time",
             "artists": "Pink Floyd",
@@ -313,7 +324,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/24-3TO7bbrUKrOSPGRTB5MeCz.webp"
         },
         {
-            "number": 25,
+            "number": 26,
             "section": "Public Roads",
             "title": "The Chain - 2004 Remaster",
             "artists": "Fleetwood Mac",
@@ -324,7 +335,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/25-7Dm3dV3WPNdTgxoNY7YFnc.webp"
         },
         {
-            "number": 26,
+            "number": 27,
             "section": "Public Roads",
             "title": "Gimme Shelter",
             "artists": "The Rolling Stones",
@@ -335,7 +346,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/26-6H3kDe7CGoWYBabAeVWGiD.webp"
         },
         {
-            "number": 27,
+            "number": 28,
             "section": "Public Roads",
             "title": "Fortunate Son",
             "artists": "Creedence Clearwater Revival",
@@ -346,7 +357,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/27-6HPL4ntDOnsdc1jtnX8XMJ.webp"
         },
         {
-            "number": 28,
+            "number": 29,
             "section": "Public Roads",
             "title": "American Girl",
             "artists": "Tom Petty and the Heartbreakers",
@@ -357,7 +368,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/28-53LwBS4bovyljsMlLqGfd6.webp"
         },
         {
-            "number": 29,
+            "number": 30,
             "section": "Public Roads",
             "title": "Thunder Road",
             "artists": "Bruce Springsteen",
@@ -368,7 +379,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/29-56lhDZNQ5J47aog6mGKeGk.webp"
         },
         {
-            "number": 30,
+            "number": 31,
             "section": "Public Roads",
             "title": "Born to Run",
             "artists": "Bruce Springsteen",
@@ -379,7 +390,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/30-6hTcuIQa0sxrrByu9wTD7s.webp"
         },
         {
-            "number": 31,
+            "number": 32,
             "section": "Voltage Cathedral",
             "title": "Baba O'Riley",
             "artists": "The Who",
@@ -390,7 +401,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/31-3qiyyUfYe7CRYLucrPmulD.webp"
         },
         {
-            "number": 32,
+            "number": 33,
             "section": "Voltage Cathedral",
             "title": "Behind Blue Eyes",
             "artists": "The Who",
@@ -401,7 +412,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/32-0cKk8BKEi7zXbdrYdyqBP5.webp"
         },
         {
-            "number": 33,
+            "number": 34,
             "section": "Voltage Cathedral",
             "title": "5:15",
             "artists": "The Who",
@@ -412,7 +423,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/33-4Od7sBwpnuVxQRMNCn7PBj.webp"
         },
         {
-            "number": 34,
+            "number": 35,
             "section": "Voltage Cathedral",
             "title": "Won't Get Fooled Again - Original Album Version",
             "artists": "The Who",
@@ -423,7 +434,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/34-0cJPLFrlV7TTCyPLupHzcH.webp"
         },
         {
-            "number": 35,
+            "number": 36,
             "section": "Voltage Cathedral",
             "title": "Immigrant Song - Remaster",
             "artists": "Led Zeppelin",
@@ -434,7 +445,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/35-78lgmZwycJ3nzsdgmPPGNx.webp"
         },
         {
-            "number": 36,
+            "number": 37,
             "section": "Voltage Cathedral",
             "title": "Black Dog - Remaster",
             "artists": "Led Zeppelin",
@@ -445,7 +456,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/36-3qT4bUD1MaWpGrTwcvguhb.webp"
         },
         {
-            "number": 37,
+            "number": 38,
             "section": "Voltage Cathedral",
             "title": "Highway Star",
             "artists": "Deep Purple",
@@ -456,7 +467,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/37-4gVTozEmzwAUXpwj3jEetX.webp"
         },
         {
-            "number": 38,
+            "number": 39,
             "section": "Voltage Cathedral",
             "title": "Child in Time",
             "artists": "Deep Purple",
@@ -467,7 +478,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/38-5TrfusgKC1BYic5LaWCoKm.webp"
         },
         {
-            "number": 39,
+            "number": 40,
             "section": "Voltage Cathedral",
             "title": "War Pigs / Luke's Wall - 2012 - Remaster",
             "artists": "Black Sabbath",
@@ -478,7 +489,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/39-2rd9ETlulTbz6BYZcdvIE1.webp"
         },
         {
-            "number": 40,
+            "number": 41,
             "section": "Voltage Cathedral",
             "title": "Paranoid - 2012 - Remaster",
             "artists": "Black Sabbath",
@@ -489,7 +500,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/40-1Y373MqadDRtclJNdnUXVc.webp"
         },
         {
-            "number": 41,
+            "number": 42,
             "section": "Rupture and Stadium Myth",
             "title": "Search and Destroy [2023 Remaster] - Iggy Mix",
             "artists": "The Stooges",
@@ -500,7 +511,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/41-00sydAz6PeOxYzwG1dRIPi.webp"
         },
         {
-            "number": 42,
+            "number": 43,
             "section": "Rupture and Stadium Myth",
             "title": "Blitzkrieg Bop - 2016 Remaster",
             "artists": "Ramones",
@@ -511,7 +522,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/42-4KcH1ZRV2W1q7Flq0QqC76.webp"
         },
         {
-            "number": 43,
+            "number": 44,
             "section": "Rupture and Stadium Myth",
             "title": "London Calling - Remastered",
             "artists": "The Clash",
@@ -522,7 +533,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/43-5jzma6gCzYtKB1DbEwFZKH.webp"
         },
         {
-            "number": 44,
+            "number": 45,
             "section": "Rupture and Stadium Myth",
             "title": "Barracuda",
             "artists": "Heart",
@@ -533,7 +544,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/44-4KfSdst7rW39C0sfhArdrz.webp"
         },
         {
-            "number": 45,
+            "number": 46,
             "section": "Rupture and Stadium Myth",
             "title": "Highway to Hell",
             "artists": "AC/DC",
@@ -544,7 +555,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/45-2zYzyRzz6pRmhPzyfMEC8s.webp"
         },
         {
-            "number": 46,
+            "number": 47,
             "section": "Rupture and Stadium Myth",
             "title": "Back In Black",
             "artists": "AC/DC",
@@ -555,7 +566,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/46-08mG3Y1vljYA6bvDt4Wqkj.webp"
         },
         {
-            "number": 47,
+            "number": 48,
             "section": "Rupture and Stadium Myth",
             "title": "Sweet Child O' Mine",
             "artists": "Guns N' Roses",
@@ -566,7 +577,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/47-7snQQk1zcKl8gZ92AnueZW.webp"
         },
         {
-            "number": 48,
+            "number": 49,
             "section": "Rupture and Stadium Myth",
             "title": "November Rain",
             "artists": "Guns N' Roses",
@@ -577,7 +588,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/48-3YRCqOhFifThpSRFJ1VWFM.webp"
         },
         {
-            "number": 49,
+            "number": 50,
             "section": "Rupture and Stadium Myth",
             "title": "Dream On",
             "artists": "Aerosmith",
@@ -588,7 +599,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/49-5Ih9gbqyxCzTJ43nuSuKnC.webp"
         },
         {
-            "number": 50,
+            "number": 51,
             "section": "Rupture and Stadium Myth",
             "title": "Bohemian Rhapsody - Remastered 2011",
             "artists": "Queen",
@@ -599,7 +610,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/50-7tFiyTwD0nx5a1eklYtX2J.webp"
         },
         {
-            "number": 51,
+            "number": 52,
             "section": "Rupture and Stadium Myth",
             "title": "Hotel California - 2013 Remaster",
             "artists": "Eagles",
@@ -610,7 +621,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/51-40riOy7x9W7GXjyGp4pjAv.webp"
         },
         {
-            "number": 52,
+            "number": 53,
             "section": "Rupture and Stadium Myth",
             "title": "(Don't Fear) The Reaper",
             "artists": "Blue Öyster Cult",
@@ -621,7 +632,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/52-5QTxFnGygVM4jFQiBovmRo.webp"
         },
         {
-            "number": 53,
+            "number": 54,
             "section": "Aftermath and Return",
             "title": "Enter Sandman (Remastered)",
             "artists": "Metallica",
@@ -632,7 +643,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/53-3VqHuw0wFlIHcIPWkhIbdQ.webp"
         },
         {
-            "number": 54,
+            "number": 55,
             "section": "Aftermath and Return",
             "title": "One (Remastered)",
             "artists": "Metallica",
@@ -643,7 +654,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/54-0LAcM6I7ijW4VVW0aytl1t.webp"
         },
         {
-            "number": 55,
+            "number": 56,
             "section": "Aftermath and Return",
             "title": "Smells Like Teen Spirit",
             "artists": "Nirvana",
@@ -654,7 +665,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/55-5ghIJDpPoe3CfHMGu71E6T.webp"
         },
         {
-            "number": 56,
+            "number": 57,
             "section": "Aftermath and Return",
             "title": "Alive",
             "artists": "Pearl Jam",
@@ -665,7 +676,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/56-1L94M3KIu7QluZe63g64rv.webp"
         },
         {
-            "number": 57,
+            "number": 58,
             "section": "Aftermath and Return",
             "title": "All Apologies",
             "artists": "Nirvana",
@@ -676,7 +687,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/57-1Ic9pKxGSJGM0LKeqf6lGe.webp"
         },
         {
-            "number": 58,
+            "number": 59,
             "section": "Aftermath and Return",
             "title": "Wish You Were Here",
             "artists": "Pink Floyd",
@@ -687,7 +698,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/58-6mFkJmJqdDVQ1REhVfGgd1.webp"
         },
         {
-            "number": 59,
+            "number": 60,
             "section": "Aftermath and Return",
             "title": "\"Heroes\" - 2017 Remaster",
             "artists": "David Bowie",
@@ -698,7 +709,7 @@ export const longLiveRockCrate: AudioShowCrate = {
             "cover": "/images/audioshow/crates/long-live-rock/tracks/59-7Jh1bpe76CNTCgdgAdBw4Z.webp"
         },
         {
-            "number": 60,
+            "number": 61,
             "section": "Aftermath and Return",
             "title": "Hey Hey, My My (Into the Black) - 2016 Remaster",
             "artists": "Neil Young, Crazy Horse",
