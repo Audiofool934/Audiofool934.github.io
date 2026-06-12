@@ -2,6 +2,7 @@ import { qingXiangWoKaiPaoCrate } from "./audioshowCratesQing";
 import { posthumanWarCrate } from "./audioshowCratesPosthumanWar";
 import { doctorDoctorCrate } from "./audioshowCratesDoctor";
 import { longLiveRockCrate } from "./audioshowCratesLongLiveRock";
+import { roads88Crate } from "./audioshowCrates88Roads";
 
 export type AudioShowCrateTrack = {
     number: number;
@@ -1247,6 +1248,7 @@ export const audioshowCrates: AudioShowCrate[] = [
     posthumanWarCrate,
     doctorDoctorCrate,
     longLiveRockCrate,
+    roads88Crate,
 ];
 
 export function getAudioShowCrate(slug: string) {
