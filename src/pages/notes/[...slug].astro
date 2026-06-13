@@ -71,6 +71,8 @@ for (const e of referencedBy) {
     description={`${entry.data.kind} · ${entry.data.title}${entry.data.tags?.length ? " — " + entry.data.tags.join(", ") : ""}`}
     ogType="article"
     math={hasMath}
+    datePublished={entry.data.pubDate}
+    dateModified={entry.data.updatedDate}
 >
     <!-- Breadcrumb -->
     <div

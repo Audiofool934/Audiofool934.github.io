@@ -25,6 +25,7 @@ const hasMath = entry.body === undefined ? true : /\$/.test(entry.body);
     description={entry.data.description}
     ogType="article"
     math={hasMath}
+    datePublished={entry.data.pubDate}
 >
     <div class="p-6 md:p-12 flex justify-center" transition:animate="fade">
         <article class="max-w-4xl w-full anime-fade-in-up">
