@@ -1,12 +1,12 @@
 import type { AudioShowCrate } from "./audioshowCrates";
 
-export const roads88Crate: AudioShowCrate = {
-    "slug": "88-roads",
+export const route88Crate: AudioShowCrate = {
+    "slug": "route-88",
     "number": "007",
-    "title": "88 Roads",
-    "premise": "Classic rock where piano opens the road: black-and-white keys, barroom engine, theatre, art-rock architecture, and rain-lit epics.",
+    "title": "Route 88",
+    "premise": "Classic rock on a piano highway: black-and-white keys, barroom engine, theatre, art-rock architecture, and rain-lit epics.",
     "curatorNote": "Built from Everett’s classic rock x piano instinct after deep research: not keyboard rock, not a museum lesson. Piano has to be the protagonist, from Roy Bittan and Nicky Hopkins to McCartney, Mercury, Wright, Banks, Axl, and the road-night return.",
-    "cover": "/images/audioshow/crates/88-roads/cover.webp",
+    "cover": "/images/audioshow/crates/route-88/cover.webp",
     "spotifyUrl": "https://open.spotify.com/playlist/19f6cokmbJybdnxEOs4r6b",
     "trackCount": 40,
     "duration": "3h27m",
@@ -60,7 +60,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1975",
             "spotifyUrl": "https://open.spotify.com/track/56lhDZNQ5J47aog6mGKeGk",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/f84c2b7571041d02c38a0e38ac445b3953ec3ad4",
-            "cover": "/images/audioshow/crates/88-roads/tracks/01-56lhDZNQ5J47aog6mGKeGk.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/01-56lhDZNQ5J47aog6mGKeGk.webp",
             "section": "Road-Myth Threshold"
         },
         {
@@ -71,7 +71,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1967",
             "spotifyUrl": "https://open.spotify.com/track/500cBxmsfXyCUB081x39co",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/ce1492b97259bdd69c7d994122691375f9b0fae3",
-            "cover": "/images/audioshow/crates/88-roads/tracks/02-500cBxmsfXyCUB081x39co.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/02-500cBxmsfXyCUB081x39co.webp",
             "section": "Nicky Hopkins Turn"
         },
         {
@@ -82,7 +82,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1972",
             "spotifyUrl": "https://open.spotify.com/track/34OzAaQeAWlFnZBSyUAtRh",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/b9872ec41408ab40a1893f3b2bc5001833461e90",
-            "cover": "/images/audioshow/crates/88-roads/tracks/03-34OzAaQeAWlFnZBSyUAtRh.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/03-34OzAaQeAWlFnZBSyUAtRh.webp",
             "section": "Nicky Hopkins Turn"
         },
         {
@@ -93,7 +93,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/1fSHw7Gt4ha9kJew9a0a55",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/5b1352313e9d6bfb1fdad80da4fc9dac73482afe",
-            "cover": "/images/audioshow/crates/88-roads/tracks/04-1fSHw7Gt4ha9kJew9a0a55.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/04-1fSHw7Gt4ha9kJew9a0a55.webp",
             "section": "Rock-and-Roll Engine"
         },
         {
@@ -104,7 +104,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "2002",
             "spotifyUrl": "https://open.spotify.com/track/195ebCeInNixskBpQLdBbj",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/1c45af9f58f33c23b2c119b8bf39e5d215b85bd2",
-            "cover": "/images/audioshow/crates/88-roads/tracks/05-195ebCeInNixskBpQLdBbj.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/05-195ebCeInNixskBpQLdBbj.webp",
             "section": "Rock-and-Roll Engine"
         },
         {
@@ -115,7 +115,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1969",
             "spotifyUrl": "https://open.spotify.com/track/4YXKKnIZuk7UtXH5oC0ffa",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/176472fe4eda293b83c5469d2625bd445bffd3d2",
-            "cover": "/images/audioshow/crates/88-roads/tracks/06-4YXKKnIZuk7UtXH5oC0ffa.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/06-4YXKKnIZuk7UtXH5oC0ffa.webp",
             "section": "Rock-and-Roll Engine"
         },
         {
@@ -126,7 +126,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1957",
             "spotifyUrl": "https://open.spotify.com/track/3RbgCIfrofWGsO7AcjRjoE",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/432a4e4c0275311d0b1839655e526d46a1a7b69e",
-            "cover": "/images/audioshow/crates/88-roads/tracks/07-3RbgCIfrofWGsO7AcjRjoE.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/07-3RbgCIfrofWGsO7AcjRjoE.webp",
             "section": "Rock-and-Roll Engine"
         },
         {
@@ -137,7 +137,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1970",
             "spotifyUrl": "https://open.spotify.com/track/7iN1s7xHE4ifF5povM6A48",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/31f65b6a613010f22316c7be335b62226cf2f263",
-            "cover": "/images/audioshow/crates/88-roads/tracks/08-7iN1s7xHE4ifF5povM6A48.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/08-7iN1s7xHE4ifF5povM6A48.webp",
             "section": "Public Hymn / Ritual Piano"
         },
         {
@@ -148,7 +148,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1969",
             "spotifyUrl": "https://open.spotify.com/track/01SfTM5nfCou5gQL70r6gs",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/448c18047bb4a69386ede5f91a18bf68f115556c",
-            "cover": "/images/audioshow/crates/88-roads/tracks/09-01SfTM5nfCou5gQL70r6gs.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/09-01SfTM5nfCou5gQL70r6gs.webp",
             "section": "Public Hymn / Ritual Piano"
         },
         {
@@ -159,7 +159,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/3m7V717IKZqZLW5qUIOxdD",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/452dce4092627abc174c5c1a9a6a93ee10c039e2",
-            "cover": "/images/audioshow/crates/88-roads/tracks/10-3m7V717IKZqZLW5qUIOxdD.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/10-3m7V717IKZqZLW5qUIOxdD.webp",
             "section": "Public Hymn / Ritual Piano"
         },
         {
@@ -170,7 +170,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1968",
             "spotifyUrl": "https://open.spotify.com/track/1Ud6moTC0KyXMq1Oxfien0",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/5dd130c5686531fc33e1b5c6b22fa72729aa4ffa",
-            "cover": "/images/audioshow/crates/88-roads/tracks/11-1Ud6moTC0KyXMq1Oxfien0.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/11-1Ud6moTC0KyXMq1Oxfien0.webp",
             "section": "Public Hymn / Ritual Piano"
         },
         {
@@ -181,7 +181,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1971",
             "spotifyUrl": "https://open.spotify.com/track/0LrwgdLsFaWh9VXIjBRe8t",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/169c24f8dec808a59b1d58d0611d269cc88175fc",
-            "cover": "/images/audioshow/crates/88-roads/tracks/12-0LrwgdLsFaWh9VXIjBRe8t.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/12-0LrwgdLsFaWh9VXIjBRe8t.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -192,7 +192,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1971",
             "spotifyUrl": "https://open.spotify.com/track/3ZE3wv8V3w2T2f7nOCjV0N",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/2f790302db8b1fc1138a5570fcc169ac7b4a0aab",
-            "cover": "/images/audioshow/crates/88-roads/tracks/13-3ZE3wv8V3w2T2f7nOCjV0N.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/13-3ZE3wv8V3w2T2f7nOCjV0N.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -203,7 +203,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/0iKRf868w4SYEBDILQu8ob",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/76452023788cbffbbf7ba872dc342a326c6cf1e2",
-            "cover": "/images/audioshow/crates/88-roads/tracks/14-0iKRf868w4SYEBDILQu8ob.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/14-0iKRf868w4SYEBDILQu8ob.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -214,7 +214,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1974",
             "spotifyUrl": "https://open.spotify.com/track/7GqWnsKhMtEW0nzki5o0d8",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/9be2343dd6d9542a48e49c29463cc576e95109f0",
-            "cover": "/images/audioshow/crates/88-roads/tracks/15-7GqWnsKhMtEW0nzki5o0d8.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/15-7GqWnsKhMtEW0nzki5o0d8.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -225,7 +225,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1976",
             "spotifyUrl": "https://open.spotify.com/track/6cFZ4PLC19taNlpl9pbGMf",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/9954fe5d3a1456234bc7ea75e25e4bf69d68b224",
-            "cover": "/images/audioshow/crates/88-roads/tracks/16-6cFZ4PLC19taNlpl9pbGMf.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/16-6cFZ4PLC19taNlpl9pbGMf.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -236,7 +236,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1975",
             "spotifyUrl": "https://open.spotify.com/track/7tFiyTwD0nx5a1eklYtX2J",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/fafa71e6ec5fb83cec5136e3e6a357c6233141ba",
-            "cover": "/images/audioshow/crates/88-roads/tracks/17-7tFiyTwD0nx5a1eklYtX2J.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/17-7tFiyTwD0nx5a1eklYtX2J.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -247,7 +247,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1977",
             "spotifyUrl": "https://open.spotify.com/track/7ccI9cStQbQdystvc6TvxD",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/53f9595b73edaa7af3eac56494b0cad5221e8563",
-            "cover": "/images/audioshow/crates/88-roads/tracks/18-7ccI9cStQbQdystvc6TvxD.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/18-7ccI9cStQbQdystvc6TvxD.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -258,7 +258,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1971",
             "spotifyUrl": "https://open.spotify.com/track/2TVxnKdb3tqe1nhQWwwZCO",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/dec7d3447047ab13ad2c2be75e8e2916262f301b",
-            "cover": "/images/audioshow/crates/88-roads/tracks/19-2TVxnKdb3tqe1nhQWwwZCO.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/19-2TVxnKdb3tqe1nhQWwwZCO.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -269,7 +269,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1971",
             "spotifyUrl": "https://open.spotify.com/track/0aJfFLl0grcQS7euiIp0ni",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/b0a7f6e95c9dfd1eef7f4907e90aebfac5ecbc32",
-            "cover": "/images/audioshow/crates/88-roads/tracks/20-0aJfFLl0grcQS7euiIp0ni.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/20-0aJfFLl0grcQS7euiIp0ni.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -280,7 +280,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/4IRHwIZHzlHT1FQpRa5RdE",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/2bbb66b8e6b0ffc9d5b0d6be802fabf4053c8a33",
-            "cover": "/images/audioshow/crates/88-roads/tracks/21-4IRHwIZHzlHT1FQpRa5RdE.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/21-4IRHwIZHzlHT1FQpRa5RdE.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -291,7 +291,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/5Wj1rJnCLpMHdLaxsFtJLs",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/cc3be345afbbebbaf1e785916bd8755adfb4bf99",
-            "cover": "/images/audioshow/crates/88-roads/tracks/22-5Wj1rJnCLpMHdLaxsFtJLs.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/22-5Wj1rJnCLpMHdLaxsFtJLs.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -302,7 +302,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/70C4NyhjD5OZUMzvWZ3njJ",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/15c3badbac17e832e321cfb0be8f53f92708021b",
-            "cover": "/images/audioshow/crates/88-roads/tracks/23-70C4NyhjD5OZUMzvWZ3njJ.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/23-70C4NyhjD5OZUMzvWZ3njJ.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -313,7 +313,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1977",
             "spotifyUrl": "https://open.spotify.com/track/3utq2FgD1pkmIoaWfjXWAU",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/97951bc2696fef05dd1872f80cfc59960b28d28c",
-            "cover": "/images/audioshow/crates/88-roads/tracks/24-3utq2FgD1pkmIoaWfjXWAU.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/24-3utq2FgD1pkmIoaWfjXWAU.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -324,7 +324,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1976",
             "spotifyUrl": "https://open.spotify.com/track/4zVPevC2rE84lySHxX61Yr",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/db70b509b078c2ca58f2bdca6c759f95a2c89779",
-            "cover": "/images/audioshow/crates/88-roads/tracks/25-4zVPevC2rE84lySHxX61Yr.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/25-4zVPevC2rE84lySHxX61Yr.webp",
             "section": "Frontman Theatre"
         },
         {
@@ -335,7 +335,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1970",
             "spotifyUrl": "https://open.spotify.com/track/5MZALWjwQRX0RsZt31HlNP",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/6abc6e08d7732931fa13514c13193d44ccd21ab4",
-            "cover": "/images/audioshow/crates/88-roads/tracks/26-5MZALWjwQRX0RsZt31HlNP.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/26-5MZALWjwQRX0RsZt31HlNP.webp",
             "section": "Art-Prog Architecture"
         },
         {
@@ -346,7 +346,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1979",
             "spotifyUrl": "https://open.spotify.com/track/2gTnu5RZNVFVnWdjLnyUA5",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/b21785b4818f1f4a905f17044a26d8d5a65a84e7",
-            "cover": "/images/audioshow/crates/88-roads/tracks/27-2gTnu5RZNVFVnWdjLnyUA5.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/27-2gTnu5RZNVFVnWdjLnyUA5.webp",
             "section": "Art-Prog Architecture"
         },
         {
@@ -357,7 +357,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/2TjdnqlpwOjhijHCwHCP2d",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/9c590fbedf18e5943ffc6e744c37032d88c892ea",
-            "cover": "/images/audioshow/crates/88-roads/tracks/28-2TjdnqlpwOjhijHCwHCP2d.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/28-2TjdnqlpwOjhijHCwHCP2d.webp",
             "section": "Art-Prog Architecture"
         },
         {
@@ -368,7 +368,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/6UpMG6BDOd5xecMTu5r3sj",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/e33bfbfecab5feeb6356bb17290f0398a707f955",
-            "cover": "/images/audioshow/crates/88-roads/tracks/29-6UpMG6BDOd5xecMTu5r3sj.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/29-6UpMG6BDOd5xecMTu5r3sj.webp",
             "section": "Art-Prog Architecture"
         },
         {
@@ -379,7 +379,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1974",
             "spotifyUrl": "https://open.spotify.com/track/10birs3L6T1PnvDwk4NXuf",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/8c8c5229ef4a925030bb977a178603837f5ecaaa",
-            "cover": "/images/audioshow/crates/88-roads/tracks/30-10birs3L6T1PnvDwk4NXuf.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/30-10birs3L6T1PnvDwk4NXuf.webp",
             "section": "Art-Prog Architecture"
         },
         {
@@ -390,7 +390,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1970",
             "spotifyUrl": "https://open.spotify.com/track/1Qa0Y05al633fG8f9Peytc",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/08b1bed6ac9d26d86aa2c72f7480fa21edb51ad5",
-            "cover": "/images/audioshow/crates/88-roads/tracks/31-1Qa0Y05al633fG8f9Peytc.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/31-1Qa0Y05al633fG8f9Peytc.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -401,7 +401,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1971",
             "spotifyUrl": "https://open.spotify.com/track/1F10hpkS0xntdnTZ4bIjTp",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/094b185f2f243d9440bdbaea2d776da332a3b14b",
-            "cover": "/images/audioshow/crates/88-roads/tracks/32-1F10hpkS0xntdnTZ4bIjTp.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/32-1F10hpkS0xntdnTZ4bIjTp.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -412,7 +412,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/4Mqs0h95KAeNiGp7u4udlt",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/4d7cdb1cd19981a69b9589ba04d07fb914c2c454",
-            "cover": "/images/audioshow/crates/88-roads/tracks/33-4Mqs0h95KAeNiGp7u4udlt.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/33-4Mqs0h95KAeNiGp7u4udlt.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -423,7 +423,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1970",
             "spotifyUrl": "https://open.spotify.com/track/2kkvB3RNRzwjFdGhaUA0tz",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/8563d016ae70ed290ba446194adbe39f0cbf3cdb",
-            "cover": "/images/audioshow/crates/88-roads/tracks/34-2kkvB3RNRzwjFdGhaUA0tz.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/34-2kkvB3RNRzwjFdGhaUA0tz.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -434,7 +434,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1973",
             "spotifyUrl": "https://open.spotify.com/track/5Ih9gbqyxCzTJ43nuSuKnC",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/a7af61cf950a1014dad001a35a21329211050aaa",
-            "cover": "/images/audioshow/crates/88-roads/tracks/35-5Ih9gbqyxCzTJ43nuSuKnC.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/35-5Ih9gbqyxCzTJ43nuSuKnC.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -445,7 +445,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1977",
             "spotifyUrl": "https://open.spotify.com/track/0PsbWiVtix5FoTZ1s00mEl",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/1c4230c09ea44c03a840f872c69696e01678f88b",
-            "cover": "/images/audioshow/crates/88-roads/tracks/36-0PsbWiVtix5FoTZ1s00mEl.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/36-0PsbWiVtix5FoTZ1s00mEl.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -456,7 +456,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1977",
             "spotifyUrl": "https://open.spotify.com/track/3mCeeoBvTTpg8Xy2Wuvirw",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/c58b3938f967aa3e105d3b408f36124834e944ae",
-            "cover": "/images/audioshow/crates/88-roads/tracks/37-3mCeeoBvTTpg8Xy2Wuvirw.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/37-3mCeeoBvTTpg8Xy2Wuvirw.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -467,7 +467,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1991",
             "spotifyUrl": "https://open.spotify.com/track/3YRCqOhFifThpSRFJ1VWFM",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/98deb9c370bbaa350be058b3470fbe3bc1e28d9d",
-            "cover": "/images/audioshow/crates/88-roads/tracks/38-3YRCqOhFifThpSRFJ1VWFM.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/38-3YRCqOhFifThpSRFJ1VWFM.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -478,7 +478,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1991",
             "spotifyUrl": "https://open.spotify.com/track/3s03nrUInN3NAVjQtmnS0O",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/6346ab7bc684369a9855e460a77aeb5aca6f8dd8",
-            "cover": "/images/audioshow/crates/88-roads/tracks/39-3s03nrUInN3NAVjQtmnS0O.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/39-3s03nrUInN3NAVjQtmnS0O.webp",
             "section": "Piano-Guitar Epics"
         },
         {
@@ -489,7 +489,7 @@ export const roads88Crate: AudioShowCrate = {
             "year": "1978",
             "spotifyUrl": "https://open.spotify.com/track/4L6ZmbSmjH5swqGWrelrrN",
             "audioPreviewUrl": "https://p.scdn.co/mp3-preview/d204708268930ea1eab3b90b8d800a77c003194d",
-            "cover": "/images/audioshow/crates/88-roads/tracks/40-4L6ZmbSmjH5swqGWrelrrN.webp",
+            "cover": "/images/audioshow/crates/route-88/tracks/40-4L6ZmbSmjH5swqGWrelrrN.webp",
             "section": "Road-Night Return"
         }
     ]
