@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "prebuild": "node scripts/sync-github-projects.mjs",
     "build": "rm -rf .astro node_modules/.astro && astro build",
     "preview": "astro preview",
     "astro": "astro",

@@ -88,11 +88,12 @@ const placeholderImage = "/images/placeholder-album.svg";
                                     >
                                         <!-- Thumbnail -->
                                         <div class="w-12 h-12 flex-shrink-0 border border-[var(--border-main)] overflow-hidden">
-                                            <img 
+                                            <img
                                                 src={ep.imageUrl || placeholderImage}
                                                 alt={ep.songTitle}
                                                 class="w-full h-full object-cover"
                                                 loading="lazy"
+                                                decoding="async"
                                                 onerror={`this.src='${placeholderImage}'`}
                                             />
                                         </div>
@@ -121,6 +122,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         {(ep.appleMusicUrl || ep.audioPreviewUrl) ? (
                                             <button
                                                 class="w-8 text-center opacity-50 hover:opacity-100 transition-opacity"
+                                                aria-label={`Play ${ep.songTitle} by ${ep.artist}`}
                                                 data-play-track={JSON.stringify({
                                                     type: (ep.audioPreviewUrl || ep.appleMusicUrl)?.includes('music.apple.com') ? 'apple' : 'local',
                                                     url: ep.audioPreviewUrl || ep.appleMusicUrl,
@@ -129,22 +131,29 @@ const placeholderImage = "/images/placeholder-album.svg";
                                                     artwork: ep.imageUrl || ''
                                                 })}
                                             >
-                                                ▶
+                                                <span aria-hidden="true">▶</span>
                                             </button>
                                         ) : (
                                             <div class="w-8" aria-hidden="true"></div>
                                         )}
 
-                                        <!-- Expand Arrow -->
-                                        <div class="w-6 text-center text-[var(--text-muted)] lyrics-arrow transition-transform">
-                                            ↓
-                                        </div>
+                                        <!-- Expand Toggle -->
+                                        <button
+                                            type="button"
+                                            class="w-6 text-center text-[var(--text-muted)] lyrics-arrow transition-transform"
+                                            data-ep-toggle={ep.number}
+                                            aria-label={`Toggle lyrics for ${ep.songTitle}`}
+                                            aria-expanded="false"
+                                        >
+                                            <span aria-hidden="true">↓</span>
+                                        </button>
                                     </div>
 
                                     <!-- Lyrics (Hidden by default) -->
                                     <div class="lyrics-content hidden px-4 pb-4">
                                         <div class="ml-[76px] pl-4 border-l-2 border-[var(--border-main)] space-y-3">
-                                            <p class="text-sm italic text-[var(--text-muted)] whitespace-pre-line" set:html={`"${ep.lyricExcerpt.replace(/\n/g, '<br/>')}"`}>
+                                            <p class="text-sm italic text-[var(--text-muted)] whitespace-pre-line">
+                                                {`"${ep.lyricExcerpt}"`}
                                             </p>
                                             {ep.projectLinks.length > 0 && (
                                                 <div class="flex flex-wrap gap-2 pt-1">
@@ -192,20 +201,34 @@ const placeholderImage = "/images/placeholder-album.svg";
 
 <script is:inline>
     document.addEventListener("astro:page-load", () => {
-        // Toggle individual episode lyrics
+        // Toggle a single episode's lyrics (shared by row click + expand button)
+        function setEpisodeExpanded(epItem, expanded) {
+            const lyricsContent = epItem.querySelector('.lyrics-content');
+            const arrow = epItem.querySelector('.lyrics-arrow');
+            const toggleBtn = epItem.querySelector('[data-ep-toggle]');
+            lyricsContent.classList.toggle('hidden', !expanded);
+            if (arrow) arrow.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0deg)';
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        }
+        function toggleEpisode(epItem) {
+            const lyricsContent = epItem.querySelector('.lyrics-content');
+            setEpisodeExpanded(epItem, lyricsContent.classList.contains('hidden'));
+        }
+
+        // Row click is a mouse convenience...
         document.querySelectorAll('[data-ep-row]').forEach(row => {
             row.addEventListener('click', () => {
-                const epItem = row.closest('.episode-item');
-                const lyricsContent = epItem.querySelector('.lyrics-content');
-                const arrow = epItem.querySelector('.lyrics-arrow');
+                toggleEpisode(row.closest('.episode-item'));
+            });
+        });
 
-                if (lyricsContent.classList.contains('hidden')) {
-                    lyricsContent.classList.remove('hidden');
-                    arrow.style.transform = 'rotate(180deg)';
-                } else {
-                    lyricsContent.classList.add('hidden');
-                    arrow.style.transform = 'rotate(0deg)';
-                }
+        // ...the dedicated button is the keyboard-accessible control
+        // (native <button> handles Enter/Space; stopPropagation avoids a
+        // double toggle from the row handler).
+        document.querySelectorAll('[data-ep-toggle]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleEpisode(btn.closest('.episode-item'));
             });
         });
 
@@ -229,16 +252,7 @@ const placeholderImage = "/images/placeholder-album.svg";
             );
 
             episodes.forEach(ep => {
-                const lyricsContent = ep.querySelector('.lyrics-content');
-                const arrow = ep.querySelector('.lyrics-arrow');
-
-                if (allHidden) {
-                    lyricsContent.classList.remove('hidden');
-                    arrow.style.transform = 'rotate(180deg)';
-                } else {
-                    lyricsContent.classList.add('hidden');
-                    arrow.style.transform = 'rotate(0deg)';
-                }
+                setEpisodeExpanded(ep, allHidden);
             });
 
             toggleBtn.textContent = allHidden ? '[collapse]' : '[lyrics]';

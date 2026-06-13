@@ -14,25 +14,29 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
+// Only ship the KaTeX stylesheet when the note actually contains math.
+// Fall back to loading it if the raw body is unavailable, so math never breaks.
+const hasMath = entry.body === undefined ? true : /\$/.test(entry.body);
+
 // Resolve connections
 const allWiki = await getCollection("wiki");
 const lookup = new Map(allWiki.map((e) => [e.id, e]));
 
 const parentEntries = (entry.data.parents || [])
-    .map((id) => lookup.get(id))
+    .map((id) => lookup.get(id.toLowerCase()))
     .filter(Boolean) as (typeof allWiki)[number][];
 
 const relatedEntries = (entry.data.related || [])
-    .map((id) => lookup.get(id))
+    .map((id) => lookup.get(id.toLowerCase()))
     .filter(Boolean) as (typeof allWiki)[number][];
 
 // Incoming references (entries that link to this one)
 const referencedBy = allWiki.filter(
     (e) =>
         e.id !== entry.id &&
-        [...(e.data.parents || []), ...(e.data.related || [])].includes(
-            entry.id,
-        ),
+        [...(e.data.parents || []), ...(e.data.related || [])]
+            .map((id) => id.toLowerCase())
+            .includes(entry.id),
 );
 
 // Deduplicate across all three
@@ -66,6 +70,7 @@ for (const e of referencedBy) {
     title={`${entry.data.title} | Notes`}
     description={`${entry.data.kind} · ${entry.data.title}${entry.data.tags?.length ? " — " + entry.data.tags.join(", ") : ""}`}
     ogType="article"
+    math={hasMath}
 >
     <!-- Breadcrumb -->
     <div

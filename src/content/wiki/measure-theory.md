@@ -4,7 +4,7 @@ kind: Concept
 updatedDate: 2026-03-10
 tags: ["analysis", "measure theory", "probability", "math"]
 parents: []
-related: ["Conditional-Expectation-Variance", "martingales"]
+related: ["conditional-expectation-variance", "martingales"]
 ---
 
 ## The Question That Breaks Everything

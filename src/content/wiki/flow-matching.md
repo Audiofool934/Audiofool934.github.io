@@ -96,7 +96,7 @@ The OT-conditioned flow matching objective replaces independent $(z, x_1)$ pairs
 
 ### 5. Connection to the MUSE Architecture
 
-In [MUSE](/projects/MUSE/), Stage 1 (Text2MuQFlow) uses cross-attention Flow Matching to generate music embeddings. The architecture choice is deliberate:
+In [MUSE](/projects/muse/), Stage 1 (Text2MuQFlow) uses cross-attention Flow Matching to generate music embeddings. The architecture choice is deliberate:
 
 - The **one-to-many** nature of text-to-music ($p(Y|X)$ is highly multimodal) makes the distributional approach essential—regression gives the mean, flow matching gives diverse samples.
 - The **50-step ODE** inference (vs. 100+ for diffusion) is critical when generating multiple samples for diversity evaluation.

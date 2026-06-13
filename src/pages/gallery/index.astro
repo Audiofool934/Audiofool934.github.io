@@ -2,6 +2,16 @@
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { getCollection, render } from "astro:content";
 
+// sharp powers Astro's own image pipeline but is only an *optional* transitive
+// dependency, so load it defensively: if an install omits optional deps, the
+// gallery still builds — it just renders without explicit image dimensions.
+let sharp: any = null;
+try {
+    sharp = (await import("sharp")).default;
+} catch {
+    /* sharp unavailable — skip dimension probing */
+}
+
 const galleryItems = await getCollection("gallery");
 
 // Sort by date desc
@@ -9,11 +19,29 @@ const sortedGallery = galleryItems.sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
+// Probe intrinsic dimensions at build time so each masonry column can reserve
+// space before its lazy image loads (eliminates cumulative layout shift).
+// Gallery images are local files under public/; remote/unreadable paths are
+// skipped gracefully and simply render without explicit dimensions.
+async function imageDimensions(src: string) {
+    if (!sharp) return null;
+    try {
+        const meta = await sharp("public" + src).metadata();
+        if (meta.width && meta.height) {
+            return { width: meta.width, height: meta.height };
+        }
+    } catch {
+        /* not a readable local image */
+    }
+    return null;
+}
+
 // Render body content for each item
 const galleryWithBody = await Promise.all(
     sortedGallery.map(async (item) => {
         const { Content } = await render(item);
-        return { item, Content };
+        const dims = await imageDimensions(item.data.image);
+        return { item, Content, dims };
     }),
 );
 
@@ -106,19 +134,25 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
         <!-- Masonry Layout -->
         <div class="gallery-masonry">
             {
-                galleryWithBody.map(({ item, Content }, i) => (
+                galleryWithBody.map(({ item, Content, dims }, i) => (
                     <div
                         data-category={item.data.category || "Other"}
                         data-featured={item.data.featured ? "true" : "false"}
                         data-meta={buildMeta(item)}
                         data-index={i}
-                        class="gallery-item group block mb-4 break-inside-avoid border border-[var(--border-main)] overflow-hidden cursor-pointer"
+                        role="button"
+                        tabindex="0"
+                        aria-label={`View ${item.data.title}`}
+                        class="gallery-item group block mb-4 break-inside-avoid border border-[var(--border-main)] overflow-hidden cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-main)]"
                     >
                         <img
                             src={item.data.image}
                             alt={item.data.title}
+                            width={dims?.width}
+                            height={dims?.height}
                             class="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.03]"
                             loading="lazy"
+                            decoding="async"
                         />
                         <div class="p-3 border-t border-[var(--border-main)]">
                             <h3 class="font-bold text-sm truncate">
@@ -214,6 +248,9 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                         id="modal-image"
                         src=""
                         alt=""
+                        role="button"
+                        tabindex="0"
+                        aria-label="View photo full screen"
                         class="max-w-full max-h-full object-contain cursor-zoom-in transition-opacity duration-150 p-2 xl:p-0 block"
                     />
                 </div>
@@ -239,12 +276,14 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                             <div class="flex gap-1 flex-shrink-0 ml-2">
                                 <button
                                     id="modal-prev-mobile"
+                                    aria-label="Previous photo"
                                     class="w-8 h-8 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] active:bg-[var(--border-main)] transition-colors"
                                 >
                                     &larr;
                                 </button>
                                 <button
                                     id="modal-next-mobile"
+                                    aria-label="Next photo"
                                     class="w-8 h-8 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] active:bg-[var(--border-main)] transition-colors"
                                 >
                                     &rarr;
@@ -390,6 +429,7 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                 let currentFrameIndex = 0;
                 let currentMeta = null;
                 let visibleItems = allItems;
+                let lastFocused = null;
 
                 function getVisibleItems() {
                     return allItems.filter(
@@ -521,6 +561,11 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     currentIndex = -1;
                     currentFrameIndex = 0;
                     currentMeta = null;
+                    // Restore focus to the card that opened the modal
+                    if (lastFocused && lastFocused.isConnected) {
+                        lastFocused.focus();
+                    }
+                    lastFocused = null;
                 }
 
                 // Lightbox (fullscreen zoom)
@@ -544,6 +589,13 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     e.stopPropagation();
                     openLightbox();
                 });
+                function onModalImageKeydown(e) {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        openLightbox();
+                    }
+                }
+                modalImage.addEventListener("keydown", onModalImageKeydown);
                 lightbox.addEventListener("click", closeLightbox);
 
                 function getItemMeta(index) {
@@ -582,17 +634,28 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     }
                 }
 
-                // Card click → open modal
+                // Card click / keyboard → open modal
                 function onItemClick(e) {
                     e.preventDefault();
                     const el = e.currentTarget;
                     visibleItems = getVisibleItems();
                     const idx = visibleItems.indexOf(el);
-                    if (idx !== -1) openModal(idx);
+                    if (idx !== -1) {
+                        lastFocused = el;
+                        openModal(idx);
+                        if (closeBtn) closeBtn.focus();
+                    }
+                }
+                function onItemKeydown(e) {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onItemClick(e);
+                    }
                 }
 
                 allItems.forEach(function (item) {
                     item.addEventListener("click", onItemClick);
+                    item.addEventListener("keydown", onItemKeydown);
                 });
 
                 // Close: backdrop click (but not modal-content click)
@@ -650,6 +713,16 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     );
                 }
 
+                function getModalFocusables() {
+                    const sel =
+                        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+                    return Array.from(modal.querySelectorAll(sel)).filter(
+                        function (el) {
+                            return !el.disabled && el.getClientRects().length > 0;
+                        },
+                    );
+                }
+
                 function onKeydown(e) {
                     if (isLightboxOpen()) {
                         if (e.key === "Escape") closeLightbox();
@@ -659,6 +732,22 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                     if (e.key === "Escape") closeModal();
                     if (e.key === "ArrowLeft") navigate(-1);
                     if (e.key === "ArrowRight") navigate(1);
+                    if (e.key === "Tab") {
+                        const f = getModalFocusables();
+                        if (f.length === 0) return;
+                        const first = f[0];
+                        const last = f[f.length - 1];
+                        if (e.shiftKey && document.activeElement === first) {
+                            e.preventDefault();
+                            last.focus();
+                        } else if (
+                            !e.shiftKey &&
+                            document.activeElement === last
+                        ) {
+                            e.preventDefault();
+                            first.focus();
+                        }
+                    }
                 }
                 document.addEventListener("keydown", onKeydown);
 
@@ -693,7 +782,12 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
                 cleanupFn = function () {
                     allItems.forEach(function (item) {
                         item.removeEventListener("click", onItemClick);
+                        item.removeEventListener("keydown", onItemKeydown);
                     });
+                    modalImage.removeEventListener(
+                        "keydown",
+                        onModalImageKeydown,
+                    );
                     document.removeEventListener("keydown", onKeydown);
                     modalContent.removeEventListener(
                         "touchstart",

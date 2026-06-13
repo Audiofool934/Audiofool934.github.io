@@ -490,7 +490,7 @@ const playlist = sortEpisodesDesc(allEpisodes)
                     }
                     if (!trackId) throw new Error("Invalid Apple Music ID");
                     var resp = await fetch(
-                        "https://itunes.apple.com/lookup?id=" + trackId + "&country=cn"
+                        "https://itunes.apple.com/lookup?id=" + trackId
                     );
                     var data = await resp.json();
                     if (data.resultCount > 0) {
@@ -686,8 +686,14 @@ const playlist = sortEpisodesDesc(allEpisodes)
                         : 0;
                 if (els.progressBar) els.progressBar.style.width = percent + "%";
                 if (els.progressBarMobile) els.progressBarMobile.style.width = percent + "%";
-                if (els.seekContainer)
+                if (els.seekContainer) {
                     els.seekContainer.setAttribute("aria-valuenow", String(Math.round(percent)));
+                    els.seekContainer.setAttribute(
+                        "aria-valuetext",
+                        formatTime(els.audio.currentTime) +
+                            (dur > 0 && isFinite(dur) ? " of " + formatTime(dur) : ""),
+                    );
+                }
                 if (els.currTimeEl) els.currTimeEl.textContent = formatTime(els.audio.currentTime);
             };
             els.audio.onloadedmetadata = function () {

@@ -15,12 +15,16 @@ import { formatDateLong } from "../../utils/formatDate";
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+// Only ship the KaTeX stylesheet when the post actually contains math.
+const hasMath = entry.body === undefined ? true : /\$/.test(entry.body);
 ---
 
 <MinimalLayout
     title={`${entry.data.title} | Timeline`}
     description={entry.data.description}
     ogType="article"
+    math={hasMath}
 >
     <div class="p-6 md:p-12 flex justify-center" transition:animate="fade">
         <article class="max-w-4xl w-full anime-fade-in-up">

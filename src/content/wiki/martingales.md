@@ -4,7 +4,7 @@ kind: Concept
 updatedDate: 2026-03-10
 tags: ["probability", "stochastic", "math"]
 parents: []
-related: ["Conditional-Expectation-Variance", "markov-chains"]
+related: ["conditional-expectation-variance", "markov-chains"]
 ---
 
 ## Not About Gambling
@@ -24,7 +24,7 @@ But "flat on average" conceals remarkable structure.
 
 ### 1. The Right Way to Think About It
 
-Recall that conditional expectation $\mathbb{E}[\cdot | \mathcal{F}_n]$ is a **projection** (cf. [Conditional Expectation as Projection](/notes/Conditional-Expectation-Variance/)). The martingale property says:
+Recall that conditional expectation $\mathbb{E}[\cdot | \mathcal{F}_n]$ is a **projection** (cf. [Conditional Expectation as Projection](/notes/conditional-expectation-variance/)). The martingale property says:
 
 $$
 \text{Projection of } M_{n+1} \text{ onto the information at time } n = M_n

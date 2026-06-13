@@ -60,6 +60,9 @@ const placeholderImage = "/images/placeholder-album.svg";
                         <!-- Album Artwork - click to play -->
                         <div
                             class="ep-artwork relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer"
+                            role={(ep.appleMusicUrl || ep.audioPreviewUrl) ? "button" : undefined}
+                            tabindex={(ep.appleMusicUrl || ep.audioPreviewUrl) ? "0" : undefined}
+                            aria-label={(ep.appleMusicUrl || ep.audioPreviewUrl) ? `Play ${ep.songTitle} by ${ep.artist}` : undefined}
                             data-track={(ep.appleMusicUrl || ep.audioPreviewUrl) ? JSON.stringify({
                                 type: (ep.audioPreviewUrl || ep.appleMusicUrl)?.includes('music.apple.com') ? 'apple' : 'local',
                                 url: ep.audioPreviewUrl || ep.appleMusicUrl,
@@ -68,11 +71,12 @@ const placeholderImage = "/images/placeholder-album.svg";
                                 artwork: ep.imageUrl || placeholderImage
                             }) : undefined}
                         >
-                            <img 
+                            <img
                                 src={ep.imageUrl || placeholderImage}
                                 alt={ep.coverAlt || `${ep.songTitle} - ${ep.artist}`}
                                 class="ep-cover-image w-full h-full object-cover transition-transform duration-500"
                                 loading="lazy"
+                                decoding="async"
                                 onerror={`this.src='${placeholderImage}'`}
                             />
                             <!-- Play Overlay -->
@@ -86,7 +90,8 @@ const placeholderImage = "/images/placeholder-album.svg";
                         <!-- Card Content - Fixed height, scrollable -->
                         <div class="ep-content overflow-y-auto overscroll-contain text-center">
                             <!-- Quote -->
-                            <p class="ep-quote italic text-[var(--text-muted)] whitespace-pre-line" set:html={`"${ep.lyricExcerpt.replace(/\n/g, '<br/>')}"`}>
+                            <p class="ep-quote italic text-[var(--text-muted)] whitespace-pre-line">
+                                {`"${ep.lyricExcerpt}"`}
                             </p>
 
                             <!-- Song Info -->
@@ -282,6 +287,12 @@ const placeholderImage = "/images/placeholder-album.svg";
 
                 const track = JSON.parse(el.dataset.track);
                 window.playTrack(track);
+            });
+            el.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    el.click();
+                }
             });
         });
 

@@ -4,7 +4,7 @@ kind: Concept
 updatedDate: 2026-03-10
 tags: ["linear algebra", "matrix", "math", "ml"]
 parents: []
-related: ["Conditional-Expectation-Variance", "attention-matrix-completion"]
+related: ["conditional-expectation-variance", "attention-matrix-completion"]
 ---
 
 ## Every Matrix Tells the Same Story

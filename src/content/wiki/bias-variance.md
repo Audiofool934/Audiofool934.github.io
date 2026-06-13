@@ -4,7 +4,7 @@ kind: Concept
 updatedDate: 2026-03-10
 tags: ["ml", "machine learning", "probability", "regression"]
 parents: []
-related: ["Conditional-Expectation-Variance", "svd"]
+related: ["conditional-expectation-variance", "svd"]
 ---
 
 ## The Decomposition Everyone Gets Wrong
@@ -35,7 +35,7 @@ $$
 
 Three terms:
 
-1. **Irreducible error $\sigma^2$**: The noise in $Y$ that no model can predict. This is $\mathbb{E}[\operatorname{Var}(Y|X)]$—the exact quantity from the [Law of Total Variance](/notes/Conditional-Expectation-Variance/).
+1. **Irreducible error $\sigma^2$**: The noise in $Y$ that no model can predict. This is $\mathbb{E}[\operatorname{Var}(Y|X)]$—the exact quantity from the [Law of Total Variance](/notes/conditional-expectation-variance/).
 
 2. **Bias²**: How far the average prediction (over all possible training sets) deviates from the truth. This is systematic error—the model class cannot express $f$.
 
@@ -44,7 +44,7 @@ Three terms:
 
 ### 3. The Geometric View
 
-Recall from [Conditional Expectation as Projection](/notes/Conditional-Expectation-Variance/): in $L^2$ space, $f(x) = \mathbb{E}[Y|X=x]$ is the **orthogonal projection** of $Y$ onto the subspace of functions of $X$.
+Recall from [Conditional Expectation as Projection](/notes/conditional-expectation-variance/): in $L^2$ space, $f(x) = \mathbb{E}[Y|X=x]$ is the **orthogonal projection** of $Y$ onto the subspace of functions of $X$.
 
 Now introduce a model class $\mathcal{H}$ (linear functions, decision trees, neural networks). This is a **further restriction**—a subspace within the subspace of all measurable functions of $X$.
 

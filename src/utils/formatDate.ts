@@ -9,9 +9,13 @@ export function formatDateCompact(date: Date): string {
  * Format date as "December 20, 2025" (en-US long form)
  */
 export function formatDateLong(date: Date): string {
+    // Anchor to UTC so this matches formatDateCompact (which uses toISOString)
+    // regardless of the build host's timezone — otherwise the same date can
+    // render as two different calendar days across pages.
     return date.toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",
+        timeZone: "UTC",
     });
 }

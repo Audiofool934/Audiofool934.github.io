@@ -19,6 +19,11 @@ const readme = readmes.find((item) => item.data.project === entry.id);
 const ReadmeContent = readme ? (await render(readme)).Content : null;
 const githubMeta = githubProjects.projects.find((item) => item.project === entry.id);
 
+// Only ship the KaTeX stylesheet when the brief or synced README contains math.
+const hasMath =
+    (entry.body === undefined ? true : /\$/.test(entry.body)) ||
+    (readme ? (readme.body === undefined ? true : /\$/.test(readme.body)) : false);
+
 const ogImage =
     typeof entry.data.image === "string"
         ? entry.data.image
@@ -39,6 +44,7 @@ function compactDate(date: Date | null) {
     description={entry.data.description}
     image={ogImage}
     ogType="article"
+    math={hasMath}
 >
     <article
         class="p-6 md:p-12 max-w-4xl mx-auto anime-fade-in-up"

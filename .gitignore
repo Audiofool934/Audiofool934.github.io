@@ -23,6 +23,9 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# Claude Code local config
+.claude/
+
 # blueprint drafts
 blueprint.md
 

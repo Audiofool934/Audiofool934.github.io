@@ -130,4 +130,12 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* The View Transitions crossfade runs on ::view-transition pseudo-elements,
+     which the universal selector above does not match — disable them too. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

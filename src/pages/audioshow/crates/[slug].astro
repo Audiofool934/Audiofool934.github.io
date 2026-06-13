@@ -64,6 +64,7 @@ const cratePlaylist = crate.tracks.map((track) => ({
                         alt={`${crate.title} cover`}
                         class="h-full w-full object-cover"
                         loading="eager"
+                        decoding="async"
                     />
                 </div>
 
@@ -145,6 +146,7 @@ const cratePlaylist = crate.tracks.map((track) => ({
                                             alt={`${track.album} cover`}
                                             class="h-full w-full object-cover"
                                             loading="lazy"
+                                            decoding="async"
                                         />
                                     </div>
 

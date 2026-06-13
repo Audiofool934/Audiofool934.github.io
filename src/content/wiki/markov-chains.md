@@ -4,7 +4,7 @@ kind: Concept
 updatedDate: 2026-03-10
 tags: ["stochastic", "probability", "math"]
 parents: []
-related: ["renewal-process", "Conditional-Expectation-Variance"]
+related: ["renewal-process", "conditional-expectation-variance"]
 ---
 
 ## The Core Idea: Forgetting Is the Feature

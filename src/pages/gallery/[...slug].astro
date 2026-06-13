@@ -46,6 +46,10 @@ const galleryDescription =
                     id="gallery-image"
                     src={entry.data.image}
                     alt={entry.data.title}
+                    role="button"
+                    tabindex="0"
+                    aria-label="View photo full screen"
+                    decoding="async"
                     class="max-h-[85vh] w-auto object-contain cursor-zoom-in transition-transform duration-300"
                 />
             </div>
@@ -162,19 +166,30 @@ const galleryDescription =
                 const lightbox = document.getElementById("lightbox");
 
                 if (galleryImage && lightbox) {
+                    const openLightbox = () => {
+                        lightbox.classList.remove("opacity-0", "pointer-events-none");
+                    };
+                    const closeLightbox = () => {
+                        const wasOpen = !lightbox.classList.contains("pointer-events-none");
+                        lightbox.classList.add("opacity-0", "pointer-events-none");
+                        if (wasOpen) galleryImage.focus();
+                    };
+
                     galleryImage.addEventListener("click", (e) => {
                         e.stopPropagation();
-                        lightbox.classList.remove("opacity-0", "pointer-events-none");
+                        openLightbox();
+                    });
+                    galleryImage.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            openLightbox();
+                        }
                     });
 
-                    lightbox.addEventListener("click", () => {
-                        lightbox.classList.add("opacity-0", "pointer-events-none");
-                    });
+                    lightbox.addEventListener("click", closeLightbox);
 
                     escHandler = (e) => {
-                        if (e.key === "Escape") {
-                            lightbox.classList.add("opacity-0", "pointer-events-none");
-                        }
+                        if (e.key === "Escape") closeLightbox();
                     };
                     document.addEventListener("keydown", escHandler);
                 }

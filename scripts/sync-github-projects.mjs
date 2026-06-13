@@ -62,7 +62,7 @@ const readmeHtmlSanitizeOptions = {
   ],
   allowedAttributes: {
     a: ['href', 'name', 'target', 'title', 'rel'],
-    img: ['src', 'alt', 'title', 'width', 'height', 'loading'],
+    img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'decoding'],
     source: ['src', 'srcset', 'type', 'media'],
     details: ['open'],
     th: ['align'],
@@ -159,7 +159,12 @@ function rewriteRawHtmlUrls(html, owner, repo, branch, baseDir) {
     .replace(/(<a\b[^>]*\bhref\s*=\s*)(["'])([^"']+)(\2)/gi, (full, prefix, quote, href, suffix) => {
       const target = resolveRepoUrl(href, owner, repo, branch, baseDir, 'link');
       return target === href ? full : `${prefix}${quote}${target}${suffix}`;
-    });
+    })
+    // Full-resolution README screenshots are fetched cross-origin from GitHub
+    // and sit below the fold; lazy-load + async-decode them so they never block
+    // first paint of the project page.
+    .replace(/<img\b(?![^>]*\sloading=)([^>]*?)>/gi, '<img loading="lazy"$1>')
+    .replace(/<img\b(?![^>]*\sdecoding=)([^>]*?)>/gi, '<img decoding="async"$1>');
 }
 
 function rewriteAndSanitizeReadmeMarkdown(markdown, owner, repo, branch, readmePath = 'README.md') {
@@ -301,5 +306,10 @@ async function main() {
 export { rewriteAndSanitizeReadmeMarkdown, sanitizeReadmeUrl };
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
-  await main();
+  // Best-effort: a transient GitHub outage must never fail the deploy build.
+  // Per-repo failures already fall back to the committed snapshot; this guards
+  // against any unexpected top-level error so the build proceeds regardless.
+  main().catch((error) => {
+    console.warn(`[github-projects] sync skipped: ${error.message}`);
+  });
 }
