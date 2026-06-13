@@ -2,28 +2,13 @@
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { getCollection } from "astro:content";
 import { formatDateCompact } from "../../utils/formatDate";
+import { getPostType } from "../../utils/postType";
 
 const posts = await getCollection("log");
 
 const sortedPosts = posts.sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-
-function getType(post: (typeof sortedPosts)[number]) {
-    const tags = post.data.tags.map((tag) => tag.toLowerCase());
-    if (tags.includes("photography") || tags.includes("gallery")) return "photo";
-    if (
-        tags.includes("notes") ||
-        tags.includes("note") ||
-        tags.includes("essay") ||
-        tags.includes("math") ||
-        tags.includes("dsp")
-    ) return "note";
-    if (tags.includes("audioshow") || tags.includes("music")) return "music";
-    if (tags.includes("project") || tags.includes("projects")) return "project";
-    if (tags.includes("update") || tags.includes("meta")) return "site";
-    return "post";
-}
 
 const typeLabels: Record<string, string> = {
     note: "Notes",
@@ -37,7 +22,7 @@ const typeLabels: Record<string, string> = {
 const filterOrder = ["note", "post", "music", "photo", "project", "site"];
 const typeCounts = new Map<string, number>();
 for (const post of sortedPosts) {
-    const type = getType(post);
+    const type = getPostType(post);
     typeCounts.set(type, (typeCounts.get(type) || 0) + 1);
 }
 const filters = filterOrder
@@ -83,7 +68,7 @@ const filters = filterOrder
         <div class="max-w-4xl border-l border-[var(--border-main)] pl-5 md:pl-8">
             {
                 sortedPosts.map((post) => {
-                    const type = getType(post);
+                    const type = getPostType(post);
                     return (
                         <a
                             href={`/timeline/${post.id}/`}

@@ -167,13 +167,6 @@ export function sortEpisodesDesc(episodes: Episode[]): Episode[] {
 }
 
 /**
- * Get the N most recent episodes
- */
-export function getRecentEpisodes(episodes: Episode[], count: number = 10): Episode[] {
-    return sortEpisodesDesc(episodes).slice(0, count);
-}
-
-/**
  * Group episodes by ranges (1-50, 51-100, etc.)
  */
 export function groupEpisodesByRange(episodes: Episode[], rangeSize: number = 50): Record<string, Episode[]> {

@@ -2,26 +2,11 @@
 import MinimalLayout from "../layouts/MinimalLayout.astro";
 import { getCollection } from "astro:content";
 import { formatDateCompact } from "../utils/formatDate";
+import { getPostType } from "../utils/postType";
 
 const timelinePosts = (await getCollection("log"))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
-
-function getType(post: (typeof timelinePosts)[number]) {
-	const tags = post.data.tags.map((tag) => tag.toLowerCase());
-	if (tags.includes("photography") || tags.includes("gallery")) return "photo";
-	if (
-		tags.includes("notes") ||
-		tags.includes("note") ||
-		tags.includes("essay") ||
-		tags.includes("math") ||
-		tags.includes("dsp")
-	) return "note";
-	if (tags.includes("audioshow") || tags.includes("music")) return "music";
-	if (tags.includes("project") || tags.includes("projects")) return "project";
-	if (tags.includes("update") || tags.includes("meta")) return "site";
-	return "post";
-}
 ---
 
 <MinimalLayout title="Audiofool — Creative AI, Notes, AudioShow & Photography">
@@ -77,7 +62,7 @@ function getType(post: (typeof timelinePosts)[number]) {
 
 						<div class="space-y-1.5">
 							{timelinePosts.map((post) => {
-								const type = getType(post);
+								const type = getPostType(post);
 								return (
 									<a
 										href={`/timeline/${post.id}/`}
