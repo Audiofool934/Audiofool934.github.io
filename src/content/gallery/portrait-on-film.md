@@ -1,6 +1,6 @@
 ---
 title: "Portrait on Film"
-image: "/images/gallery/26-04-22-portrait-on-film.webp"
+image: "../../assets/gallery/26-04-22-portrait-on-film.webp"
 date: 2026-04-22
 location: "Jinshanling Great Wall"
 camera: "Pentax MZ-3"

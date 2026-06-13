@@ -1,16 +1,7 @@
 ---
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { getCollection, render } from "astro:content";
-
-// sharp powers Astro's own image pipeline but is only an *optional* transitive
-// dependency, so load it defensively: if an install omits optional deps, the
-// gallery still builds — it just renders without explicit image dimensions.
-let sharp: any = null;
-try {
-    sharp = (await import("sharp")).default;
-} catch {
-    /* sharp unavailable — skip dimension probing */
-}
+import { Image, getImage } from "astro:assets";
 
 const galleryItems = await getCollection("gallery");
 
@@ -19,29 +10,32 @@ const sortedGallery = galleryItems.sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
-// Probe intrinsic dimensions at build time so each masonry column can reserve
-// space before its lazy image loads (eliminates cumulative layout shift).
-// Gallery images are local files under public/; remote/unreadable paths are
-// skipped gracefully and simply render without explicit dimensions.
-async function imageDimensions(src: string) {
-    if (!sharp) return null;
-    try {
-        const meta = await sharp("public" + src).metadata();
-        if (meta.width && meta.height) {
-            return { width: meta.width, height: meta.height };
-        }
-    } catch {
-        /* not a readable local image */
-    }
-    return null;
+// <Image> emits responsive, width-constrained thumbnails for the masonry grid
+// (and carries intrinsic dimensions, so no layout shift). The modal/lightbox
+// loads on demand, so pre-generate one optimized, width-capped variant per
+// image for it — capped at the source width to avoid upscaling.
+async function modalSources(item: (typeof sortedGallery)[0]) {
+    const srcs =
+        item.data.images && item.data.images.length > 0
+            ? item.data.images
+            : [item.data.image];
+    return Promise.all(
+        srcs.map((src) =>
+            getImage({
+                src,
+                width: Math.min(1600, src.width),
+                format: "webp",
+            }).then((r) => r.src),
+        ),
+    );
 }
 
-// Render body content for each item
+// Render body content + optimized modal images for each item
 const galleryWithBody = await Promise.all(
     sortedGallery.map(async (item) => {
         const { Content } = await render(item);
-        const dims = await imageDimensions(item.data.image);
-        return { item, Content, dims };
+        const modalImages = await modalSources(item);
+        return { item, Content, modalImages };
     }),
 );
 
@@ -56,7 +50,7 @@ const categories = [
 ];
 
 // Build metadata JSON for modal
-function buildMeta(item: (typeof sortedGallery)[0]) {
+function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
     const d = item.data;
     const exifParts = [
         d.focalLength,
@@ -68,8 +62,8 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
         .join(" · ");
     return JSON.stringify({
         title: d.title,
-        image: d.image,
-        images: d.images && d.images.length > 0 ? d.images : [d.image],
+        image: modalImages[0],
+        images: modalImages,
         date: d.date.toISOString().split("T")[0],
         location: d.location || "",
         camera: d.camera || "",
@@ -134,22 +128,22 @@ function buildMeta(item: (typeof sortedGallery)[0]) {
         <!-- Masonry Layout -->
         <div class="gallery-masonry">
             {
-                galleryWithBody.map(({ item, Content, dims }, i) => (
+                galleryWithBody.map(({ item, Content, modalImages }, i) => (
                     <div
                         data-category={item.data.category || "Other"}
                         data-featured={item.data.featured ? "true" : "false"}
-                        data-meta={buildMeta(item)}
+                        data-meta={buildMeta(item, modalImages)}
                         data-index={i}
                         role="button"
                         tabindex="0"
                         aria-label={`View ${item.data.title}`}
                         class="gallery-item group block mb-4 break-inside-avoid border border-[var(--border-main)] overflow-hidden cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-main)]"
                     >
-                        <img
+                        <Image
                             src={item.data.image}
                             alt={item.data.title}
-                            width={dims?.width}
-                            height={dims?.height}
+                            widths={[400, 800, 1200]}
+                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                             class="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.03]"
                             loading="lazy"
                             decoding="async"

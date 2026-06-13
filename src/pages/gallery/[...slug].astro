@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { Image, getImage } from "astro:assets";
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import "../../style/post.css";
 
@@ -16,6 +17,20 @@ import { formatDateLong } from "../../utils/formatDate";
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
+// Optimized variants: a 1200px card for the social/og image, and a
+// width-capped large variant for the on-demand fullscreen lightbox
+// (capped to the source width so small originals are never upscaled).
+const ogImage = (
+    await getImage({ src: entry.data.image, width: 1200, format: "webp" })
+).src;
+const lightboxSrc = (
+    await getImage({
+        src: entry.data.image,
+        width: Math.min(2000, entry.data.image.width),
+        format: "webp",
+    })
+).src;
+
 const galleryDescription =
     [entry.data.title, entry.data.location, entry.data.camera]
         .filter(Boolean)
@@ -25,7 +40,7 @@ const galleryDescription =
 <MinimalLayout
     title={`${entry.data.title} | Gallery`}
     description={galleryDescription}
-    image={entry.data.image}
+    image={ogImage}
     ogType="article"
 >
     <div class="p-6 md:p-12" transition:animate="fade">
@@ -42,10 +57,13 @@ const galleryDescription =
             <div
                 class="mb-8 border border-[var(--border-main)] overflow-hidden flex justify-center bg-[var(--bg-body)]"
             >
-                <img
+                <Image
                     id="gallery-image"
                     src={entry.data.image}
                     alt={entry.data.title}
+                    widths={[600, 1000, 1600]}
+                    sizes="(min-width: 896px) 56rem, 100vw"
+                    loading="eager"
                     role="button"
                     tabindex="0"
                     aria-label="View photo full screen"
@@ -145,7 +163,7 @@ const galleryDescription =
     >
         <img
             id="lightbox-image"
-            src={entry.data.image}
+            src={lightboxSrc}
             alt={entry.data.title}
             class="max-h-[95vh] max-w-[95vw] object-contain shadow-2xl"
         />

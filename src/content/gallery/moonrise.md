@@ -1,6 +1,6 @@
 ---
 title: "Moonrise"
-image: "/images/gallery/25-11-13.webp"
+image: "../../assets/gallery/25-11-13.webp"
 date: 2025-11-13
 location: "北京"
 camera: "SONY ILCE-7RM2"

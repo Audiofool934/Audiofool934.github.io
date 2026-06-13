@@ -1,6 +1,6 @@
 ---
 title: "Wither and Bloom"
-image: "/images/gallery/26-03-18-wither-and-bloom.webp"
+image: "../../assets/gallery/26-03-18-wither-and-bloom.webp"
 date: 2026-03-18
 location: "Yuyuantan Park, Beijing"
 category: "Nature"

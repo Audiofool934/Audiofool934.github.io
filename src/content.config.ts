@@ -94,10 +94,13 @@ const audioshow = defineCollection({
 
 const gallery = defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/gallery' }),
-    schema: z.object({
+    // `image()` turns the frontmatter path into an optimizable ImageMetadata so
+    // the gallery can emit responsive, width-constrained, modern-format output
+    // instead of shipping the full-resolution originals.
+    schema: ({ image }) => z.object({
         title: z.string(),
-        image: z.string(),
-        images: z.array(z.string()).optional(),
+        image: image(),
+        images: z.array(image()).optional(),
         date: z.coerce.date(),
         location: z.string().optional(),
         camera: z.string().optional(),

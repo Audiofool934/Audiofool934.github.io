@@ -1,6 +1,6 @@
 ---
 title: "Lose Yourself"
-image: "/images/gallery/25-6-22.webp"
+image: "../../assets/gallery/25-6-22.webp"
 date: 2025-06-22
 location: "辽宁·朝阳"
 camera: "SONY ILCE-7RM2"

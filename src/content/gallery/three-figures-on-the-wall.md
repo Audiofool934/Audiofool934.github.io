@@ -1,6 +1,6 @@
 ---
 title: "Three Figures on the Wall"
-image: "/images/gallery/26-04-22-three-figures-on-the-wall.webp"
+image: "../../assets/gallery/26-04-22-three-figures-on-the-wall.webp"
 date: 2026-04-22
 location: "Great Wall"
 category: "Travel"
