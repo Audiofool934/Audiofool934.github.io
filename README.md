@@ -2,9 +2,16 @@
 
 A personal archive for notes, music, photography, projects, and public traces of ongoing work.
 
+<p align="center">
+  <a href="https://audiofool.blog">
+    <img src="docs/home.png" alt="audiofool.blog homepage — sidebar navigation, persistent audio player, and a timeline of recent updates" width="900">
+  </a>
+</p>
+
 The site is built with Astro and maintained as a set of small, typed content systems. GitHub is the source of code and project documentation; the website is the public layer that gives those materials a consistent visual language.
 
 🌐 **Live:** [audiofool.blog](https://audiofool.blog)
+📡 **Feed:** [/rss.xml](https://audiofool.blog/rss.xml) — projects, notes, photography, AudioShow, and timeline in one stream
 
 ---
 
@@ -105,4 +112,10 @@ src/
 
 ## License
 
-Personal site content and assets belong to Audiofool unless otherwise noted. Code may be reused with attribution where appropriate.
+This project is open source and was originally created by **Audiofool**. The canonical repository is
+[github.com/Audiofool934/Audiofool934.github.io](https://github.com/Audiofool934/Audiofool934.github.io).
+
+- **Source code** — the Astro site, components, scripts, and styles — is released under the [MIT License](LICENSE). Fork it, learn from it, and reuse it; attribution back to the original is appreciated.
+- **Site content** — writing, photographs, AudioShow curation, and other personal media — is © Audiofool, all rights reserved, and is **not** covered by the MIT license.
+
+If you build something on top of this, a link back to the original is welcome.

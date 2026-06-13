@@ -2,6 +2,14 @@
   "name": "audiofool-website",
   "type": "module",
   "version": "0.0.1",
+  "description": "audiofool.blog — a personal archive for notes, music, photography, and projects, built with Astro.",
+  "author": "Audiofool (https://audiofool.blog)",
+  "license": "MIT",
+  "homepage": "https://audiofool.blog",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Audiofool934/Audiofool934.github.io.git"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
