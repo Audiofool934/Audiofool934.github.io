@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-05-30T10:16:41.168Z",
+  "syncedAt": "2026-06-13T07:31:56.230Z",
   "projects": [
     {
       "project": "muse",
@@ -51,6 +51,32 @@
       "updatedAt": "2025-09-12T09:22:04Z",
       "license": "",
       "topics": []
+    },
+    {
+      "project": "cc-copilot",
+      "repo": "Audiofool934/cc-copilot",
+      "url": "https://github.com/Audiofool934/cc-copilot",
+      "homepage": "",
+      "description": "A copilot for AI coding agents — read-only supervision for Claude Code & Codex: re-entry recaps, safety verdicts, grounded chat, every claim cited.",
+      "visibility": "public",
+      "language": "Python",
+      "stars": 8,
+      "forks": 0,
+      "openIssues": 0,
+      "defaultBranch": "main",
+      "pushedAt": "2026-06-13T05:47:29Z",
+      "updatedAt": "2026-06-13T06:19:46Z",
+      "license": "MIT",
+      "topics": [
+        "ai-agents",
+        "claude-code",
+        "cli",
+        "codex",
+        "observability",
+        "python",
+        "textual",
+        "tui"
+      ]
     },
     {
       "project": "cmux",
@@ -186,6 +212,23 @@
       "pushedAt": "2025-04-10T15:12:26Z",
       "updatedAt": "2025-06-02T08:30:52Z",
       "license": "",
+      "topics": []
+    },
+    {
+      "project": "sounddrop",
+      "repo": "Audiofool934/sounddrop-ui",
+      "url": "https://github.com/Audiofool934/sounddrop-ui",
+      "homepage": "",
+      "description": "Frontend UI for SoundDrop, a campus sound-map experience",
+      "visibility": "public",
+      "language": "TypeScript",
+      "stars": 4,
+      "forks": 1,
+      "openIssues": 0,
+      "defaultBranch": "main",
+      "pushedAt": "2026-05-22T05:31:55Z",
+      "updatedAt": "2026-05-22T05:32:00Z",
+      "license": "MIT",
       "topics": []
     },
     {
