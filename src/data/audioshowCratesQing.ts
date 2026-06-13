@@ -7,6 +7,7 @@ export const qingXiangWoKaiPaoCrate: AudioShowCrate = {
     premise: "O ever youthful, O ever weeping.",
     curatorNote: "A sunrise crate for resolve, re-entry, training, Chinese defiance, and morning release. It starts wordless with Going The Distance: not victory yet, but the decision to stand up. From there the route moves through wounded re-entry, open-road ignition, training-room discipline, Chinese stubbornness, and a wide-screen dawn.",
     cover: "/images/audioshow/crates/qing-xiang-wo-kai-pao/cover.webp",
+    socialImage: "/images/audioshow/crates/qing-xiang-wo-kai-pao/cover-og.jpg",
     spotifyUrl: "https://open.spotify.com/playlist/3841rCNRPjKiMRsSdJ7LXX",
     trackCount: 32,
     duration: "2h28m",

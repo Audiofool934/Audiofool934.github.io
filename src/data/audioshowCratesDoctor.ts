@@ -7,6 +7,7 @@ export const doctorDoctorCrate: AudioShowCrate = {
     premise: "A fleeting glimpse of the doors of perceptions...",
     curatorNote: "Everett's self-polished psychedelic/prog crate, preserved as an authorial sequence. DJ Claw's job here is archival: keep the cover, title, and premise intact, then make the internal AudioShow path playable through verified previews.",
     cover: "/images/audioshow/crates/doctor-doctor/cover.webp",
+    socialImage: "/images/audioshow/crates/doctor-doctor/cover-og.jpg",
     spotifyUrl: "https://open.spotify.com/playlist/2LYTOGPWKYh9iHxBEXd9S1",
     trackCount: 37,
     duration: "3h10m",

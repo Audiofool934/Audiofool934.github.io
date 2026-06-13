@@ -7,6 +7,7 @@ export const posthumanWarCrate: AudioShowCrate = {
     premise: "Our Great War is a spiritual war, refracted through screens, machines, and afterimage.",
     curatorNote: "Built from Everett's original Posthuman War playlist, but the Tangerine Dream block is opened up instead of left as a single long ending. Roger Waters and Pink Floyd hold the moral broadcast; trip-hop, industrial rock, and big beat make the body tense; Tangerine Dream, GTA, Reznor/Ross, Sicario, and Blade Runner carry the machine front; the close leaves a human signal still glowing after impact.",
     cover: "/images/audioshow/crates/posthuman-war/cover.webp",
+    socialImage: "/images/audioshow/crates/posthuman-war/cover-og.jpg",
     spotifyUrl: "https://open.spotify.com/playlist/517um6OWXZy0AHabOrIO2j",
     trackCount: 25,
     duration: "2h43m",

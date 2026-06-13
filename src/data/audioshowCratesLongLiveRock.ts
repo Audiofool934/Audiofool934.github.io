@@ -7,6 +7,7 @@ export const longLiveRockCrate: AudioShowCrate = {
     "premise": "A cross-album album about whether rock dies, how it is remembered, and how it comes back electric.",
     "curatorNote": "Built from Everett's long-started Spotify playlist and polished as an authored crate: acoustic question, public memory, Plant/Krauss roots resurrection, title ignition, guitar witness, hard-rock voltage, rupture, stadium myth, and a Neil Young electric return.",
     "cover": "/images/audioshow/crates/long-live-rock/cover.webp",
+    "socialImage": "/images/audioshow/crates/long-live-rock/cover-og.jpg",
     "spotifyUrl": "https://open.spotify.com/playlist/5DnLWFIoJupGVVuf7I9vZC",
     "trackCount": 61,
     "duration": "5h18m",

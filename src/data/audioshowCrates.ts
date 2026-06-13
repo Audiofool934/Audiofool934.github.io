@@ -43,6 +43,7 @@ export const audioshowCrates: AudioShowCrate[] = [
         curatorNote:
             "Fight Club as pressure, not soundtrack dump. Dust Brothers motifs thread through big beat, trip-hop, sampledelia, and exhausted release.",
         cover: "/images/audioshow/crates/the-first-rule/cover.webp",
+        socialImage: "/images/audioshow/crates/the-first-rule/cover-og.jpg",
         spotifyUrl: "https://open.spotify.com/playlist/4GNQhqfnD6XS2G6D3CJg7K",
         trackCount: 31,
         duration: "2h46m",
@@ -421,6 +422,7 @@ export const audioshowCrates: AudioShowCrate[] = [
         "premise": "A long-form path through Pink Floyd's psychedelic, pastoral, monumental, and post-war worlds.",
         "curatorNote": "Everett's own Pink Floyd map, now filed by his chapter titles: Pink Spirit, Set the Controls, Echoes, Dark Side, Stones or Bricks, Learning to Floyd, and The Endless Journey.",
         "cover": "/images/audioshow/crates/a-pink-floyd-experience/cover.webp",
+        "socialImage": "/images/audioshow/crates/a-pink-floyd-experience/cover-og.jpg",
         "spotifyUrl": "https://open.spotify.com/playlist/2MbHOBGydKfKLVe9X9ApkE",
         "trackCount": 71,
         "duration": "6h04m",
