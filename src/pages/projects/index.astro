@@ -87,7 +87,7 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                                     <span class="font-mono text-xs text-[var(--text-faint)] group-hover:text-[var(--bg-body)]">
                                         PIN {String(index + 1).padStart(2, "0")}
                                     </span>
-                                    <span class="font-mono text-xs text-[var(--text-faint)]">
+                                    <span class="font-mono text-xs text-[var(--text-faint)] group-hover:text-[var(--bg-body)]">
                                         {formatDateCompact(project.data.pubDate)}
                                     </span>
                                 </div>
@@ -97,7 +97,7 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                                 <p class="text-sm leading-relaxed text-[var(--text-faint)] group-hover:text-[var(--bg-body)] mb-5">
                                     {project.data.description}
                                 </p>
-                                <div class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+                                <div class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)] group-hover:text-[var(--bg-body)]">
                                     <span>{project.data.category}</span>
                                     <span>/</span>
                                     <span>{project.data.status}</span>
