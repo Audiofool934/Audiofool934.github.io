@@ -26,6 +26,9 @@ const cratePlaylist = crate.tracks.map((track) => ({
 <MinimalLayout
     title={`${crate.title} | AudioShow Crates | Audiofool`}
     description={crate.premise}
+    image={crate.socialImage ?? crate.cover}
+    imageAlt={`${crate.title} cover`}
+    ogType="music.playlist"
 >
     <div class="p-6 md:p-12 mb-20" transition:animate="fade">
         <div class="mb-8">

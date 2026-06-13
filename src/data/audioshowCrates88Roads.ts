@@ -7,6 +7,7 @@ export const route88Crate: AudioShowCrate = {
     "premise": "Classic rock on a piano highway: black-and-white keys, barroom engine, theatre, art-rock architecture, and rain-lit epics.",
     "curatorNote": "Built from Everett’s classic rock x piano instinct after deep research: not keyboard rock, not a museum lesson. Piano has to be the protagonist, from Roy Bittan and Nicky Hopkins to McCartney, Mercury, Wright, Banks, Axl, and the road-night return.",
     "cover": "/images/audioshow/crates/route-88/cover.webp",
+    "socialImage": "/images/audioshow/crates/route-88/cover-og.jpg",
     "spotifyUrl": "https://open.spotify.com/playlist/19f6cokmbJybdnxEOs4r6b",
     "trackCount": 40,
     "duration": "3h27m",

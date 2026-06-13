@@ -23,6 +23,7 @@ export type AudioShowCrate = {
     premise: string;
     curatorNote: string;
     cover: string;
+    socialImage?: string;
     spotifyUrl: string;
     trackCount: number;
     duration: string;
