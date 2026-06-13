@@ -5,6 +5,7 @@ description: 'A read-only cockpit for supervising long-running AI coding-agent s
 category: 'Agent'
 status: 'active'
 featured: true
+pinned: true
 stack: ['Python', 'Textual', 'TUI', 'Coding Agents', 'Observability']
 type: 'Product'
 githubRepo: 'Audiofool934/cc-copilot'
