@@ -112,7 +112,7 @@ for (const e of referencedBy) {
                     </a>
                     {
                         entry.data.tags.map((tag) => (
-                            <span class="text-xs font-mono text-[var(--text-muted)] opacity-55 px-1 py-0.5">
+                            <span class="text-xs font-mono text-[var(--text-faint)] px-1 py-0.5">
                                 {tag.toLowerCase()}
                             </span>
                         ))
@@ -121,7 +121,7 @@ for (const e of referencedBy) {
 
                 {
                     entry.data.updatedDate && (
-                        <div class="font-mono text-xs text-[var(--text-muted)] opacity-50">
+                        <div class="font-mono text-xs text-[var(--text-faint)]">
                             {entry.data.updatedDate.toISOString().split("T")[0]}
                         </div>
                     )
@@ -158,7 +158,7 @@ for (const e of referencedBy) {
                                 <span class="text-sm group-hover:underline decoration-1 underline-offset-4">
                                     {e.data.title}
                                 </span>
-                                <span class="font-mono text-[9px] opacity-20 ml-auto flex-shrink-0">
+                                <span class="font-mono text-[9px] text-[var(--text-faint)] ml-auto flex-shrink-0">
                                     {type}
                                 </span>
                             </a>

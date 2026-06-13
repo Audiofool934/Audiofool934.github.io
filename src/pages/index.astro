@@ -68,7 +68,7 @@ const timelinePosts = (await getCollection("log"))
 										href={`/timeline/${post.id}/`}
 										class="group block text-xs md:text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
 									>
-										<span class="font-mono uppercase tracking-wider opacity-65 group-hover:opacity-85">
+										<span class="font-mono uppercase tracking-wider text-[var(--text-faint)]">
 											{formatDateCompact(post.data.pubDate)} · {type}
 										</span>
 										<span class="mx-2 opacity-35">—</span>

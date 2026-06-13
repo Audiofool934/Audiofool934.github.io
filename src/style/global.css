@@ -7,6 +7,9 @@
     --bg-body: #fafafa;
     --text-main: #171717;
     --text-muted: #525252;
+    /* Faint tier for secondary metadata: lighter than --text-muted but still
+       >= 4.5:1 on --bg-body, so it stays WCAG AA legible without opacity. */
+    --text-faint: #6f6f6f;
     --border-main: #d4d4d4;
     --border-subtle: #e5e5e5;
     --accent: #525252;
@@ -16,6 +19,7 @@
     --bg-body: #0a0a0a;
     --text-main: #ededed;
     --text-muted: #a3a3a3;
+    --text-faint: #8a8a8a;
     --border-main: #404040;
     --border-subtle: #2a2a2a;
     --accent: #a3a3a3;

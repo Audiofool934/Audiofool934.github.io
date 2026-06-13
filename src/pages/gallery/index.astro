@@ -95,7 +95,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                 data-filter="all"
                 class="gallery-tab active whitespace-nowrap transition-colors"
             >
-                [ All <span class="opacity-50">{sortedGallery.length}</span> ]
+                [ All <span class="text-[var(--text-faint)]">{sortedGallery.length}</span> ]
             </button>
             {
                 featuredCount > 0 && (
@@ -104,7 +104,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                         class="gallery-tab whitespace-nowrap transition-colors"
                     >
                         [ Featured{" "}
-                        <span class="opacity-50">{featuredCount}</span> ]
+                        <span class="text-[var(--text-faint)]">{featuredCount}</span> ]
                     </button>
                 )
             }
@@ -118,7 +118,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                             data-filter={cat}
                             class="gallery-tab whitespace-nowrap transition-colors"
                         >
-                            [ {cat} <span class="opacity-50">{count}</span> ]
+                            [ {cat} <span class="text-[var(--text-faint)]">{count}</span> ]
                         </button>
                     );
                 })
@@ -260,7 +260,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                             <div class="flex items-center gap-3 min-w-0">
                                 <span
                                     id="modal-counter-mobile"
-                                    class="font-mono text-[10px] text-[var(--text-muted)] opacity-60 flex-shrink-0"
+                                    class="font-mono text-[10px] text-[var(--text-faint)] flex-shrink-0"
                                 ></span>
                                 <h2
                                     id="modal-title-mobile"
@@ -307,7 +307,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                         <div class="hidden xl:flex xl:flex-col xl:gap-4">
                             <div
                                 id="modal-counter"
-                                class="font-mono text-[10px] text-[var(--text-muted)] opacity-60"
+                                class="font-mono text-[10px] text-[var(--text-faint)]"
                             >
                             </div>
 
@@ -436,7 +436,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     if (value) {
                         el.textContent = "";
                         const span = document.createElement("span");
-                        span.className = "opacity-50";
+                        span.className = "text-[var(--text-faint)]";
                         span.textContent = label + ": ";
                         el.appendChild(span);
                         el.appendChild(document.createTextNode(value));

@@ -51,7 +51,7 @@ const filters = filterOrder
                 data-type="all"
                 class="timeline-filter active whitespace-nowrap transition-colors"
             >
-                [ All <span class="opacity-50">{sortedPosts.length}</span> ]
+                [ All <span class="text-[var(--text-faint)]">{sortedPosts.length}</span> ]
             </button>
             {
                 filters.map(({ type, label, count }) => (
@@ -59,7 +59,7 @@ const filters = filterOrder
                         data-type={type}
                         class="timeline-filter whitespace-nowrap transition-colors"
                     >
-                        [ {label} <span class="opacity-50">{count}</span> ]
+                        [ {label} <span class="text-[var(--text-faint)]">{count}</span> ]
                     </button>
                 ))
             }
@@ -78,11 +78,11 @@ const filters = filterOrder
                             <span class="absolute -left-[1.65rem] md:-left-[2.15rem] top-1 h-2 w-2 rounded-full bg-[var(--bg-body)] border border-[var(--text-main)] group-hover:bg-[var(--text-main)] transition-colors" />
 
                             <div class="grid gap-1 md:grid-cols-[8rem_5rem_minmax(0,1fr)] md:gap-4 md:items-baseline font-mono text-sm">
-                                <time class="text-xs uppercase tracking-wider opacity-55 group-hover:opacity-80 transition-opacity">
+                                <time class="text-xs uppercase tracking-wider text-[var(--text-faint)] transition-opacity">
                                     {formatDateCompact(post.data.pubDate)}
                                 </time>
 
-                                <span class="text-[10px] uppercase tracking-wider opacity-45 group-hover:opacity-70 transition-opacity">
+                                <span class="text-[10px] uppercase tracking-wider text-[var(--text-faint)] transition-opacity">
                                     {type}
                                 </span>
 
@@ -91,7 +91,7 @@ const filters = filterOrder
                                         {post.data.title}
                                     </h2>
                                     {post.data.description && (
-                                        <p class="mt-1 font-sans text-sm leading-relaxed opacity-65">
+                                        <p class="mt-1 font-sans text-sm leading-relaxed text-[var(--text-faint)]">
                                             {post.data.description}
                                         </p>
                                     )}

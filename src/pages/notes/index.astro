@@ -75,7 +75,7 @@ function getConnectionCount(id: string) {
                 data-kind="all"
                 class="note-kind active whitespace-nowrap transition-colors"
             >
-                [ All <span class="opacity-50">{sorted.length}</span> ]
+                [ All <span class="text-[var(--text-faint)]">{sorted.length}</span> ]
             </button>
             {
                 filters.map(({ key, label, count }) => (
@@ -84,7 +84,7 @@ function getConnectionCount(id: string) {
                         class="note-kind whitespace-nowrap transition-colors"
                     >
                         [ {label}{" "}
-                        <span class="opacity-50">{count}</span> ]
+                        <span class="text-[var(--text-faint)]">{count}</span> ]
                     </button>
                 ))
             }
@@ -102,7 +102,7 @@ function getConnectionCount(id: string) {
                             data-kind={entry.data.kind.toLowerCase()}
                         >
                             <div class="grid grid-cols-[5.5rem_minmax(0,1fr)_auto] gap-4 items-start">
-                                <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--text-muted)] opacity-60 pt-1">
+                                <span class="font-mono text-[10px] uppercase tracking-wider text-[var(--text-faint)] pt-1">
                                     {entry.data.kind}
                                 </span>
                                 <div class="min-w-0">
@@ -111,18 +111,18 @@ function getConnectionCount(id: string) {
                                     </h2>
                                     <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1.5">
                                         {entry.data.tags.map((tag) => (
-                                            <span class="font-mono text-[10px] text-[var(--text-muted)] opacity-45">
+                                            <span class="font-mono text-[10px] text-[var(--text-faint)]">
                                                 {tag.toLowerCase()}
                                             </span>
                                         ))}
                                         {connCount > 0 && (
-                                            <span class="font-mono text-[10px] text-[var(--text-muted)] opacity-30 ml-1">
+                                            <span class="font-mono text-[10px] text-[var(--text-faint)] ml-1">
                                                 · {connCount}↔
                                             </span>
                                         )}
                                     </div>
                                 </div>
-                                <span class="flex-shrink-0 font-mono text-[11px] text-[var(--text-muted)] opacity-40 pt-0.5">
+                                <span class="flex-shrink-0 font-mono text-[11px] text-[var(--text-faint)] pt-0.5">
                                     {getDate(entry)}
                                 </span>
                             </div>

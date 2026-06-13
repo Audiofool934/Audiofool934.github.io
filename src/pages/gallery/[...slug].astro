@@ -83,13 +83,13 @@ const galleryDescription =
                     class="flex flex-wrap gap-6 text-sm font-mono text-[var(--text-muted)]"
                 >
                     <div class="flex items-center gap-2">
-                        <span class="opacity-50">Date:</span>
+                        <span class="text-[var(--text-faint)]">Date:</span>
                         <time>{formatDateLong(entry.data.date)}</time>
                     </div>
                     {
                         entry.data.location && (
                             <div class="flex items-center gap-2">
-                                <span class="opacity-50">Location:</span>
+                                <span class="text-[var(--text-faint)]">Location:</span>
                                 <span>{entry.data.location}</span>
                             </div>
                         )
@@ -97,7 +97,7 @@ const galleryDescription =
                     {
                         entry.data.camera && (
                             <div class="flex items-center gap-2">
-                                <span class="opacity-50">Camera:</span>
+                                <span class="text-[var(--text-faint)]">Camera:</span>
                                 <span>{entry.data.camera}</span>
                             </div>
                         )
@@ -105,7 +105,7 @@ const galleryDescription =
                     {
                         entry.data.lens && (
                             <div class="flex items-center gap-2">
-                                <span class="opacity-50">Lens:</span>
+                                <span class="text-[var(--text-faint)]">Lens:</span>
                                 <span>{entry.data.lens}</span>
                             </div>
                         )
@@ -113,7 +113,7 @@ const galleryDescription =
                     {
                         entry.data.filmStock && (
                             <div class="flex items-center gap-2">
-                                <span class="opacity-50">Film:</span>
+                                <span class="text-[var(--text-faint)]">Film:</span>
                                 <span>{entry.data.filmStock}</span>
                             </div>
                         )
@@ -123,7 +123,7 @@ const galleryDescription =
                             entry.data.aperture ||
                             entry.data.shutterSpeed) && (
                             <div class="flex items-center gap-2">
-                                <span class="opacity-50">EXIF:</span>
+                                <span class="text-[var(--text-faint)]">EXIF:</span>
                                 <span>
                                     {[
                                         entry.data.focalLength,
@@ -140,7 +140,7 @@ const galleryDescription =
                         )
                     }
                     <div class="flex items-center gap-2">
-                        <span class="opacity-50">Category:</span>
+                        <span class="text-[var(--text-faint)]">Category:</span>
                         <span
                             class="px-2 py-0.5 border border-[var(--border-main)] text-xs"
                         >
