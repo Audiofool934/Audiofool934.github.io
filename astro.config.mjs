@@ -38,6 +38,15 @@ function rehypeImgAttrs() {
   };
 }
 
+function isLegacyRedirectUrl(page) {
+  const { pathname } = new URL(page);
+  return (
+    pathname.startsWith('/log/') ||
+    pathname.startsWith('/wiki/') ||
+    pathname !== pathname.toLowerCase()
+  );
+}
+
 // https://astro.build/config
 export default defineConfig({
   markdown: {
@@ -51,13 +60,10 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     preact(),
-    // Legacy /log/* and /wiki/* routes are 0-second meta-refresh redirect stubs
-    // (their canonical targets are /timeline/* and /notes/*). Keep them out of
+    // Legacy routes are 0-second meta-refresh redirect stubs. Keep them out of
     // the sitemap so crawlers are not handed thin redirecting URLs.
     sitemap({
-      filter: (page) =>
-        !page.startsWith('https://audiofool.blog/log/') &&
-        !page.startsWith('https://audiofool.blog/wiki/'),
+      filter: (page) => !isLegacyRedirectUrl(page),
     }),
   ],
 });

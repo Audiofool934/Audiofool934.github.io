@@ -215,9 +215,26 @@
     function setArtwork(img, placeholder, url) {
         if (!img || !placeholder) return;
         if (url) {
-            if (img.getAttribute("src") !== url) img.src = url;
-            img.style.opacity = "1";
-            placeholder.style.opacity = "0";
+            img.onload = function () {
+                img.style.opacity = "1";
+                placeholder.style.opacity = "0";
+            };
+            img.onerror = function () {
+                img.removeAttribute("src");
+                img.style.opacity = "0";
+                placeholder.style.opacity = "1";
+            };
+            if (img.getAttribute("src") !== url) {
+                img.style.opacity = "0";
+                placeholder.style.opacity = "1";
+                img.src = url;
+            } else if (img.complete) {
+                if (img.naturalWidth > 0) {
+                    img.onload();
+                } else {
+                    img.onerror();
+                }
+            }
         } else {
             img.removeAttribute("src");
             img.style.opacity = "0";
