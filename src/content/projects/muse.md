@@ -84,7 +84,7 @@ The full-stack application includes:
 - 🔬 **Lab**: Latent space exploration & interpolation
 - 📚 **Library**: Audio management, tagging & playback
 
-![Latent Space](/images/projects/muse/2D%20Density%20Heatmap.png)
+![Latent Space](/images/projects/muse/2d-density-heatmap.png)
 *Diverse samples visualized in MuQ-MuLan latent space*
 
 ## Tech Stack

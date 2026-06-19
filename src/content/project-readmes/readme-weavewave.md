@@ -2,27 +2,27 @@
 project: "weavewave"
 repo: "Audiofool934/WeaveWave"
 sourceUrl: "https://github.com/Audiofool934/WeaveWave"
-syncedAt: "2026-05-30T10:16:41.167Z"
+syncedAt: "2026-06-19T16:18:46.077Z"
 ---
 
 # WeaveWave: Towards Multimodal Music Generation
 
-<div align="center">
-   <img src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/logo/WeaveWave.png" alt="WeaveWave Logo" width="500px">
+<div>
+   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/logo/WeaveWave.png" alt="WeaveWave Logo" width="500px" />
 </div>
 
-<div align="center">
+<div></div>
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![PyTorch 2.3](https://img.shields.io/badge/PyTorch-2.3.1-EE4C2C?logo=pytorch)](https://pytorch.org/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Audiofool934/WeaveWave/blob/main/LICENSE)
 [![CI](https://github.com/Audiofool934/WeaveWave/actions/workflows/ci.yml/badge.svg)](https://github.com/Audiofool934/WeaveWave/actions/workflows/ci.yml)
 
-</div>
+
 
 ## Abstract
 
-WeaveWave is a multimodal music generation framework that synthesizes music from text, images, and video. It employs a **text-bridging** strategy: a multimodal large language model (Gemma-3-12b-it \[3\]) generates rich musical descriptions from arbitrary input modalities, which then condition a MusicGen-Style model \[2\] for audio synthesis at 32 kHz. This decoupled design enables modular integration of new modalities and generation backends. We further provide a scalable training pipeline based on MusicGen-Style and an interactive Gradio demo for real-time experimentation.
+WeaveWave is a multimodal music generation framework that synthesizes music from text, images, and video. It employs a **text-bridging** strategy: a multimodal large language model (Gemma-3-12b-it \[3]) generates rich musical descriptions from arbitrary input modalities, which then condition a MusicGen-Style model \[2] for audio synthesis at 32 kHz. This decoupled design enables modular integration of new modalities and generation backends. We further provide a scalable training pipeline based on MusicGen-Style and an interactive Gradio demo for real-time experimentation.
 
 ## Motivation
 
@@ -30,52 +30,53 @@ WeaveWave is a multimodal music generation framework that synthesizes music from
 
 **For machines**, can AI music creation mimic these two stages? We believe that **multimodal music generation** precisely simulates this process — where "inspiration" corresponds to multimodal input data, and "implementation" to a music generation model.
 
-<div align="center">
-   <img src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/inspiration.png" alt="Music Creation: Humans and Machines" width="500px">
+<div>
+   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/inspiration.png" alt="Music Creation: Humans and Machines" width="500px" />
 </div>
-<p align="center"><i>Music creation: humans and machines</i></p>
+<p><i>Music creation: humans and machines</i></p>
 
-However, research on multimodal music generation has not yet garnered widespread attention, with most existing work confined to understanding and generation within a single modality. To address this gap, we implemented a text-bridging strategy harnessing existing MLLMs and text-to-music systems, proposed two candidate end-to-end architectures, and developed a training pipeline based on MusicGen-Style \[2\]. This exploration culminated in **WeaveWave** — a unified framework designed to integrate multimodal inputs through a cohesive generative process.
+However, research on multimodal music generation has not yet garnered widespread attention, with most existing work confined to understanding and generation within a single modality. To address this gap, we implemented a text-bridging strategy harnessing existing MLLMs and text-to-music systems, proposed two candidate end-to-end architectures, and developed a training pipeline based on MusicGen-Style \[2]. This exploration culminated in **WeaveWave** — a unified framework designed to integrate multimodal inputs through a cohesive generative process.
 
 ## Architecture
 
-<div align="center">
-   <img src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-1.png" alt="Text-Bridging Architecture" width="600px">
+<div>
+   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-1.png" alt="Text-Bridging Architecture" width="600px" />
 </div>
-<p align="center"><i>Text-Bridging: MLLM generates music descriptions from multimodal input, MusicGen synthesizes audio</i></p>
+<p><i>Text-Bridging: MLLM generates music descriptions from multimodal input, MusicGen synthesizes audio</i></p>
 
-The text-bridging approach builds on MusicGen \[1\] and its style-conditioning extension \[2\], using Gemma-3 \[3\] as the multimodal front-end. The pipeline consists of two stages:
+The text-bridging approach builds on MusicGen \[1] and its style-conditioning extension \[2], using Gemma-3 \[3] as the multimodal front-end. The pipeline consists of two stages:
 
 1. **Description generation** — A multimodal LLM (Gemma-3-12b-it) interprets the input (text, image, or video) and produces a concise music description capturing mood, rhythm, genre, and instrumentation.
 2. **Audio synthesis** — MusicGen-Style conditions on the generated description via a frozen T5-base text encoder, with optional style conditioning (MERT-based, 6 codebooks at 5 Hz) and melody conditioning (chroma features). Audio is decoded through EnCodec at 32 kHz with optional MultiBand Diffusion post-processing.
 
 We also explored two end-to-end alternatives during development:
 
-<div align="center">
-   <img src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-2.png" alt="End-to-End based on AudioLDM2" width="500px">
+<div>
+   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-2.png" alt="End-to-End based on AudioLDM2" width="500px" />
 </div>
-<p align="center"><i>End-to-End approach 1: based on AudioLDM2 [4]</i></p>
+<p><i>End-to-End approach 1: based on AudioLDM2 [4]</i></p>
 
-<div align="center">
-   <img src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-3.png" alt="End-to-End based on MusicGen" width="500px">
+<div>
+   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-3.png" alt="End-to-End based on MusicGen" width="500px" />
 </div>
-<p align="center"><i>End-to-End approach 2: based on MusicGen [1]</i></p>
+<p><i>End-to-End approach 2: based on MusicGen [1]</i></p>
 
 ## Demo
 
-<div align="center">
+<div>
    <a href="https://github.com/Audiofool934/WeaveWave/blob/main/assets/media/demo.mp4">
-      <img src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/demo.png" alt="Demo Video" width="600px">
+      <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/demo.png" alt="Demo Video" width="600px" />
    </a>
 </div>
-<p align="center"><i>Click to view demo — WeaveWave web application built with Gradio</i></p>
+<p><i>Click to view demo — WeaveWave web application built with Gradio</i></p>
 
 **Key features:**
-- Generate music from **text prompts**, **images**, or **video** via a unified interface
-- Choose from 10 MusicGen model variants (mono/stereo, small to large)
-- Optional **melody conditioning** from uploaded audio (chroma-based)
-- Optional **MultiBand Diffusion** decoding for enhanced audio quality
-- Configurable generation parameters (duration, top-k, top-p, temperature, CFG)
+
+* Generate music from **text prompts**, **images**, or **video** via a unified interface
+* Choose from 10 MusicGen model variants (mono/stereo, small to large)
+* Optional **melody conditioning** from uploaded audio (chroma-based)
+* Optional **MultiBand Diffusion** decoding for enhanced audio quality
+* Configurable generation parameters (duration, top-k, top-p, temperature, CFG)
 
 ## Installation
 
@@ -105,7 +106,7 @@ weavewave-mllm-server
 weavewave-demo
 ```
 
-Open [http://127.0.0.1:7860](http://127.0.0.1:7860) in your browser.
+Open <http://127.0.0.1:7860> in your browser.
 
 ### Training pipeline
 
@@ -172,13 +173,13 @@ WeaveWave/
 
 ## Environment Variables
 
-| Variable | Purpose | Default |
-|----------|---------|---------|
-| `WEAVEWAVE_MLLM_URL` | MLLM service endpoint | `http://127.0.0.1:8001` |
+| Variable                        | Purpose                     | Default                                 |
+| ------------------------------- | --------------------------- | --------------------------------------- |
+| `WEAVEWAVE_MLLM_URL`            | MLLM service endpoint       | `http://127.0.0.1:8001`                 |
 | `WEAVEWAVE_DEFAULT_MUSIC_MODEL` | Default MusicGen checkpoint | `facebook/musicgen-stereo-melody-large` |
-| `WEAVEWAVE_MLLM_MODEL` | MLLM model identifier | `google/gemma-3-12b-it` |
-| `WEAVEWAVE_MLLM_DEVICE` | MLLM inference device | `cuda` |
-| `CUDA_VISIBLE_DEVICES` | GPU selection | — |
+| `WEAVEWAVE_MLLM_MODEL`          | MLLM model identifier       | `google/gemma-3-12b-it`                 |
+| `WEAVEWAVE_MLLM_DEVICE`         | MLLM inference device       | `cuda`                                  |
+| `CUDA_VISIBLE_DEVICES`          | GPU selection               | —                                       |
 
 ## Citation
 
@@ -193,15 +194,15 @@ WeaveWave/
 
 ## References
 
-\[1\] Copet, J., Kreuk, F., Gat, I., Remez, T., Kant, D., Synnaeve, G., Adi, Y., & Défossez, A. (2024). Simple and controllable music generation. *NeurIPS 2024*. [arXiv:2306.05284](https://arxiv.org/abs/2306.05284)
+\[1] Copet, J., Kreuk, F., Gat, I., Remez, T., Kant, D., Synnaeve, G., Adi, Y., & Défossez, A. (2024). Simple and controllable music generation. *NeurIPS 2024*. [arXiv:2306.05284](https://arxiv.org/abs/2306.05284)
 
-\[2\] Rouard, S., Adi, Y., Copet, J., Roebel, A., & Défossez, A. (2024). Audio conditioning for music generation via discrete bottleneck features. *ISMIR 2024*. [arXiv:2407.12563](https://arxiv.org/abs/2407.12563)
+\[2] Rouard, S., Adi, Y., Copet, J., Roebel, A., & Défossez, A. (2024). Audio conditioning for music generation via discrete bottleneck features. *ISMIR 2024*. [arXiv:2407.12563](https://arxiv.org/abs/2407.12563)
 
-\[3\] Google. (2025). Gemma 3 Technical Report. [arXiv:2503.19786](https://arxiv.org/abs/2503.19786)
+\[3] Google. (2025). Gemma 3 Technical Report. [arXiv:2503.19786](https://arxiv.org/abs/2503.19786)
 
-\[4\] Liu, H., Yuan, Y., Liu, X., Mei, X., Kong, Q., Tian, Q., Wang, Y., Wang, W., Wang, Y., & Plumbley, M. D. (2024). AudioLDM 2: Learning holistic audio generation with self-supervised pretraining. *IEEE/ACM TASLP*. [arXiv:2308.05734](https://arxiv.org/abs/2308.05734)
+\[4] Liu, H., Yuan, Y., Liu, X., Mei, X., Kong, Q., Tian, Q., Wang, Y., Wang, W., Wang, Y., & Plumbley, M. D. (2024). AudioLDM 2: Learning holistic audio generation with self-supervised pretraining. *IEEE/ACM TASLP*. [arXiv:2308.05734](https://arxiv.org/abs/2308.05734)
 
-\[5\] Rinaldi, I., Fanelli, N., Castellano, G., & Vessio, G. (2024). Art2Mus: Bridging visual arts and music through cross-modal generation. [arXiv:2410.04906](https://arxiv.org/abs/2410.04906)
+\[5] Rinaldi, I., Fanelli, N., Castellano, G., & Vessio, G. (2024). Art2Mus: Bridging visual arts and music through cross-modal generation. [arXiv:2410.04906](https://arxiv.org/abs/2410.04906)
 
 ## License
 

@@ -124,13 +124,17 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
 
                 <div class="flex flex-wrap gap-3 text-sm font-mono">
                     <button
+                        type="button"
                         data-view="latest"
+                        aria-pressed="true"
                         class="project-view-filter active whitespace-nowrap transition-colors"
                     >
                         [ Latest <span class="text-[var(--text-faint)]">{latestProjects.length}</span> ]
                     </button>
                     <button
+                        type="button"
                         data-view="all"
+                        aria-pressed="false"
                         class="project-view-filter whitespace-nowrap transition-colors"
                     >
                         [ All <span class="text-[var(--text-faint)]">{sortedProjects.length}</span> ]
@@ -287,11 +291,17 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
             if (!filters.length || !panels.length) return;
 
             function applyView(view) {
-                filters.forEach((item) => item.classList.remove("active"));
+                filters.forEach((item) => {
+                    item.classList.remove("active");
+                    item.setAttribute("aria-pressed", "false");
+                });
                 const btn = document.querySelector(
                     '.project-view-filter[data-view="' + view + '"]',
                 );
-                if (btn) btn.classList.add("active");
+                if (btn) {
+                    btn.classList.add("active");
+                    btn.setAttribute("aria-pressed", "true");
+                }
 
                 panels.forEach((panel) => {
                     panel.classList.toggle("hidden", panel.dataset.projectView !== view);

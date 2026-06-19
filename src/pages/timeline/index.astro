@@ -48,7 +48,9 @@ const filters = filterOrder
             class="flex flex-wrap gap-3 pb-4 mb-8 border-b border-[var(--border-main)] text-sm font-mono"
         >
             <button
+                type="button"
                 data-type="all"
+                aria-pressed="true"
                 class="timeline-filter active whitespace-nowrap transition-colors"
             >
                 [ All <span class="text-[var(--text-faint)]">{sortedPosts.length}</span> ]
@@ -56,7 +58,9 @@ const filters = filterOrder
             {
                 filters.map(({ type, label, count }) => (
                     <button
+                        type="button"
                         data-type={type}
+                        aria-pressed="false"
                         class="timeline-filter whitespace-nowrap transition-colors"
                     >
                         [ {label} <span class="text-[var(--text-faint)]">{count}</span> ]
@@ -151,11 +155,17 @@ const filters = filterOrder
             if (!filters.length) return;
 
             function applyFilter(filter) {
-                filters.forEach((item) => item.classList.remove("active"));
+                filters.forEach((item) => {
+                    item.classList.remove("active");
+                    item.setAttribute("aria-pressed", "false");
+                });
                 var btn = document.querySelector(
                     '.timeline-filter[data-type="' + filter + '"]',
                 );
-                if (btn) btn.classList.add("active");
+                if (btn) {
+                    btn.classList.add("active");
+                    btn.setAttribute("aria-pressed", "true");
+                }
 
                 var visible = 0;
                 entries.forEach((entry) => {

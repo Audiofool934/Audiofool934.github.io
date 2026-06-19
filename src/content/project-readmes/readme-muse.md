@@ -2,7 +2,7 @@
 project: "muse"
 repo: "Audiofool934/muse"
 sourceUrl: "https://github.com/Audiofool934/muse"
-syncedAt: "2026-05-30T10:16:29.495Z"
+syncedAt: "2026-06-19T16:18:41.545Z"
 ---
 
 # MUSE: Music Unified Synthesis Engine
@@ -15,18 +15,19 @@ MUSE decouples *what you perceive* from *how you synthesize*. A shared two-stage
 
 Text-to-music baseline evaluated on MusicBench (2,811 samples):
 
-| Model | FAD ↓ | KL Sigmoid ↑ |
-|-------|-------|--------------|
-| AudioLDM | 3.82 | 0.744 |
-| MusicGen | 5.36 | 0.844 |
-| **MUSE** | **2.25** | **0.925** |
+| Model    | FAD ↓    | KL Sigmoid ↑ |
+| -------- | -------- | ------------ |
+| AudioLDM | 3.82     | 0.744        |
+| MusicGen | 5.36     | 0.844        |
+| **MUSE** | **2.25** | **0.925**    |
 
-**FAD 2.25** — 41% lower than AudioLDM. **KL 0.925** — best semantic alignment. Stereo 44.1 kHz, ~12 s.
+**FAD 2.25** — 41% lower than AudioLDM. **KL 0.925** — best semantic alignment. Stereo 44.1 kHz, \~12 s.
 
 Beyond point estimates, the flow matching formulation models $p(z \mid c)$ as a full distribution:
-- Vague prompts → higher output diversity (APD 1.037 vs. 0.963 for specific prompts)
-- Ambiguous prompts → distinct genre clusters (e.g., *"Cyberpunk city"* splits into synthwave / ambient / industrial)
-- Smooth latent interpolation via noise-space SLERP
+
+* Vague prompts → higher output diversity (APD 1.037 vs. 0.963 for specific prompts)
+* Ambiguous prompts → distinct genre clusters (e.g., *"Cyberpunk city"* splits into synthwave / ambient / industrial)
+* Smooth latent interpolation via noise-space SLERP
 
 ## Architecture
 
@@ -58,23 +59,23 @@ graph LR
 
 ### Three-Layer Decoupling
 
-| Layer | Responsibility | Interface |
-|-------|---------------|-----------|
+| Layer          | Responsibility                     | Interface                                         |
+| -------------- | ---------------------------------- | ------------------------------------------------- |
 | **Perception** | Modality → conditioning embeddings | `PerceptionEncoder.encode() → ConditioningOutput` |
-| **Generation** | Conditioning → music latent | `Cond2LatentFlow.generate() → [B, 512]` |
-| **Synthesis** | Latent → waveform | `LatentToAudioDiT.sample() → [B, 2, T]` |
+| **Generation** | Conditioning → music latent        | `Cond2LatentFlow.generate() → [B, 512]`           |
+| **Synthesis**  | Latent → waveform                  | `LatentToAudioDiT.sample() → [B, 2, T]`           |
 
 `ConditioningOutput` — a `[B, L, D]` tensor + padding mask — is the universal contract. Every encoder produces it; every generator consumes it. Switching modality is a one-line config change.
 
 ## Supported Pipelines
 
-| Pipeline | Input | Encoder | Training |
-|----------|-------|---------|----------|
-| `t2m_flow` | Text | Flan-T5 | Stage 1 + 2 ✓ |
-| `i2m_flow` | Image | CLIP ViT | Stage 1 only |
+| Pipeline     | Input | Encoder      | Training             |
+| ------------ | ----- | ------------ | -------------------- |
+| `t2m_flow`   | Text  | Flan-T5      | Stage 1 + 2 ✓        |
+| `i2m_flow`   | Image | CLIP ViT     | Stage 1 only         |
 | `i2m_bridge` | Image | Gemma-3 → T5 | **None** (zero-shot) |
-| `v2m_flow` | Video | CLIP frames | Stage 1 only |
-| `a2m_flow` | Audio | MuQ-MuLan | Stage 1 only |
+| `v2m_flow`   | Video | CLIP frames  | Stage 1 only         |
+| `a2m_flow`   | Audio | MuQ-MuLan    | Stage 1 only         |
 
 ## Usage
 
@@ -93,11 +94,11 @@ audio = pipe.generate("sunset.jpg")
 
 Both stages use **Conditional Flow Matching** (Lipman et al., ICLR 2023) with the OT-affine path:
 
-$$x_t = (1-t) \cdot x_0 + t \cdot x_1, \quad v_\theta(x_t, t, c) \approx x_1 - x_0$$
+$$x\_t = (1-t) \cdot x\_0 + t \cdot x\_1, \quad v\_\theta(x\_t, t, c) \approx x\_1 - x\_0$$
 
 At inference, an ODE solver integrates from Gaussian noise to data. Classifier-free guidance steers generation:
 
-$$v_\text{guided} = v_\text{uncond} + w \cdot (v_\text{cond} - v_\text{uncond})$$
+$$v\_\text{guided} = v\_\text{uncond} + w \cdot (v\_\text{cond} - v\_\text{uncond})$$
 
 All modalities pass through a **MuQ-MuLan bottleneck** (512-dim, L2-normalized) — a contrastive audio-text space that provides semantic alignment and a shared interface for Stage 2.
 
@@ -115,6 +116,6 @@ muse/
 
 ## References
 
-- Lipman et al., *Flow Matching for Generative Modeling*, ICLR 2023
-- Evans et al., *Stable Audio Open*, 2024
-- MuQ-MuLan: contrastive audio-text embeddings
+* Lipman et al., *Flow Matching for Generative Modeling*, ICLR 2023
+* Evans et al., *Stable Audio Open*, 2024
+* MuQ-MuLan: contrastive audio-text embeddings

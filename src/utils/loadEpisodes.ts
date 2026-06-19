@@ -8,14 +8,23 @@ import { parseEpisodesFromMarkdown, type Episode } from "./parseAudioshow";
  */
 export function loadAllEpisodes(): Episode[] {
     const audioshowDir = path.join(process.cwd(), "src/content/audioshow");
+    if (!fs.existsSync(audioshowDir)) {
+        console.warn(`AudioShow directory not found: ${audioshowDir}`);
+        return [];
+    }
+
     const files = fs.readdirSync(audioshowDir).filter((f) => f.endsWith(".md"));
 
     const allEpisodes: Episode[] = [];
     for (const file of files) {
         const filePath = path.join(audioshowDir, file);
-        const content = fs.readFileSync(filePath, "utf-8");
-        const episodes = parseEpisodesFromMarkdown(content, file);
-        allEpisodes.push(...episodes);
+        try {
+            const content = fs.readFileSync(filePath, "utf-8");
+            const episodes = parseEpisodesFromMarkdown(content, file);
+            allEpisodes.push(...episodes);
+        } catch (error) {
+            console.warn(`Skipping unreadable AudioShow file: ${filePath}`, error);
+        }
     }
 
     return allEpisodes;

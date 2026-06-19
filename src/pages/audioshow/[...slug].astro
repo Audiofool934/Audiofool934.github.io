@@ -77,15 +77,22 @@ const ogImage =
 </MinimalLayout>
 
 <script is:inline>
-    // The batch-markdown episode artwork is authored as <img onclick=...>, which
-    // is not keyboard- or screen-reader-operable. Upgrade each into a real button
-    // role with a focusable tabindex, a meaningful label, and Enter/Space support.
+    // The batch-markdown episode artwork is authored as <img onclick=...>.
+    // Replace the inline handler with explicit click/keyboard behavior so the
+    // global player receives a real event object instead of implicit browser
+    // event globals.
     function upgradeAudioshowImages() {
         document
             .querySelectorAll(".audioshow-image[onclick]")
             .forEach((img) => {
                 if (img.dataset.a11yUpgraded) return;
                 img.dataset.a11yUpgraded = "true";
+                const onclick = img.getAttribute("onclick") || "";
+                const match = onclick.match(/toggleMusic\([^,]+,\s*'([^']+)'\)/i);
+                const url = match?.[1];
+                if (!url) return;
+
+                img.removeAttribute("onclick");
                 img.setAttribute("role", "button");
                 img.setAttribute("tabindex", "0");
                 const alt = img.getAttribute("alt") || "";
@@ -94,10 +101,13 @@ const ogImage =
                     .replace(/_/g, " ")
                     .trim();
                 img.setAttribute("aria-label", "Play" + (label ? ": " + label : ""));
+                img.addEventListener("click", (e) => {
+                    window.toggleMusic?.("apple-music-player", url, e);
+                });
                 img.addEventListener("keydown", (e) => {
                     if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        img.click();
+                        window.toggleMusic?.("apple-music-player", url, e);
                     }
                 });
             });

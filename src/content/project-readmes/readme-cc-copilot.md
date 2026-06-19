@@ -2,7 +2,7 @@
 project: "cc-copilot"
 repo: "Audiofool934/cc-copilot"
 sourceUrl: "https://github.com/Audiofool934/cc-copilot"
-syncedAt: "2026-06-13T07:31:41.888Z"
+syncedAt: "2026-06-19T16:24:34.748Z"
 ---
 
 # CC-Copilot
@@ -70,15 +70,23 @@ Inside the cockpit:
 ```text
 /sessions   choose one or more agent sessions (incl. your own live session)
 /here       observe the session you're running inside of
+@session    scope the next answers to the current session
+@sessions   open the session picker for selected-session evidence
+@project    scope answers to project evidence
+@release    load a saved scope group (created with `/scope save release`)
+/target     show the current cockpit target (id, evidence session, scope)
+/status     fleet board — every session in this project, neediest first
+/watch      core observer loop; `/watch 中文` steers output; `/watch view` monitor
 /observe    attention queue and next human decision
-/since      recap since you last looked (or 30m / 2h; --raw = cited delta)
+/now        recommend the next step from the completed work (LLM; deterministic fallback)
+/since      recap since you last looked (or 30m / 2h / 1d; --raw = cited delta)
 /handoff    shareable Markdown handoff (brief + what changed)
 /brief      deterministic recap with citations
 /check      safety / off-track verdict
 /diff       changes since last turn
 /model      choose backend/model
 /init       reopen the model picker (Claude / Codex / an API key)
-/resume     resume a Cockpit Session
+/resume     browse & resume a cockpit session
 ```
 
 ## Install
@@ -181,14 +189,17 @@ design cues from [opencode](https://github.com/sst/opencode).
 cc-copilot cockpit                 # open the TUI
 cc-copilot sessions                # list project sessions
 cc-copilot status                  # fleet board, neediest first
-cc-copilot observe                 # attention queue
-cc-copilot brief                   # deterministic recap
-cc-copilot check                   # safety verdict
+cc-copilot observe                 # attention queue + next human decision
+cc-copilot now                     # grounded LLM recommendation of the next step
+cc-copilot now --raw               # deterministic next-step, no model call
+cc-copilot brief                   # deterministic recap with citations
+cc-copilot check                   # safety / off-track verdict
 cc-copilot since                   # grounded LLM recap since you last looked
-cc-copilot since 30m               # …or within a time window
+cc-copilot since 30m               # …or within a time window (30m / 2h / 1d)
 cc-copilot since --raw             # the deterministic cited delta, no model call
-cc-copilot handoff --out h.md      # shareable Markdown handoff
+cc-copilot handoff --out h.md      # shareable Markdown handoff (brief + what changed)
 cc-copilot watch --notify          # desktop alert when the agent needs you
+cc-copilot goal --raw              # paste-ready agent /goal from current evidence
 cc-copilot ask "what changed?"     # one-shot grounded Q&A
 cc-copilot chat                    # plain terminal chat mode
 cc-copilot resume                  # resumable Cockpit Sessions
@@ -204,6 +215,10 @@ cc-copilot cockpit --scope project # project-level evidence context
 cc-copilot ask --scope multi --scope-sessions a1b2c3d4,b5c53c29 "compare these"
 cc-copilot observe --scope project
 ```
+
+In the cockpit, save a reusable evidence group with `/scope save release`,
+review groups with `/scope groups`, and load one with `/scope load release` or
+the composer shortcut `@release`.
 
 Session discovery spans every coding agent with sessions on this machine:
 
@@ -232,9 +247,25 @@ It gives you:
 * Status header for project, evidence range, Cockpit Session, backend, and risk.
 * Live activity strip from the observed session(s).
 * Attention queue and next human decision via `/observe`.
+* Paste-ready agent goals via `/goal`, generated from observed agent evidence
+  plus read-only project context; cc-copilot shows the command, it does not
+  inject it into the agent.
 * Grounded chat over one session, selected sessions, or project evidence.
 * Context HUD showing estimated input context, output estimate, and evidence
   split across raw transcript, project facts, chat, memory, and summary index.
+* Attached-sessions HUD immediately above the composer, so you can see whether
+  the next prompt is grounded in one session, selected sessions, or the project.
+* Composer `@` scope picker: `@session`, `@sessions`, `@project`, and saved
+  groups such as `@release` switch the evidence scope without going through the
+  full picker.
+* Core `/watch` observer loop for long-running agent work: it follows transcript
+  growth, runs automatic copilot summaries/digests, accepts light presets such
+  as `/watch 中文`, opens the in-place semantic step monitor with `/watch view`,
+  and stays read-only. In multi-session/project scope it watches the selected
+  live transcripts and labels updates by session. The monitor keeps separate
+  session views, with `Tab` switching sessions and `←` / `→` browsing steps
+  inside the selected session. Watch process updates are pruned from chat on
+  stop, leaving a compact end summary and the full step record in the monitor.
 * Background alerts when the agent stalls, errors, or goes off track.
 * Checkbox session picker with `[ ]` / `[x]` multi-select.
 * Resumable Cockpit Sessions via `/resume`.
@@ -321,6 +352,7 @@ Supported backend families:
 | `xai`            | `XAI_API_KEY`                                 | Grok (`grok-4.3`)                                              |
 | `gemini-api`     | `GEMINI_API_KEY`                              | Google's OpenAI-compat endpoint (≠ the `gemini` CLI)           |
 | `ollama`         | none                                          | local server at `http://localhost:11434`                       |
+| `ollama-cloud`   | `OLLAMA_API_KEY`                              | Ollama Cloud at `https://ollama.com`                           |
 | `custom`         | `CC_COPILOT_API_BASE` or `CC_COPILOT_LLM_CMD` | proxy/API/CLI escape hatch                                     |
 
 Each API provider ships a small **curated model list** (see `cc-copilot backends --models`): the `/model` picker offers them two-level — backend, then model —
@@ -391,7 +423,23 @@ cc-copilot status
 Interactive `/diff` is available inside the cockpit and `cc-copilot chat`.
 
 LLM-backed answers receive bounded cited evidence context, not tool access or
-ambient repo access.
+ambient repo access. Secret-shaped content (API keys, tokens, private keys, auth
+headers, secret-named `KEY=value` lines) is scrubbed from that context before it
+reaches the model — the redaction applies only to the model-bound copy, so the
+on-disk transcript, the `[L<n>]` citations, and what the cockpit shows you
+locally are untouched. Agent narrator CLIs (Claude/Codex) are launched
+read-only and **fail closed**: if the installed CLI can't be confined to
+read-only, cc-copilot refuses to launch it rather than run it unguarded.
+
+`/goal` follows the same read-only contract. It drafts a paste-ready agent
+command from the selected evidence and project facts:
+
+```text
+/goal <verifiable outcome, checks, constraints, and blocked stop condition>
+```
+
+Use the generated command in Claude Code or Codex when you want the agent to
+keep working toward a concrete finish line.
 
 ## Cockpit Sessions
 

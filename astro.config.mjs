@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 
 /* ------------------------- support for latex math ------------------------- */
 import rehypeKatex from 'rehype-katex';
@@ -41,8 +42,10 @@ function rehypeImgAttrs() {
 export default defineConfig({
   markdown: {
     syntaxHighlight: 'prism',
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex, rehypeImgAttrs],
+    processor: unified({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex, rehypeImgAttrs],
+    }),
   },
   site: "https://audiofool.blog",
   trailingSlash: 'always',
