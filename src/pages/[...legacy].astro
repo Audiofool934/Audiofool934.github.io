@@ -1,0 +1,104 @@
+---
+export function getStaticPaths() {
+    const redirects = [
+        { from: "projects/MUSE", to: "/projects/muse/" },
+        {
+            from: "notes/Conditional-Expectation-Variance",
+            to: "/notes/conditional-expectation-variance/",
+        },
+        { from: "notes/ICBS", to: "/notes/icbs/" },
+        {
+            from: "wiki/Conditional-Expectation-Variance",
+            to: "/notes/conditional-expectation-variance/",
+        },
+        { from: "wiki/ICBS", to: "/notes/icbs/" },
+        {
+            from: "timeline/2025-12-20-Site-Redesign",
+            to: "/timeline/2025-12-20-site-redesign/",
+        },
+        {
+            from: "timeline/2025-12-31-Picture-of-the-Year",
+            to: "/timeline/2025-12-31-picture-of-the-year/",
+        },
+        {
+            from: "timeline/2026-01-01-Thinking-About-Variance",
+            to: "/timeline/2026-01-01-thinking-about-variance/",
+        },
+        {
+            from: "timeline/2026-01-20-Winter-Light",
+            to: "/timeline/2026-01-20-winter-light/",
+        },
+        {
+            from: "timeline/2026-02-14-Building-the-Wiki",
+            to: "/timeline/2026-02-14-building-the-wiki/",
+        },
+        {
+            from: "timeline/2026-03-05-On-Listening",
+            to: "/timeline/2026-03-05-on-listening/",
+        },
+        {
+            from: "timeline/2026-03-10-Fourier-and-Music",
+            to: "/timeline/2026-03-10-fourier-and-music/",
+        },
+        {
+            from: "log/2025-12-20-Site-Redesign",
+            to: "/timeline/2025-12-20-site-redesign/",
+        },
+        {
+            from: "log/2025-12-31-Picture-of-the-Year",
+            to: "/timeline/2025-12-31-picture-of-the-year/",
+        },
+        {
+            from: "log/2026-01-01-Thinking-About-Variance",
+            to: "/timeline/2026-01-01-thinking-about-variance/",
+        },
+        {
+            from: "log/2026-01-20-Winter-Light",
+            to: "/timeline/2026-01-20-winter-light/",
+        },
+        {
+            from: "log/2026-02-14-Building-the-Wiki",
+            to: "/timeline/2026-02-14-building-the-wiki/",
+        },
+        {
+            from: "log/2026-03-05-On-Listening",
+            to: "/timeline/2026-03-05-on-listening/",
+        },
+        {
+            from: "log/2026-03-10-Fourier-and-Music",
+            to: "/timeline/2026-03-10-fourier-and-music/",
+        },
+        { from: "audioshow/1-EP_0", to: "/audioshow/1-ep_0/" },
+        { from: "audioshow/2-EP_1-50", to: "/audioshow/2-ep_1-50/" },
+        { from: "audioshow/3-EP_51-100", to: "/audioshow/3-ep_51-100/" },
+        { from: "audioshow/4-EP_101-150", to: "/audioshow/4-ep_101-150/" },
+        { from: "audioshow/5-EP_151-200", to: "/audioshow/5-ep_151-200/" },
+        { from: "audioshow/6-EP_201-250", to: "/audioshow/6-ep_201-250/" },
+    ];
+
+    return redirects.map((redirect) => ({
+        params: { legacy: redirect.from },
+        props: { target: redirect.to },
+    }));
+}
+
+const { target } = Astro.props;
+const canonical = new URL(target, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="robots" content="noindex, follow" />
+        <meta http-equiv="refresh" content={`0; url=${target}`} />
+        <link rel="canonical" href={canonical} />
+        <title>Moved | Audiofool</title>
+        <script is:inline define:vars={{ target }}>
+            window.location.replace(target);
+        </script>
+    </head>
+    <body>
+        <p>This page has moved to <a href={target}>{target}</a>.</p>
+    </body>
+</html>

@@ -2,32 +2,32 @@
 project: "cmux"
 repo: "Audiofool934/cmux"
 sourceUrl: "https://github.com/Audiofool934/cmux"
-syncedAt: "2026-05-30T10:16:32.651Z"
+syncedAt: "2026-06-19T16:24:37.394Z"
 ---
 
-<h1 align="center">cmux</h1>
-<p align="center">A Ghostty-based macOS terminal with vertical tabs and notifications for AI coding agents</p>
+<h1>cmux</h1>
+<p>A Ghostty-based macOS terminal with vertical tabs and notifications for AI coding agents</p>
 
-<p align="center">
+<p>
   <a href="https://github.com/manaflow-ai/cmux/releases/latest/download/cmux-macos.dmg">
-    <img src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/macos-badge.png" alt="Download cmux for macOS" width="180" />
+    <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/macos-badge.png" alt="Download cmux for macOS" width="180" />
   </a>
 </p>
 
-<p align="center">
+<p>
   English | <a href="https://github.com/Audiofool934/cmux/blob/main/README.ja.md">日本語</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.vi.md">Tiếng Việt</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.zh-CN.md">简体中文</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.zh-TW.md">繁體中文</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.ko.md">한국어</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.de.md">Deutsch</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.es.md">Español</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.fr.md">Français</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.it.md">Italiano</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.da.md">Dansk</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.pl.md">Polski</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.ru.md">Русский</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.bs.md">Bosanski</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.ar.md">العربية</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.no.md">Norsk</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.pt-BR.md">Português (Brasil)</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.th.md">ไทย</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.tr.md">Türkçe</a> | <a href="https://github.com/Audiofool934/cmux/blob/main/README.km.md">ភាសាខ្មែរ</a>
 </p>
 
-<p align="center">
-  <a href="https://x.com/manaflowai"><img src="https://img.shields.io/badge/@manaflow-555?logo=x" alt="X / Twitter" /></a>
-  <a href="https://discord.gg/xsgFEVrWCZ"><img src="https://img.shields.io/badge/Discord-555?logo=discord" alt="Discord" /></a>
+<p>
+  <a href="https://x.com/manaflowai"><img decoding="async" loading="lazy" src="https://img.shields.io/badge/@manaflow-555?logo=x" alt="X / Twitter" /></a>
+  <a href="https://discord.gg/xsgFEVrWCZ"><img decoding="async" loading="lazy" src="https://img.shields.io/badge/Discord-555?logo=discord" alt="Discord" /></a>
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/main-first-image.png" alt="cmux screenshot" width="900" />
+<p>
+  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/main-first-image.png" alt="cmux screenshot" width="900" />
 </p>
 
-<p align="center">
+<p>
   <a href="https://www.youtube.com/watch?v=i-WxO5YUTOs">▶ Demo video</a> · <a href="https://cmux.com/blog/zen-of-cmux">The Zen of cmux</a>
 </p>
 
@@ -35,54 +35,54 @@ syncedAt: "2026-05-30T10:16:32.651Z"
 
 <table>
 <tr>
-<td width="40%" valign="middle">
+<td>
 <h3>Notification rings</h3>
 Panes get a blue ring and tabs light up when coding agents need your attention
 </td>
-<td width="60%">
-<img src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/notification-rings.png" alt="Notification rings" width="100%" />
+<td>
+<img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/notification-rings.png" alt="Notification rings" width="100%" />
 </td>
 </tr>
 <tr>
-<td width="40%" valign="middle">
+<td>
 <h3>Notification panel</h3>
 See all pending notifications in one place, jump to the most recent unread
 </td>
-<td width="60%">
-<img src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/sidebar-notification-badge.png" alt="Sidebar notification badge" width="100%" />
+<td>
+<img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/sidebar-notification-badge.png" alt="Sidebar notification badge" width="100%" />
 </td>
 </tr>
 <tr>
-<td width="40%" valign="middle">
+<td>
 <h3>In-app browser</h3>
 Split a browser alongside your terminal with a scriptable API ported from <a href="https://github.com/vercel-labs/agent-browser">agent-browser</a>
 </td>
-<td width="60%">
-<img src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/built-in-browser.png" alt="Built-in browser" width="100%" />
+<td>
+<img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/built-in-browser.png" alt="Built-in browser" width="100%" />
 </td>
 </tr>
 <tr>
-<td width="40%" valign="middle">
+<td>
 <h3>Vertical + horizontal tabs</h3>
 Sidebar shows git branch, linked PR status/number, working directory, listening ports, and latest notification text. Split horizontally and vertically.
 </td>
-<td width="60%">
-<img src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/vertical-horizontal-tabs-and-splits.png" alt="Vertical tabs and split panes" width="100%" />
+<td>
+<img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/vertical-horizontal-tabs-and-splits.png" alt="Vertical tabs and split panes" width="100%" />
 </td>
 </tr>
 </table>
 
-- **Scriptable** — CLI and socket API to create workspaces, split panes, send keystrokes, and automate the browser
-- **Native macOS app** — Built with Swift and AppKit, not Electron. Fast startup, low memory.
-- **Ghostty compatible** — Reads your existing `~/.config/ghostty/config` for themes, fonts, and colors
-- **GPU-accelerated** — Powered by libghostty for smooth rendering
+* **Scriptable** — CLI and socket API to create workspaces, split panes, send keystrokes, and automate the browser
+* **Native macOS app** — Built with Swift and AppKit, not Electron. Fast startup, low memory.
+* **Ghostty compatible** — Reads your existing `~/.config/ghostty/config` for themes, fonts, and colors
+* **GPU-accelerated** — Powered by libghostty for smooth rendering
 
 ## Install
 
 ### DMG (recommended)
 
 <a href="https://github.com/manaflow-ai/cmux/releases/latest/download/cmux-macos.dmg">
-  <img src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/macos-badge.png" alt="Download cmux for macOS" width="180" />
+  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/macos-badge.png" alt="Download cmux for macOS" width="180" />
 </a>
 
 Open the `.dmg` and drag cmux to your Applications folder. cmux auto-updates via Sparkle, so you only need to download once.
@@ -132,87 +132,87 @@ For more info on how to configure cmux, [head over to our docs](https://cmux.com
 
 ### Workspaces
 
-| Shortcut | Action |
-|----------|--------|
-| ⌘ N | New workspace |
-| ⌘ 1–8 | Jump to workspace 1–8 |
-| ⌘ 9 | Jump to last workspace |
-| ⌃ ⌘ ] | Next workspace |
-| ⌃ ⌘ [ | Previous workspace |
-| ⌘ ⇧ W | Close workspace |
-| ⌘ ⇧ R | Rename workspace |
-| ⌘ B | Toggle sidebar |
+| Shortcut | Action                 |
+| -------- | ---------------------- |
+| ⌘ N      | New workspace          |
+| ⌘ 1–8    | Jump to workspace 1–8  |
+| ⌘ 9      | Jump to last workspace |
+| ⌃ ⌘ ]    | Next workspace         |
+| ⌃ ⌘ \[   | Previous workspace     |
+| ⌘ ⇧ W    | Close workspace        |
+| ⌘ ⇧ R    | Rename workspace       |
+| ⌘ B      | Toggle sidebar         |
 
 ### Surfaces
 
-| Shortcut | Action |
-|----------|--------|
-| ⌘ T | New surface |
-| ⌘ ⇧ ] | Next surface |
-| ⌘ ⇧ [ | Previous surface |
-| ⌃ Tab | Next surface |
-| ⌃ ⇧ Tab | Previous surface |
-| ⌃ 1–8 | Jump to surface 1–8 |
-| ⌃ 9 | Jump to last surface |
-| ⌘ W | Close surface |
+| Shortcut | Action               |
+| -------- | -------------------- |
+| ⌘ T      | New surface          |
+| ⌘ ⇧ ]    | Next surface         |
+| ⌘ ⇧ \[   | Previous surface     |
+| ⌃ Tab    | Next surface         |
+| ⌃ ⇧ Tab  | Previous surface     |
+| ⌃ 1–8    | Jump to surface 1–8  |
+| ⌃ 9      | Jump to last surface |
+| ⌘ W      | Close surface        |
 
 ### Split Panes
 
-| Shortcut | Action |
-|----------|--------|
-| ⌘ D | Split right |
-| ⌘ ⇧ D | Split down |
+| Shortcut    | Action                   |
+| ----------- | ------------------------ |
+| ⌘ D         | Split right              |
+| ⌘ ⇧ D       | Split down               |
 | ⌥ ⌘ ← → ↑ ↓ | Focus pane directionally |
-| ⌘ ⇧ H | Flash focused panel |
+| ⌘ ⇧ H       | Flash focused panel      |
 
 ### Browser
 
 Browser developer-tool shortcuts follow Safari defaults and are customizable in `Settings → Keyboard Shortcuts`.
 
-| Shortcut | Action |
-|----------|--------|
-| ⌘ ⇧ L | Open browser in split |
-| ⌘ L | Focus address bar |
-| ⌘ [ | Back |
-| ⌘ ] | Forward |
-| ⌘ R | Reload page |
-| ⌥ ⌘ I | Toggle Developer Tools (Safari default) |
-| ⌥ ⌘ C | Show JavaScript Console (Safari default) |
+| Shortcut | Action                                   |
+| -------- | ---------------------------------------- |
+| ⌘ ⇧ L    | Open browser in split                    |
+| ⌘ L      | Focus address bar                        |
+| ⌘ \[     | Back                                     |
+| ⌘ ]      | Forward                                  |
+| ⌘ R      | Reload page                              |
+| ⌥ ⌘ I    | Toggle Developer Tools (Safari default)  |
+| ⌥ ⌘ C    | Show JavaScript Console (Safari default) |
 
 ### Notifications
 
-| Shortcut | Action |
-|----------|--------|
-| ⌘ I | Show notifications panel |
-| ⌘ ⇧ U | Jump to latest unread |
+| Shortcut | Action                   |
+| -------- | ------------------------ |
+| ⌘ I      | Show notifications panel |
+| ⌘ ⇧ U    | Jump to latest unread    |
 
 ### Find
 
-| Shortcut | Action |
-|----------|--------|
-| ⌘ F | Find |
-| ⌘ G / ⌘ ⇧ G | Find next / previous |
-| ⌘ ⇧ F | Hide find bar |
-| ⌘ E | Use selection for find |
+| Shortcut    | Action                 |
+| ----------- | ---------------------- |
+| ⌘ F         | Find                   |
+| ⌘ G / ⌘ ⇧ G | Find next / previous   |
+| ⌘ ⇧ F       | Hide find bar          |
+| ⌘ E         | Use selection for find |
 
 ### Terminal
 
-| Shortcut | Action |
-|----------|--------|
-| ⌘ K | Clear scrollback |
-| ⌘ C | Copy (with selection) |
-| ⌘ V | Paste |
+| Shortcut  | Action                        |
+| --------- | ----------------------------- |
+| ⌘ K       | Clear scrollback              |
+| ⌘ C       | Copy (with selection)         |
+| ⌘ V       | Paste                         |
 | ⌘ + / ⌘ - | Increase / decrease font size |
-| ⌘ 0 | Reset font size |
+| ⌘ 0       | Reset font size               |
 
 ### Window
 
-| Shortcut | Action |
-|----------|--------|
-| ⌘ ⇧ N | New window |
-| ⌘ , | Settings |
-| ⌘ ⇧ , | Reload configuration |
-| ⌘ Q | Quit |
+| Shortcut | Action               |
+| -------- | -------------------- |
+| ⌘ ⇧ N    | New window           |
+| ⌘ ,      | Settings             |
+| ⌘ ⇧ ,    | Reload configuration |
+| ⌘ Q      | Quit                 |
 
 ## Nightly Builds
 
@@ -225,20 +225,21 @@ Report nightly bugs on [GitHub Issues](https://github.com/manaflow-ai/cmux/issue
 ## Session restore (current behavior)
 
 On relaunch, cmux currently restores app layout and metadata only:
-- Window/workspace/pane layout
-- Working directories
-- Terminal scrollback (best effort)
-- Browser URL and navigation history
+
+* Window/workspace/pane layout
+* Working directories
+* Terminal scrollback (best effort)
+* Browser URL and navigation history
 
 cmux does **not** restore live process state inside terminal apps. For example, active Claude Code/tmux/vim sessions are not resumed after restart yet.
 
 ## Star History
 
-<a href="https://star-history.com/#manaflow-ai/cmux&Date">
+<a href="https://star-history.com/#manaflow-ai/cmux&amp;Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=manaflow-ai/cmux&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=manaflow-ai/cmux&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=manaflow-ai/cmux&type=Date" width="600" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=manaflow-ai/cmux&amp;type=Date&amp;theme=dark"></source>
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=manaflow-ai/cmux&amp;type=Date"></source>
+   <img decoding="async" loading="lazy" alt="Star History Chart" src="https://api.star-history.com/svg?repos=manaflow-ai/cmux&amp;type=Date" width="600" />
  </picture>
 </a>
 
@@ -246,19 +247,19 @@ cmux does **not** restore live process state inside terminal apps. For example, 
 
 Ways to get involved:
 
-- Follow us on X for updates [@manaflowai](https://x.com/manaflowai), [@lawrencecchen](https://x.com/lawrencecchen), and [@austinywang](https://x.com/austinywang)
-- Join the conversation on [Discord](https://discord.gg/xsgFEVrWCZ)
-- Create and participate in [GitHub issues](https://github.com/manaflow-ai/cmux/issues) and [discussions](https://github.com/manaflow-ai/cmux/discussions)
-- Let us know what you're building with cmux
+* Follow us on X for updates [@manaflowai](https://x.com/manaflowai), [@lawrencecchen](https://x.com/lawrencecchen), and [@austinywang](https://x.com/austinywang)
+* Join the conversation on [Discord](https://discord.gg/xsgFEVrWCZ)
+* Create and participate in [GitHub issues](https://github.com/manaflow-ai/cmux/issues) and [discussions](https://github.com/manaflow-ai/cmux/discussions)
+* Let us know what you're building with cmux
 
 ## Community
 
-- [Discord](https://discord.gg/xsgFEVrWCZ)
-- [GitHub](https://github.com/manaflow-ai/cmux)
-- [X / Twitter](https://twitter.com/manaflowai)
-- [YouTube](https://www.youtube.com/channel/UCAa89_j-TWkrXfk9A3CbASw)
-- [LinkedIn](https://www.linkedin.com/company/manaflow-ai/)
-- [Reddit](https://www.reddit.com/r/cmux/)
+* [Discord](https://discord.gg/xsgFEVrWCZ)
+* [GitHub](https://github.com/manaflow-ai/cmux)
+* [X / Twitter](https://twitter.com/manaflowai)
+* [YouTube](https://www.youtube.com/channel/UCAa89_j-TWkrXfk9A3CbASw)
+* [LinkedIn](https://www.linkedin.com/company/manaflow-ai/)
+* [Reddit](https://www.reddit.com/r/cmux/)
 
 ## Founder's Edition
 
@@ -266,12 +267,12 @@ cmux is free, open source, and always will be. If you'd like to support developm
 
 **[Get Founder's Edition](https://buy.stripe.com/3cI00j2Ld0it5OU33r5EY0q)**
 
-- **Prioritized feature requests/bug fixes**
-- **Early access: cmux AI that gives you context on every workspace, tab and panel**
-- **Early access: iOS app with terminals synced between desktop and phone**
-- **Early access: Cloud VMs**
-- **Early access: Voice mode**
-- **My personal iMessage/WhatsApp**
+* **Prioritized feature requests/bug fixes**
+* **Early access: cmux AI that gives you context on every workspace, tab and panel**
+* **Early access: iOS app with terminals synced between desktop and phone**
+* **Early access: Cloud VMs**
+* **Early access: Voice mode**
+* **My personal iMessage/WhatsApp**
 
 ## License
 

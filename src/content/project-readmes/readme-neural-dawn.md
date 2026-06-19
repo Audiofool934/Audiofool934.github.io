@@ -2,18 +2,18 @@
 project: "neural-dawn"
 repo: "Audiofool934/Neural-Dawn"
 sourceUrl: "https://github.com/Audiofool934/Neural-Dawn"
-syncedAt: "2026-05-30T10:16:39.773Z"
+syncedAt: "2026-06-19T16:18:43.311Z"
 ---
 
 # Deep Belief Network
 
-<div align="center">
+<div>
 --- 🏗️ work in progress 🏗️ ---
 </div>
 
 ## Overview
 
-<!-- First, we'll implement RBM(Restricted Boltzmann Machine) and then use it to build a Deep Belief Network (DBN). -->
+
 
 ## Model
 
@@ -23,9 +23,9 @@ syncedAt: "2026-05-30T10:16:39.773Z"
 
 ### MLE(MCMC), CD, and PCD
 
-- [x] Maximum Likelihood Estimation (MLE) using MCMC
-- [x] Contrastive Divergence (CD)
-- [ ] Persistent Contrastive Divergence (PCD)
+* [x] Maximum Likelihood Estimation (MLE) using MCMC
+* [x] Contrastive Divergence (CD)
+* [ ] Persistent Contrastive Divergence (PCD)
 
 ## As a Generative Model
 

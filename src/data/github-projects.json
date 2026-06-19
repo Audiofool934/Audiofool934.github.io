@@ -1,23 +1,6 @@
 {
-  "syncedAt": "2026-06-13T07:31:56.230Z",
+  "syncedAt": "2026-06-19T16:24:42.470Z",
   "projects": [
-    {
-      "project": "muse",
-      "repo": "Audiofool934/muse",
-      "url": "https://github.com/Audiofool934/muse",
-      "homepage": "",
-      "description": "",
-      "visibility": "public",
-      "language": "Python",
-      "stars": 0,
-      "forks": 0,
-      "openIssues": 0,
-      "defaultBranch": "main",
-      "pushedAt": "2026-03-13T02:58:06Z",
-      "updatedAt": "2026-03-13T02:59:14Z",
-      "license": "",
-      "topics": []
-    },
     {
       "project": "audiofool-blog",
       "repo": "Audiofool934/Audiofool934.github.io",
@@ -28,11 +11,11 @@
       "language": "Astro",
       "stars": 0,
       "forks": 0,
-      "openIssues": 0,
+      "openIssues": 1,
       "defaultBranch": "main",
-      "pushedAt": "2026-05-27T12:59:59Z",
-      "updatedAt": "2026-05-27T13:01:42Z",
-      "license": "",
+      "pushedAt": "2026-06-19T16:23:05Z",
+      "updatedAt": "2026-06-15T09:39:14Z",
+      "license": "MIT",
       "topics": []
     },
     {
@@ -64,8 +47,8 @@
       "forks": 0,
       "openIssues": 0,
       "defaultBranch": "main",
-      "pushedAt": "2026-06-13T05:47:29Z",
-      "updatedAt": "2026-06-13T06:19:46Z",
+      "pushedAt": "2026-06-19T15:04:10Z",
+      "updatedAt": "2026-06-19T15:04:10Z",
       "license": "MIT",
       "topics": [
         "ai-agents",
@@ -90,7 +73,7 @@
       "forks": 0,
       "openIssues": 0,
       "defaultBranch": "main",
-      "pushedAt": "2026-04-12T17:18:29Z",
+      "pushedAt": "2026-06-06T11:39:23Z",
       "updatedAt": "2026-03-19T18:37:28Z",
       "license": "AGPL-3.0",
       "topics": []
@@ -177,6 +160,23 @@
       "defaultBranch": "main",
       "pushedAt": "2026-01-15T11:34:14Z",
       "updatedAt": "2026-01-15T11:34:18Z",
+      "license": "",
+      "topics": []
+    },
+    {
+      "project": "muse",
+      "repo": "Audiofool934/muse",
+      "url": "https://github.com/Audiofool934/muse",
+      "homepage": "",
+      "description": "",
+      "visibility": "public",
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "defaultBranch": "main",
+      "pushedAt": "2026-03-13T02:58:06Z",
+      "updatedAt": "2026-03-13T02:59:14Z",
       "license": "",
       "topics": []
     },

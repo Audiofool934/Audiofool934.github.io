@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/Audiofool934/Audiofool934.github.io.git"
   },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -21,11 +24,12 @@
     "sync:github-projects": "npm run refresh:github-projects"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/preact": "^4.1.3",
-    "@astrojs/rss": "^4.0.15",
-    "@astrojs/sitemap": "^3.7.0",
-    "astro": "^5.18.0",
+    "@astrojs/markdown-remark": "^7.2.0",
+    "@astrojs/mdx": "^6.0.3",
+    "@astrojs/preact": "^5.1.5",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^6.4.8",
     "autoprefixer": "^10.4.27",
     "mdast-util-from-markdown": "^2.0.3",
     "mdast-util-gfm": "^3.1.0",

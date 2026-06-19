@@ -72,7 +72,9 @@ function getConnectionCount(id: string) {
             class="flex flex-wrap gap-3 pb-4 mb-8 border-b border-[var(--border-main)] text-sm font-mono"
         >
             <button
+                type="button"
                 data-kind="all"
+                aria-pressed="true"
                 class="note-kind active whitespace-nowrap transition-colors"
             >
                 [ All <span class="text-[var(--text-faint)]">{sorted.length}</span> ]
@@ -80,7 +82,9 @@ function getConnectionCount(id: string) {
             {
                 filters.map(({ key, label, count }) => (
                     <button
+                        type="button"
                         data-kind={key}
+                        aria-pressed="false"
                         class="note-kind whitespace-nowrap transition-colors"
                     >
                         [ {label}{" "}
@@ -181,11 +185,17 @@ function getConnectionCount(id: string) {
             if (!filters.length) return;
 
             function applyFilter(filter) {
-                filters.forEach((t) => t.classList.remove("active"));
+                filters.forEach((t) => {
+                    t.classList.remove("active");
+                    t.setAttribute("aria-pressed", "false");
+                });
                 var btn = document.querySelector(
                     '.note-kind[data-kind="' + filter + '"]',
                 );
-                if (btn) btn.classList.add("active");
+                if (btn) {
+                    btn.classList.add("active");
+                    btn.setAttribute("aria-pressed", "true");
+                }
 
                 entries.forEach((entry) => {
                     entry.style.display =
