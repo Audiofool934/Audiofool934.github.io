@@ -23,8 +23,9 @@ async function modalSources(item: (typeof sortedGallery)[0]) {
         srcs.map((src) =>
             getImage({
                 src,
-                width: Math.min(1600, src.width),
+                width: Math.min(1400, src.width),
                 format: "webp",
+                quality: 82,
             }).then((r) => r.src),
         ),
     );
@@ -148,11 +149,14 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                         <Image
                             src={item.data.image}
                             alt={item.data.title}
-                            widths={[400, 800, 1200]}
-                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                            width={640}
+                            widths={[320, 640, 960]}
+                            sizes="(min-width: 1280px) 28vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                             class="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.03]"
-                            loading="lazy"
+                            loading={i < 12 ? "eager" : "lazy"}
+                            fetchpriority={i === 0 ? "high" : "auto"}
                             decoding="async"
+                            quality={76}
                         />
                         <div class="p-3 border-t border-[var(--border-main)]">
                             <h3 class="font-bold text-sm truncate">

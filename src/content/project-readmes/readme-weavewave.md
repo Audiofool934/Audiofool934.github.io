@@ -2,7 +2,7 @@
 project: "weavewave"
 repo: "Audiofool934/WeaveWave"
 sourceUrl: "https://github.com/Audiofool934/WeaveWave"
-syncedAt: "2026-06-20T02:50:53.231Z"
+syncedAt: "2026-06-20T04:08:34.470Z"
 ---
 
 # WeaveWave: Towards Multimodal Music Generation

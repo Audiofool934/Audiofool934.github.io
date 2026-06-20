@@ -1,6 +1,7 @@
 ---
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { audioshowCrates } from "../../../data/audioshowCrates";
+import { audioImage, audioImageSrcset } from "../../../utils/audioImages";
 
 const crateCount = audioshowCrates.length;
 ---
@@ -36,7 +37,7 @@ const crateCount = audioshowCrates.length;
         </div>
 
         <section class="space-y-6">
-            {audioshowCrates.map((crate) => (
+            {audioshowCrates.map((crate, index) => (
                 <article
                     class="crate-card cursor-pointer border border-[var(--border-main)] bg-[var(--bg-body)] transition-colors"
                     data-crate-card
@@ -48,10 +49,14 @@ const crateCount = audioshowCrates.length;
                     <div class="grid gap-5 p-4 md:grid-cols-[160px_1fr] md:gap-6">
                         <div class="aspect-square overflow-hidden border border-[var(--border-main)] bg-neutral-100 dark:bg-neutral-900">
                             <img
-                                src={crate.cover}
+                                src={audioImage(crate.cover, 320) || crate.cover}
+                                srcset={audioImageSrcset(crate.cover, [96, 320])}
+                                sizes="(min-width: 768px) 160px, 100vw"
                                 alt={`${crate.title} cover`}
                                 class="h-full w-full object-cover"
-                                loading="lazy"
+                                loading={index === 0 ? "eager" : "lazy"}
+                                fetchpriority={index === 0 ? "high" : "auto"}
+                                decoding="async"
                             />
                         </div>
 

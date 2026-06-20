@@ -3,6 +3,9 @@ dist/
 # generated types
 .astro/
 
+# generated media variants
+public/images/audioshow/_generated/
+
 # dependencies
 node_modules/
 

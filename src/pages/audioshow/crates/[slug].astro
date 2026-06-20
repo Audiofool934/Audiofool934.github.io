@@ -1,6 +1,7 @@
 ---
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { audioshowCrates, type AudioShowCrate } from "../../../data/audioshowCrates";
+import { audioImage, audioImageSrcset } from "../../../utils/audioImages";
 
 export function getStaticPaths() {
     return audioshowCrates.map((crate) => ({
@@ -19,7 +20,7 @@ const cratePlaylist = crate.tracks.map((track) => ({
     url: track.audioPreviewUrl,
     title: track.title,
     artist: track.artists,
-    artwork: track.cover,
+    artwork: audioImage(track.cover, 320) || track.cover,
 }));
 ---
 
@@ -63,10 +64,13 @@ const cratePlaylist = crate.tracks.map((track) => ({
             <header class="mb-10 grid gap-6 border-b border-[var(--border-main)] pb-8 md:grid-cols-[220px_1fr] md:gap-8">
                 <div class="aspect-square overflow-hidden border border-[var(--border-main)] bg-neutral-100 dark:bg-neutral-900">
                     <img
-                        src={crate.cover}
+                        src={audioImage(crate.cover, 320) || crate.cover}
+                        srcset={audioImageSrcset(crate.cover, [96, 320])}
+                        sizes="(min-width: 768px) 220px, 100vw"
                         alt={`${crate.title} cover`}
                         class="h-full w-full object-cover"
                         loading="eager"
+                        fetchpriority="high"
                         decoding="async"
                     />
                 </div>
@@ -136,7 +140,7 @@ const cratePlaylist = crate.tracks.map((track) => ({
                                         url: track.audioPreviewUrl,
                                         title: track.title,
                                         artist: track.artists,
-                                        artwork: track.cover,
+                                        artwork: audioImage(track.cover, 320) || track.cover,
                                     })}
                                     data-crate-index={track.number - 1}
                                     tabindex="0"
@@ -145,7 +149,9 @@ const cratePlaylist = crate.tracks.map((track) => ({
                                 >
                                     <div class="h-12 w-12 overflow-hidden border border-[var(--border-main)] md:h-14 md:w-14">
                                         <img
-                                            src={track.cover}
+                                            src={audioImage(track.cover, 96) || track.cover}
+                                            srcset={audioImageSrcset(track.cover, [96, 320])}
+                                            sizes="56px"
                                             alt={`${track.album} cover`}
                                             class="h-full w-full object-cover"
                                             loading="lazy"

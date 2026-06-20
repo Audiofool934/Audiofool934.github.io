@@ -2,6 +2,7 @@
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { groupEpisodesByRange } from "../../../utils/parseAudioshow";
 import { loadAllEpisodes } from "../../../utils/loadEpisodes";
+import { audioImage, audioImageSrcset } from "../../../utils/audioImages";
 
 const allEpisodes = loadAllEpisodes();
 
@@ -79,7 +80,10 @@ const placeholderImage = "/images/placeholder-album.svg";
                         </summary>
 
                         <div class="border-t border-[var(--border-main)]" data-episodes={range}>
-                            {groupedEpisodes[range].map((ep) => (
+                            {groupedEpisodes[range].map((ep) => {
+                                const cover = ep.imageUrl || placeholderImage;
+                                const artwork = audioImage(cover, 320) || placeholderImage;
+                                return (
                                 <div class="episode-item border-b border-[var(--border-main)] last:border-b-0" data-ep={ep.number}>
                                     <!-- Main Row -->
                                     <div 
@@ -89,7 +93,9 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         <!-- Thumbnail -->
                                         <div class="w-12 h-12 flex-shrink-0 border border-[var(--border-main)] overflow-hidden">
                                             <img
-                                                src={ep.imageUrl || placeholderImage}
+                                                src={audioImage(cover, 96) || placeholderImage}
+                                                srcset={audioImageSrcset(cover, [96, 320])}
+                                                sizes="48px"
                                                 alt={ep.songTitle}
                                                 class="w-full h-full object-cover"
                                                 loading="lazy"
@@ -128,7 +134,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                                                     url: ep.audioPreviewUrl || ep.appleMusicUrl,
                                                     title: ep.songTitle,
                                                     artist: ep.artist,
-                                                    artwork: ep.imageUrl || ''
+                                                    artwork
                                                 })}
                                             >
                                                 <span aria-hidden="true">▶</span>
@@ -172,7 +178,8 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         </div>
                                     </div>
                                 </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </details>
                 </section>

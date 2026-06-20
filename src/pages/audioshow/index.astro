@@ -2,6 +2,7 @@
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { sortEpisodesDesc } from "../../utils/parseAudioshow";
 import { loadAllEpisodes } from "../../utils/loadEpisodes";
+import { audioImage, audioImageSrcset } from "../../utils/audioImages";
 
 const allEpisodes = loadAllEpisodes();
 
@@ -53,69 +54,76 @@ const placeholderImage = "/images/placeholder-album.svg";
                 <!-- Edge spacers let the first/last card settle cleanly in the viewing lane. -->
                 <div class="carousel-edge-spacer" aria-hidden="true"></div>
                 
-                {recentEpisodes.map((ep) => (
-                    <div
-                        class="ep-card flex-shrink-0 border border-[var(--border-main)] bg-[var(--bg-body)] transition-all relative"
-                    >
-                        <!-- Album Artwork - click to play -->
+                {recentEpisodes.map((ep, index) => {
+                    const cover = ep.imageUrl || placeholderImage;
+                    const trackArtwork = audioImage(cover, 320) || placeholderImage;
+                    return (
                         <div
-                            class="ep-artwork relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer"
-                            role={(ep.appleMusicUrl || ep.audioPreviewUrl) ? "button" : undefined}
-                            tabindex={(ep.appleMusicUrl || ep.audioPreviewUrl) ? "0" : undefined}
-                            aria-label={(ep.appleMusicUrl || ep.audioPreviewUrl) ? `Play ${ep.songTitle} by ${ep.artist}` : undefined}
-                            data-track={(ep.appleMusicUrl || ep.audioPreviewUrl) ? JSON.stringify({
-                                type: (ep.audioPreviewUrl || ep.appleMusicUrl)?.includes('music.apple.com') ? 'apple' : 'local',
-                                url: ep.audioPreviewUrl || ep.appleMusicUrl,
-                                title: ep.songTitle,
-                                artist: ep.artist,
-                                artwork: ep.imageUrl || placeholderImage
-                            }) : undefined}
+                            class="ep-card flex-shrink-0 border border-[var(--border-main)] bg-[var(--bg-body)] transition-all relative"
                         >
-                            <img
-                                src={ep.imageUrl || placeholderImage}
-                                alt={ep.coverAlt || `${ep.songTitle} - ${ep.artist}`}
-                                class="ep-cover-image w-full h-full object-cover transition-transform duration-500"
-                                loading="lazy"
-                                decoding="async"
-                                onerror={`this.src='${placeholderImage}'`}
-                            />
-                            <!-- Play Overlay -->
-                            {(ep.appleMusicUrl || ep.audioPreviewUrl) && (
-                                <div class="ep-play-overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
-                                    <span class="text-white text-4xl">▶</span>
+                            <!-- Album Artwork - click to play -->
+                            <div
+                                class="ep-artwork relative aspect-square border-b border-[var(--border-main)] overflow-hidden bg-neutral-100 dark:bg-neutral-900 cursor-pointer"
+                                role={(ep.appleMusicUrl || ep.audioPreviewUrl) ? "button" : undefined}
+                                tabindex={(ep.appleMusicUrl || ep.audioPreviewUrl) ? "0" : undefined}
+                                aria-label={(ep.appleMusicUrl || ep.audioPreviewUrl) ? `Play ${ep.songTitle} by ${ep.artist}` : undefined}
+                                data-track={(ep.appleMusicUrl || ep.audioPreviewUrl) ? JSON.stringify({
+                                    type: (ep.audioPreviewUrl || ep.appleMusicUrl)?.includes('music.apple.com') ? 'apple' : 'local',
+                                    url: ep.audioPreviewUrl || ep.appleMusicUrl,
+                                    title: ep.songTitle,
+                                    artist: ep.artist,
+                                    artwork: trackArtwork
+                                }) : undefined}
+                            >
+                                <img
+                                    src={audioImage(cover, 320) || placeholderImage}
+                                    srcset={audioImageSrcset(cover, [96, 320])}
+                                    sizes="(max-width: 767px) 74vw, (max-height: 800px) 220px, (max-height: 1100px) 320px, 420px"
+                                    alt={ep.coverAlt || `${ep.songTitle} - ${ep.artist}`}
+                                    class="ep-cover-image w-full h-full object-cover transition-transform duration-500"
+                                    loading={index < 2 ? "eager" : "lazy"}
+                                    fetchpriority={index === 0 ? "high" : "auto"}
+                                    decoding="async"
+                                    onerror={`this.src='${placeholderImage}'`}
+                                />
+                                <!-- Play Overlay -->
+                                {(ep.appleMusicUrl || ep.audioPreviewUrl) && (
+                                    <div class="ep-play-overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center">
+                                        <span class="text-white text-4xl">▶</span>
+                                    </div>
+                                )}
+                            </div>
+
+                            <!-- Card Content - Fixed height, scrollable -->
+                            <div class="ep-content overflow-y-auto overscroll-contain text-center">
+                                <!-- Quote -->
+                                <p class="ep-quote italic text-[var(--text-muted)] whitespace-pre-line">
+                                    {`"${ep.lyricExcerpt}"`}
+                                </p>
+
+                                <!-- Song Info -->
+                                <h3 class="ep-title font-bold leading-tight">
+                                    {ep.songTitle}
+                                </h3>
+                                <p class="ep-artist text-[var(--text-muted)]">
+                                    {ep.artist}
+                                </p>
+
+                                <!-- Album & Year -->
+                                <div class="ep-meta font-mono text-[var(--text-muted)]">
+                                    <span>{ep.album}</span>
+                                    <span class="mx-1">•</span>
+                                    <span>{ep.year}</span>
                                 </div>
-                            )}
-                        </div>
 
-                        <!-- Card Content - Fixed height, scrollable -->
-                        <div class="ep-content overflow-y-auto overscroll-contain text-center">
-                            <!-- Quote -->
-                            <p class="ep-quote italic text-[var(--text-muted)] whitespace-pre-line">
-                                {`"${ep.lyricExcerpt}"`}
-                            </p>
-
-                            <!-- Song Info -->
-                            <h3 class="ep-title font-bold leading-tight">
-                                {ep.songTitle}
-                            </h3>
-                            <p class="ep-artist text-[var(--text-muted)]">
-                                {ep.artist}
-                            </p>
-
-                            <!-- Album & Year -->
-                            <div class="ep-meta font-mono text-[var(--text-muted)]">
-                                <span>{ep.album}</span>
-                                <span class="mx-1">•</span>
-                                <span>{ep.year}</span>
-                            </div>
-
-                            <!-- Episode Number -->
-                            <div class="ep-number font-mono text-[var(--text-muted)]">
-                                #{ep.number}
+                                <!-- Episode Number -->
+                                <div class="ep-number font-mono text-[var(--text-muted)]">
+                                    #{ep.number}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
                 
                 <!-- Right Spacer -->
                 <div class="carousel-edge-spacer" aria-hidden="true"></div>

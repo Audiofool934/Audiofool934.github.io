@@ -1,5 +1,6 @@
 import { loadAllEpisodes } from "../../utils/loadEpisodes";
 import { sortEpisodesDesc } from "../../utils/parseAudioshow";
+import { audioImage } from "../../utils/audioImages";
 
 const placeholderImage = "/images/placeholder-album.svg";
 
@@ -14,7 +15,7 @@ export async function GET() {
                 t: ep.songTitle,
                 a: ep.artist,
                 url,
-                img: ep.imageUrl || placeholderImage,
+                img: audioImage(ep.imageUrl || placeholderImage, 320) || placeholderImage,
                 type: url!.includes("music.apple.com") ? "apple" : "local",
             };
         });
