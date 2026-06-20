@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-06-19T16:24:42.470Z",
+  "syncedAt": "2026-06-20T02:50:53.234Z",
   "projects": [
     {
       "project": "audiofool-blog",
@@ -8,13 +8,13 @@
       "homepage": "",
       "description": "GH page",
       "visibility": "public",
-      "language": "Astro",
+      "language": "TypeScript",
       "stars": 0,
       "forks": 0,
-      "openIssues": 1,
+      "openIssues": 0,
       "defaultBranch": "main",
-      "pushedAt": "2026-06-19T16:23:05Z",
-      "updatedAt": "2026-06-15T09:39:14Z",
+      "pushedAt": "2026-06-19T17:30:33Z",
+      "updatedAt": "2026-06-19T17:30:37Z",
       "license": "MIT",
       "topics": []
     },
