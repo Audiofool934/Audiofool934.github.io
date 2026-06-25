@@ -238,16 +238,30 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                 <!-- Image area -->
                 <div
                     id="modal-image-wrap"
-                    class="modal-image-area min-h-0 flex-1 flex items-center justify-center bg-[var(--bg-body)] dark:bg-black overflow-hidden px-2 pt-12 pb-2 md:px-8 md:pt-10 md:pb-4"
+                    class="modal-image-area relative min-h-0 flex-1 flex items-center justify-center bg-[var(--bg-body)] dark:bg-black overflow-hidden px-2 pt-12 pb-2 md:px-8 md:pt-10 md:pb-4"
                 >
+                    <button
+                        id="modal-prev-zone"
+                        type="button"
+                        aria-label="Previous photo"
+                        class="modal-nav-zone modal-nav-zone-prev"
+                    >
+                        <span aria-hidden="true">&larr;</span>
+                    </button>
+                    <button
+                        id="modal-next-zone"
+                        type="button"
+                        aria-label="Next photo"
+                        class="modal-nav-zone modal-nav-zone-next"
+                    >
+                        <span aria-hidden="true">&rarr;</span>
+                    </button>
                     <img
                         id="modal-image"
                         src=""
                         alt=""
-                        role="button"
-                        tabindex="0"
-                        aria-label="View photo full screen"
-                        class="max-w-full max-h-full object-contain cursor-zoom-in transition-opacity duration-150 block"
+                        draggable="false"
+                        class="max-w-full max-h-full object-contain select-none transition-opacity duration-150 block"
                     />
                 </div>
 
@@ -257,50 +271,26 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     class="modal-info-area flex-shrink-0 overflow-y-auto border-t border-[var(--border-main)] flex flex-col bg-[var(--bg-body)] dark:bg-black"
                 >
                     <div
-                        class="mx-auto w-full max-w-5xl p-4 md:px-6 md:py-4 flex flex-col gap-2.5"
+                        class="modal-footer-grid mx-auto w-full max-w-4xl"
                     >
-                        <!-- Compact row with counter + title + nav -->
-                        <div class="flex items-start gap-3">
-                            <div
-                                class="flex min-w-0 flex-1 md:flex-initial items-baseline gap-3"
-                            >
-                                <span
-                                    id="modal-counter-mobile"
-                                    class="font-mono text-[10px] text-[var(--text-faint)] flex-shrink-0"
-                                ></span>
-                                <h2
-                                    id="modal-title-mobile"
-                                    class="text-base md:text-lg font-bold font-heading truncate"
-                                ></h2>
-                            </div>
-                            <div class="flex gap-1 flex-shrink-0">
-                                <button
-                                    id="modal-prev-mobile"
-                                    type="button"
-                                    aria-label="Previous photo"
-                                    class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] active:bg-[var(--border-main)] disabled:pointer-events-none transition-colors"
-                                >
-                                    &larr;
-                                </button>
-                                <button
-                                    id="modal-next-mobile"
-                                    type="button"
-                                    aria-label="Next photo"
-                                    class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] active:bg-[var(--border-main)] disabled:pointer-events-none transition-colors"
-                                >
-                                    &rarr;
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Scrollable meta -->
-                        <div class="flex flex-col gap-1.5">
+                        <span
+                            id="modal-counter-mobile"
+                            class="modal-footer-counter font-mono text-[10px] md:text-xs text-[var(--text-faint)]"
+                        ></span>
+                        <div class="modal-footer-main">
+                            <h2
+                                id="modal-title-mobile"
+                                class="modal-footer-title min-w-0 text-base md:text-xl font-bold font-heading"
+                            ></h2>
                             <div
                                 id="modal-body-mobile"
-                                class="max-w-3xl text-xs md:text-sm text-[var(--text-muted)] leading-relaxed"
+                                class="modal-footer-body text-xs md:text-sm text-[var(--text-muted)] leading-relaxed"
                             ></div>
+                        </div>
+
+                        <div class="modal-footer-rail">
                             <div
-                                class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] md:text-xs text-[var(--text-muted)]"
+                                class="modal-footer-meta flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] md:text-xs text-[var(--text-muted)]"
                             >
                                 <span id="modal-date-mobile"></span>
                                 <span id="modal-location-mobile"></span>
@@ -310,7 +300,6 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                                 <span id="modal-exif-mobile"></span>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -372,15 +361,11 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     document.getElementById("modal-content");
                 const backdrop = document.getElementById("modal-backdrop");
                 const closeBtn = document.getElementById("modal-close");
-                const prevMobile =
-                    document.getElementById("modal-prev-mobile");
-                const nextMobile =
-                    document.getElementById("modal-next-mobile");
+                const prevZone = document.getElementById("modal-prev-zone");
+                const nextZone = document.getElementById("modal-next-zone");
                 const modalScroll =
                     document.getElementById("modal-scroll");
                 const lightbox = document.getElementById("lightbox");
-                const lightboxImage =
-                    document.getElementById("lightbox-image");
 
                 let currentIndex = -1;
                 let currentFrameIndex = 0;
@@ -475,10 +460,8 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     const hasNext =
                         currentFrameIndex < images.length - 1 ||
                         currentIndex < visibleItems.length - 1;
-                    prevMobile.disabled = !hasPrev;
-                    nextMobile.disabled = !hasNext;
-                    prevMobile.style.opacity = hasPrev ? "1" : "0.3";
-                    nextMobile.style.opacity = hasNext ? "1" : "0.3";
+                    prevZone.disabled = !hasPrev;
+                    nextZone.disabled = !hasNext;
 
                     // Show with animation
                     modal.classList.remove("pointer-events-none");
@@ -502,16 +485,6 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     lastFocused = null;
                 }
 
-                // Lightbox (fullscreen zoom)
-                function openLightbox() {
-                    lightboxImage.src = modalImage.src;
-                    lightboxImage.alt = modalImage.alt;
-                    lightbox.classList.remove(
-                        "opacity-0",
-                        "pointer-events-none",
-                    );
-                }
-
                 function closeLightbox() {
                     lightbox.classList.add(
                         "opacity-0",
@@ -519,17 +492,6 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     );
                 }
 
-                modalImage.addEventListener("click", function (e) {
-                    e.stopPropagation();
-                    openLightbox();
-                });
-                function onModalImageKeydown(e) {
-                    if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        openLightbox();
-                    }
-                }
-                modalImage.addEventListener("keydown", onModalImageKeydown);
                 lightbox.addEventListener("click", closeLightbox);
 
                 function getItemMeta(index) {
@@ -646,11 +608,15 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                 });
                 closeBtn.addEventListener("click", closeModal);
 
-                // Nav buttons
-                prevMobile.addEventListener("click", function () {
+                // Large hit zones over the image area
+                prevZone.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    e.currentTarget.blur();
                     navigate(-1);
                 });
-                nextMobile.addEventListener("click", function () {
+                nextZone.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    e.currentTarget.blur();
                     navigate(1);
                 });
 
@@ -759,10 +725,6 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                         item.removeEventListener("click", onItemClick);
                         item.removeEventListener("keydown", onItemKeydown);
                     });
-                    modalImage.removeEventListener(
-                        "keydown",
-                        onModalImageKeydown,
-                    );
                     document.removeEventListener("keydown", onKeydown);
                     tabs.forEach(function (tab) {
                         tab.removeEventListener("click", onTabClick);
@@ -801,16 +763,216 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
             min-height: 0;
         }
 
+        .modal-nav-zone {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 10;
+            display: flex;
+            width: 50%;
+            align-items: center;
+            border: 0;
+            background: transparent;
+            color: rgb(255 255 255 / 0.72);
+            font-family: var(--font-mono, "JetBrains Mono", monospace);
+            font-size: 1rem;
+            transition: background-color 150ms ease;
+        }
+
+        .modal-nav-zone span {
+            opacity: 0;
+            transition:
+                opacity 150ms ease,
+                transform 150ms ease;
+        }
+
+        .modal-nav-zone-prev {
+            left: 0;
+            justify-content: flex-start;
+            padding-left: clamp(1.25rem, 5vw, 4rem);
+            cursor: w-resize;
+        }
+
+        .modal-nav-zone-next {
+            right: 0;
+            justify-content: flex-end;
+            padding-right: clamp(1.25rem, 5vw, 4rem);
+            cursor: e-resize;
+        }
+
+        .modal-nav-zone:disabled {
+            pointer-events: none;
+        }
+
+        .modal-nav-zone:focus-visible {
+            outline: none;
+        }
+
+        .modal-nav-zone:focus-visible span {
+            opacity: 1;
+        }
+
+        @media (hover: hover) {
+            .modal-nav-zone-prev:hover {
+                background: linear-gradient(
+                    to right,
+                    rgb(255 255 255 / 0.06),
+                    transparent 55%
+                );
+            }
+
+            .modal-nav-zone-next:hover {
+                background: linear-gradient(
+                    to left,
+                    rgb(255 255 255 / 0.06),
+                    transparent 55%
+                );
+            }
+
+            .modal-nav-zone:hover span {
+                opacity: 0.72;
+            }
+
+            .modal-nav-zone-prev:hover span {
+                transform: translateX(-0.25rem);
+            }
+
+            .modal-nav-zone-next:hover span {
+                transform: translateX(0.25rem);
+            }
+        }
+
         .modal-info-area {
-            max-height: min(34dvh, 18rem);
+            height: clamp(9.75rem, 28dvh, 11.5rem);
             min-height: 0;
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
         }
 
+        .modal-footer-grid {
+            display: grid;
+            grid-template-rows: minmax(0, 1fr) auto;
+            gap: 0.7rem;
+            height: 100%;
+            position: relative;
+            padding: 1rem 1.25rem 0.85rem;
+            text-align: center;
+        }
+
+        .modal-footer-main {
+            display: flex;
+            min-width: 0;
+            min-height: 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .modal-footer-counter {
+            position: absolute;
+            top: 0.8rem;
+            right: 1.25rem;
+            white-space: nowrap;
+        }
+
+        .modal-footer-title {
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .modal-footer-body {
+            display: -webkit-box;
+            margin: 0 auto;
+            max-width: 44rem;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+
+        .modal-footer-body :where(p) {
+            display: inline;
+            margin: 0;
+        }
+
+        .modal-footer-body :where(p + p)::before {
+            content: " ";
+        }
+
+        .modal-footer-rail {
+            display: grid;
+            width: 100%;
+            min-width: 0;
+            grid-template-columns: minmax(0, 1fr);
+            align-items: end;
+        }
+
+        .modal-footer-meta {
+            min-width: 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            padding-bottom: 0.35rem;
+            text-align: left;
+            white-space: nowrap;
+            overscroll-behavior-x: contain;
+            scrollbar-color: rgb(255 255 255 / 0.24) transparent;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-footer-meta span {
+            flex: 0 0 auto;
+        }
+
+        .modal-footer-meta::-webkit-scrollbar {
+            height: 0.2rem;
+        }
+
+        .modal-footer-meta::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-footer-meta::-webkit-scrollbar-thumb {
+            background: rgb(255 255 255 / 0.22);
+            border-radius: 999px;
+        }
+
         @media (min-width: 768px) {
             .modal-info-area {
-                max-height: min(28dvh, 16rem);
+                height: clamp(7.75rem, 20dvh, 9.25rem);
+            }
+
+            .modal-footer-grid {
+                gap: 0.8rem;
+                padding: 1rem 2rem 0.9rem;
+            }
+
+            .modal-footer-counter {
+                top: 0.9rem;
+                right: 2rem;
+            }
+
+            .modal-footer-body {
+                -webkit-line-clamp: 2;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .modal-footer-meta {
+                -webkit-mask-image: linear-gradient(
+                    to right,
+                    #000 calc(100% - 1.5rem),
+                    transparent
+                );
+                mask-image: linear-gradient(
+                    to right,
+                    #000 calc(100% - 1.5rem),
+                    transparent
+                );
             }
         }
 
