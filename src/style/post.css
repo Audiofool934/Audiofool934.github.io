@@ -6,16 +6,25 @@
 
 .post-content {
   max-width: 100%;
-  font-size: 1.0625rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.68;
   color: var(--text-main);
   overflow-wrap: break-word;
+  overflow-x: hidden;
+}
+
+.post-content > :first-child {
+  margin-top: 0 !important;
+}
+
+.post-content > :last-child {
+  margin-bottom: 0 !important;
 }
 
 /* Paragraphs */
 .post-content p {
   color: var(--text-muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .post-content p:last-child {
@@ -24,49 +33,49 @@
 
 /* Headings - use !important to override Tailwind base reset */
 .post-content h1 {
-  font-size: 2rem !important;
+  font-size: 1.85rem !important;
   font-weight: 800 !important;
-  margin-top: 4rem !important;
-  margin-bottom: 2rem !important;
-  padding-bottom: 0.5rem;
+  margin-top: 2.75rem !important;
+  margin-bottom: 1.2rem !important;
+  padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--border-main);
   color: var(--text-main);
   line-height: 1.2 !important;
 }
 
 .post-content h2 {
-  font-size: 1.75rem !important;
+  font-size: 1.55rem !important;
   font-weight: 700 !important;
-  margin-top: 5rem !important;
-  margin-bottom: 1.5rem !important;
-  padding-top: 1.5rem;
+  margin-top: 3rem !important;
+  margin-bottom: 0.9rem !important;
+  padding-top: 1rem;
   border-top: 1px solid var(--border-main);
   color: var(--text-main);
   line-height: 1.3 !important;
 }
 
 .post-content h3 {
-  font-size: 1.35rem !important;
+  font-size: 1.2rem !important;
   font-weight: 600 !important;
-  margin-top: 2.5rem !important;
-  margin-bottom: 1rem !important;
+  margin-top: 1.8rem !important;
+  margin-bottom: 0.55rem !important;
   color: var(--text-main);
   line-height: 1.3 !important;
 }
 
 .post-content h4 {
-  font-size: 1.15rem !important;
+  font-size: 1.08rem !important;
   font-weight: 600 !important;
-  margin-top: 2rem !important;
-  margin-bottom: 0.75rem !important;
+  margin-top: 1.4rem !important;
+  margin-bottom: 0.45rem !important;
   color: var(--text-main);
 }
 
 .post-content h5 {
-  font-size: 1.05rem !important;
+  font-size: 1rem !important;
   font-weight: 600 !important;
-  margin-top: 1.5rem !important;
-  margin-bottom: 0.5rem !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 0.35rem !important;
   color: var(--text-main);
 }
 
@@ -81,14 +90,14 @@
 /* Lists */
 .post-content ul,
 .post-content ol {
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1.35rem;
   color: var(--text-muted);
 }
 
 .post-content li {
-  margin-bottom: 0.5rem;
-  padding-left: 0.5rem;
+  margin-bottom: 0.32rem;
+  padding-left: 0.35rem;
 }
 
 .post-content li::marker {
@@ -100,8 +109,8 @@
 .post-content ol ol,
 .post-content ul ol,
 .post-content ol ul {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.35rem;
 }
 
 /* Links */
@@ -124,7 +133,7 @@
   max-width: 100%;
   height: auto;
   border: 1px solid var(--border-main);
-  margin: 2.5rem 0;
+  margin: 1.75rem 0;
   display: block;
   background-color: var(--bg-body);
 }
@@ -137,20 +146,20 @@
   font-style: normal;
   color: var(--text-muted);
   font-family: 'JetBrains Mono', monospace;
-  margin-top: -1.5rem;
-  margin-bottom: 2.5rem;
+  margin-top: -1rem;
+  margin-bottom: 1.75rem;
   padding: 0 1rem;
 }
 
 /* Blockquotes */
 .post-content blockquote {
   border-left: 3px solid var(--text-main);
-  padding: 0.75rem 1.25rem;
-  margin: 2rem 0;
+  padding: 0.65rem 1rem;
+  margin: 1.25rem 0;
   background: rgba(128, 128, 128, 0.05);
   font-style: italic;
   color: var(--text-main);
-  line-height: 1.65;
+  line-height: 1.58;
 }
 
 .post-content blockquote p {
@@ -167,7 +176,7 @@
 .post-content code:not(pre code) {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.85em;
-  padding: 0.2em 0.4em;
+  padding: 0.12em 0.32em;
   border: 1px solid var(--border-main);
   border-radius: 4px;
   background: transparent;
@@ -176,13 +185,54 @@
 
 /* Code blocks */
 .post-content pre {
-  margin: 2rem 0;
-  padding: 1.25rem;
+  margin: 1.35rem 0;
+  padding: 1rem;
   border: 1px solid var(--border-main);
   border-radius: 0;
   overflow-x: auto;
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: 1.5;
+}
+
+.post-content pre,
+.post-content table,
+.post-content .katex-display {
+  scrollbar-color: var(--border-main) var(--bg-body);
+  scrollbar-width: thin;
+}
+
+.post-content pre::-webkit-scrollbar,
+.post-content table::-webkit-scrollbar,
+.post-content .katex-display::-webkit-scrollbar {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.post-content pre::-webkit-scrollbar-track,
+.post-content table::-webkit-scrollbar-track,
+.post-content .katex-display::-webkit-scrollbar-track {
+  background: var(--bg-body);
+  border: 1px solid var(--border-main);
+}
+
+.post-content pre::-webkit-scrollbar-thumb,
+.post-content table::-webkit-scrollbar-thumb,
+.post-content .katex-display::-webkit-scrollbar-thumb {
+  background-color: var(--border-main);
+  border: 2px solid var(--bg-body);
+  border-radius: 999px;
+}
+
+.post-content pre::-webkit-scrollbar-thumb:hover,
+.post-content table::-webkit-scrollbar-thumb:hover,
+.post-content .katex-display::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}
+
+.post-content pre::-webkit-scrollbar-corner,
+.post-content table::-webkit-scrollbar-corner,
+.post-content .katex-display::-webkit-scrollbar-corner {
+  background: var(--bg-body);
 }
 
 .post-content pre code {
@@ -196,8 +246,8 @@
 .post-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 2.5rem 0;
-  font-size: 0.95rem;
+  margin: 1.35rem 0;
+  font-size: 0.9rem;
   display: block;
   overflow-x: auto;
   white-space: nowrap;
@@ -212,7 +262,7 @@
 
 .post-content th,
 .post-content td {
-  padding: 1rem;
+  padding: 0.65rem 0.75rem;
   border: 1px solid var(--border-main);
   text-align: left;
   vertical-align: top;
@@ -241,19 +291,39 @@
   border: none;
   height: 1px;
   background: var(--border-main);
-  margin: 4rem 0;
+  margin: 2.5rem 0;
 }
 
 /* KaTeX / Math */
 .post-content .katex-display {
-  margin: 2rem 0;
+  display: block;
+  max-width: 100%;
+  margin: 1.25rem 0;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 1rem 0;
+  padding: 0.45rem 0;
+}
+
+.post-content .katex-display > .katex {
+  display: inline-block;
+  min-width: max-content;
 }
 
 .post-content .katex {
-  font-size: 1.15em;
+  font-size: 1.08em;
+}
+
+.post-content .katex .katex-mathml,
+.post-content .katex .katex-mathml * {
+  contain: strict;
+  max-width: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .post-content .katex-display {
+    text-align: left;
+  }
 }
 
 /* Strong / Bold */
@@ -276,51 +346,51 @@
 /* Tighter spacing for reference-style notes vs. long-form blog posts */
 
 .wiki-content h2 {
-  margin-top: 3rem !important;
-  margin-bottom: 1rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 0.7rem !important;
   padding-top: 0 !important;
   border-top: none !important;
 }
 
 .wiki-content h3 {
-  margin-top: 2.5rem !important;
-  margin-bottom: 0.75rem !important;
+  margin-top: 1.55rem !important;
+  margin-bottom: 0.45rem !important;
 }
 
 .wiki-content h4 {
-  margin-top: 1.5rem !important;
-  margin-bottom: 0.5rem !important;
+  margin-top: 1.2rem !important;
+  margin-bottom: 0.35rem !important;
 }
 
 .wiki-content hr {
-  margin: 2.5rem 0;
+  margin: 1.75rem 0;
 }
 
 .wiki-content p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.92rem;
 }
 
 .wiki-content ul,
 .wiki-content ol {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.92rem;
 }
 
 .wiki-content blockquote {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .wiki-content .katex-display {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .wiki-content pre {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .wiki-content table {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .wiki-content img {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
