@@ -37,7 +37,7 @@ export async function getTimelineItems(): Promise<TimelineItem[]> {
     ]);
 
     const items: TimelineItem[] = [
-        ...logs.map(fromLog),
+        ...logs.filter((entry) => entry.data.timeline).map(fromLog),
         ...projects.map((entry) => ({
             kind: "project" as const,
             lane: "project",

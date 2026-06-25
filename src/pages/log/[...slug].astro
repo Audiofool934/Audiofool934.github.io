@@ -3,11 +3,15 @@ import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
     const entries = await getCollection("log");
-    return entries.map((entry) => ({ params: { slug: entry.id } }));
+    return entries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
 }
 
+const { entry } = Astro.props;
 const slug = Astro.params.slug;
-const target = `/timeline/${slug}/`;
+const target = entry.data.redirectTo || `/timeline/${slug}/`;
 ---
 
 <!doctype html>

@@ -44,6 +44,8 @@ const log = defineCollection({
         pubDate: z.coerce.date(),
         tags: z.array(z.string()).default([]),
         description: z.string().optional(),
+        timeline: z.boolean().default(true),
+        redirectTo: z.string().optional(),
     }),
 });
 

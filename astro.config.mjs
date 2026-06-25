@@ -117,6 +117,20 @@ function isLegacyRedirectUrl(page) {
   );
 }
 
+const redirectOnlyTimelinePaths = new Set([
+  '/timeline/2026-05-13-ai-music-taste-note/',
+  '/timeline/2026-05-14-dj-claw-radio-agent-note/',
+  '/timeline/2026-05-14-openclaw-runtime-note/',
+  '/timeline/2026-05-25-process-native-ai-music/',
+  '/timeline/2026-05-26-agentic-essay/',
+  '/timeline/2026-06-19-free-myself-from-claude/',
+]);
+
+function isRedirectOnlyTimelineUrl(page) {
+  const { pathname } = new URL(page);
+  return redirectOnlyTimelinePaths.has(pathname);
+}
+
 // https://astro.build/config
 export default defineConfig({
   markdown: {
@@ -133,7 +147,7 @@ export default defineConfig({
     // Legacy routes are 0-second meta-refresh redirect stubs. Keep them out of
     // the sitemap so crawlers are not handed thin redirecting URLs.
     sitemap({
-      filter: (page) => !isLegacyRedirectUrl(page),
+      filter: (page) => !isLegacyRedirectUrl(page) && !isRedirectOnlyTimelineUrl(page),
     }),
   ],
 });
