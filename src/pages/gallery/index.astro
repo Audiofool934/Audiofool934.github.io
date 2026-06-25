@@ -356,6 +356,8 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     document.getElementById("modal-lens-mobile");
                 const modalBodyMobile =
                     document.getElementById("modal-body-mobile");
+                const modalFooterMeta =
+                    document.querySelector(".modal-footer-meta");
                 // Shared elements
                 const modalContent =
                     document.getElementById("modal-content");
@@ -372,6 +374,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                 let currentMeta = null;
                 let visibleItems = allItems;
                 let lastFocused = null;
+                let imageRequestId = 0;
                 const preloadedImages = new Set();
 
                 function getVisibleItems() {
@@ -385,6 +388,43 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     const script = id ? document.getElementById(id) : null;
                     if (!script) return null;
                     return JSON.parse(script.textContent || "{}");
+                }
+
+                function setModalImage(src, alt) {
+                    const requestId = ++imageRequestId;
+                    modalImage.onload = null;
+                    modalImage.style.opacity = "0";
+
+                    if (!src) {
+                        modalImage.removeAttribute("src");
+                        modalImage.alt = "";
+                        return;
+                    }
+
+                    const loader = new Image();
+                    loader.decoding = "async";
+                    let ready;
+                    if (loader.decode) {
+                        loader.src = src;
+                        ready = loader.decode().catch(function () {});
+                    } else {
+                        ready = new Promise(function (resolve) {
+                            loader.onload = resolve;
+                            loader.onerror = resolve;
+                        });
+                        loader.src = src;
+                    }
+
+                    ready.then(function () {
+                        if (requestId !== imageRequestId) return;
+                        modalImage.src = src;
+                        modalImage.alt = alt;
+                        window.requestAnimationFrame(function () {
+                            if (requestId === imageRequestId) {
+                                modalImage.style.opacity = "1";
+                            }
+                        });
+                    });
                 }
 
                 function openModal(index, frameIndex = 0) {
@@ -407,15 +447,11 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                         ? bodyEl.innerHTML.trim()
                         : "";
 
-                    // Fade image on switch
-                    modalImage.style.opacity = "0";
-                    modalImage.src = images[currentFrameIndex];
-                    modalImage.alt = images.length > 1
+                    const imageSrc = images[currentFrameIndex];
+                    const imageAlt = images.length > 1
                         ? `${meta.title} (${currentFrameIndex + 1}/${images.length})`
                         : meta.title;
-                    modalImage.onload = function () {
-                        modalImage.style.opacity = "1";
-                    };
+                    setModalImage(imageSrc, imageAlt);
 
                     const itemCounter =
                         currentIndex + 1 + " / " + visibleItems.length;
@@ -455,6 +491,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     modalBodyMobile.style.display = bodyHTML
                         ? ""
                         : "none";
+                    if (modalFooterMeta) modalFooterMeta.scrollLeft = 0;
 
                     const hasPrev = currentIndex > 0 || currentFrameIndex > 0;
                     const hasNext =
@@ -478,6 +515,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     currentIndex = -1;
                     currentFrameIndex = 0;
                     currentMeta = null;
+                    imageRequestId += 1;
                     // Restore focus to the card that opened the modal
                     if (lastFocused && lastFocused.isConnected) {
                         lastFocused.focus();
