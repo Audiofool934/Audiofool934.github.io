@@ -32,7 +32,7 @@ const projectReadmes = defineCollection({
     schema: z.object({
         project: z.string(),
         repo: z.string(),
-        sourceUrl: z.string().url(),
+        sourceUrl: z.url(),
         syncedAt: z.coerce.date(),
     }),
 });

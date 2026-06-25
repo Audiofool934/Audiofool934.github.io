@@ -1,10 +1,10 @@
 ---
 import "../style/global.css";
 import "../style/prism-theme.css";
-import { ClientRouter } from "astro:transitions";
-import AudioPlayer from "../components/AudioPlayer.astro";
-import { sortEpisodesDesc } from "../utils/parseAudioshow";
-import { loadAllEpisodes } from "../utils/loadEpisodes";
+import SiteHead from "../components/site/SiteHead.astro";
+import SiteSidebar from "../components/site/SiteSidebar.astro";
+import SiteThemeScripts from "../components/site/SiteThemeScripts.astro";
+import { getDefaultAudioTrack } from "../utils/defaultAudioTrack";
 
 interface Props {
     title: string;
@@ -30,389 +30,63 @@ const {
     dateModified,
 } = Astro.props;
 
-// Absolute URLs for canonical + social cards (Astro.site = https://audiofool.blog).
-// new URL() leaves already-absolute image URLs (e.g. Apple artwork) untouched.
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(image, Astro.site);
-
-// Structured data (JSON-LD): a stable Person + WebSite graph on every page,
-// plus an Article node on article-type pages for richer search results.
-const siteOrigin = (Astro.site ?? new URL("https://audiofool.blog")).origin;
-const jsonLdGraph: Record<string, unknown>[] = [
-    {
-        "@type": "Person",
-        "@id": `${siteOrigin}/#person`,
-        name: "Audiofool",
-        url: `${siteOrigin}/`,
-        sameAs: [
-            "https://github.com/Audiofool934",
-            "https://x.com/Audiofool934",
-        ],
-    },
-    {
-        "@type": "WebSite",
-        "@id": `${siteOrigin}/#website`,
-        name: "Audiofool",
-        url: `${siteOrigin}/`,
-        description:
-            "Audiofool — creative AI, notes, an AudioShow music journal, and photography.",
-        publisher: { "@id": `${siteOrigin}/#person` },
-    },
-];
-if (ogType === "article") {
-    jsonLdGraph.push({
-        "@type": "Article",
-        headline: title,
-        description,
-        image: socialImageURL.toString(),
-        url: canonicalURL.toString(),
-        mainEntityOfPage: canonicalURL.toString(),
-        author: { "@id": `${siteOrigin}/#person` },
-        publisher: { "@id": `${siteOrigin}/#person` },
-        isPartOf: { "@id": `${siteOrigin}/#website` },
-        ...(datePublished
-            ? { datePublished: datePublished.toISOString() }
-            : {}),
-        ...(dateModified
-            ? { dateModified: dateModified.toISOString() }
-            : {}),
-    });
-}
-// Escape "<" so the JSON can never break out of the <script> element.
-const jsonLd = JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": jsonLdGraph,
-}).replace(/</g, "\\u003c");
-
-// Get the latest episode for the default track (runs at build time, so available on every page)
-let defaultTrackData = null;
-try {
-    const allEpisodes = loadAllEpisodes();
-    const sorted = sortEpisodesDesc(allEpisodes);
-    const latest = sorted[0];
-    if (latest && latest.appleMusicUrl) {
-        const isApple = latest.appleMusicUrl.includes("music.apple.com");
-        defaultTrackData = {
-            type: isApple ? "apple" : "local",
-            url: latest.appleMusicUrl,
-            title: latest.songTitle,
-            artist: latest.artist,
-            artwork: latest.imageUrl || "/images/placeholder-album.svg",
-        };
-    }
-} catch (e) {
-    console.error("Failed to load default track:", e);
-}
-
-const NAV_ITEMS = [
-    { label: "Timeline", href: "/timeline/" },
-    { label: "Projects", href: "/projects/" },
-    { label: "Notes", href: "/notes/" },
-    { label: "AudioShow", href: "/audioshow/" },
-    { label: "Gallery", href: "/gallery/" },
-];
+const defaultTrackData = getDefaultAudioTrack();
 ---
 
 <!doctype html>
-<html lang={lang} class="scroll-smooth">
+<html lang={lang} class="scroll-smooth dark">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, viewport-fit=cover" />
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={canonicalURL} />
-        <meta name="generator" content={Astro.generator} />
-        <meta
-            name="theme-color"
-            content="#0a0a0a"
-            media="(prefers-color-scheme: dark)"
+        <SiteHead
+            title={title}
+            description={description}
+            image={image}
+            imageAlt={imageAlt}
+            ogType={ogType}
+            math={math}
+            datePublished={datePublished}
+            dateModified={dateModified}
         />
-        <meta
-            name="theme-color"
-            content="#fafafa"
-            media="(prefers-color-scheme: light)"
-        />
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link
-            rel="alternate"
-            type="application/rss+xml"
-            title="Audiofool"
-            href="/rss.xml"
-        />
-
-        <!-- Open Graph -->
-        <meta property="og:type" content={ogType} />
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={canonicalURL} />
-        <meta property="og:site_name" content="Audiofool" />
-        <meta property="og:image" content={socialImageURL} />
-        <meta property="og:image:alt" content={imageAlt} />
-
-        <!-- Twitter -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@Audiofool934" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={socialImageURL} />
-        <meta name="twitter:image:alt" content={imageAlt} />
-
-        <!-- Structured data -->
-        <script type="application/ld+json" set:html={jsonLd} />
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        />
-        {
-            math && (
-                <link
-                    rel="stylesheet"
-                    href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-                    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
-                    crossorigin="anonymous"
-                />
-            )
-        }
-        <ClientRouter />
-        <script is:inline>
-            // Blocking script to avoid FOUC (Flash of Unstyled Content)
-            const html = document.documentElement;
-            const theme = (() => {
-                if (
-                    typeof localStorage !== "undefined" &&
-                    localStorage.getItem("theme")
-                ) {
-                    return localStorage.getItem("theme");
-                }
-                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                    return "dark";
-                }
-                return "light";
-            })();
-
-            if (theme === "dark") {
-                html.classList.add("dark");
-            } else {
-                html.classList.remove("dark");
-            }
-        </script>
-        <style is:global>
-            /* Prevent flash during View Transitions when scrolled */
-            ::view-transition-old(root),
-            ::view-transition-new(root) {
-                animation-duration: 0.2s;
-            }
-            /* Smoother transition */
-            html {
-                scroll-behavior: instant;
-            }
-            html.is-transitioning {
-                overflow: hidden;
-            }
-        </style>
-        <script is:inline>
-            // Prevent flash: scroll to top BEFORE view transition snapshot
-            document.addEventListener("astro:before-preparation", (e) => {
-                // Scroll main content to top before transition starts
-                window.scrollTo({ top: 0, behavior: "instant" });
-            });
-        </script>
+        <SiteThemeScripts />
     </head>
-    <body
-        class="min-h-screen flex flex-col font-sans bg-[var(--bg-body)] text-[var(--text-main)] transition-colors duration-300"
-    >
-        <a
-            href="#main-content"
-            class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[300] focus:bg-[var(--bg-body)] focus:text-[var(--text-main)] focus:border focus:border-[var(--border-main)] focus:px-3 focus:py-2 focus:font-mono focus:text-sm"
-        >
+    <body class="min-h-screen flex flex-col font-sans bg-[var(--bg-body)] text-[var(--text-main)] transition-colors duration-300">
+        <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[300] focus:bg-[var(--bg-body)] focus:text-[var(--text-main)] focus:border focus:border-[var(--border-main)] focus:px-3 focus:py-2 focus:font-mono focus:text-sm">
             Skip to content
         </a>
-        <!-- Main Grid Layout -->
-        <div
-            class="min-h-screen flex flex-col md:flex-row max-w-[1440px] mx-auto w-full border-x border-[var(--border-main)] pb-20 md:pb-0"
-        >
-            <!-- Sidebar / Navigation -->
-            <aside
-                class="w-full md:w-64 flex-shrink-0 border-b md:border-b-0 md:border-r border-[var(--border-main)] p-4 md:p-8 flex flex-col justify-between sticky top-0 md:h-screen transition-all z-[50] bg-[var(--bg-body)]"
-            >
-                <!-- Mobile Header (Logo + Hamburger) -->
-                <div class="flex items-center justify-between md:hidden">
-                    <a
-                        href="/"
-                        class="text-xl font-bold font-mono tracking-tighter hover:opacity-60 transition-opacity"
-                    >
-                        Audiofool
-                    </a>
-                    <div class="flex items-center gap-3">
-                        <button
-                            id="mobile-menu-toggle"
-                            aria-label="Toggle navigation menu"
-                            aria-expanded="false"
-                            aria-controls="nav-content"
-                            class="font-mono text-sm border border-[var(--border-main)] px-2 py-1 hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors"
-                        >
-                            <span id="menu-icon">[ ≡ ]</span>
-                        </button>
-                        <button
-                            id="theme-toggle-mobile"
-                            aria-label="Toggle light/dark theme"
-                            class="text-xl hover:rotate-12 transition-transform"
-                            title="Toggle Theme"
-                        >
-                            <span class="dark:hidden">🌑</span>
-                            <span class="hidden dark:inline">🌕</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Desktop + Mobile Expanded Content -->
-                <div
-                    id="nav-content"
-                    class="hidden md:flex flex-col gap-8 mt-6 md:mt-0"
-                >
-                    <!-- Logo / Home / Theme Toggle (Desktop only) -->
-                    <div class="hidden md:flex items-center justify-between">
-                        <a
-                            href="/"
-                            class="text-xl font-bold font-mono tracking-tighter hover:opacity-60 transition-opacity"
-                        >
-                            Audiofool
-                        </a>
-                        <button
-                            id="theme-toggle"
-                            aria-label="Toggle light/dark theme"
-                            class="text-xl hover:rotate-12 transition-transform"
-                            title="Toggle Dark Side of the Moon"
-                        >
-                            <span class="dark:hidden">🌑</span>
-                            <span class="hidden dark:inline">🌕</span>
-                        </button>
-                    </div>
-
-                    <!-- Nav Links -->
-                    <nav class="flex flex-col gap-4">
-                        {
-                            NAV_ITEMS.map((item) => (
-                                <a
-                                    href={item.href}
-                                    class="nav-link text-lg font-medium hover:underline underline-offset-4 decoration-1 decoration-[var(--border-main)]"
-                                >
-                                    [ {item.label} ]
-                                </a>
-                            ))
-                        }
-
-                        <!-- Social Links -->
-                        <div
-                            class="pt-6 mt-2 flex gap-4 border-t border-[var(--border-main)]"
-                        >
-                            <a
-                                href="https://github.com/Audiofool934"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
-                                title="GitHub"
-                                aria-label="GitHub profile"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    ><path
-                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                                    ></path></svg
-                                >
-                            </a>
-                            <a
-                                href="https://x.com/Audiofool934"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
-                                title="X"
-                                aria-label="X (Twitter) profile"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    ><path
-                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.654l-5.214-6.817-5.966 6.817H1.685l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"
-                                    ></path></svg
-                                >
-                            </a>
-                        </div>
-                    </nav>
-                </div>
-
-                <!-- AudioPlayer contains both desktop (sidebar) and mobile (fixed bottom) UI -->
-                <AudioPlayer />
-            </aside>
-
-            <!-- Main Content Area -->
+        <div class="min-h-screen flex flex-col md:flex-row max-w-[1440px] mx-auto w-full border-x border-[var(--border-main)] pb-20 md:pb-0">
+            <SiteSidebar />
             <main id="main-content" tabindex="-1" class="flex-1 min-w-0 w-full outline-none">
-                <!-- Content Slot -->
                 <slot />
             </main>
         </div>
 
         <script is:inline>
-            // Theme Logic for View Transitions
-
             function applyTheme() {
-                const theme = localStorage.getItem("theme");
                 const html = document.documentElement;
-                if (
-                    theme === "dark" ||
-                    (!theme &&
-                        window.matchMedia("(prefers-color-scheme: dark)")
-                            .matches)
-                ) {
-                    html.classList.add("dark");
-                } else {
+                const theme = localStorage.getItem("theme");
+                if (theme === "light") {
                     html.classList.remove("dark");
+                } else {
+                    html.classList.add("dark");
                 }
             }
 
             function attachToggle() {
                 const themeToggle = document.getElementById("theme-toggle");
-                const themeToggleMobile = document.getElementById(
-                    "theme-toggle-mobile",
-                );
-                const menuToggle =
-                    document.getElementById("mobile-menu-toggle");
+                const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+                const menuToggle = document.getElementById("mobile-menu-toggle");
                 const menuIcon = document.getElementById("menu-icon");
                 const navContent = document.getElementById("nav-content");
                 const html = document.documentElement;
 
-                // Theme toggle function
                 const toggleTheme = () => {
-                    html.classList.toggle("dark");
-                    localStorage.setItem(
-                        "theme",
-                        html.classList.contains("dark") ? "dark" : "light",
-                    );
+                    const nextTheme = html.classList.contains("dark") ? "light" : "dark";
+                    localStorage.setItem("theme", nextTheme);
+                    applyTheme();
                 };
 
-                // Desktop theme toggle
-                if (themeToggle) {
-                    themeToggle.onclick = toggleTheme;
-                }
+                if (themeToggle) themeToggle.onclick = toggleTheme;
+                if (themeToggleMobile) themeToggleMobile.onclick = toggleTheme;
 
-                // Mobile theme toggle
-                if (themeToggleMobile) {
-                    themeToggleMobile.onclick = toggleTheme;
-                }
-
-                // Mobile menu toggle
                 if (menuToggle && navContent && menuIcon) {
                     const closeMenu = () => {
                         navContent.classList.add("hidden");
@@ -421,8 +95,7 @@ const NAV_ITEMS = [
                         menuToggle.setAttribute("aria-expanded", "false");
                     };
                     menuToggle.onclick = () => {
-                        const isHidden =
-                            navContent.classList.contains("hidden");
+                        const isHidden = navContent.classList.contains("hidden");
                         if (isHidden) {
                             navContent.classList.remove("hidden");
                             navContent.classList.add("flex");
@@ -432,34 +105,23 @@ const NAV_ITEMS = [
                             closeMenu();
                         }
                     };
-
-                    // Close menu when clicking a nav link
-                    const navLinks = navContent.querySelectorAll(".nav-link");
-                    navLinks.forEach((link) => {
+                    navContent.querySelectorAll(".nav-link").forEach((link) => {
                         link.addEventListener("click", closeMenu);
                     });
                 }
             }
 
-            // Move keyboard focus to the main region after a client-side
-            // navigation so screen-reader users land on the new page content
-            // instead of staying on a now-removed link.
             function focusMain() {
                 const main = document.getElementById("main-content");
                 if (main) main.focus({ preventScroll: true });
             }
 
-            // Apply theme immediately after swap to prevent flash/reset
             document.addEventListener("astro:after-swap", applyTheme);
-            // Reset focus to main content after client-side navigations only
             document.addEventListener("astro:after-swap", focusMain);
-
-            // Attach interactive listeners on load
             document.addEventListener("astro:page-load", attachToggle);
         </script>
 
-        <script define:vars={{ defaultTrackData }}>
-            // Set default audio track globally (from build-time data)
+        <script is:inline define:vars={{ defaultTrackData }}>
             if (defaultTrackData) {
                 window.__defaultAudioShowTrack = defaultTrackData;
             }

@@ -145,7 +145,7 @@ function rewriteRawHtmlUrls(html, owner, repo, branch, baseDir) {
       const target = resolveRepoUrl(src, owner, repo, branch, baseDir, 'asset');
       return target === src ? full : `${prefix}${quote}${target}${suffix}`;
     })
-    .replace(/(<source\b[^>]*\bsrcset\s*=\s*)(["'])([^"']+)(\2)/gi, (full, prefix, quote, srcset, suffix) => {
+    .replace(/(<source\b[^>]*\bsrcset\s*=\s*)(["'])([^"']+)(\2)/gi, (_full, prefix, quote, srcset, suffix) => {
       const rewritten = srcset
         .split(',')
         .map((item) => {

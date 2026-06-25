@@ -1,4 +1,6 @@
 // @ts-nocheck
+import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTrack } from "./audio/types";
+
 // Persistent AudioShow player. The module is bundled once by Astro; playlist
 // data is fetched separately so every page does not inline the full queue.
 (function () {
@@ -10,9 +12,9 @@
 
     var playlistUrl =
         window.__audioPlayerConfig?.playlistUrl || "/audioshow/playlist.json";
-    var defaultPlaylist = [];
-    var activePlaylist = defaultPlaylist;
-    var playlistPromise = null;
+    var defaultPlaylist: NormalizedAudioTrack[] = [];
+    var activePlaylist: NormalizedAudioTrack[] = defaultPlaylist;
+    var playlistPromise: Promise<NormalizedAudioTrack[]> | null = null;
 
     function getElements() {
         return {
@@ -52,7 +54,7 @@
         };
     }
 
-    function normalizePlaylist(items) {
+    function normalizePlaylist(items: AudioPlaylistItem[]): NormalizedAudioTrack[] {
         if (!Array.isArray(items)) return [];
         return items
             .map(function (item, index) {
@@ -106,14 +108,14 @@
             : defaultPlaylist;
     }
 
-    function findPlaylistIndexByUrl(list, url) {
+    function findPlaylistIndexByUrl(list: NormalizedAudioTrack[], url: string) {
         for (var i = 0; i < list.length; i++) {
             if (list[i].url === url) return i;
         }
         return -1;
     }
 
-    function setActivePlaylist(items, options) {
+    function setActivePlaylist(items: AudioPlaylistItem[], options?: { currentIndex?: number; currentUrl?: string }) {
         var normalized = normalizePlaylist(items);
         activePlaylist = normalized.length ? normalized : defaultPlaylist;
 
@@ -161,7 +163,7 @@
         syncUIWithState();
     };
 
-    function generateShuffledOrder(length) {
+    function generateShuffledOrder(length: number) {
         var order = [];
         for (var i = 0; i < length; i++) order.push(i);
         for (var j = length - 1; j > 0; j--) {
@@ -173,7 +175,7 @@
         return order;
     }
 
-    function getPlaylistTrack(index) {
+    function getPlaylistTrack(index: number): AudioTrack | null {
         var ep = getActivePlaylist()[index];
         if (!ep) return null;
         return {
@@ -186,7 +188,7 @@
         };
     }
 
-    function resolveIndex(state, offset) {
+    function resolveIndex(state: AudioPlayerState, offset: number) {
         var len = getActivePlaylist().length;
         if (len === 0) return -1;
         var currentPos = state.playlistPos >= 0 ? state.playlistPos : -1;
@@ -199,7 +201,7 @@
         return nextPos;
     }
 
-    function findPos(state, plIdx) {
+    function findPos(state: AudioPlayerState, plIdx: number) {
         if (state.shuffleMode && state.shuffledOrder) {
             for (var i = 0; i < state.shuffledOrder.length; i++) {
                 if (state.shuffledOrder[i] === plIdx) return i;
@@ -208,11 +210,11 @@
         return plIdx;
     }
 
-    function setText(el, value) {
+    function setText(el: HTMLElement | null, value: string) {
         if (el) el.textContent = value;
     }
 
-    function setArtwork(img, placeholder, url) {
+    function setArtwork(img: HTMLImageElement | null, placeholder: HTMLElement | null, url?: string) {
         if (!img || !placeholder) return;
         if (url) {
             img.onload = function () {
@@ -354,14 +356,14 @@
         },
     };
 
-    function formatTime(seconds) {
+    function formatTime(seconds: number) {
         if (!seconds || isNaN(seconds)) return "0:00";
         var mins = Math.floor(seconds / 60);
         var secs = Math.floor(seconds % 60);
         return mins + ":" + secs.toString().padStart(2, "0");
     }
 
-    function ensureState() {
+    function ensureState(): AudioPlayerState {
         if (!window.__audioPlayerState) {
             window.__audioPlayerState = {
                 initialized: false,
@@ -410,7 +412,7 @@
         syncUIWithState();
     }
 
-    function playIndex(plIdx) {
+    function playIndex(plIdx: number) {
         var state = ensureState();
         var track = getPlaylistTrack(plIdx);
         if (!track) return;
@@ -419,7 +421,7 @@
         window.playTrack(track);
     }
 
-    async function loadCurrentTrackIntoAudio(audio, state) {
+    async function loadCurrentTrackIntoAudio(audio: HTMLAudioElement, state: AudioPlayerState) {
         if (!state.track?.url) return false;
         if (state.track.type === "local") {
             audio.src = state.track.url;
@@ -630,7 +632,7 @@
         }
     }
 
-    window.playTrack = async function (track) {
+    window.playTrack = async function (track: AudioTrack) {
         if (!track || !track.type || !track.url) {
             console.error("Invalid track object", track);
             return;
