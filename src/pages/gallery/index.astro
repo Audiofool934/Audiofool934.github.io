@@ -180,6 +180,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                             <Content />
                         </div>
                         <script
+                            is:inline
                             type="application/json"
                             id={`gallery-meta-${i}`}
                             set:html={buildMeta(item, modalImages)}

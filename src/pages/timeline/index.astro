@@ -1,14 +1,9 @@
 ---
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
-import { getCollection } from "astro:content";
 import { formatDateCompact } from "../../utils/formatDate";
-import { getPostType } from "../../utils/postType";
+import { getTimelineItems } from "../../utils/timelineItems";
 
-const posts = await getCollection("log");
-
-const sortedPosts = posts.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const sortedPosts = await getTimelineItems();
 
 const typeLabels: Record<string, string> = {
     note: "Notes",
@@ -22,8 +17,7 @@ const typeLabels: Record<string, string> = {
 const filterOrder = ["note", "post", "music", "photo", "project", "site"];
 const typeCounts = new Map<string, number>();
 for (const post of sortedPosts) {
-    const type = getPostType(post);
-    typeCounts.set(type, (typeCounts.get(type) || 0) + 1);
+    typeCounts.set(post.lane, (typeCounts.get(post.lane) || 0) + 1);
 }
 const filters = filterOrder
     .filter((type) => typeCounts.has(type))
@@ -72,10 +66,10 @@ const filters = filterOrder
         <div class="max-w-4xl border-l border-[var(--border-main)] pl-5 md:pl-8">
             {
                 sortedPosts.map((post) => {
-                    const type = getPostType(post);
+                    const type = post.lane;
                     return (
                         <a
-                            href={`/timeline/${post.id}/`}
+                            href={post.href}
                             class="timeline-entry group relative block pb-8 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
                             data-type={type}
                         >
@@ -83,7 +77,7 @@ const filters = filterOrder
 
                             <div class="grid gap-1 md:grid-cols-[8rem_5rem_minmax(0,1fr)] md:gap-4 md:items-baseline font-mono text-sm">
                                 <time class="text-xs uppercase tracking-wider text-[var(--text-faint)] transition-opacity">
-                                    {formatDateCompact(post.data.pubDate)}
+                                    {formatDateCompact(post.date)}
                                 </time>
 
                                 <span class="text-[10px] uppercase tracking-wider text-[var(--text-faint)] transition-opacity">
@@ -92,11 +86,11 @@ const filters = filterOrder
 
                                 <div class="min-w-0">
                                     <h2 class="font-sans text-base font-semibold text-[var(--text-main)] group-hover:underline decoration-1 underline-offset-4">
-                                        {post.data.title}
+                                        {post.title}
                                     </h2>
-                                    {post.data.description && (
+                                    {post.description && (
                                         <p class="mt-1 font-sans text-sm leading-relaxed text-[var(--text-faint)]">
-                                            {post.data.description}
+                                            {post.description}
                                         </p>
                                     )}
                                 </div>

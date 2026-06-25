@@ -121,7 +121,7 @@ const crateCount = audioshowCrates.length;
     import { navigate } from "astro:transitions/client";
 
     document.addEventListener("astro:page-load", () => {
-        document.querySelectorAll("[data-crate-card]").forEach((card) => {
+        document.querySelectorAll<HTMLElement>("[data-crate-card]").forEach((card) => {
             const openCrate = () => {
                 const url = card.dataset.crateUrl;
                 if (url) navigate(url);
@@ -134,7 +134,8 @@ const crateCount = audioshowCrates.length;
             });
 
             card.addEventListener("keydown", (event) => {
-                if (event.key !== "Enter" && event.key !== " ") return;
+                const keyboardEvent = event as KeyboardEvent;
+                if (keyboardEvent.key !== "Enter" && keyboardEvent.key !== " ") return;
                 event.preventDefault();
                 openCrate();
             });

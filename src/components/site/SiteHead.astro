@@ -1,0 +1,95 @@
+---
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+    title: string;
+    description: string;
+    image: string;
+    imageAlt: string;
+    ogType: string;
+    math: boolean;
+    datePublished?: Date;
+    dateModified?: Date;
+}
+
+const { title, description, image, imageAlt, ogType, math, datePublished, dateModified } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.site);
+const siteOrigin = (Astro.site ?? new URL("https://audiofool.blog")).origin;
+const jsonLdGraph: Record<string, unknown>[] = [
+    {
+        "@type": "Person",
+        "@id": `${siteOrigin}/#person`,
+        name: "Audiofool",
+        url: `${siteOrigin}/`,
+        sameAs: ["https://github.com/Audiofool934", "https://x.com/Audiofool934"],
+    },
+    {
+        "@type": "WebSite",
+        "@id": `${siteOrigin}/#website`,
+        name: "Audiofool",
+        url: `${siteOrigin}/`,
+        description: "Audiofool — creative AI, notes, an AudioShow music journal, and photography.",
+        publisher: { "@id": `${siteOrigin}/#person` },
+    },
+];
+
+if (ogType === "article") {
+    jsonLdGraph.push({
+        "@type": "Article",
+        headline: title,
+        description,
+        image: socialImageURL.toString(),
+        url: canonicalURL.toString(),
+        mainEntityOfPage: canonicalURL.toString(),
+        author: { "@id": `${siteOrigin}/#person` },
+        publisher: { "@id": `${siteOrigin}/#person` },
+        isPartOf: { "@id": `${siteOrigin}/#website` },
+        ...(datePublished ? { datePublished: datePublished.toISOString() } : {}),
+        ...(dateModified ? { dateModified: dateModified.toISOString() } : {}),
+    });
+}
+
+const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": jsonLdGraph,
+}).replace(/</g, "\\u003c");
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, viewport-fit=cover" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+<meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Audiofool" href="/rss.xml" />
+
+<meta property="og:type" content={ogType} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:site_name" content="Audiofool" />
+<meta property="og:image" content={socialImageURL} />
+<meta property="og:image:alt" content={imageAlt} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@Audiofool934" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<script is:inline type="application/ld+json" set:html={jsonLd} />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+{math && (
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" />
+)}
+<ClientRouter />

@@ -1,0 +1,27 @@
+<script is:inline>
+    // Dark-first identity: default to dark unless the reader explicitly chooses light.
+    const html = document.documentElement;
+    const storedTheme = typeof localStorage !== "undefined" ? localStorage.getItem("theme") : null;
+    if (storedTheme === "light") {
+        html.classList.remove("dark");
+    } else {
+        html.classList.add("dark");
+    }
+</script>
+<style is:global>
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 0.2s;
+    }
+    html {
+        scroll-behavior: instant;
+    }
+    html.is-transitioning {
+        overflow: hidden;
+    }
+</style>
+<script is:inline>
+    document.addEventListener("astro:before-preparation", () => {
+        window.scrollTo({ top: 0, behavior: "instant" });
+    });
+</script>

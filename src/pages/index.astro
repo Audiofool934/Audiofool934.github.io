@@ -1,12 +1,9 @@
 ---
 import MinimalLayout from "../layouts/MinimalLayout.astro";
-import { getCollection } from "astro:content";
 import { formatDateCompact } from "../utils/formatDate";
-import { getPostType } from "../utils/postType";
+import { getTimelineItems } from "../utils/timelineItems";
 
-const timelinePosts = (await getCollection("log"))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+const timelinePosts = (await getTimelineItems()).slice(0, 3);
 ---
 
 <MinimalLayout title="Audiofool — Creative AI, Notes, AudioShow & Photography">
@@ -62,18 +59,18 @@ const timelinePosts = (await getCollection("log"))
 
 						<div class="space-y-1.5">
 							{timelinePosts.map((post) => {
-								const type = getPostType(post);
+								const type = post.lane;
 								return (
 									<a
-										href={`/timeline/${post.id}/`}
+										href={post.href}
 										class="group block text-xs md:text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors"
 									>
 										<span class="font-mono uppercase tracking-wider text-[var(--text-faint)]">
-											{formatDateCompact(post.data.pubDate)} · {type}
+											{formatDateCompact(post.date)} · {type}
 										</span>
 										<span class="mx-2 opacity-35">—</span>
 										<span class="text-[var(--text-main)] group-hover:underline decoration-1 underline-offset-4">
-											{post.data.title}
+											{post.title}
 										</span>
 									</a>
 								);
