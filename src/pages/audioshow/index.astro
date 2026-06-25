@@ -2,7 +2,7 @@
 import MinimalLayout from "../../layouts/MinimalLayout.astro";
 import { sortEpisodesDesc } from "../../utils/parseAudioshow";
 import { loadAllEpisodes } from "../../utils/loadEpisodes";
-import { audioImage, audioImageSrcset } from "../../utils/audioImages";
+import { audioImage, audioImageSrcset, imageReferrerPolicy } from "../../utils/audioImages";
 
 const allEpisodes = loadAllEpisodes();
 
@@ -80,10 +80,13 @@ const placeholderImage = "/images/placeholder-album.svg";
                                     srcset={audioImageSrcset(cover, [96, 320])}
                                     sizes="(max-width: 767px) 74vw, (max-height: 800px) 220px, (max-height: 1100px) 320px, 420px"
                                     alt={ep.coverAlt || `${ep.songTitle} - ${ep.artist}`}
+                                    width="320"
+                                    height="320"
                                     class="ep-cover-image w-full h-full object-cover transition-transform duration-500"
                                     loading={index < 2 ? "eager" : "lazy"}
                                     fetchpriority={index === 0 ? "high" : "auto"}
                                     decoding="async"
+                                    referrerpolicy={imageReferrerPolicy(cover)}
                                     onerror={`this.src='${placeholderImage}'`}
                                 />
                                 <!-- Play Overlay -->

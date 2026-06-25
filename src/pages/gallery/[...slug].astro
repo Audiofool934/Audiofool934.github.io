@@ -25,13 +25,15 @@ const ogImage = (
         src: entry.data.image,
         width: Math.min(1200, entry.data.image.width),
         format: "webp",
+        quality: 82,
     })
 ).src;
 const lightboxSrc = (
     await getImage({
         src: entry.data.image,
-        width: Math.min(2000, entry.data.image.width),
+        width: Math.min(1800, entry.data.image.width),
         format: "webp",
+        quality: 82,
     })
 ).src;
 
@@ -66,13 +68,16 @@ const galleryDescription =
                     id="gallery-image"
                     src={entry.data.image}
                     alt={entry.data.title}
-                    widths={[600, 1000, 1600]}
-                    sizes="(min-width: 896px) 56rem, 100vw"
+                    width={1000}
+                    widths={[480, 720, 1000, 1400]}
+                    sizes="(min-width: 896px) 56rem, calc(100vw - 3rem)"
                     loading="eager"
+                    fetchpriority="high"
                     role="button"
                     tabindex="0"
                     aria-label="View photo full screen"
                     decoding="async"
+                    quality={78}
                     class="max-h-[85vh] w-auto object-contain cursor-zoom-in transition-transform duration-300"
                 />
             </div>
@@ -168,8 +173,11 @@ const galleryDescription =
     >
         <img
             id="lightbox-image"
-            src={lightboxSrc}
+            data-src={lightboxSrc}
+            src=""
             alt={entry.data.title}
+            loading="lazy"
+            decoding="async"
             class="max-h-[95vh] max-w-[95vw] object-contain shadow-2xl"
         />
     </div>
@@ -187,9 +195,14 @@ const galleryDescription =
 
                 const galleryImage = document.getElementById("gallery-image");
                 const lightbox = document.getElementById("lightbox");
+                const lightboxImage = document.getElementById("lightbox-image");
 
-                if (galleryImage && lightbox) {
+                if (galleryImage && lightbox && lightboxImage) {
                     const openLightbox = () => {
+                        const src = lightboxImage.dataset.src;
+                        if (src && lightboxImage.getAttribute("src") !== src) {
+                            lightboxImage.setAttribute("src", src);
+                        }
                         lightbox.classList.remove("opacity-0", "pointer-events-none");
                     };
                     const closeLightbox = () => {

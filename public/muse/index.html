@@ -7,14 +7,7 @@
     <title>Probabilistic Text-to-Music at Scale | Research Poster</title>
     <link rel="stylesheet" href="poster.css">
     <!-- MathJax for equations -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
 </head>
 
 <body>
@@ -23,7 +16,8 @@
         <header class="header">
             <div class="header-content">
                 <div class="logo-section">
-                    <img src="muse.png" alt="MUSE Logo" class="logo">
+                    <img src="_generated/muse-logo-240.webp" alt="MUSE Logo" class="logo" width="120" height="120"
+                        loading="eager" fetchpriority="high" decoding="async">
                 </div>
                 <div class="title-section">
                     <h1 class="main-title">Probabilistic Text-to-Music at Scale</h1>
@@ -100,7 +94,11 @@
                 </div>
                 <div class="block-content">
                     <div class="pipeline-image">
-                        <img src="pipeline.png" alt="Pipeline Architecture">
+                        <img src="_generated/pipeline-720.webp"
+                            srcset="_generated/pipeline-720.webp 720w, _generated/pipeline-1200.webp 1200w"
+                            sizes="(min-width: 1200px) 45vw, 100vw" alt="Pipeline Architecture" width="1439"
+                            height="768" loading="lazy" decoding="async"
+                            data-lightbox-src="_generated/pipeline-1200.webp">
                     </div>
 
                     <div class="stage-cards">
@@ -462,7 +460,10 @@
                     </table>
 
                     <div class="demo-image">
-                        <img src="2D Density Heatmap.png" alt="Latent Space">
+                        <img src="_generated/latent-density-480.webp"
+                            srcset="_generated/latent-density-480.webp 480w, _generated/latent-density-800.webp 800w"
+                            sizes="(min-width: 1200px) 30vw, 100vw" alt="Latent Space" width="1200" height="1000"
+                            loading="lazy" decoding="async" data-lightbox-src="_generated/latent-density-800.webp">
                         <p class="caption">MUSE Lab: Diverse samples visualized in MuQ-MuLan latent space</p>
                     </div>
 
@@ -522,7 +523,7 @@
             images.forEach(img => {
                 img.classList.add('zoomable');
                 img.addEventListener('click', function () {
-                    lightboxImg.src = this.src;
+                    lightboxImg.src = this.dataset.lightboxSrc || this.currentSrc || this.src;
                     lightbox.classList.add('active');
                 });
             });

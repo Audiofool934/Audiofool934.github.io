@@ -1,7 +1,7 @@
 ---
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { audioshowCrates, type AudioShowCrate } from "../../../data/audioshowCrates";
-import { audioImage, audioImageSrcset } from "../../../utils/audioImages";
+import { audioImage, audioImageSrcset, imageReferrerPolicy } from "../../../utils/audioImages";
 
 export function getStaticPaths() {
     return audioshowCrates.map((crate) => ({
@@ -68,10 +68,13 @@ const cratePlaylist = crate.tracks.map((track) => ({
                         srcset={audioImageSrcset(crate.cover, [96, 320])}
                         sizes="(min-width: 768px) 220px, 100vw"
                         alt={`${crate.title} cover`}
+                        width="320"
+                        height="320"
                         class="h-full w-full object-cover"
                         loading="eager"
                         fetchpriority="high"
                         decoding="async"
+                        referrerpolicy={imageReferrerPolicy(crate.cover)}
                     />
                 </div>
 
@@ -150,12 +153,15 @@ const cratePlaylist = crate.tracks.map((track) => ({
                                     <div class="h-12 w-12 overflow-hidden border border-[var(--border-main)] md:h-14 md:w-14">
                                         <img
                                             src={audioImage(track.cover, 96) || track.cover}
-                                            srcset={audioImageSrcset(track.cover, [96, 320])}
+                                            srcset={audioImageSrcset(track.cover, [96, 192])}
                                             sizes="56px"
                                             alt={`${track.album} cover`}
+                                            width="56"
+                                            height="56"
                                             class="h-full w-full object-cover"
                                             loading="lazy"
                                             decoding="async"
+                                            referrerpolicy={imageReferrerPolicy(track.cover)}
                                         />
                                     </div>
 

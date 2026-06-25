@@ -57,11 +57,12 @@ AudioShow URLs are preserved by redirect stubs.
 Use npm with Node `>=22.12.0`.
 
 ```bash
-npm run dev                    # Generate AudioShow image variants, then start Astro dev
+npm run dev                    # Generate site/AudioShow image variants, then start Astro dev
 npm run build                  # Generate image variants, clear Astro caches, then build
 npm run preview                # Preview the production build locally
 npm run astro -- check         # Astro + TypeScript diagnostics
 npm run check:audioshow-parser # Parser fixture check for batch AudioShow markdown
+npm run generate:site-images
 npm run generate:audioshow-images
 npm run refresh:github-projects
 npm run build:with-sync        # Explicit GitHub sync + build
@@ -69,7 +70,8 @@ npm run build:with-sync        # Explicit GitHub sync + build
 
 Important build behavior:
 
-- `predev` and `prebuild` run only `scripts/generate-audioshow-images.mjs`.
+- `predev` and `prebuild` run `scripts/generate-site-images.mjs` and
+  `scripts/generate-audioshow-images.mjs`.
 - `npm run build` intentionally does not sync GitHub data from the network.
 - Use `npm run build:with-sync` only when the user explicitly wants fresh GitHub
   project data.
@@ -84,7 +86,7 @@ Important build behavior:
 - MDX support.
 - `remark-math` + `rehype-katex` for math rendering.
 - PrismJS syntax highlighting.
-- `sharp` for generated AudioShow image variants.
+- `sharp` for generated site and AudioShow image variants.
 
 ## Astro And Routing Conventions
 
@@ -171,6 +173,30 @@ Markdown image behavior:
   AudioShow content may arrive as raw nodes.
 - AudioShow local images under `/images/audioshow/` get generated responsive
   variants under `/images/audioshow/_generated/`.
+- Remote markdown images get `referrerpolicy="no-referrer"` when possible, which
+  helps older Imgur/GitHub-hosted content keep loading reliably.
+
+## Media Performance
+
+- `scripts/generate-site-images.mjs` creates responsive homepage variants under
+  `/images/_generated/site/`. These outputs are generated and ignored by git.
+- `scripts/generate-audioshow-images.mjs` creates 96px, 192px, and 320px WebP
+  variants under `/images/audioshow/_generated/`. Use 96/192 for tiny rows and
+  320 for card/player artwork.
+- Keep generated image directories out of commits; source images and scripts are
+  the maintainable inputs.
+- `SiteHead.astro` should not load Google Fonts. Fonts are vendored in
+  `public/fonts/` and declared in `src/style/global.css` with
+  `font-display: swap`.
+- Gallery index should eager-load only the first visible lane of masonry images.
+  Do not make large offscreen Gallery cards eager.
+- Gallery detail pages should not put fullscreen/lightbox image URLs in `src`
+  before interaction. Store them in `data-src` and assign `src` only when opened.
+- Prefer explicit `width`, `height`, `sizes`, `decoding`, `loading`, and
+  `fetchpriority` attributes for any new hand-authored `<img>`.
+- For remote image URLs that cannot be optimized locally, add
+  `referrerpolicy="no-referrer"` and a local placeholder fallback where the UI
+  supports it.
 
 ## Content Collections
 
@@ -248,8 +274,8 @@ Supported optional batch fields:
 
 Generated images:
 
-- `scripts/generate-audioshow-images.mjs` creates 96px and 320px WebP variants
-  for local AudioShow images.
+- `scripts/generate-audioshow-images.mjs` creates 96px, 192px, and 320px WebP
+  variants for local AudioShow images.
 - It skips `_generated/` and old `*-og.jpg` files.
 - `AUDIOSHOW_IMAGE_WORKERS` can tune worker count.
 

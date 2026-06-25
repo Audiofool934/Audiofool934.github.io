@@ -11,8 +11,15 @@ const timelinePosts = (await getTimelineItems()).slice(0, 3);
 		<!-- Background -->
 		<div class="absolute bottom-0 right-0 pointer-events-none max-h-[50%] max-w-[66%] md:max-w-[50%]">
 			<img
-				src="/images/BG.webp"
+				src="/images/_generated/site/BG-960.webp"
+				srcset="/images/_generated/site/BG-480.webp 480w, /images/_generated/site/BG-960.webp 960w, /images/_generated/site/BG-1280.webp 1280w"
+				sizes="(min-width: 768px) 50vw, 66vw"
 				alt=""
+				width="960"
+				height="807"
+				loading="eager"
+				fetchpriority="high"
+				decoding="async"
 				class="w-full h-full object-cover object-right-bottom opacity-50"
 			/>
 			<div class="absolute inset-0 bg-gradient-to-br from-[var(--bg-body)] via-transparent to-transparent"></div>
@@ -25,8 +32,12 @@ const timelinePosts = (await getTimelineItems()).slice(0, 3);
 			>
 				<span>Audiofool</span>
 				<img
-					src="/images/audiofool-seal.webp"
+					src="/images/_generated/site/audiofool-seal-112.webp"
 					alt=""
+					width="112"
+					height="112"
+					loading="eager"
+					decoding="async"
 					class="audiofool-seal h-11 w-11 md:h-14 md:w-14 shrink-0 opacity-90"
 					aria-hidden="true"
 				/>

@@ -2,7 +2,7 @@
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { groupEpisodesByRange } from "../../../utils/parseAudioshow";
 import { loadAllEpisodes } from "../../../utils/loadEpisodes";
-import { audioImage, audioImageSrcset } from "../../../utils/audioImages";
+import { audioImage, audioImageSrcset, imageReferrerPolicy } from "../../../utils/audioImages";
 
 const allEpisodes = loadAllEpisodes();
 
@@ -94,12 +94,15 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         <div class="w-12 h-12 flex-shrink-0 border border-[var(--border-main)] overflow-hidden">
                                             <img
                                                 src={audioImage(cover, 96) || placeholderImage}
-                                                srcset={audioImageSrcset(cover, [96, 320])}
+                                                srcset={audioImageSrcset(cover, [96, 192])}
                                                 sizes="48px"
                                                 alt={ep.songTitle}
+                                                width="48"
+                                                height="48"
                                                 class="w-full h-full object-cover"
                                                 loading="lazy"
                                                 decoding="async"
+                                                referrerpolicy={imageReferrerPolicy(cover)}
                                                 onerror={`this.src='${placeholderImage}'`}
                                             />
                                         </div>

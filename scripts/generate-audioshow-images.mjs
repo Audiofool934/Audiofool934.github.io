@@ -5,7 +5,7 @@ import sharp from "sharp";
 const publicDir = path.join(process.cwd(), "public");
 const sourceRoot = path.join(publicDir, "images/audioshow");
 const outputRoot = path.join(sourceRoot, "_generated");
-const widths = [96, 320];
+const widths = [96, 192, 320];
 const workerCount = Math.max(2, Math.min(8, Number(process.env.AUDIOSHOW_IMAGE_WORKERS) || 6));
 const sourceExts = new Set([".webp", ".jpg", ".jpeg", ".png"]);
 

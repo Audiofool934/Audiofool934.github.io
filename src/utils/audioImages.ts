@@ -1,5 +1,6 @@
 const AUDIO_IMAGE_PREFIX = "/images/audioshow/";
 const GENERATED_PREFIX = "/images/audioshow/_generated/";
+const REMOTE_IMAGE_RE = /^https?:\/\//i;
 
 function encodePath(pathname: string) {
     return pathname
@@ -27,4 +28,12 @@ export function audioImage(src: string | undefined, width = 320) {
 export function audioImageSrcset(src: string | undefined, widths = [96, 320]) {
     if (!isOptimizableAudioImage(src)) return undefined;
     return widths.map((width) => `${audioImage(src, width)} ${width}w`).join(", ");
+}
+
+export function isRemoteImage(src?: string) {
+    return REMOTE_IMAGE_RE.test(src || "");
+}
+
+export function imageReferrerPolicy(src?: string) {
+    return isRemoteImage(src) ? "no-referrer" : undefined;
 }

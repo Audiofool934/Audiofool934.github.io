@@ -4,7 +4,9 @@ dist/
 .astro/
 
 # generated media variants
+public/images/_generated/
 public/images/audioshow/_generated/
+public/muse/_generated/
 
 # dependencies
 node_modules/

@@ -1,7 +1,7 @@
 ---
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { audioshowCrates } from "../../../data/audioshowCrates";
-import { audioImage, audioImageSrcset } from "../../../utils/audioImages";
+import { audioImage, audioImageSrcset, imageReferrerPolicy } from "../../../utils/audioImages";
 
 const crateCount = audioshowCrates.length;
 ---
@@ -53,10 +53,13 @@ const crateCount = audioshowCrates.length;
                                 srcset={audioImageSrcset(crate.cover, [96, 320])}
                                 sizes="(min-width: 768px) 160px, 100vw"
                                 alt={`${crate.title} cover`}
+                                width="320"
+                                height="320"
                                 class="h-full w-full object-cover"
                                 loading={index === 0 ? "eager" : "lazy"}
                                 fetchpriority={index === 0 ? "high" : "auto"}
                                 decoding="async"
+                                referrerpolicy={imageReferrerPolicy(crate.cover)}
                             />
                         </div>
 

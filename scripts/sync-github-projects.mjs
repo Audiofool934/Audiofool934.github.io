@@ -62,7 +62,7 @@ const readmeHtmlSanitizeOptions = {
   ],
   allowedAttributes: {
     a: ['href', 'name', 'target', 'title', 'rel'],
-    img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'decoding'],
+    img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'decoding', 'referrerpolicy'],
     source: ['src', 'srcset', 'type', 'media'],
     details: ['open'],
     th: ['align'],
@@ -164,7 +164,8 @@ function rewriteRawHtmlUrls(html, owner, repo, branch, baseDir) {
     // and sit below the fold; lazy-load + async-decode them so they never block
     // first paint of the project page.
     .replace(/<img\b(?![^>]*\sloading=)([^>]*?)>/gi, '<img loading="lazy"$1>')
-    .replace(/<img\b(?![^>]*\sdecoding=)([^>]*?)>/gi, '<img decoding="async"$1>');
+    .replace(/<img\b(?![^>]*\sdecoding=)([^>]*?)>/gi, '<img decoding="async"$1>')
+    .replace(/<img\b(?=[^>]*\ssrc=(["'])https?:\/\/)(?![^>]*\sreferrerpolicy=)([^>]*?)>/gi, '<img referrerpolicy="no-referrer"$2>');
 }
 
 function rewriteAndSanitizeReadmeMarkdown(markdown, owner, repo, branch, readmePath = 'README.md') {

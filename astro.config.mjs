@@ -10,6 +10,7 @@ import sitemap from '@astrojs/sitemap';
 
 const audioImagePrefix = '/images/audioshow/';
 const generatedAudioImagePrefix = '/images/audioshow/_generated/';
+const remoteImagePattern = /^https?:\/\//i;
 
 function encodePath(pathname) {
   return pathname
@@ -35,6 +36,10 @@ function audioImageVariant(src, width) {
 
 function audioImageSrcset(src, widths) {
   return widths.map((width) => `${audioImageVariant(src, width)} ${width}w`).join(', ');
+}
+
+function isRemoteImage(src) {
+  return typeof src === 'string' && remoteImagePattern.test(src);
 }
 
 // Inject lazy-loading + async decoding on every <img> in rendered markdown.
@@ -66,6 +71,9 @@ function rehypeImgAttrs() {
       if (!/\sdecoding=/i.test(patched)) {
         patched = patched.replace(/<img\b/i, '<img decoding="async"');
       }
+      if (isRemoteImage(src) && !/\sreferrerpolicy=/i.test(patched)) {
+        patched = patched.replace(/<img\b/i, '<img referrerpolicy="no-referrer"');
+      }
       return patched;
     });
   return (tree) => {
@@ -84,6 +92,9 @@ function rehypeImgAttrs() {
         }
         if (node.properties.loading == null) node.properties.loading = 'lazy';
         if (node.properties.decoding == null) node.properties.decoding = 'async';
+        if (isRemoteImage(src) && node.properties.referrerpolicy == null) {
+          node.properties.referrerpolicy = 'no-referrer';
+        }
       } else if (
         node.type === 'raw' &&
         typeof node.value === 'string' &&

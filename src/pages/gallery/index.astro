@@ -40,6 +40,8 @@ const galleryWithBody = await Promise.all(
     }),
 );
 
+const eagerGalleryItemCount = 4;
+
 // Featured count
 const featuredCount = sortedGallery.filter(
     (item) => item.data.featured,
@@ -151,9 +153,9 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                             alt={item.data.title}
                             width={640}
                             widths={[320, 640, 960]}
-                            sizes="(min-width: 1280px) 28vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                            sizes="(min-width: 1280px) 28vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, calc(100vw - 3rem)"
                             class="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.03]"
-                            loading={i < 12 ? "eager" : "lazy"}
+                            loading={i < eagerGalleryItemCount ? "eager" : "lazy"}
                             fetchpriority={i === 0 ? "high" : "auto"}
                             decoding="async"
                             quality={76}
@@ -213,46 +215,30 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
         >
         </div>
 
-        <!-- Mobile layout: fixed split (top 2/3 image, bottom 1/3 info) -->
-        <!-- Desktop layout: centered card with left/right split -->
+        <!-- Unified viewer: image first, metadata footer only as tall as needed -->
         <div
             id="modal-scroll"
-            class="absolute inset-0 flex flex-col xl:flex-row xl:items-center xl:justify-center xl:p-8 overflow-hidden"
+            class="absolute inset-0 flex items-stretch justify-center overflow-hidden"
         >
             <!-- Close button -->
             <button
                 id="modal-close"
-                class="absolute top-3 right-3 xl:fixed xl:top-4 xl:right-4 z-20 font-mono text-white/70 hover:text-white text-2xl w-10 h-10 flex items-center justify-center transition-colors"
+                type="button"
+                class="absolute top-3 right-3 md:top-5 md:right-5 z-30 font-mono text-[var(--text-muted)] hover:text-[var(--text-main)] dark:text-white/70 dark:hover:text-white text-2xl w-10 h-10 flex items-center justify-center transition-colors"
                 aria-label="Close"
             >
                 &times;
             </button>
 
-            <!-- Prev / Next: full-height strips in backdrop beside the card (desktop only) -->
-            <button
-                id="modal-prev"
-                class="hidden xl:flex fixed left-0 top-0 bottom-0 w-[calc((100vw-64rem)/2)] min-w-[3rem] z-10 font-mono text-white/40 hover:text-white text-4xl items-center justify-center transition-colors"
-                aria-label="Previous"
-            >
-                &#8249;
-            </button>
-            <button
-                id="modal-next"
-                class="hidden xl:flex fixed right-0 top-0 bottom-0 w-[calc((100vw-64rem)/2)] min-w-[3rem] z-10 font-mono text-white/40 hover:text-white text-4xl items-center justify-center transition-colors"
-                aria-label="Next"
-            >
-                &#8250;
-            </button>
-
-            <!-- Card -->
+            <!-- Viewer -->
             <div
                 id="modal-content"
-                class="relative w-full h-[100dvh] max-h-[100dvh] overflow-hidden xl:h-auto xl:max-w-5xl xl:max-h-[95vh] xl:overflow-y-auto bg-[var(--bg-body)] xl:border border-[var(--border-main)] flex flex-col xl:flex-row"
+                class="relative w-full h-[100dvh] max-h-[100dvh] overflow-hidden bg-[var(--bg-body)] dark:bg-black flex flex-col"
             >
-                <!-- Image area: mobile takes ~65vh, desktop flexible -->
+                <!-- Image area -->
                 <div
                     id="modal-image-wrap"
-                    class="modal-image-area xl:flex-1 xl:min-h-0 flex items-center justify-center bg-[var(--bg-body)] dark:bg-black overflow-hidden"
+                    class="modal-image-area min-h-0 flex-1 flex items-center justify-center bg-[var(--bg-body)] dark:bg-black overflow-hidden px-2 pt-12 pb-2 md:px-8 md:pt-10 md:pb-4"
                 >
                     <img
                         id="modal-image"
@@ -261,54 +247,60 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                         role="button"
                         tabindex="0"
                         aria-label="View photo full screen"
-                        class="max-w-full max-h-full object-contain cursor-zoom-in transition-opacity duration-150 p-2 xl:p-0 block"
+                        class="max-w-full max-h-full object-contain cursor-zoom-in transition-opacity duration-150 block"
                     />
                 </div>
 
-                <!-- Info panel: mobile fixed bottom, desktop side panel -->
+                <!-- Info footer -->
                 <div
                     id="modal-info"
-                    class="modal-info-area xl:w-72 2xl:w-80 flex-shrink-0 overflow-y-auto border-t xl:border-t-0 xl:border-l border-[var(--border-main)] flex flex-col xl:gap-4 bg-[var(--bg-body)]"
+                    class="modal-info-area flex-shrink-0 overflow-y-auto border-t border-[var(--border-main)] flex flex-col bg-[var(--bg-body)] dark:bg-black"
                 >
-                    <div class="p-4 xl:p-6 flex flex-col gap-2 xl:gap-4">
-                        <!-- Compact row with counter + title + nav (< 1280px) -->
-                        <div class="flex items-center justify-between xl:hidden">
-                            <div class="flex items-center gap-3 min-w-0">
+                    <div
+                        class="mx-auto w-full max-w-5xl p-4 md:px-6 md:py-4 flex flex-col gap-2.5"
+                    >
+                        <!-- Compact row with counter + title + nav -->
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="flex min-w-0 flex-1 md:flex-initial items-baseline gap-3"
+                            >
                                 <span
                                     id="modal-counter-mobile"
                                     class="font-mono text-[10px] text-[var(--text-faint)] flex-shrink-0"
                                 ></span>
                                 <h2
                                     id="modal-title-mobile"
-                                    class="text-base font-bold font-heading truncate"
+                                    class="text-base md:text-lg font-bold font-heading truncate"
                                 ></h2>
                             </div>
-                            <div class="flex gap-1 flex-shrink-0 ml-2">
+                            <div class="flex gap-1 flex-shrink-0">
                                 <button
                                     id="modal-prev-mobile"
+                                    type="button"
                                     aria-label="Previous photo"
-                                    class="w-8 h-8 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] active:bg-[var(--border-main)] transition-colors"
+                                    class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] active:bg-[var(--border-main)] disabled:pointer-events-none transition-colors"
                                 >
                                     &larr;
                                 </button>
                                 <button
                                     id="modal-next-mobile"
+                                    type="button"
                                     aria-label="Next photo"
-                                    class="w-8 h-8 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] active:bg-[var(--border-main)] transition-colors"
+                                    class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center border border-[var(--border-main)] font-mono text-xs text-[var(--text-muted)] hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] active:bg-[var(--border-main)] disabled:pointer-events-none transition-colors"
                                 >
                                     &rarr;
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Scrollable meta (< 1280px) -->
-                        <div class="xl:hidden flex flex-col gap-1.5">
+                        <!-- Scrollable meta -->
+                        <div class="flex flex-col gap-1.5">
                             <div
                                 id="modal-body-mobile"
-                                class="text-xs text-[var(--text-muted)] leading-relaxed"
+                                class="max-w-3xl text-xs md:text-sm text-[var(--text-muted)] leading-relaxed"
                             ></div>
                             <div
-                                class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] text-[var(--text-muted)]"
+                                class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] md:text-xs text-[var(--text-muted)]"
                             >
                                 <span id="modal-date-mobile"></span>
                                 <span id="modal-location-mobile"></span>
@@ -319,37 +311,6 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                             </div>
                         </div>
 
-                        <!-- Desktop: full info (≥1280px) -->
-                        <div class="hidden xl:flex xl:flex-col xl:gap-4">
-                            <div
-                                id="modal-counter"
-                                class="font-mono text-[10px] text-[var(--text-faint)]"
-                            >
-                            </div>
-
-                            <h2
-                                id="modal-title"
-                                class="text-xl font-bold font-heading"
-                            >
-                            </h2>
-
-                            <div
-                                id="modal-body"
-                                class="text-sm text-[var(--text-muted)] leading-relaxed"
-                            >
-                            </div>
-
-                            <div
-                                class="flex flex-col gap-2 font-mono text-xs text-[var(--text-muted)]"
-                            >
-                                <div id="modal-date"></div>
-                                <div id="modal-location"></div>
-                                <div id="modal-camera"></div>
-                                <div id="modal-lens"></div>
-                                <div id="modal-film"></div>
-                                <div id="modal-exif"></div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -387,19 +348,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     document.querySelectorAll(".gallery-item"),
                 );
                 const modalImage = document.getElementById("modal-image");
-                // Desktop elements
-                const modalTitle = document.getElementById("modal-title");
-                const modalBody = document.getElementById("modal-body");
-                const modalDate = document.getElementById("modal-date");
-                const modalLocation =
-                    document.getElementById("modal-location");
-                const modalCamera = document.getElementById("modal-camera");
-                const modalLens = document.getElementById("modal-lens");
-                const modalExif = document.getElementById("modal-exif");
-                const modalFilm = document.getElementById("modal-film");
-                const modalCounter =
-                    document.getElementById("modal-counter");
-                // Mobile elements
+                // Footer elements
                 const modalTitleMobile =
                     document.getElementById("modal-title-mobile");
                 const modalCounterMobile =
@@ -423,8 +372,6 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     document.getElementById("modal-content");
                 const backdrop = document.getElementById("modal-backdrop");
                 const closeBtn = document.getElementById("modal-close");
-                const prevBtn = document.getElementById("modal-prev");
-                const nextBtn = document.getElementById("modal-next");
                 const prevMobile =
                     document.getElementById("modal-prev-mobile");
                 const nextMobile =
@@ -440,6 +387,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                 let currentMeta = null;
                 let visibleItems = allItems;
                 let lastFocused = null;
+                const preloadedImages = new Set();
 
                 function getVisibleItems() {
                     return allItems.filter(
@@ -452,21 +400,6 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     const script = id ? document.getElementById(id) : null;
                     if (!script) return null;
                     return JSON.parse(script.textContent || "{}");
-                }
-
-                // Safe text helper (no innerHTML XSS)
-                function metaRow(el, label, value) {
-                    if (value) {
-                        el.textContent = "";
-                        const span = document.createElement("span");
-                        span.className = "text-[var(--text-faint)]";
-                        span.textContent = label + ": ";
-                        el.appendChild(span);
-                        el.appendChild(document.createTextNode(value));
-                        el.style.display = "";
-                    } else {
-                        el.style.display = "none";
-                    }
                 }
 
                 function openModal(index, frameIndex = 0) {
@@ -505,19 +438,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                         ? itemCounter + " · frame " + (currentFrameIndex + 1) + " / " + images.length
                         : itemCounter;
 
-                    // Desktop info
-                    modalTitle.textContent = meta.title;
-                    modalBody.innerHTML = bodyHTML;
-                    modalBody.style.display = bodyHTML ? "" : "none";
-                    modalCounter.textContent = counterText;
-                    metaRow(modalDate, "Date", meta.date);
-                    metaRow(modalLocation, "Location", meta.location);
-                    metaRow(modalCamera, "Camera", meta.camera);
-                    metaRow(modalLens, "Lens", meta.lens);
-                    metaRow(modalFilm, "Film", meta.filmStock);
-                    metaRow(modalExif, "EXIF", meta.exif);
-
-                    // Mobile info (compact)
+                    // Footer info
                     modalTitleMobile.textContent = meta.title;
                     modalCounterMobile.textContent = counterText;
                     modalDateMobile.textContent = meta.date || "";
@@ -554,12 +475,6 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     const hasNext =
                         currentFrameIndex < images.length - 1 ||
                         currentIndex < visibleItems.length - 1;
-                    prevBtn.style.visibility = hasPrev
-                        ? "visible"
-                        : "hidden";
-                    nextBtn.style.visibility = hasNext
-                        ? "visible"
-                        : "hidden";
                     prevMobile.disabled = !hasPrev;
                     nextMobile.disabled = !hasNext;
                     prevMobile.style.opacity = hasPrev ? "1" : "0.3";
@@ -570,6 +485,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                     modal.style.opacity = "1";
                     document.body.style.overflow = "hidden";
                     modalScroll.scrollTop = 0;
+                    schedulePreloadAroundCurrent();
                 }
 
                 function closeModal() {
@@ -629,6 +545,52 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                             : [];
                 }
 
+                function preloadImage(src) {
+                    if (
+                        !src ||
+                        preloadedImages.has(src) ||
+                        src === modalImage.getAttribute("src")
+                    ) {
+                        return;
+                    }
+                    preloadedImages.add(src);
+                    const image = new Image();
+                    image.decoding = "async";
+                    image.src = src;
+                }
+
+                function getAdjacentImage(dir) {
+                    const images = getMetaImages(currentMeta);
+                    if (dir > 0 && currentFrameIndex < images.length - 1) {
+                        return images[currentFrameIndex + 1];
+                    }
+                    if (dir < 0 && currentFrameIndex > 0) {
+                        return images[currentFrameIndex - 1];
+                    }
+
+                    const next = currentIndex + dir;
+                    if (next < 0 || next >= visibleItems.length) return null;
+
+                    const nextImages = getMetaImages(getItemMeta(next));
+                    if (!nextImages.length) return null;
+                    return dir < 0 ? nextImages[nextImages.length - 1] : nextImages[0];
+                }
+
+                function preloadAroundCurrent() {
+                    preloadImage(getAdjacentImage(-1));
+                    preloadImage(getAdjacentImage(1));
+                }
+
+                function schedulePreloadAroundCurrent() {
+                    if ("requestIdleCallback" in window) {
+                        window.requestIdleCallback(preloadAroundCurrent, {
+                            timeout: 700,
+                        });
+                    } else {
+                        window.setTimeout(preloadAroundCurrent, 120);
+                    }
+                }
+
                 function navigate(dir) {
                     visibleItems = getVisibleItems();
                     const images = getMetaImages(currentMeta);
@@ -684,13 +646,7 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                 });
                 closeBtn.addEventListener("click", closeModal);
 
-                // Nav (desktop arrows + mobile buttons)
-                prevBtn.addEventListener("click", function () {
-                    navigate(-1);
-                });
-                nextBtn.addEventListener("click", function () {
-                    navigate(1);
-                });
+                // Nav buttons
                 prevMobile.addEventListener("click", function () {
                     navigate(-1);
                 });
@@ -841,22 +797,20 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
             }
         }
 
-        /* Compact layout: isolated one-photo viewer (< 1280px).
-           Use dynamic viewport units so mobile browser chrome does not create
-           an accidental scroll stack of the gallery behind the modal. */
-        @media (max-width: 1279px) {
-            .modal-image-area {
-                height: 70dvh;
-                min-height: 0;
-                flex: 0 0 70dvh;
-            }
+        .modal-image-area {
+            min-height: 0;
+        }
+
+        .modal-info-area {
+            max-height: min(34dvh, 18rem);
+            min-height: 0;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        @media (min-width: 768px) {
             .modal-info-area {
-                height: 30dvh;
-                min-height: 0;
-                flex: 0 0 30dvh;
-                overflow-y: auto;
-                overscroll-behavior: contain;
-                -webkit-overflow-scrolling: touch;
+                max-height: min(28dvh, 16rem);
             }
         }
 

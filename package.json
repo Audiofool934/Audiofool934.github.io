@@ -16,13 +16,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "predev": "node scripts/generate-audioshow-images.mjs",
-    "prebuild": "node scripts/generate-audioshow-images.mjs",
+    "predev": "node scripts/generate-site-images.mjs && node scripts/generate-audioshow-images.mjs",
+    "prebuild": "node scripts/generate-site-images.mjs && node scripts/generate-audioshow-images.mjs",
     "build": "rm -rf .astro node_modules/.astro && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "refresh:github-projects": "node scripts/sync-github-projects.mjs",
     "generate:audioshow-images": "node scripts/generate-audioshow-images.mjs",
+    "generate:site-images": "node scripts/generate-site-images.mjs",
     "sync:github-projects": "npm run refresh:github-projects",
     "build:with-sync": "node scripts/generate-audioshow-images.mjs && node scripts/sync-github-projects.mjs && npm run build",
     "check:audioshow-parser": "node --experimental-strip-types scripts/check-audioshow-parser.mjs"
