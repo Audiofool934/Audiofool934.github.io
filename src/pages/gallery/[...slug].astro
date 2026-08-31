@@ -17,9 +17,9 @@ import { formatDateLong } from "../../utils/formatDate";
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
-// Optimized variants: a 1200px card for the social/og image, and a
-// width-capped large variant for the on-demand fullscreen lightbox
-// (capped to the source width so small originals are never upscaled).
+// Optimized variants: a 1200px card for the social/og image, plus
+// width-capped large variants for every on-demand fullscreen image
+// (capped to each source width so small originals are never upscaled).
 const ogImage = (
     await getImage({
         src: entry.data.image,
@@ -28,19 +28,25 @@ const ogImage = (
         quality: 82,
     })
 ).src;
-const lightboxSrc = (
-    await getImage({
-        src: entry.data.image,
-        width: Math.min(1800, entry.data.image.width),
-        format: "webp",
-        quality: 82,
-    })
-).src;
+const detailImages =
+    entry.data.images && entry.data.images.length > 0
+        ? entry.data.images
+        : [entry.data.image];
+const lightboxSources = await Promise.all(
+    detailImages.map((src) =>
+        getImage({
+            src,
+            width: Math.min(1800, src.width),
+            format: "webp",
+            quality: 82,
+        }).then((result) => result.src),
+    ),
+);
 
 const galleryDescription =
     [entry.data.title, entry.data.location, entry.data.camera]
         .filter(Boolean)
-        .join(" · ") + " — Photography by Audiofool";
+        .join(" · ") + " - Photography by Audiofool";
 ---
 
 <MinimalLayout
@@ -60,13 +66,15 @@ const galleryDescription =
         </a>
 
         <article class="max-w-4xl mx-auto">
-            <!-- Image -->
+            <!-- Primary image -->
             <div
                 class="mb-8 border border-[var(--border-main)] overflow-hidden flex justify-center bg-[var(--bg-body)]"
             >
                 <Image
                     id="gallery-image"
-                    src={entry.data.image}
+                    data-gallery-image="true"
+                    data-lightbox-src={lightboxSources[0]}
+                    src={detailImages[0]}
                     alt={entry.data.title}
                     width={1000}
                     widths={[480, 720, 1000, 1400]}
@@ -75,7 +83,7 @@ const galleryDescription =
                     fetchpriority="high"
                     role="button"
                     tabindex="0"
-                    aria-label="View photo full screen"
+                    aria-label="View photo 1 full screen"
                     decoding="async"
                     quality={78}
                     class="max-h-[85vh] w-auto object-contain cursor-zoom-in transition-transform duration-300"
@@ -163,6 +171,38 @@ const galleryDescription =
             <div class="post-content prose prose-lg max-w-none">
                 <Content />
             </div>
+
+            <!-- Additional images -->
+            {
+                detailImages.length > 1 && (
+                    <div class="mt-8 space-y-6">
+                        {detailImages.slice(1).map((src, index) => {
+                            const imageIndex = index + 1;
+                            return (
+                                <div class="border border-[var(--border-main)] overflow-hidden flex justify-center bg-[var(--bg-body)]">
+                                    <Image
+                                        data-gallery-image="true"
+                                        data-lightbox-src={lightboxSources[imageIndex]}
+                                        src={src}
+                                        alt={`${entry.data.title} - view ${imageIndex + 1} of ${detailImages.length}`}
+                                        width={1000}
+                                        widths={[480, 720, 1000, 1400]}
+                                        sizes="(min-width: 896px) 56rem, calc(100vw - 3rem)"
+                                        loading="lazy"
+                                        fetchpriority="auto"
+                                        role="button"
+                                        tabindex="0"
+                                        aria-label={`View photo ${imageIndex + 1} full screen`}
+                                        decoding="async"
+                                        quality={78}
+                                        class="max-h-[85vh] w-auto object-contain cursor-zoom-in transition-transform duration-300"
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+                )
+            }
         </article>
     </div>
 
@@ -173,7 +213,6 @@ const galleryDescription =
     >
         <img
             id="lightbox-image"
-            data-src={lightboxSrc}
             src=""
             alt={entry.data.title}
             loading="lazy"
@@ -193,33 +232,39 @@ const galleryDescription =
                     escHandler = null;
                 }
 
-                const galleryImage = document.getElementById("gallery-image");
+                const galleryImages = Array.from(
+                    document.querySelectorAll("[data-gallery-image]"),
+                );
                 const lightbox = document.getElementById("lightbox");
                 const lightboxImage = document.getElementById("lightbox-image");
+                let returnTarget = null;
 
-                if (galleryImage && lightbox && lightboxImage) {
-                    const openLightbox = () => {
-                        const src = lightboxImage.dataset.src;
+                if (galleryImages.length > 0 && lightbox && lightboxImage) {
+                    const openLightbox = (galleryImage) => {
+                        const src = galleryImage.getAttribute("data-lightbox-src");
                         if (src && lightboxImage.getAttribute("src") !== src) {
                             lightboxImage.setAttribute("src", src);
                         }
+                        returnTarget = galleryImage;
                         lightbox.classList.remove("opacity-0", "pointer-events-none");
                     };
                     const closeLightbox = () => {
                         const wasOpen = !lightbox.classList.contains("pointer-events-none");
                         lightbox.classList.add("opacity-0", "pointer-events-none");
-                        if (wasOpen) galleryImage.focus();
+                        if (wasOpen && returnTarget) returnTarget.focus();
                     };
 
-                    galleryImage.addEventListener("click", (e) => {
-                        e.stopPropagation();
-                        openLightbox();
-                    });
-                    galleryImage.addEventListener("keydown", (e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            openLightbox();
-                        }
+                    galleryImages.forEach((galleryImage) => {
+                        galleryImage.addEventListener("click", (e) => {
+                            e.stopPropagation();
+                            openLightbox(galleryImage);
+                        });
+                        galleryImage.addEventListener("keydown", (e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                openLightbox(galleryImage);
+                            }
+                        });
                     });
 
                     lightbox.addEventListener("click", closeLightbox);
