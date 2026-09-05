@@ -60,7 +60,8 @@ const cratePlaylist = crate.tracks.map((track) => ({
             </a>
         </div>
 
-        <article>
+        <article data-audio-crate>
+            <script is:inline type="application/json" id="crate-playlist" set:html={JSON.stringify(cratePlaylist).replace(/</g, "\\u003c")} />
             <header class="mb-10 grid gap-6 border-b border-[var(--border-main)] pb-8 md:grid-cols-[220px_1fr] md:gap-8">
                 <div class="aspect-square overflow-hidden border border-[var(--border-main)] bg-neutral-100 dark:bg-neutral-900">
                     <img
@@ -138,14 +139,7 @@ const cratePlaylist = crate.tracks.map((track) => ({
                             {section.tracks.map((track) => (
                                 <div
                                     class="track-row group grid cursor-pointer grid-cols-[48px_minmax(0,1fr)_32px] gap-4 border-b border-[var(--border-main)] p-4 transition-colors last:border-b-0 md:grid-cols-[56px_56px_minmax(0,1fr)_220px_40px] md:items-center"
-                                    data-crate-track={JSON.stringify({
-                                        type: "local",
-                                        url: track.audioPreviewUrl,
-                                        title: track.title,
-                                        artist: track.artists,
-                                        artwork: audioImage(track.cover, 320) || track.cover,
-                                    })}
-                                    data-crate-index={track.number - 1}
+                                    data-crate-index={crate.tracks.indexOf(track)}
                                     tabindex="0"
                                     role="button"
                                     aria-label={`Play preview: ${track.title}`}
@@ -206,30 +200,36 @@ const cratePlaylist = crate.tracks.map((track) => ({
     </div>
 </MinimalLayout>
 
-<script is:inline define:vars={{ cratePlaylist }}>
-    document.addEventListener("astro:page-load", () => {
-        document.querySelectorAll("[data-crate-track]").forEach((row) => {
-            const playTrack = () => {
-                const data = row.dataset.crateTrack;
-                if (!data || !window.playTrack) return;
-                const trackIndex = Number(row.dataset.crateIndex);
-                if (window.setAudioPlaylist) {
-                    window.setAudioPlaylist(cratePlaylist, { currentIndex: trackIndex });
-                }
-                window.playTrack({
-                    ...JSON.parse(data),
-                    _plIdx: trackIndex,
-                    _playlist: cratePlaylist,
-                });
-            };
+<script>
+    import type { AudioTrack } from "../../../scripts/audio/types";
 
-            row.addEventListener("click", playTrack);
-            row.addEventListener("keydown", (event) => {
-                if (event.key !== "Enter" && event.key !== " ") return;
-                event.preventDefault();
-                playTrack();
+    document.addEventListener("astro:page-load", () => {
+        const crate = document.querySelector<HTMLElement>("[data-audio-crate]");
+        const data = document.getElementById("crate-playlist");
+        if (!crate || !data) return;
+        const playlist: AudioTrack[] = JSON.parse(data.textContent || "[]");
+
+        const playRow = (target: EventTarget | null) => {
+            if (!(target instanceof Element)) return;
+            const row = target.closest<HTMLElement>("[data-crate-index]");
+            if (!row) return;
+            const index = Number(row.dataset.crateIndex);
+            const track = playlist[index];
+            if (!track) return;
+            window.playTrack?.({
+                ...track,
+                _plIdx: index,
+                _playlist: playlist,
             });
-        });
+        };
+
+        crate.onclick = (event) => playRow(event.target);
+        crate.onkeydown = (event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            if (!(event.target instanceof Element) || !event.target.closest("[data-crate-index]")) return;
+            event.preventDefault();
+            playRow(event.target);
+        };
     });
 </script>
 

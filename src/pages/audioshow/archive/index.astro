@@ -53,7 +53,7 @@ const placeholderImage = "/images/placeholder-album.svg";
         </div>
 
         <!-- Episode Ranges -->
-        <div class="space-y-8">
+        <div class="space-y-8" data-audioshow-archive>
             {sortedRanges.map((range) => (
                 <section class="border border-[var(--border-main)]" data-range={range}>
                     <details class="group">
@@ -69,7 +69,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                                 <button 
                                     class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors px-2 py-1 border border-[var(--border-main)] hover:bg-[var(--text-main)]/5"
                                     data-toggle-all={range}
-                                    onclick={`toggleAllLyrics('${range}'); event.stopPropagation();`}
+                                    type="button"
                                 >
                                     [lyrics]
                                 </button>
@@ -84,14 +84,14 @@ const placeholderImage = "/images/placeholder-album.svg";
                                 const cover = ep.imageUrl || placeholderImage;
                                 const artwork = audioImage(cover, 320) || placeholderImage;
                                 return (
-                                <div class="episode-item border-b border-[var(--border-main)] last:border-b-0" data-ep={ep.number}>
+                                <div class="episode-item" data-ep={ep.number}>
                                     <!-- Main Row -->
                                     <div 
-                                        class="group flex items-center gap-4 p-4 hover:bg-[var(--text-main)]/5 transition-colors cursor-pointer"
+                                        class="episode-row"
                                         data-ep-row={ep.number}
                                     >
                                         <!-- Thumbnail -->
-                                        <div class="w-12 h-12 flex-shrink-0 border border-[var(--border-main)] overflow-hidden">
+                                        <div class="episode-thumbnail">
                                             <img
                                                 src={audioImage(cover, 96) || placeholderImage}
                                                 srcset={audioImageSrcset(cover, [96, 192])}
@@ -108,7 +108,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         </div>
 
                                         <!-- Episode Number -->
-                                        <div class="w-12 font-mono text-sm text-[var(--text-faint)] text-right">
+                                        <div class="episode-number">
                                             #{ep.number}
                                         </div>
 
@@ -117,20 +117,20 @@ const placeholderImage = "/images/placeholder-album.svg";
                                             <div class="font-bold truncate">
                                                 {ep.songTitle}
                                             </div>
-                                            <div class="text-xs text-[var(--text-muted)] truncate">
+                                            <div class="episode-album">
                                                 {ep.album} ({ep.year})
                                             </div>
                                         </div>
 
                                         <!-- Artist on right -->
-                                        <div class="hidden md:block text-sm text-[var(--text-muted)] truncate max-w-[200px]">
+                                        <div class="episode-artist">
                                             {ep.artist}
                                         </div>
 
                                         <!-- Play Button -->
                                         {(ep.appleMusicUrl || ep.audioPreviewUrl) ? (
                                             <button
-                                                class="w-8 text-center opacity-50 hover:opacity-100 transition-opacity"
+                                                class="episode-play"
                                                 aria-label={`Play ${ep.songTitle} by ${ep.artist}`}
                                                 data-play-track={JSON.stringify({
                                                     type: (ep.audioPreviewUrl || ep.appleMusicUrl)?.includes('music.apple.com') ? 'apple' : 'local',
@@ -149,7 +149,7 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         <!-- Expand Toggle -->
                                         <button
                                             type="button"
-                                            class="w-6 text-center text-[var(--text-muted)] lyrics-arrow transition-transform"
+                                            class="lyrics-arrow"
                                             data-ep-toggle={ep.number}
                                             aria-label={`Toggle lyrics for ${ep.songTitle}`}
                                             aria-expanded="false"
@@ -160,8 +160,8 @@ const placeholderImage = "/images/placeholder-album.svg";
 
                                     <!-- Lyrics (Hidden by default) -->
                                     <div class="lyrics-content hidden px-4 pb-4">
-                                        <div class="ml-[76px] pl-4 border-l-2 border-[var(--border-main)] space-y-3">
-                                            <p class="text-sm italic text-[var(--text-muted)] whitespace-pre-line">
+                                        <div class="lyrics-body">
+                                            <p class="episode-lyric">
                                                 {`"${ep.lyricExcerpt}"`}
                                             </p>
                                             {ep.projectLinks.length > 0 && (
@@ -209,69 +209,62 @@ const placeholderImage = "/images/placeholder-album.svg";
     </div>
 </MinimalLayout>
 
-<script is:inline>
+<script>
+    function setEpisodeExpanded(episode: HTMLElement, expanded: boolean) {
+        const lyrics = episode.querySelector<HTMLElement>('.lyrics-content');
+        const toggle = episode.querySelector<HTMLButtonElement>('[data-ep-toggle]');
+        lyrics?.classList.toggle('hidden', !expanded);
+        toggle?.setAttribute('aria-expanded', String(expanded));
+    }
+
     document.addEventListener("astro:page-load", () => {
-        // Toggle a single episode's lyrics (shared by row click + expand button)
-        function setEpisodeExpanded(epItem, expanded) {
-            const lyricsContent = epItem.querySelector('.lyrics-content');
-            const arrow = epItem.querySelector('.lyrics-arrow');
-            const toggleBtn = epItem.querySelector('[data-ep-toggle]');
-            lyricsContent.classList.toggle('hidden', !expanded);
-            if (arrow) arrow.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0deg)';
-            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-        }
-        function toggleEpisode(epItem) {
-            const lyricsContent = epItem.querySelector('.lyrics-content');
-            setEpisodeExpanded(epItem, lyricsContent.classList.contains('hidden'));
-        }
+        const archive = document.querySelector<HTMLElement>('[data-audioshow-archive]');
+        if (!archive) return;
 
-        // Row click is a mouse convenience...
-        document.querySelectorAll('[data-ep-row]').forEach(row => {
-            row.addEventListener('click', () => {
-                toggleEpisode(row.closest('.episode-item'));
-            });
-        });
+        // One listener serves every row and is replaced if this DOM is initialized again.
+        archive.onclick = (event) => {
+            if (!(event.target instanceof Element)) return;
+            const allToggle = event.target.closest<HTMLButtonElement>('[data-toggle-all]');
+            if (allToggle) {
+                event.preventDefault();
+                const section = allToggle.closest('section');
+                const episodes = Array.from(section?.querySelectorAll<HTMLElement>('.episode-item') ?? []);
+                const expand = episodes.every((episode) => episode.querySelector('.lyrics-content')?.classList.contains('hidden'));
+                episodes.forEach((episode) => setEpisodeExpanded(episode, expand));
+                allToggle.textContent = expand ? '[collapse]' : '[lyrics]';
+                return;
+            }
 
-        // ...the dedicated button is the keyboard-accessible control
-        // (native <button> handles Enter/Space; stopPropagation avoids a
-        // double toggle from the row handler).
-        document.querySelectorAll('[data-ep-toggle]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleEpisode(btn.closest('.episode-item'));
-            });
-        });
+            const play = event.target.closest<HTMLButtonElement>('[data-play-track]');
+            if (play?.dataset.playTrack) {
+                window.playTrack?.(JSON.parse(play.dataset.playTrack));
+                return;
+            }
 
-        // Play buttons
-        document.querySelectorAll('[data-play-track]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const track = JSON.parse(btn.dataset.playTrack);
-                window.playTrack(track);
-            });
-        });
-
-        // Toggle all lyrics in a range
-        window.toggleAllLyrics = function(range) {
-            const section = document.querySelector(`[data-range="${range}"]`);
-            const episodes = section.querySelectorAll('.episode-item');
-            const toggleBtn = section.querySelector(`[data-toggle-all="${range}"]`);
-
-            const allHidden = Array.from(episodes).every(ep =>
-                ep.querySelector('.lyrics-content').classList.contains('hidden')
-            );
-
-            episodes.forEach(ep => {
-                setEpisodeExpanded(ep, allHidden);
-            });
-
-            toggleBtn.textContent = allHidden ? '[collapse]' : '[lyrics]';
+            const row = event.target.closest<HTMLElement>('[data-ep-row]');
+            const episode = row?.closest<HTMLElement>('.episode-item');
+            if (episode) {
+                const expand = !!episode.querySelector('.lyrics-content')?.classList.contains('hidden');
+                setEpisodeExpanded(episode, expand);
+            }
         };
     });
 </script>
 
 <style>
+    .episode-item { @apply border-b border-[var(--border-main)] last:border-b-0; }
+    .episode-row { @apply flex items-center gap-4 p-4 transition-colors cursor-pointer; }
+    .episode-row:hover { background-color: color-mix(in srgb, var(--text-main) 5%, transparent); }
+    .episode-thumbnail { @apply w-12 h-12 flex-shrink-0 border border-[var(--border-main)] overflow-hidden; }
+    .episode-number { @apply w-12 font-mono text-sm text-[var(--text-faint)] text-right; }
+    .episode-album { @apply text-xs text-[var(--text-muted)] truncate; }
+    .episode-artist { @apply hidden md:block text-sm text-[var(--text-muted)] truncate max-w-[200px]; }
+    .episode-play { @apply w-8 text-center opacity-50 hover:opacity-100 transition-opacity; }
+    .lyrics-body { @apply ml-[76px] pl-4 border-l-2 border-[var(--border-main)] space-y-3; }
+    .episode-lyric { @apply text-sm italic text-[var(--text-muted)] whitespace-pre-line; }
     .lyrics-arrow {
+        @apply w-6 text-center text-[var(--text-muted)];
         transition: transform 0.2s ease;
     }
+    .lyrics-arrow[aria-expanded="true"] { transform: rotate(180deg); }
 </style>

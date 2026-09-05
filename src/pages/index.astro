@@ -10,10 +10,16 @@ const timelinePosts = (await getTimelineItems()).slice(0, 3);
 	<div class="index-hero relative overflow-clip flex flex-col" transition:animate="fade">
 		<!-- Background -->
 		<div class="absolute bottom-0 right-0 pointer-events-none max-h-[50%] max-w-[66%] md:max-w-[50%]">
+			<picture class="contents">
+				<source
+					type="image/avif"
+					srcset="/images/_generated/site/BG-320.avif 320w, /images/_generated/site/BG-480.avif 480w, /images/_generated/site/BG-640.avif 640w, /images/_generated/site/BG-960.avif 960w, /images/_generated/site/BG-1280.avif 1280w"
+					sizes="(min-width: 1440px) 592px, (min-width: 768px) calc((100vw - 256px) / 2), 66vw"
+				/>
 			<img
 				src="/images/_generated/site/BG-960.webp"
-				srcset="/images/_generated/site/BG-480.webp 480w, /images/_generated/site/BG-960.webp 960w, /images/_generated/site/BG-1280.webp 1280w"
-				sizes="(min-width: 768px) 50vw, 66vw"
+				srcset="/images/_generated/site/BG-320.webp 320w, /images/_generated/site/BG-480.webp 480w, /images/_generated/site/BG-640.webp 640w, /images/_generated/site/BG-960.webp 960w, /images/_generated/site/BG-1280.webp 1280w"
+				sizes="(min-width: 1440px) 592px, (min-width: 768px) calc((100vw - 256px) / 2), 66vw"
 				alt=""
 				width="960"
 				height="807"
@@ -22,6 +28,7 @@ const timelinePosts = (await getTimelineItems()).slice(0, 3);
 				decoding="async"
 				class="w-full h-full object-cover object-right-bottom opacity-50"
 			/>
+			</picture>
 			<div class="absolute inset-0 bg-gradient-to-br from-[var(--bg-body)] via-transparent to-transparent"></div>
 		</div>
 

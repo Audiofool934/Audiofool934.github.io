@@ -1,5 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import katexStylesheet from "katex/dist/katex.min.css?url";
+import katexMainFont from "katex/dist/fonts/KaTeX_Main-Regular.woff2?url";
+import katexMathFont from "katex/dist/fonts/KaTeX_Math-Italic.woff2?url";
 
 interface Props {
     title: string;
@@ -89,6 +92,10 @@ const jsonLd = JSON.stringify({
 <script is:inline type="application/ld+json" set:html={jsonLd} />
 
 {math && (
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" />
+    <>
+        <link rel="preload" href={katexMainFont} as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href={katexMathFont} as="font" type="font/woff2" crossorigin />
+        <link rel="stylesheet" href={katexStylesheet} />
+    </>
 )}
 <ClientRouter />

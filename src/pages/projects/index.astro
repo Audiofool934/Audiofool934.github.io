@@ -276,9 +276,9 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
     }
 </style>
 
-<script is:inline>
+<script>
     (function () {
-        let cleanupFn = null;
+        let cleanupFn: (() => void) | null = null;
 
         document.addEventListener("astro:page-load", () => {
             if (cleanupFn) {
@@ -286,11 +286,11 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                 cleanupFn = null;
             }
 
-            const filters = document.querySelectorAll(".project-view-filter");
-            const panels = document.querySelectorAll(".project-view-panel");
+            const filters = document.querySelectorAll<HTMLElement>(".project-view-filter");
+            const panels = document.querySelectorAll<HTMLElement>(".project-view-panel");
             if (!filters.length || !panels.length) return;
 
-            function applyView(view) {
+            function applyView(view: string) {
                 filters.forEach((item) => {
                     item.classList.remove("active");
                     item.setAttribute("aria-pressed", "false");
@@ -308,7 +308,8 @@ function projectMeta(project: (typeof sortedProjects)[number]) {
                 });
             }
 
-            function onClick(e) {
+            function onClick(e: Event) {
+                if (!(e.currentTarget instanceof HTMLElement)) return;
                 applyView(e.currentTarget.dataset.view || "latest");
             }
 

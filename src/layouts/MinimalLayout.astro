@@ -59,20 +59,33 @@ const defaultTrackData = getDefaultAudioTrack();
             </main>
         </div>
 
-        <script is:inline>
+        <script>
             function applyTheme() {
                 const html = document.documentElement;
                 const theme = localStorage.getItem("theme");
-                if (theme === "light") {
-                    html.classList.remove("dark");
-                } else {
-                    html.classList.add("dark");
-                }
+                const systemPrefersDark = typeof window.matchMedia === "function"
+                    ? window.matchMedia("(prefers-color-scheme: dark)").matches
+                    : true;
+                const shouldUseDark = theme === "dark"
+                    || (theme !== "light" && systemPrefersDark);
+
+                html.classList.toggle("dark", shouldUseDark);
+                syncThemeControls();
+            }
+
+            function syncThemeControls() {
+                const isDark = document.documentElement.classList.contains("dark");
+                const nextTheme = isDark ? "light" : "dark";
+                const label = `Switch to ${nextTheme} theme`;
+
+                document.querySelectorAll("[data-theme-toggle]").forEach((control) => {
+                    control.setAttribute("aria-label", label);
+                    control.setAttribute("title", label);
+                });
             }
 
             function attachToggle() {
-                const themeToggle = document.getElementById("theme-toggle");
-                const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+                const themeToggles = document.querySelectorAll<HTMLElement>("[data-theme-toggle]");
                 const menuToggle = document.getElementById("mobile-menu-toggle");
                 const menuIcon = document.getElementById("menu-icon");
                 const navContent = document.getElementById("nav-content");
@@ -84,8 +97,10 @@ const defaultTrackData = getDefaultAudioTrack();
                     applyTheme();
                 };
 
-                if (themeToggle) themeToggle.onclick = toggleTheme;
-                if (themeToggleMobile) themeToggleMobile.onclick = toggleTheme;
+                themeToggles.forEach((themeToggle) => {
+                    themeToggle.onclick = toggleTheme;
+                });
+                syncThemeControls();
 
                 if (menuToggle && navContent && menuIcon) {
                     const closeMenu = () => {
@@ -119,6 +134,9 @@ const defaultTrackData = getDefaultAudioTrack();
             document.addEventListener("astro:after-swap", applyTheme);
             document.addEventListener("astro:after-swap", focusMain);
             document.addEventListener("astro:page-load", attachToggle);
+            document.addEventListener("astro:before-preparation", () => {
+                window.scrollTo({ top: 0, behavior: "instant" });
+            });
         </script>
 
         <script is:inline define:vars={{ defaultTrackData }}>

@@ -20,6 +20,27 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
     var artworkPreloadOrder: string[] = [];
     var artworkPreloadLimit = 48;
     var artworkRenderId = 0;
+    var desktopArtwork = window.matchMedia("(min-width: 768px)");
+
+    // Request artwork for the visible player only, including after a resize.
+    desktopArtwork.addEventListener("change", syncUIWithState);
+
+    function playerArtworkUrl(url?: string) {
+        var normalizedUrl = normalizeArtworkUrl(url);
+        if (!desktopArtwork.matches && normalizedUrl.startsWith("/images/audioshow/_generated/")) {
+            // The 48px mobile cover uses a 192px source, including on high-DPI screens.
+            return normalizedUrl.replace(/-320\.webp$/, "-192.webp");
+        }
+        return normalizedUrl;
+    }
+
+    function shouldPreloadArtwork() {
+        var connection = navigator.connection;
+        return window.__audioPlayerState?.isPlaying
+            && document.visibilityState === "visible"
+            && !connection?.saveData
+            && !/^(slow-)?2g$/.test(connection?.effectiveType || "");
+    }
 
     function getElements() {
         return {
@@ -246,6 +267,7 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
         var image = new Image();
         image.decoding = "async";
         image.loading = "eager";
+        image.fetchPriority = "low";
         rememberPreloadedArtwork(normalizedUrl, image);
 
         image.onerror = function () {
@@ -256,7 +278,7 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
     }
 
     function scheduleArtworkPreload(url?: string) {
-        var normalizedUrl = normalizeArtworkUrl(url);
+        var normalizedUrl = playerArtworkUrl(url);
         if (
             !normalizedUrl ||
             artworkPreloadCache.has(normalizedUrl) ||
@@ -268,7 +290,7 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
         artworkPreloadPending.add(normalizedUrl);
         var run = function () {
             artworkPreloadPending.delete(normalizedUrl);
-            preloadArtwork(normalizedUrl);
+            if (shouldPreloadArtwork()) preloadArtwork(normalizedUrl);
         };
 
         if ("requestIdleCallback" in window) {
@@ -284,10 +306,9 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
     }
 
     function preloadNeighborArtwork(state: AudioPlayerState) {
+        if (!shouldPreloadArtwork()) return;
         var list = getActivePlaylist();
         if (!list.length) return;
-
-        scheduleArtworkPreload(state.track?.artwork);
 
         var nextIdx = resolveIndex(state, 1);
         if (nextIdx >= 0) preloadPlaylistArtworkAt(nextIdx);
@@ -374,11 +395,12 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
         setText(els.artistNameEl, artist);
         setText(els.trackNameMobile, title);
         setText(els.artistNameMobile, artist);
-        setArtwork(els.artImg, els.artPlaceholder, track?.artwork);
+        var artwork = playerArtworkUrl(track?.artwork);
+        setArtwork(els.artImg, els.artPlaceholder, desktopArtwork.matches ? artwork : "");
         setArtwork(
             els.artImgMobile,
             els.artPlaceholderMobile,
-            track?.artwork,
+            desktopArtwork.matches ? "" : artwork,
         );
         preloadNeighborArtwork(state);
 

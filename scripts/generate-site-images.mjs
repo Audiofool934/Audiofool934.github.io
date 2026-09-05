@@ -1,16 +1,19 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
 const publicDir = path.join(process.cwd(), "public");
 const outputRoot = path.join(publicDir, "images/_generated/site");
+const generatorMtime = (await fs.stat(fileURLToPath(import.meta.url))).mtimeMs;
 
 const variants = [
   {
     source: path.join(publicDir, "images/BG.webp"),
     name: "BG",
-    widths: [480, 960, 1280],
+    widths: [320, 480, 640, 960, 1280],
     quality: 74,
+    formats: { webp: 74, avif: 60 },
   },
   {
     source: path.join(publicDir, "images/audiofool-seal.webp"),
@@ -56,25 +59,25 @@ async function isFresh(sourcePath, outputPath) {
       fs.stat(sourcePath),
       fs.stat(outputPath),
     ]);
-    return outputStat.mtimeMs >= sourceStat.mtimeMs;
+    return outputStat.mtimeMs >= Math.max(sourceStat.mtimeMs, generatorMtime);
   } catch {
     return false;
   }
 }
 
-async function generateVariant({ source, outputDir, name, quality }, width) {
+async function generateVariant({ source, outputDir, name }, width, format, quality) {
   if (!(await exists(source))) {
     throw new Error(`Missing source image: ${source}`);
   }
 
-  const outputPath = path.join(outputDir || outputRoot, `${name}-${width}.webp`);
+  const outputPath = path.join(outputDir || outputRoot, `${name}-${width}.${format}`);
   if (await isFresh(source, outputPath)) return false;
 
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   await sharp(source)
     .rotate()
     .resize({ width, withoutEnlargement: true })
-    .webp({ quality, effort: 4 })
+    .toFormat(format, { quality, effort: 4 })
     .toFile(outputPath);
   return true;
 }
@@ -83,7 +86,9 @@ async function main() {
   let written = 0;
   for (const variant of variants) {
     for (const width of variant.widths) {
-      if (await generateVariant(variant, width)) written += 1;
+      for (const [format, quality] of Object.entries(variant.formats ?? { webp: variant.quality })) {
+        if (await generateVariant(variant, width, format, quality)) written += 1;
+      }
     }
   }
 

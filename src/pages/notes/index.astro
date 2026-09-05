@@ -170,9 +170,9 @@ function getConnectionCount(id: string) {
     }
 </style>
 
-<script is:inline>
+<script>
     (function () {
-        let cleanupFn = null;
+        let cleanupFn: (() => void) | null = null;
 
         document.addEventListener("astro:page-load", () => {
             if (cleanupFn) {
@@ -180,11 +180,11 @@ function getConnectionCount(id: string) {
                 cleanupFn = null;
             }
 
-            const filters = document.querySelectorAll(".note-kind");
-            const entries = document.querySelectorAll(".note-entry");
+            const filters = document.querySelectorAll<HTMLElement>(".note-kind");
+            const entries = document.querySelectorAll<HTMLElement>(".note-entry");
             if (!filters.length) return;
 
-            function applyFilter(filter) {
+            function applyFilter(filter: string) {
                 filters.forEach((t) => {
                     t.classList.remove("active");
                     t.setAttribute("aria-pressed", "false");
@@ -205,8 +205,9 @@ function getConnectionCount(id: string) {
                 });
             }
 
-            function onClick(e) {
-                applyFilter(e.currentTarget.dataset.kind);
+            function onClick(e: Event) {
+                if (!(e.currentTarget instanceof HTMLElement)) return;
+                applyFilter(e.currentTarget.dataset.kind || "all");
             }
 
             filters.forEach((tab) => {

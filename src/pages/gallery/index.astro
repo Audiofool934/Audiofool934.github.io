@@ -40,8 +40,6 @@ const galleryWithBody = await Promise.all(
     }),
 );
 
-const eagerGalleryItemCount = 4;
-
 // Featured count
 const featuredCount = sortedGallery.filter(
     (item) => item.data.featured,
@@ -152,10 +150,10 @@ function buildMeta(item: (typeof sortedGallery)[0], modalImages: string[]) {
                             src={item.data.image}
                             alt={item.data.title}
                             width={640}
-                            widths={[320, 640, 960]}
-                            sizes="(min-width: 1280px) 28vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, calc(100vw - 3rem)"
+                            widths={[320, 480, 640, 960]}
+                            sizes="(min-width: 1440px) 350px, (min-width: 1024px) calc((100vw - 388px) / 3), (min-width: 768px) calc((100vw - 372px) / 2), (min-width: 640px) calc((100vw - 68px) / 2), calc(100vw - 52px)"
                             class="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.03]"
-                            loading={i < eagerGalleryItemCount ? "eager" : "lazy"}
+                            loading={i === 0 ? "eager" : "lazy"}
                             fetchpriority={i === 0 ? "high" : "auto"}
                             decoding="async"
                             quality={76}

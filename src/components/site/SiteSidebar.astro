@@ -1,5 +1,6 @@
 ---
 import AudioPlayer from "../AudioPlayer.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
 const NAV_ITEMS = [
     { label: "Timeline", href: "/timeline/" },
@@ -17,18 +18,14 @@ const NAV_ITEMS = [
             <button id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-content" class="font-mono text-sm border border-[var(--border-main)] px-2 py-1 hover:bg-[var(--text-main)] hover:text-[var(--bg-body)] transition-colors">
                 <span id="menu-icon">[ ≡ ]</span>
             </button>
-            <button id="theme-toggle-mobile" aria-label="Toggle light/dark theme" class="text-xl hover:rotate-12 transition-transform" title="Toggle Theme">
-                <span class="dark:hidden">🌑</span><span class="hidden dark:inline">🌕</span>
-            </button>
+            <ThemeToggle id="theme-toggle-mobile" />
         </div>
     </div>
 
     <div id="nav-content" class="hidden md:flex flex-col gap-8 mt-6 md:mt-0">
         <div class="hidden md:flex items-center justify-between">
             <a href="/" class="text-xl font-bold font-mono tracking-tighter hover:opacity-60 transition-opacity">Audiofool</a>
-            <button id="theme-toggle" aria-label="Toggle light/dark theme" class="text-xl hover:rotate-12 transition-transform" title="Toggle Dark Side of the Moon">
-                <span class="dark:hidden">🌑</span><span class="hidden dark:inline">🌕</span>
-            </button>
+            <ThemeToggle id="theme-toggle" />
         </div>
 
         <nav class="flex flex-col gap-4">

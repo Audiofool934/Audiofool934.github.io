@@ -1,12 +1,13 @@
 <script is:inline>
-    // Dark-first identity: default to dark unless the reader explicitly chooses light.
+    // Respect an explicit choice; otherwise initialize from the system preference.
     const html = document.documentElement;
     const storedTheme = typeof localStorage !== "undefined" ? localStorage.getItem("theme") : null;
-    if (storedTheme === "light") {
-        html.classList.remove("dark");
-    } else {
-        html.classList.add("dark");
-    }
+    const systemPrefersDark = typeof window.matchMedia === "function"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        : true;
+    const shouldUseDark = storedTheme === "dark"
+        || (storedTheme !== "light" && systemPrefersDark);
+    html.classList.toggle("dark", shouldUseDark);
 </script>
 <style is:global>
     ::view-transition-old(root),
@@ -20,8 +21,3 @@
         overflow: hidden;
     }
 </style>
-<script is:inline>
-    document.addEventListener("astro:before-preparation", () => {
-        window.scrollTo({ top: 0, behavior: "instant" });
-    });
-</script>

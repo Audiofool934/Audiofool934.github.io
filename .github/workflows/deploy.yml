@@ -32,6 +32,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           node-version: 24
+      - name: Check production performance budgets
+        run: npm run check:performance
 
   deploy:
     needs: build

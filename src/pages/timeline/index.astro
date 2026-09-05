@@ -133,9 +133,9 @@ const filters = filterOrder
     }
 </style>
 
-<script is:inline>
+<script>
     (function () {
-        let cleanupFn = null;
+        let cleanupFn: (() => void) | null = null;
 
         document.addEventListener("astro:page-load", () => {
             if (cleanupFn) {
@@ -143,12 +143,12 @@ const filters = filterOrder
                 cleanupFn = null;
             }
 
-            const filters = document.querySelectorAll(".timeline-filter");
-            const entries = document.querySelectorAll(".timeline-entry");
+            const filters = document.querySelectorAll<HTMLElement>(".timeline-filter");
+            const entries = document.querySelectorAll<HTMLElement>(".timeline-entry");
             const empty = document.getElementById("timeline-empty");
             if (!filters.length) return;
 
-            function applyFilter(filter) {
+            function applyFilter(filter: string) {
                 filters.forEach((item) => {
                     item.classList.remove("active");
                     item.setAttribute("aria-pressed", "false");
@@ -171,8 +171,9 @@ const filters = filterOrder
                 if (empty) empty.classList.toggle("hidden", visible > 0);
             }
 
-            function onClick(e) {
-                applyFilter(e.currentTarget.dataset.type);
+            function onClick(e: Event) {
+                if (!(e.currentTarget instanceof HTMLElement)) return;
+                applyFilter(e.currentTarget.dataset.type || "all");
             }
 
             filters.forEach((filter) => {

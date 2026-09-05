@@ -310,6 +310,8 @@
 }
 
 .post-content .katex {
+  /* Keep absolute-positioned accessible MathML inside its equation's scroll container. */
+  position: relative;
   font-size: 1.08em;
 }
 

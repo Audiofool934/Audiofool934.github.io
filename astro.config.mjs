@@ -142,6 +142,12 @@ export default defineConfig({
   },
   site: "https://audiofool.blog",
   trailingSlash: 'always',
+  vite: {
+    build: {
+      // Keep unused KaTeX fonts out of the render-blocking stylesheet.
+      assetsInlineLimit: (filePath) => /KaTeX_.*\.(woff2?|ttf)$/.test(filePath) ? false : undefined,
+    },
+  },
   integrations: [
     preact(),
     // Legacy routes are 0-second meta-refresh redirect stubs. Keep them out of
