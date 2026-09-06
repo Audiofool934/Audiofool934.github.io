@@ -2,7 +2,7 @@
 title: "Moonrise"
 image: "../../assets/gallery/25-11-13.webp"
 date: 2025-11-13
-location: "北京"
+location: "Beijing"
 camera: "SONY ILCE-7RM2"
 lens: "Tamron E 50-400mm F4.5-6.3 A067"
 iso: 200

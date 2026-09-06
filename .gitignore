@@ -34,6 +34,9 @@ pnpm-debug.log*
 # Claude Code local config
 .claude/
 
+# private local photo curation data and previews
+.local/gallery-intake/
+
 # blueprint drafts
 blueprint.md
 

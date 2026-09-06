@@ -2,7 +2,7 @@
 title: "Lose Yourself"
 image: "../../assets/gallery/25-6-22.webp"
 date: 2025-06-22
-location: "辽宁·朝阳"
+location: "Chaoyang, Liaoning"
 camera: "SONY ILCE-7RM2"
 lens: "Canon EF 70-200mm f/2.8L IS I USM (w/ Sigma MC11)"
 iso: 3200

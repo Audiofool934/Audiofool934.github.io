@@ -1,6 +1,4 @@
 ---
-import { IconMoon, IconSunHigh } from "@tabler/icons-astro";
-
 interface Props {
     id: string;
 }
@@ -12,100 +10,56 @@ const { id } = Astro.props;
     id={id}
     type="button"
     data-theme-toggle
-    class="theme-toggle"
+    class="theme-toggle font-mono text-sm"
     aria-label="Switch to light theme"
     title="Switch to light theme"
 >
-    <IconMoon
-        class="theme-toggle__glyph theme-toggle__glyph--moon"
-        size={22}
-        stroke={1.6}
-        stroke-linecap="square"
-        stroke-linejoin="miter"
-        aria-hidden="true"
-    />
-    <IconSunHigh
-        class="theme-toggle__glyph theme-toggle__glyph--sun"
-        size={22}
-        stroke={1.6}
-        stroke-linecap="square"
-        stroke-linejoin="miter"
-        aria-hidden="true"
-    />
+    <svg class="theme-toggle__glyph theme-toggle__glyph--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.5 13A8.5 8.5 0 1 1 11 3.5 6.5 6.5 0 0 0 20.5 13Z" />
+    </svg>
+    <svg class="theme-toggle__glyph theme-toggle__glyph--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+    </svg>
 </button>
 
 <style>
     .theme-toggle {
         display: inline-flex;
-        position: relative;
-        width: 2rem;
-        height: 2rem;
+        height: 30px;
         flex: 0 0 auto;
         align-items: center;
         justify-content: center;
+        padding: 0 8px;
+        border: 1px solid transparent;
         color: var(--text-main);
-        opacity: 0.72;
-        transition: opacity 160ms ease;
+        transition: opacity 150ms ease;
     }
 
     .theme-toggle:hover {
-        opacity: 1;
+        opacity: 0.6;
     }
 
-    .theme-toggle :global(.theme-toggle__glyph) {
-        position: absolute;
-        transform-origin: center;
-        transition:
-            opacity 180ms ease,
-            transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    .theme-toggle:focus-visible {
+        outline: 2px solid var(--text-main);
+        outline-offset: 3px;
     }
 
-    .theme-toggle :global(.theme-toggle__glyph--moon) {
-        opacity: 1;
-        transform: translateY(-1px) rotate(0deg) scale(1);
+    .theme-toggle__glyph {
+        flex: none;
     }
 
-    .theme-toggle :global(.theme-toggle__glyph--sun) {
-        opacity: 0;
-        transform: translateY(-1px) rotate(-12deg) scale(0.78);
+    .theme-toggle__glyph--sun,
+    :global(html.dark) .theme-toggle__glyph--moon {
+        display: none;
     }
 
-    :global(html.dark) .theme-toggle :global(.theme-toggle__glyph--moon) {
-        opacity: 0;
-        transform: translateY(-1px) rotate(12deg) scale(0.78);
-    }
-
-    :global(html.dark) .theme-toggle :global(.theme-toggle__glyph--sun) {
-        opacity: 1;
-        transform: translateY(-1px) rotate(0deg) scale(1);
-    }
-
-    .theme-toggle:hover :global(.theme-toggle__glyph--moon) {
-        transform: translateY(-1.5px) scale(1.03);
-    }
-
-    :global(html.dark) .theme-toggle:hover :global(.theme-toggle__glyph--sun) {
-        transform: translateY(-1.5px) scale(1.03);
-    }
-
-    .theme-toggle:active :global(.theme-toggle__glyph--moon) {
-        transform: translateY(-0.5px) scale(0.9);
-    }
-
-    :global(html.dark) .theme-toggle:active :global(.theme-toggle__glyph--sun) {
-        transform: translateY(-0.5px) scale(0.9);
-    }
-
-    @media (max-width: 767px) {
-        .theme-toggle {
-            width: 2.25rem;
-            height: 2.25rem;
-        }
+    :global(html.dark) .theme-toggle__glyph--sun {
+        display: block;
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .theme-toggle,
-        .theme-toggle :global(.theme-toggle__glyph) {
+        .theme-toggle {
             transition: none;
         }
     }

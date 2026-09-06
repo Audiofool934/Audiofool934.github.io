@@ -89,6 +89,8 @@ Use `entry.id`, `render(entry)` from `astro:content`, and `getStaticPaths()` for
 - Fonts are vendored in `public/fonts/` with `font-display: swap`; do not load Google Fonts.
 - Give new images appropriate dimensions, `sizes`, decoding, loading, and fetch priority; use `referrerpolicy="no-referrer"` and a fallback for remote images where supported.
 - Gallery sources belong in `src/assets/gallery/` with schema-valid local paths using Astro's `image()` helper.
+- Write Gallery locations in English as `Site, City or Region`, using one consistent name per place; use ` · ` only between separate destinations.
+  Preserve the known level of precision for city-only records, routes, and sites that span boundaries; do not invent a more specific shooting location.
 - Prioritize the first gallery thumbnail and let native lazy loading discover the remaining visible images; defer lightbox `src` assignment until interaction using `data-src`.
 - Generated site images live under `/images/_generated/site/`; AudioShow WebP variants under `/images/audioshow/_generated/` use 96/192px for rows and 320px for cards/player artwork.
 - The homepage uses responsive AVIF with WebP fallback; keep gallery photograph quality intact and verify image formats by measurement.

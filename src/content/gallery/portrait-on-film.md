@@ -2,7 +2,7 @@
 title: "Portrait on Film"
 image: "../../assets/gallery/26-04-22-portrait-on-film.webp"
 date: 2026-04-22
-location: "Jinshanling Great Wall"
+location: "Jinshanling Great Wall, Chengde"
 camera: "Pentax MZ-3"
 lens: "Pentax FA 43mm F1.9 Limited"
 filmStock: "Harman Phoenix II"

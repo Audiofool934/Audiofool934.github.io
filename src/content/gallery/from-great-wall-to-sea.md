@@ -2,7 +2,7 @@
 title: "From the Great Wall to the Sea"
 image: "../../assets/gallery/26-5-1-from-great-wall-to-sea.webp"
 date: 2026-05-01
-location: "Jinshanling · Guanting Reservoir · Qinhuangdao"
+location: "Jinshanling Great Wall · Guanting Reservoir · Qinhuangdao"
 category: "Travel"
 featured: true
 ---
