@@ -9,6 +9,6 @@ iso: 200
 focalLength: "400mm"
 aperture: "f/8"
 shutterSpeed: "1/500s"
-category: "Travel"
+category: "Landscapes"
 featured: false
 ---

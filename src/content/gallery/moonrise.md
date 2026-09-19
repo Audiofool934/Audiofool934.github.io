@@ -9,7 +9,7 @@ iso: 200
 focalLength: "400mm"
 aperture: "f/8"
 shutterSpeed: "1/3s"
-category: "Scientific"
+category: "Night Sky"
 featured: true
 ---
 

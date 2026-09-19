@@ -3,7 +3,7 @@ title: "First Light over Qinhuangdao"
 image: "../../assets/gallery/26-5-1-qinhuangdao-sunrise.webp"
 date: 2026-05-01
 location: "Qinhuangdao, Hebei"
-category: "Travel"
+category: "Landscapes"
 featured: true
 ---
 

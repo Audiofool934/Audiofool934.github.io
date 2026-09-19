@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
+import { galleryCategories } from './data/galleryCategories';
 
 const projects = defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
@@ -113,7 +114,7 @@ const gallery = defineCollection({
         focalLength: z.string().optional(),
         aperture: z.string().optional(),
         shutterSpeed: z.string().optional(),
-        category: z.string().default('Other'),
+        category: z.enum(galleryCategories),
         featured: z.boolean().default(false),
     }),
 });

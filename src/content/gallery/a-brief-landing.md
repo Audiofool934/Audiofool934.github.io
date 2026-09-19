@@ -9,6 +9,6 @@ iso: 320
 focalLength: "400mm"
 aperture: "f/6.3"
 shutterSpeed: "1/500s"
-category: "Nature"
+category: "Nature & Wildlife"
 featured: false
 ---

@@ -9,6 +9,6 @@ iso: 1600
 focalLength: "24mm"
 aperture: "f/1.4"
 shutterSpeed: "4s"
-category: "Night"
+category: "Night Sky"
 featured: false
 ---

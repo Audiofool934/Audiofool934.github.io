@@ -10,7 +10,6 @@
         const modal = document.getElementById("gallery-modal");
         if (!modal) return;
 
-        const tabs = document.querySelectorAll(".gallery-tab");
         const allItems = Array.from(
             document.querySelectorAll(".gallery-item"),
         );
@@ -407,34 +406,6 @@
         }
         document.addEventListener("keydown", onKeydown);
 
-        function onTabClick(event) {
-            const tab = event.currentTarget;
-            const filter = tab.dataset.filter;
-            tabs.forEach(function (t) {
-                t.classList.remove("active");
-                t.setAttribute("aria-pressed", "false");
-            });
-            tab.classList.add("active");
-            tab.setAttribute("aria-pressed", "true");
-
-            allItems.forEach(function (item) {
-                if (filter === "all") {
-                    item.style.display = "";
-                } else if (filter === "featured") {
-                    item.style.display =
-                        item.dataset.featured === "true" ? "" : "none";
-                } else {
-                    item.style.display =
-                        item.dataset.category === filter ? "" : "none";
-                }
-            });
-        }
-
-        // Tab filter
-        tabs.forEach(function (tab) {
-            tab.addEventListener("click", onTabClick);
-        });
-
         // Cleanup
         cleanupFn = function () {
             allItems.forEach(function (item) {
@@ -442,9 +413,6 @@
                 item.removeEventListener("keydown", onItemKeydown);
             });
             document.removeEventListener("keydown", onKeydown);
-            tabs.forEach(function (tab) {
-                tab.removeEventListener("click", onTabClick);
-            });
             modalContent.removeEventListener(
                 "touchstart",
                 onTouchStart,

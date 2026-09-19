@@ -1,4 +1,5 @@
 type SortOrder = "newest" | "oldest" | "location" | "shuffle";
+export {};
 
 let cleanup = () => {};
 
@@ -8,7 +9,9 @@ function initGallerySort() {
     const grid = document.querySelector<HTMLElement>(".gallery-masonry");
     if (!controls || !grid) return;
 
-    const buttons = Array.from(controls.querySelectorAll<HTMLButtonElement>("[data-sort]"));
+    const select = controls.querySelector<HTMLSelectElement>("#gallery-sort-order");
+    const reshuffle = controls.querySelector<HTMLButtonElement>("#gallery-reshuffle");
+    if (!select || !reshuffle) return;
     const status = document.getElementById("gallery-sort-status");
     const collator = new Intl.Collator("en", { sensitivity: "base", numeric: true });
     const items = Array.from(grid.querySelectorAll<HTMLElement>(".gallery-item")).map((element) => {
@@ -41,9 +44,7 @@ function initGallerySort() {
 
         // DOM order also controls keyboard traversal and the photo viewer.
         grid!.append(...ordered.map(({ element }) => element));
-        buttons.forEach((button) => {
-            button.setAttribute("aria-pressed", String(button.dataset.sort === order));
-        });
+        reshuffle!.hidden = order !== "shuffle";
         if (announce && status) {
             const descriptions = {
                 newest: "Sorted by date, newest first.",
@@ -55,11 +56,9 @@ function initGallerySort() {
         }
     }
 
-    buttons.forEach((button) => {
-        button.addEventListener("click", () => applySort(button.dataset.sort as SortOrder), {
-            signal: controller.signal,
-        });
-    });
+    select.addEventListener("change", () => applySort(select.value as SortOrder), { signal: controller.signal });
+    reshuffle.addEventListener("click", () => applySort("shuffle"), { signal: controller.signal });
+    select.value = "newest";
     applySort("newest", false);
     controls.hidden = false;
     cleanup = () => controller.abort();

@@ -89,6 +89,8 @@ Use `entry.id`, `render(entry)` from `astro:content`, and `getStaticPaths()` for
 - Fonts are vendored in `public/fonts/` with `font-display: swap`; do not load Google Fonts.
 - Give new images appropriate dimensions, `sizes`, decoding, loading, and fetch priority; use `referrerpolicy="no-referrer"` and a fallback for remote images where supported.
 - Gallery sources belong in `src/assets/gallery/` with schema-valid local paths using Astro's `image()` helper.
+- Give each Gallery entry one primary subject from `src/data/galleryCategories.ts`: Landscapes (wide environments), Nature & Wildlife (plants and animals in detail), People & Street, City & Culture (built places and cultural objects), or Night Sky.
+  Keep `featured` independent of the subject; the two filters combine, and sort order remains independent.
 - Write Gallery locations in English as `Site, City or Region`, using one consistent name per place; use ` · ` only between separate destinations.
   Preserve the known level of precision for city-only records, routes, and sites that span boundaries; do not invent a more specific shooting location.
 - Prioritize the first gallery thumbnail and let native lazy loading discover the remaining visible images; defer lightbox `src` assignment until interaction using `data-src`.

@@ -9,6 +9,6 @@ iso: 40
 focalLength: "2.2mm"
 aperture: "f/2.2"
 shutterSpeed: "1/150s"
-category: "Travel"
+category: "Landscapes"
 featured: false
 ---

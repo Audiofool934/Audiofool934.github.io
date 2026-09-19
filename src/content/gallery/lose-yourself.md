@@ -10,6 +10,7 @@ focalLength: "170mm"
 aperture: "f/2.8"
 shutterSpeed: "1/125s"
 featured: true
+category: "People & Street"
 ---
 
 Sometimes you have to lose yourself before you can find anything.

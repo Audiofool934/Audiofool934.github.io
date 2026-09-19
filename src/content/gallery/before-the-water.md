@@ -9,6 +9,6 @@ iso: 1600
 focalLength: "148mm"
 aperture: "f/5.6"
 shutterSpeed: "1/1000s"
-category: "Street"
+category: "People & Street"
 featured: false
 ---

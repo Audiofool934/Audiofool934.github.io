@@ -9,6 +9,6 @@ iso: 100
 focalLength: "24mm"
 aperture: "f/8"
 shutterSpeed: "1/200s"
-category: "Nature"
+category: "Landscapes"
 featured: false
 ---

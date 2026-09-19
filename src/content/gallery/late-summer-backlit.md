@@ -9,6 +9,6 @@ iso: 100
 focalLength: "50mm"
 aperture: "f/8"
 shutterSpeed: "1/100s"
-category: "Nature"
+category: "Nature & Wildlife"
 featured: false
 ---

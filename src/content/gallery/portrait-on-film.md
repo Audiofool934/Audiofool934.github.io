@@ -7,7 +7,7 @@ camera: "Pentax MZ-3"
 lens: "Pentax FA 43mm F1.9 Limited"
 filmStock: "Harman Phoenix II"
 aperture: "f/1.9"
-category: "Portrait"
+category: "People & Street"
 featured: false
 ---
 

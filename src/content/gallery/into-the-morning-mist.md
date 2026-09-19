@@ -9,6 +9,6 @@ iso: 100
 focalLength: "50mm"
 aperture: "f/5.6"
 shutterSpeed: "1/125s"
-category: "Nature"
+category: "Landscapes"
 featured: false
 ---
