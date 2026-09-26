@@ -1,11 +1,17 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
+import { fileURLToPath } from "node:url";
+import { AUDIO_IMAGE_PREFIX, AUDIO_IMAGE_WIDTHS, audioImageVariantPath } from "../src/utils/audioImages.mjs";
 
 const publicDir = path.join(process.cwd(), "public");
-const sourceRoot = path.join(publicDir, "images/audioshow");
+const sourceRoot = path.join(publicDir, AUDIO_IMAGE_PREFIX.slice(1));
 const outputRoot = path.join(sourceRoot, "_generated");
-const widths = [96, 192, 320];
+const widths = AUDIO_IMAGE_WIDTHS;
+const generatorInputs = [import.meta.url, new URL("../src/utils/audioImages.mjs", import.meta.url)];
+const generatorMtime = Math.max(...await Promise.all(
+  generatorInputs.map(async (url) => (await fs.stat(fileURLToPath(url))).mtimeMs),
+));
 const workerCount = Math.max(2, Math.min(8, Number(process.env.AUDIOSHOW_IMAGE_WORKERS) || 6));
 const sourceExts = new Set([".webp", ".jpg", ".jpeg", ".png"]);
 
@@ -40,9 +46,8 @@ async function listImages(dir) {
 }
 
 function outputPathFor(sourcePath, width) {
-  const relative = path.relative(sourceRoot, sourcePath);
-  const parsed = path.parse(relative);
-  return path.join(outputRoot, parsed.dir, `${parsed.name}-${width}.webp`);
+  const relative = path.relative(sourceRoot, sourcePath).split(path.sep).join("/");
+  return path.join(publicDir, audioImageVariantPath(`${AUDIO_IMAGE_PREFIX}${relative}`, width).slice(1));
 }
 
 async function isFresh(sourcePath, outputPath) {
@@ -51,7 +56,7 @@ async function isFresh(sourcePath, outputPath) {
       fs.stat(sourcePath),
       fs.stat(outputPath),
     ]);
-    return outputStat.mtimeMs >= sourceStat.mtimeMs;
+    return outputStat.mtimeMs >= Math.max(sourceStat.mtimeMs, generatorMtime);
   } catch {
     return false;
   }
@@ -94,7 +99,8 @@ async function main() {
 
   for (const sourcePath of sources) {
     for (const width of [640]) {
-      const stalePath = outputPathFor(sourcePath, width);
+      const relative = path.parse(path.relative(sourceRoot, sourcePath));
+      const stalePath = path.join(outputRoot, relative.dir, `${relative.name}-${width}.webp`);
       if (await exists(stalePath)) {
         await fs.rm(stalePath);
       }

@@ -1,4 +1,4 @@
-import type { AudioShowCrate } from "./audioshowCrates";
+import type { AudioShowCrate } from "./types";
 
 export const fiftyYearsInAHeartbeatCrate: AudioShowCrate = {
     slug: "fifty-years-in-a-heartbeat",

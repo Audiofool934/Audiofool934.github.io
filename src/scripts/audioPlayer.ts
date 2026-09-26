@@ -1,5 +1,8 @@
-// @ts-nocheck
 import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTrack } from "./audio/types";
+import { normalizePlaylist, findPlaylistIndexByUrl, generateShuffledOrder, getPlaylistTrack, resolveIndex, findPos } from "./audio/playlist";
+import { desktopArtwork, preloadNeighborArtwork } from "./audio/artwork";
+import { getElements, bindPlayerControls, renderPlayer } from "./audio/view";
+import { providers } from "./audio/providers";
 
 // Persistent AudioShow player. The module is bundled once by Astro; playlist
 // data is fetched separately so every page does not inline the full queue.
@@ -15,89 +18,16 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
     var defaultPlaylist: NormalizedAudioTrack[] = [];
     var activePlaylist: NormalizedAudioTrack[] = defaultPlaylist;
     var playlistPromise: Promise<NormalizedAudioTrack[]> | null = null;
-    var artworkPreloadCache = new Map<string, HTMLImageElement>();
-    var artworkPreloadPending = new Set<string>();
-    var artworkPreloadOrder: string[] = [];
-    var artworkPreloadLimit = 48;
-    var artworkRenderId = 0;
-    var desktopArtwork = window.matchMedia("(min-width: 768px)");
-
-    // Request artwork for the visible player only, including after a resize.
+    let playbackRequest = 0;
+    let providerRequest: AbortController | null = null;
+    // One listener survives route changes; DOM bindings below are replaced.
     desktopArtwork.addEventListener("change", syncUIWithState);
 
-    function playerArtworkUrl(url?: string) {
-        var normalizedUrl = normalizeArtworkUrl(url);
-        if (!desktopArtwork.matches && normalizedUrl.startsWith("/images/audioshow/_generated/")) {
-            // The 48px mobile cover uses a 192px source, including on high-DPI screens.
-            return normalizedUrl.replace(/-320\.webp$/, "-192.webp");
-        }
-        return normalizedUrl;
-    }
-
-    function shouldPreloadArtwork() {
-        var connection = navigator.connection;
-        return window.__audioPlayerState?.isPlaying
-            && document.visibilityState === "visible"
-            && !connection?.saveData
-            && !/^(slow-)?2g$/.test(connection?.effectiveType || "");
-    }
-
-    function getElements() {
-        return {
-            audio: document.getElementById("main-audio-element"),
-            playBtn: document.getElementById("player-play-btn"),
-            playIcon: document.getElementById("play-icon"),
-            artBtn: document.getElementById("player-art-btn"),
-            seekContainer: document.getElementById("player-seek-container"),
-            progressBar: document.getElementById("player-progress-bar"),
-            currTimeEl: document.getElementById("player-current-time"),
-            durationEl: document.getElementById("player-duration"),
-            trackNameEl: document.getElementById("player-track-name"),
-            artistNameEl: document.getElementById("player-artist-name"),
-            artImg: document.getElementById("player-art-img"),
-            artPlaceholder: document.getElementById("player-art-placeholder"),
-            prevBtn: document.getElementById("player-prev-btn"),
-            nextBtn: document.getElementById("player-next-btn"),
-            shuffleBtn: document.getElementById("player-shuffle-btn"),
-            playBtnMobile: document.getElementById("player-play-btn-mobile"),
-            playIconMobile: document.getElementById("play-icon-mobile"),
-            progressBarMobile: document.getElementById(
-                "player-progress-bar-mobile",
-            ),
-            trackNameMobile: document.getElementById("player-track-name-mobile"),
-            artistNameMobile: document.getElementById(
-                "player-artist-name-mobile",
-            ),
-            artImgMobile: document.getElementById("player-art-img-mobile"),
-            artPlaceholderMobile: document.getElementById(
-                "player-art-placeholder-mobile",
-            ),
-            prevBtnMobile: document.getElementById("player-prev-btn-mobile"),
-            nextBtnMobile: document.getElementById("player-next-btn-mobile"),
-            shuffleBtnMobile: document.getElementById(
-                "player-shuffle-btn-mobile",
-            ),
-        };
-    }
-
-    function normalizePlaylist(items: AudioPlaylistItem[]): NormalizedAudioTrack[] {
-        if (!Array.isArray(items)) return [];
-        return items
-            .map(function (item, index) {
-                var url = item.url;
-                if (!url) return null;
-                return {
-                    n: item.n || item.number || index + 1,
-                    t: item.t || item.title || "Untitled",
-                    a: item.a || item.artist || "AudioShow",
-                    url: url,
-                    img: item.img || item.artwork || "",
-                    type:
-                        item.type ||
-                        (url.includes("music.apple.com") ? "apple" : "local"),
-                };
-            })
-            .filter(Boolean);
+    function syncUIWithState() {
+        const state = window.__audioPlayerState;
+        if (!state) return;
+        renderPlayer(state);
+        preloadNeighborArtwork(state, getActivePlaylist());
     }
 
     function fetchDefaultPlaylist() {
@@ -122,6 +52,7 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
                 console.error("AudioShow playlist unavailable:", error);
                 defaultPlaylist = [];
                 if (!activePlaylist.length) activePlaylist = defaultPlaylist;
+                playlistPromise = null;
                 return defaultPlaylist;
             });
 
@@ -132,13 +63,6 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
         return activePlaylist && activePlaylist.length
             ? activePlaylist
             : defaultPlaylist;
-    }
-
-    function findPlaylistIndexByUrl(list: NormalizedAudioTrack[], url: string) {
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].url === url) return i;
-        }
-        return -1;
     }
 
     function setActivePlaylist(items: AudioPlaylistItem[], options?: { currentIndex?: number; currentUrl?: string }) {
@@ -189,312 +113,11 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
         syncUIWithState();
     };
 
-    function generateShuffledOrder(length: number) {
-        var order = [];
-        for (var i = 0; i < length; i++) order.push(i);
-        for (var j = length - 1; j > 0; j--) {
-            var swapIndex = Math.floor(Math.random() * (j + 1));
-            var tmp = order[j];
-            order[j] = order[swapIndex];
-            order[swapIndex] = tmp;
-        }
-        return order;
-    }
-
-    function getPlaylistTrack(index: number): AudioTrack | null {
-        var ep = getActivePlaylist()[index];
-        if (!ep) return null;
-        return {
-            type: ep.type,
-            url: ep.url,
-            title: ep.t,
-            artist: ep.a,
-            artwork: ep.img,
-            _plIdx: index,
-        };
-    }
-
-    function resolveIndex(state: AudioPlayerState, offset: number) {
-        var len = getActivePlaylist().length;
-        if (len === 0) return -1;
-        var currentPos = state.playlistPos >= 0 ? state.playlistPos : -1;
-        var nextPos = currentPos + offset;
-        if (nextPos >= len) nextPos = 0;
-        if (nextPos < 0) nextPos = len - 1;
-        if (state.shuffleMode && state.shuffledOrder) {
-            return state.shuffledOrder[nextPos];
-        }
-        return nextPos;
-    }
-
-    function findPos(state: AudioPlayerState, plIdx: number) {
-        if (state.shuffleMode && state.shuffledOrder) {
-            for (var i = 0; i < state.shuffledOrder.length; i++) {
-                if (state.shuffledOrder[i] === plIdx) return i;
-            }
-        }
-        return plIdx;
-    }
-
-    function normalizeArtworkUrl(url?: string) {
-        return typeof url === "string" ? url.trim() : "";
-    }
-
-    function forgetPreloadedArtwork(url: string) {
-        artworkPreloadCache.delete(url);
-        artworkPreloadPending.delete(url);
-        artworkPreloadOrder = artworkPreloadOrder.filter(function (item) {
-            return item !== url;
-        });
-    }
-
-    function rememberPreloadedArtwork(url: string, image: HTMLImageElement) {
-        artworkPreloadCache.set(url, image);
-        artworkPreloadOrder.push(url);
-
-        while (artworkPreloadOrder.length > artworkPreloadLimit) {
-            var oldest = artworkPreloadOrder.shift();
-            if (oldest && oldest !== url) {
-                artworkPreloadCache.delete(oldest);
-            }
-        }
-    }
-
-    function preloadArtwork(url?: string) {
-        var normalizedUrl = normalizeArtworkUrl(url);
-        if (!normalizedUrl || artworkPreloadCache.has(normalizedUrl)) return;
-
-        var image = new Image();
-        image.decoding = "async";
-        image.loading = "eager";
-        image.fetchPriority = "low";
-        rememberPreloadedArtwork(normalizedUrl, image);
-
-        image.onerror = function () {
-            forgetPreloadedArtwork(normalizedUrl);
-        };
-        image.src = normalizedUrl;
-        image.decode?.().catch(function () {});
-    }
-
-    function scheduleArtworkPreload(url?: string) {
-        var normalizedUrl = playerArtworkUrl(url);
-        if (
-            !normalizedUrl ||
-            artworkPreloadCache.has(normalizedUrl) ||
-            artworkPreloadPending.has(normalizedUrl)
-        ) {
-            return;
-        }
-
-        artworkPreloadPending.add(normalizedUrl);
-        var run = function () {
-            artworkPreloadPending.delete(normalizedUrl);
-            if (shouldPreloadArtwork()) preloadArtwork(normalizedUrl);
-        };
-
-        if ("requestIdleCallback" in window) {
-            window.requestIdleCallback(run, { timeout: 1200 });
-        } else {
-            window.setTimeout(run, 120);
-        }
-    }
-
-    function preloadPlaylistArtworkAt(index: number) {
-        var track = getActivePlaylist()[index];
-        scheduleArtworkPreload(track?.img);
-    }
-
-    function preloadNeighborArtwork(state: AudioPlayerState) {
-        if (!shouldPreloadArtwork()) return;
-        var list = getActivePlaylist();
-        if (!list.length) return;
-
-        var nextIdx = resolveIndex(state, 1);
-        if (nextIdx >= 0) preloadPlaylistArtworkAt(nextIdx);
-
-        var prevIdx = resolveIndex(state, -1);
-        if (prevIdx >= 0 && prevIdx !== nextIdx) {
-            preloadPlaylistArtworkAt(prevIdx);
-        }
-    }
-
-    function setText(el: HTMLElement | null, value: string) {
-        if (el) el.textContent = value;
-    }
-
     function reportPlaybackFailure(error: unknown) {
         if (error instanceof DOMException && error.name === "NotAllowedError") {
             return;
         }
         console.error("Playback failed:", error);
-    }
-
-    function setArtwork(img: HTMLImageElement | null, placeholder: HTMLElement | null, url?: string) {
-        if (!img || !placeholder) return;
-
-        var requestId = String(++artworkRenderId);
-        img.dataset.artworkRequestId = requestId;
-
-        var showImage = function () {
-            if (img.dataset.artworkRequestId !== requestId) return;
-            img.style.opacity = "1";
-            placeholder.style.opacity = "0";
-        };
-        var showPlaceholder = function () {
-            if (img.dataset.artworkRequestId !== requestId) return;
-            img.removeAttribute("src");
-            img.style.opacity = "0";
-            placeholder.style.opacity = "1";
-        };
-        var normalizedUrl = normalizeArtworkUrl(url);
-
-        img.onload = showImage;
-        img.onerror = showPlaceholder;
-
-        if (!normalizedUrl) {
-            showPlaceholder();
-            return;
-        }
-
-        if (img.getAttribute("src") !== normalizedUrl) {
-            img.style.opacity = "0";
-            placeholder.style.opacity = "1";
-            img.src = normalizedUrl;
-        }
-
-        if (img.complete) {
-            if (img.naturalWidth > 0) {
-                showImage();
-            } else {
-                showPlaceholder();
-            }
-        } else {
-            img.decode?.().then(showImage).catch(function () {
-                if (img.complete && img.naturalWidth > 0) showImage();
-            });
-        }
-    }
-
-    function syncUIWithState() {
-        var state = window.__audioPlayerState;
-        if (!state) return;
-
-        var els = getElements();
-        if (!els.audio) return;
-
-        var track = state.track;
-        var isPlaying = !!state.isPlaying;
-        var shuffleOn = !!state.shuffleMode;
-        var title = track?.title || "Select a track...";
-        var artist = track?.artist || "AudioShow";
-        var playLabel = isPlaying ? "Pause" : "Play";
-        var hasTrack = !!track?.url;
-
-        setText(els.trackNameEl, title);
-        setText(els.artistNameEl, artist);
-        setText(els.trackNameMobile, title);
-        setText(els.artistNameMobile, artist);
-        var artwork = playerArtworkUrl(track?.artwork);
-        setArtwork(els.artImg, els.artPlaceholder, desktopArtwork.matches ? artwork : "");
-        setArtwork(
-            els.artImgMobile,
-            els.artPlaceholderMobile,
-            desktopArtwork.matches ? "" : artwork,
-        );
-        preloadNeighborArtwork(state);
-
-        if (els.playBtn) {
-            els.playBtn.disabled = !hasTrack;
-            els.playBtn.setAttribute("aria-label", playLabel);
-        }
-        if (els.playIcon) els.playIcon.textContent = isPlaying ? "II" : "▶";
-        if (els.playBtnMobile) {
-            els.playBtnMobile.disabled = !hasTrack;
-            els.playBtnMobile.setAttribute("aria-label", playLabel);
-        }
-        if (els.playIconMobile) {
-            els.playIconMobile.textContent = isPlaying ? "II" : "▶";
-        }
-        if (els.artBtn) {
-            els.artBtn.disabled = !hasTrack;
-            els.artBtn.setAttribute(
-                "aria-label",
-                hasTrack ? playLabel + " " + title : "No track selected",
-            );
-        }
-
-        if (els.shuffleBtn) {
-            els.shuffleBtn.style.color = shuffleOn ? "var(--text-main)" : "";
-            els.shuffleBtn.style.opacity = shuffleOn ? "1" : "";
-            els.shuffleBtn.setAttribute(
-                "aria-pressed",
-                shuffleOn ? "true" : "false",
-            );
-        }
-        if (els.shuffleBtnMobile) {
-            els.shuffleBtnMobile.style.color = shuffleOn
-                ? "var(--text-main)"
-                : "";
-            els.shuffleBtnMobile.style.opacity = shuffleOn ? "1" : "";
-            els.shuffleBtnMobile.setAttribute(
-                "aria-pressed",
-                shuffleOn ? "true" : "false",
-            );
-        }
-    }
-
-    var providers = {
-        apple: {
-            name: "Apple Music",
-            async resolve(track) {
-                var trackId = track.id;
-                if (!trackId && track.url) {
-                    var match = track.url.match(/[?&]i=(\d+)/);
-                    trackId = match ? match[1] : null;
-                }
-                if (!trackId) throw new Error("Invalid Apple Music ID");
-
-                var resp = await fetch(
-                    "https://itunes.apple.com/lookup?id=" + trackId,
-                );
-                if (!resp.ok) {
-                    throw new Error("iTunes API error: " + resp.status);
-                }
-
-                var data = await resp.json();
-                if (data.resultCount > 0) {
-                    var info = data.results[0];
-                    return {
-                        url: info.previewUrl,
-                        title: info.trackName,
-                        artist: info.artistName,
-                        artwork:
-                            track.artwork ||
-                            info.artworkUrl100?.replace("100x100", "300x300"),
-                    };
-                }
-                throw new Error("Track not found");
-            },
-        },
-        local: {
-            name: "Local Audio",
-            async resolve(track) {
-                return {
-                    url: track.url,
-                    title: track.title || "Unknown Track",
-                    artist: track.artist || "AudioShow",
-                    artwork: track.artwork,
-                };
-            },
-        },
-    };
-
-    function formatTime(seconds: number) {
-        if (!seconds || isNaN(seconds)) return "0:00";
-        var mins = Math.floor(seconds / 60);
-        var secs = Math.floor(seconds % 60);
-        return mins + ":" + secs.toString().padStart(2, "0");
     }
 
     function ensureState(): AudioPlayerState {
@@ -520,7 +143,7 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
         var list = getActivePlaylist();
         if (!state.track && list.length > 0) {
             var initialIndex = Math.floor(Math.random() * list.length);
-            var first = getPlaylistTrack(initialIndex);
+            var first = getPlaylistTrack(getActivePlaylist(), initialIndex);
             if (first) {
                 state.track = {
                     title: first.title,
@@ -548,7 +171,7 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
 
     function playIndex(plIdx: number) {
         var state = ensureState();
-        var track = getPlaylistTrack(plIdx);
+        var track = getPlaylistTrack(getActivePlaylist(), plIdx);
         if (!track) return;
         state.playlistIndex = plIdx;
         state.playlistPos = findPos(state, plIdx);
@@ -556,32 +179,36 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
     }
 
     async function loadCurrentTrackIntoAudio(audio: HTMLAudioElement, state: AudioPlayerState) {
-        if (!state.track?.url) return false;
-        if (state.track.type === "local") {
-            audio.src = state.track.url;
+        const track = state.track;
+        if (!track?.url) return false;
+        const request = ++playbackRequest;
+        providerRequest?.abort();
+        const controller = new AbortController();
+        providerRequest = controller;
+        try {
+            const meta = await providers[track.type].resolve(track, controller.signal);
+            if (request !== playbackRequest) return false;
+            // Keep the authored URL as the track identity; only the media element
+            // receives a provider's resolved preview URL.
+            state.track = { ...track, ...meta, type: track.type, url: track.url };
+            syncUIWithState();
+            audio.src = meta.url;
             return true;
+        } catch (error) {
+            if (request !== playbackRequest || controller.signal.aborted) return false;
+            throw error;
+        } finally {
+            if (providerRequest === controller) providerRequest = null;
         }
-
-        var provider = providers[state.track.type];
-        if (!provider) {
-            audio.src = state.track.url;
-            return true;
-        }
-
-        var meta = await provider.resolve(state.track);
-        state.track = Object.assign({}, meta, { type: state.track.type });
-        syncUIWithState();
-        audio.src = meta.url;
-        return true;
     }
 
     function bindControls() {
         var state = ensureState();
         var els = getElements();
         if (!els.audio) return;
+        const audio = els.audio;
 
         async function handlePlayPause() {
-            var audio = els.audio;
             var noSource =
                 !audio.src ||
                 audio.src === "" ||
@@ -612,16 +239,16 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
         }
 
         function handleNext() {
-            var nextIdx = resolveIndex(state, 1);
+            var nextIdx = resolveIndex(getActivePlaylist(), state, 1);
             if (nextIdx >= 0) playIndex(nextIdx);
         }
 
         function handlePrev() {
-            if (els.audio.currentTime > 3) {
-                els.audio.currentTime = 0;
+            if (audio.currentTime > 3) {
+                audio.currentTime = 0;
                 return;
             }
-            var prevIdx = resolveIndex(state, -1);
+            var prevIdx = resolveIndex(getActivePlaylist(), state, -1);
             if (prevIdx >= 0) playIndex(prevIdx);
         }
 
@@ -650,115 +277,24 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
             syncUIWithState();
         }
 
-        if (els.playBtn) els.playBtn.onclick = handlePlayPause;
-        if (els.playBtnMobile) els.playBtnMobile.onclick = handlePlayPause;
-        if (els.artBtn) els.artBtn.onclick = handlePlayPause;
-        if (els.prevBtn) els.prevBtn.onclick = handlePrev;
-        if (els.nextBtn) els.nextBtn.onclick = handleNext;
-        if (els.prevBtnMobile) els.prevBtnMobile.onclick = handlePrev;
-        if (els.nextBtnMobile) els.nextBtnMobile.onclick = handleNext;
-        if (els.shuffleBtn) els.shuffleBtn.onclick = handleShuffleToggle;
-        if (els.shuffleBtnMobile) {
-            els.shuffleBtnMobile.onclick = handleShuffleToggle;
-        }
-
-        els.audio.onplay = function () {
-            state.isPlaying = true;
-            syncUIWithState();
-        };
-        els.audio.onpause = function () {
-            state.isPlaying = false;
-            syncUIWithState();
-        };
-        els.audio.ontimeupdate = function () {
-            state.currentTime = els.audio.currentTime;
-            var dur = els.audio.duration;
-            var percent =
-                dur > 0 && isFinite(dur) ? (els.audio.currentTime / dur) * 100 : 0;
-            if (els.progressBar) els.progressBar.style.width = percent + "%";
-            if (els.progressBarMobile) {
-                els.progressBarMobile.style.width = percent + "%";
-            }
-            if (els.seekContainer) {
-                els.seekContainer.setAttribute(
-                    "aria-valuenow",
-                    String(Math.round(percent)),
-                );
-                els.seekContainer.setAttribute(
-                    "aria-valuetext",
-                    formatTime(els.audio.currentTime) +
-                        (dur > 0 && isFinite(dur)
-                            ? " of " + formatTime(dur)
-                            : ""),
-                );
-            }
-            setText(els.currTimeEl, formatTime(els.audio.currentTime));
-        };
-        els.audio.onloadedmetadata = function () {
-            setText(els.durationEl, formatTime(els.audio.duration));
-        };
-        els.audio.onended = handleNext;
-        els.audio.onerror = function () {
-            state.isPlaying = false;
-            if (state.track) {
-                state.track = {
-                    title:
-                        state.track.title && state.track.title !== "Loading..."
-                            ? state.track.title
-                            : "Playback error",
-                    artist: "Source unavailable",
-                    artwork: state.track.artwork,
-                };
-            }
-            syncUIWithState();
-        };
-
-        if (els.seekContainer) {
-            els.seekContainer.onclick = function (event) {
-                var dur = els.audio.duration;
-                if (!dur || !isFinite(dur)) return;
-                var rect = els.seekContainer.getBoundingClientRect();
-                var pos = (event.clientX - rect.left) / rect.width;
-                els.audio.currentTime = Math.max(0, Math.min(1, pos)) * dur;
-            };
-            els.seekContainer.onkeydown = function (event) {
-                var dur = els.audio.duration;
-                if (!dur || !isFinite(dur)) return;
-                var time = els.audio.currentTime;
-                var step = 5;
-                switch (event.key) {
-                    case "ArrowRight":
-                    case "ArrowUp":
-                        time = Math.min(dur, time + step);
-                        break;
-                    case "ArrowLeft":
-                    case "ArrowDown":
-                        time = Math.max(0, time - step);
-                        break;
-                    case "Home":
-                        time = 0;
-                        break;
-                    case "End":
-                        time = dur;
-                        break;
-                    default:
-                        return;
-                }
-                event.preventDefault();
-                els.audio.currentTime = time;
-            };
-        }
+        bindPlayerControls(els, state, {
+            playPause: handlePlayPause,
+            next: handleNext,
+            previous: handlePrev,
+            shuffle: handleShuffleToggle,
+            render: syncUIWithState,
+        });
 
         var audioHasNoSrc =
-            !els.audio.src ||
-            els.audio.src === "" ||
-            els.audio.src === window.location.href;
+            !audio.src ||
+            audio.src === "" ||
+            audio.src === window.location.href;
         if (state.isPlaying && audioHasNoSrc && state.track?.url) {
-            loadCurrentTrackIntoAudio(els.audio, state)
+            loadCurrentTrackIntoAudio(audio, state)
                 .then(function (didLoad) {
                     if (!didLoad) return;
-                    els.audio.currentTime = state.currentTime || 0;
-                    els.audio.play().catch(function () {});
+                    audio.currentTime = state.currentTime || 0;
+                    audio.play().catch(function () {});
                 })
                 .catch(function (error) {
                     console.error("Playback restore failed:", error);
@@ -813,6 +349,7 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
             title: track.title || "Loading...",
             artist: track.artist || provider.name,
             artwork: track.artwork,
+            id: track.id,
             url: track.url,
             type: track.type,
         };
@@ -821,21 +358,19 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
 
         var els = getElements();
         if (!els.audio) return;
+        els.audio.pause();
+        els.audio.removeAttribute("src");
 
         try {
-            var meta = await provider.resolve(track);
-            state.track = Object.assign({}, meta, {
-                type: track.type,
-                url: meta.url,
-            });
-            syncUIWithState();
-            els.audio.src = meta.url;
-            els.audio
-                .play()
-                .catch(reportPlaybackFailure);
+            if (await loadCurrentTrackIntoAudio(els.audio, state)) {
+                await els.audio.play().catch(reportPlaybackFailure);
+            }
         } catch (error) {
             console.error("Provider error:", error);
             state.track = {
+                type: track.type,
+                id: track.id,
+                url: track.url,
                 title: track.title || "Error",
                 artist: "Playback failed",
                 artwork: track.artwork,
@@ -845,10 +380,11 @@ import type { AudioPlayerState, AudioPlaylistItem, AudioTrack, NormalizedAudioTr
     };
 
     window.toggleMusic = function (_playerType, url, event) {
-        var clickedImg = event?.currentTarget || event?.target || null;
-        var title = clickedImg?.getAttribute?.("alt") || "";
-        var artwork = clickedImg?.getAttribute?.("src") || "";
-        var type = url.includes("music.apple.com") ? "apple" : "local";
+        const target = event?.currentTarget || event?.target;
+        const clickedImg = target instanceof Element ? target : null;
+        const title = clickedImg?.getAttribute("alt") || "";
+        const artwork = clickedImg?.getAttribute("src") || "";
+        const type = url.includes("music.apple.com") ? "apple" : "local";
         window.playTrack({
             type: type,
             url: url,

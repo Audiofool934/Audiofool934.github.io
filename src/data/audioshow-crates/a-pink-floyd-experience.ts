@@ -1,0 +1,834 @@
+import type { AudioShowCrate } from "./types";
+
+export const pinkFloydExperienceCrate: AudioShowCrate = {
+    "slug": "a-pink-floyd-experience",
+    "number": "002",
+    "title": "A Pink Floyd Experience",
+    "premise": "A long-form path through Pink Floyd's psychedelic, pastoral, monumental, and post-war worlds.",
+    "curatorNote": "Everett's own Pink Floyd map, now filed by his chapter titles: Pink Spirit, Set the Controls, Echoes, Dark Side, Stones or Bricks, Learning to Floyd, and The Endless Journey.",
+    "cover": "/images/audioshow/crates/a-pink-floyd-experience/cover.webp",
+    "socialImage": "/images/audioshow/crates/a-pink-floyd-experience/cover-og.jpg",
+    "spotifyUrl": "https://open.spotify.com/playlist/2MbHOBGydKfKLVe9X9ApkE",
+    "trackCount": 71,
+    "duration": "6h04m",
+    "updated": "May 2026",
+    "tags": [
+        "pink floyd",
+        "prog rock",
+        "psychedelia",
+        "concept rock"
+    ],
+    "sections": [
+        {
+            "title": "Smells Like Pink Spirit",
+            "note": "Nervana as false door, then the Syd-era singles and Piper sparks."
+        },
+        {
+            "title": "Set the Controls",
+            "note": "Early soundtrack and space-rock control room: More, Ummagumma, Saucerful, and the sun."
+        },
+        {
+            "title": "Echoes (Between Atom&Cloud)",
+            "note": "Meddle, Atom Heart Mother, and Obscured by Clouds finding the wide pastoral machine."
+        },
+        {
+            "title": "There is no Dark Side",
+            "note": "Wish You Were Here and Dark Side folding absence, time, money, and eclipse into one orbit."
+        },
+        {
+            "title": "Stones or Bricks",
+            "note": "Animals, The Wall, and The Final Cut as theater, indictment, and post-war memory."
+        },
+        {
+            "title": "Learning to Floyd",
+            "note": "Late-80s/90s flight: Gilmour skies, Division Bell distance, and final-war sunset."
+        },
+        {
+            "title": "The Endless Journey",
+            "note": "Endless River fragments and late afterglow closing the route."
+        }
+    ],
+    "tracks": [
+        {
+            "number": 1,
+            "section": "Smells Like Pink Spirit",
+            "title": "Nervana",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/3PlQesESfSzOqAeB42nvTa",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/6072586bf986c9ca0267532f391e228a04926e84",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/01-3PlQesESfSzOqAeB42nvTa.webp"
+        },
+        {
+            "number": 2,
+            "section": "Smells Like Pink Spirit",
+            "title": "Astronomy Domine",
+            "artists": "Pink Floyd",
+            "album": "The Piper at the Gates of Dawn",
+            "year": "1967",
+            "spotifyUrl": "https://open.spotify.com/track/3Y8gNcoJu1uJ5L1BZuGvqB",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/1abd365511b5cf4776e75ab295a4efe10a8a95f2",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/02-3Y8gNcoJu1uJ5L1BZuGvqB.webp"
+        },
+        {
+            "number": 3,
+            "section": "Smells Like Pink Spirit",
+            "title": "Arnold Layne",
+            "artists": "Pink Floyd",
+            "album": "Relics",
+            "year": "1971",
+            "spotifyUrl": "https://open.spotify.com/track/2Dsy7Ls7OuvG1fpjrKI5AE",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/a1c9911d7d0bb1a05a064cebf62cb36ae63d71df",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/03-2Dsy7Ls7OuvG1fpjrKI5AE.webp"
+        },
+        {
+            "number": 4,
+            "section": "Smells Like Pink Spirit",
+            "title": "Interstellar Overdrive",
+            "artists": "Pink Floyd",
+            "album": "The Piper at the Gates of Dawn",
+            "year": "1967",
+            "spotifyUrl": "https://open.spotify.com/track/3xyTufSSGLP3oZnomceAVW",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/257b010141377141254aa3a7b051e9c19b086634",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/04-3xyTufSSGLP3oZnomceAVW.webp"
+        },
+        {
+            "number": 5,
+            "section": "Smells Like Pink Spirit",
+            "title": "See Emily Play",
+            "artists": "Pink Floyd",
+            "album": "Relics",
+            "year": "1971",
+            "spotifyUrl": "https://open.spotify.com/track/1YZuigG1YcdgbfD7XJoCU5",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/0f339e353d53b063a055d7ac4c331f56ef44b4b0",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/05-1YZuigG1YcdgbfD7XJoCU5.webp"
+        },
+        {
+            "number": 6,
+            "section": "Smells Like Pink Spirit",
+            "title": "Bike",
+            "artists": "Pink Floyd",
+            "album": "The Piper at the Gates of Dawn",
+            "year": "1967",
+            "spotifyUrl": "https://open.spotify.com/track/4gJrRkskBk1oyooA4qm67a",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/a02db829213b2e2c3e5893284273652ad2b8fde6",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/06-4gJrRkskBk1oyooA4qm67a.webp"
+        },
+        {
+            "number": 7,
+            "section": "Set the Controls",
+            "title": "Cirrus Minor",
+            "artists": "Pink Floyd",
+            "album": "More",
+            "year": "1969",
+            "spotifyUrl": "https://open.spotify.com/track/7s4oBJSqvvR1dulnoLanV2",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/9bc3caf5fe5bb9846ce7a345f6fa7aee1b5887c4",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/07-7s4oBJSqvvR1dulnoLanV2.webp"
+        },
+        {
+            "number": 8,
+            "section": "Set the Controls",
+            "title": "Sysyphus, Pt. 1",
+            "artists": "Pink Floyd",
+            "album": "Ummagumma",
+            "year": "1969",
+            "spotifyUrl": "https://open.spotify.com/track/4nvAMzXUzlVcfjLa7KxOe2",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/274dc94ca414c69998234e4f88fef8ed59908036",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/08-4nvAMzXUzlVcfjLa7KxOe2.webp"
+        },
+        {
+            "number": 9,
+            "section": "Set the Controls",
+            "title": "Sysyphus, Pt. 2",
+            "artists": "Pink Floyd",
+            "album": "Ummagumma",
+            "year": "1969",
+            "spotifyUrl": "https://open.spotify.com/track/6tjF3ty70qWIu4OIBzP75K",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/d3e5b1506ab72e4f4c294453e00e3f041b044d41",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/09-6tjF3ty70qWIu4OIBzP75K.webp"
+        },
+        {
+            "number": 10,
+            "section": "Set the Controls",
+            "title": "The Nile Song",
+            "artists": "Pink Floyd",
+            "album": "More",
+            "year": "1969",
+            "spotifyUrl": "https://open.spotify.com/track/4YJ1sPlEa0nSUVzsLlZ7Zz",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/2ef293c599514db1835d32a334ec4c8aa4a1d45e",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/10-4YJ1sPlEa0nSUVzsLlZ7Zz.webp"
+        },
+        {
+            "number": 11,
+            "section": "Set the Controls",
+            "title": "Remember a Day",
+            "artists": "Pink Floyd",
+            "album": "A Saucerful of Secrets",
+            "year": "1968",
+            "spotifyUrl": "https://open.spotify.com/track/2YcxeBmk9hvMH7RFFyqnIr",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/9794f9bf4311f71dcfc79acdc98542b884384de1",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/11-2YcxeBmk9hvMH7RFFyqnIr.webp"
+        },
+        {
+            "number": 12,
+            "section": "Set the Controls",
+            "title": "Let There Be More Light",
+            "artists": "Pink Floyd",
+            "album": "A Saucerful of Secrets",
+            "year": "1968",
+            "spotifyUrl": "https://open.spotify.com/track/5xUz3xvyPPrNfnBrh9IOZa",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/d7d3acb6170706b7552125c9a450b14860e4e74d",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/12-5xUz3xvyPPrNfnBrh9IOZa.webp"
+        },
+        {
+            "number": 13,
+            "section": "Set the Controls",
+            "title": "Set the Controls for the Heart of the Sun",
+            "artists": "Pink Floyd",
+            "album": "A Saucerful of Secrets",
+            "year": "1968",
+            "spotifyUrl": "https://open.spotify.com/track/6p9UFDNfGrzS5Byd2r9KPk",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/2832c88900f42f68cadf6e27530d8f9212cddc3b",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/13-6p9UFDNfGrzS5Byd2r9KPk.webp"
+        },
+        {
+            "number": 14,
+            "section": "Set the Controls",
+            "title": "Jugband Blues",
+            "artists": "Pink Floyd",
+            "album": "A Saucerful of Secrets",
+            "year": "1968",
+            "spotifyUrl": "https://open.spotify.com/track/7L1n9EL0Sh0LMOyxDI7rxr",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/4f205ccb0986b7658be85e1fa52e134f12bc9da8",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/14-7L1n9EL0Sh0LMOyxDI7rxr.webp"
+        },
+        {
+            "number": 15,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "One of These Days",
+            "artists": "Pink Floyd",
+            "album": "Meddle",
+            "year": "1971",
+            "spotifyUrl": "https://open.spotify.com/track/6uU0Hu8oVk9gBihokcrDMH",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/e78bf1237b71549c384ff29cb6b4c29a81bdef1a",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/15-6uU0Hu8oVk9gBihokcrDMH.webp"
+        },
+        {
+            "number": 16,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "Atom Heart Mother",
+            "artists": "Pink Floyd",
+            "album": "Atom Heart Mother",
+            "year": "1970",
+            "spotifyUrl": "https://open.spotify.com/track/1Pt7RPrjEQfzpPA9PS5aZj",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/9e4f00ab2850a6f8a13cae4f7e94f81d572e8d49",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/16-1Pt7RPrjEQfzpPA9PS5aZj.webp"
+        },
+        {
+            "number": 17,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "Fearless",
+            "artists": "Pink Floyd",
+            "album": "Meddle",
+            "year": "1971",
+            "spotifyUrl": "https://open.spotify.com/track/7AalBKBoLDR4UmRYRJpdbj",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/f8cf54fcd810293864da4992035b3724386aa80f",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/17-7AalBKBoLDR4UmRYRJpdbj.webp"
+        },
+        {
+            "number": 18,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "If",
+            "artists": "Pink Floyd",
+            "album": "Atom Heart Mother",
+            "year": "1970",
+            "spotifyUrl": "https://open.spotify.com/track/63brgJhrcNFW8ncUhM1mhG",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/47088be8802660b066dd1251cdf4807057f7e699",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/18-63brgJhrcNFW8ncUhM1mhG.webp"
+        },
+        {
+            "number": 19,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "Obscured by Clouds",
+            "artists": "Pink Floyd",
+            "album": "Obscured by Clouds",
+            "year": "1972",
+            "spotifyUrl": "https://open.spotify.com/track/3c8LKbUsjW9lMYQzVScXQT",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/636a7332b48e2a08178a978235b4346c0df2bec3",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/19-3c8LKbUsjW9lMYQzVScXQT.webp"
+        },
+        {
+            "number": 20,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "Fat Old Sun",
+            "artists": "Pink Floyd",
+            "album": "Atom Heart Mother",
+            "year": "1970",
+            "spotifyUrl": "https://open.spotify.com/track/5qlckstqDQ2RskL0SJsDYx",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/1c81bb5b7f20167cd532fafccee5c6fd548333a6",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/20-5qlckstqDQ2RskL0SJsDYx.webp"
+        },
+        {
+            "number": 21,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "Wot's...Uh the Deal",
+            "artists": "Pink Floyd",
+            "album": "Obscured by Clouds",
+            "year": "1972",
+            "spotifyUrl": "https://open.spotify.com/track/6zGFOp6rJZbYSp9DQO5AHY",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/1ee23a50325b0d57617789db6a44495d0bded5c9",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/21-6zGFOp6rJZbYSp9DQO5AHY.webp"
+        },
+        {
+            "number": 22,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "Echoes",
+            "artists": "Pink Floyd",
+            "album": "Meddle",
+            "year": "1971",
+            "spotifyUrl": "https://open.spotify.com/track/7kriFJLY2KOhw5en9iI2jb",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/4055c0365bc4c36c2fd399aea168932f1b270b72",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/22-7kriFJLY2KOhw5en9iI2jb.webp"
+        },
+        {
+            "number": 23,
+            "section": "Echoes (Between Atom&Cloud)",
+            "title": "Childhood's End",
+            "artists": "Pink Floyd",
+            "album": "Obscured by Clouds",
+            "year": "1972",
+            "spotifyUrl": "https://open.spotify.com/track/4fnJmewCdmTfErfSYSysyM",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/dce3207965a4a34fba6f25bff9e17fd3712b9a72",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/23-4fnJmewCdmTfErfSYSysyM.webp"
+        },
+        {
+            "number": 24,
+            "section": "There is no Dark Side",
+            "title": "Wish You Were Here",
+            "artists": "Pink Floyd",
+            "album": "Wish You Were Here",
+            "year": "1975",
+            "spotifyUrl": "https://open.spotify.com/track/6mFkJmJqdDVQ1REhVfGgd1",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/0edff8bd71d0208db995fe9aa54ed05b0cc2eaf9",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/24-6mFkJmJqdDVQ1REhVfGgd1.webp"
+        },
+        {
+            "number": 25,
+            "section": "There is no Dark Side",
+            "title": "Time",
+            "artists": "Pink Floyd",
+            "album": "The Dark Side of the Moon",
+            "year": "1973",
+            "spotifyUrl": "https://open.spotify.com/track/3TO7bbrUKrOSPGRTB5MeCz",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/a0d3e2f8dfabb1daabc803bbb027ae155eb56ebc",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/25-3TO7bbrUKrOSPGRTB5MeCz.webp"
+        },
+        {
+            "number": 26,
+            "section": "There is no Dark Side",
+            "title": "The Great Gig in the Sky",
+            "artists": "Pink Floyd",
+            "album": "The Dark Side of the Moon",
+            "year": "1973",
+            "spotifyUrl": "https://open.spotify.com/track/2TjdnqlpwOjhijHCwHCP2d",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/9c590fbedf18e5943ffc6e744c37032d88c892ea",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/26-2TjdnqlpwOjhijHCwHCP2d.webp"
+        },
+        {
+            "number": 27,
+            "section": "There is no Dark Side",
+            "title": "Shine On You Crazy Diamond, Pts. 1-5",
+            "artists": "Pink Floyd",
+            "album": "Wish You Were Here",
+            "year": "1975",
+            "spotifyUrl": "https://open.spotify.com/track/6pnwfWyaWjQiHCKTiZLItr",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/f72ad71a9cd9498449bd94902038167baac70a8d",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/27-6pnwfWyaWjQiHCKTiZLItr.webp"
+        },
+        {
+            "number": 28,
+            "section": "There is no Dark Side",
+            "title": "Have a Cigar",
+            "artists": "Pink Floyd",
+            "album": "Wish You Were Here",
+            "year": "1975",
+            "spotifyUrl": "https://open.spotify.com/track/3CmHvyZQQAGkKkTjTBFWN6",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/d270d2ea037706ac3640523be5d5647e09088a93",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/28-3CmHvyZQQAGkKkTjTBFWN6.webp"
+        },
+        {
+            "number": 29,
+            "section": "There is no Dark Side",
+            "title": "Money",
+            "artists": "Pink Floyd",
+            "album": "The Dark Side of the Moon",
+            "year": "1973",
+            "spotifyUrl": "https://open.spotify.com/track/0vFOzaXqZHahrZp6enQwQb",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/5d64add0d9b394623c45b42e91952893e93eefbe",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/29-0vFOzaXqZHahrZp6enQwQb.webp"
+        },
+        {
+            "number": 30,
+            "section": "There is no Dark Side",
+            "title": "Us and Them",
+            "artists": "Pink Floyd",
+            "album": "The Dark Side of the Moon",
+            "year": "1973",
+            "spotifyUrl": "https://open.spotify.com/track/1TKTiKp3zbNgrBH2IwSwIx",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/867007a4941cb5bfd194c625034bd42c8a729d31",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/30-1TKTiKp3zbNgrBH2IwSwIx.webp"
+        },
+        {
+            "number": 31,
+            "section": "There is no Dark Side",
+            "title": "Any Colour You Like",
+            "artists": "Pink Floyd",
+            "album": "The Dark Side of the Moon",
+            "year": "1973",
+            "spotifyUrl": "https://open.spotify.com/track/6FBPOJLxUZEair6x4kLDhf",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/9013eedbe78139376311e96dcdad0fd0a0719f71",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/31-6FBPOJLxUZEair6x4kLDhf.webp"
+        },
+        {
+            "number": 32,
+            "section": "There is no Dark Side",
+            "title": "Brain Damage",
+            "artists": "Pink Floyd",
+            "album": "The Dark Side of the Moon",
+            "year": "1973",
+            "spotifyUrl": "https://open.spotify.com/track/05uGBKRCuePsf43Hfm0JwX",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/bc88d7e9a589101501ef7f5e64d6d8167aaeb06d",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/32-05uGBKRCuePsf43Hfm0JwX.webp"
+        },
+        {
+            "number": 33,
+            "section": "There is no Dark Side",
+            "title": "Eclipse",
+            "artists": "Pink Floyd",
+            "album": "The Dark Side of the Moon",
+            "year": "1973",
+            "spotifyUrl": "https://open.spotify.com/track/1tDWVeCR9oWGX8d5J9rswk",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/fa1e270fe896ef26483e1656a44561e060bbec75",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/33-1tDWVeCR9oWGX8d5J9rswk.webp"
+        },
+        {
+            "number": 34,
+            "section": "Stones or Bricks",
+            "title": "Pigs On The Wing (Part One)",
+            "artists": "Pink Floyd",
+            "album": "Animals",
+            "year": "1977",
+            "spotifyUrl": "https://open.spotify.com/track/19tHmIQsRnebkyK09m2UXE",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/69b2a4ba74ef3b4b7949e84063ae039df18d2a12",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/34-19tHmIQsRnebkyK09m2UXE.webp"
+        },
+        {
+            "number": 35,
+            "section": "Stones or Bricks",
+            "title": "Dogs",
+            "artists": "Pink Floyd",
+            "album": "Animals",
+            "year": "1977",
+            "spotifyUrl": "https://open.spotify.com/track/2jvuMDqBK04WvCYYz5qjvG",
+            "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/63/d0/43/63d0438b-5d7d-db37-44f1-1908fe6045e2/mzaf_14283977508359678850.plus.aac.p.m4a",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/34-19tHmIQsRnebkyK09m2UXE.webp"
+        },
+        {
+            "number": 36,
+            "section": "Stones or Bricks",
+            "title": "Pigs On The Wing (Part Two)",
+            "artists": "Pink Floyd",
+            "album": "Animals",
+            "year": "1977",
+            "spotifyUrl": "https://open.spotify.com/track/1OzTJHmUMMYPQpMLxZYHlU",
+            "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/23/56/15/235615c5-95fe-3a48-0852-7bae9cf860b8/mzaf_7124095861728147946.plus.aac.p.m4a",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/34-19tHmIQsRnebkyK09m2UXE.webp"
+        },
+        {
+            "number": 37,
+            "section": "Stones or Bricks",
+            "title": "When the Tigers Broke Free",
+            "artists": "Pink Floyd",
+            "album": "The Final Cut",
+            "year": "1983",
+            "spotifyUrl": "https://open.spotify.com/track/23ItRtrVX4vF30wGrzfznf",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/7baa5f682fe6d55d2b9220e887e22a9ac797f42a",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/35-23ItRtrVX4vF30wGrzfznf.webp"
+        },
+        {
+            "number": 38,
+            "section": "Stones or Bricks",
+            "title": "The Thin Ice",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/62zuXt6X5B6YQOBNFV2eXG",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/62ebc2e85079bf10bc4c6b8b762116130530acc5",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/36-62zuXt6X5B6YQOBNFV2eXG.webp"
+        },
+        {
+            "number": 39,
+            "section": "Stones or Bricks",
+            "title": "Another Brick in the Wall, Pt. 1",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/7K6xMPtAjTuLPNlJMLf5bS",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/d407a96056c4e93d84123418c6628bd7eafa75ea",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/37-7K6xMPtAjTuLPNlJMLf5bS.webp"
+        },
+        {
+            "number": 40,
+            "section": "Stones or Bricks",
+            "title": "The Happiest Days of Our Lives",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/2O3l4X1yTua8oMMCtazkyo",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/1d011eb8d5f714d8e27ed44b5800283329dd4b9e",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/38-2O3l4X1yTua8oMMCtazkyo.webp"
+        },
+        {
+            "number": 41,
+            "section": "Stones or Bricks",
+            "title": "Another Brick in the Wall, Pt. 2",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/4gMgiXfqyzZLMhsksGmbQV",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/15be707cab65755e58aed312578b9af0e09d3ad7",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/39-4gMgiXfqyzZLMhsksGmbQV.webp"
+        },
+        {
+            "number": 42,
+            "section": "Stones or Bricks",
+            "title": "Mother",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/1GEOSS415bZVHNuXWlCT6b",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/0a05cf8e81fbaa360d18719b2f50d77ca40ab7af",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/40-1GEOSS415bZVHNuXWlCT6b.webp"
+        },
+        {
+            "number": 43,
+            "section": "Stones or Bricks",
+            "title": "Young Lust",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/3xGJuHvSxFJxxYlHj5BIoT",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/c92489a7a8bc0665573f37a34735abf775e25bbf",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/41-3xGJuHvSxFJxxYlHj5BIoT.webp"
+        },
+        {
+            "number": 44,
+            "section": "Stones or Bricks",
+            "title": "Another Brick in the Wall, Pt. 3",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/5A7eooPKJHtr0UJmatjH4a",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/a009faea6fc6cde699d08d1f0d2377f35641f607",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/42-5A7eooPKJHtr0UJmatjH4a.webp"
+        },
+        {
+            "number": 45,
+            "section": "Stones or Bricks",
+            "title": "Goodbye Cruel World",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/0ZXkKRO789QKBR6ME7pIDF",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/cd1108dcef3f130cccc5ca5373ecf00743c921c9",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/43-0ZXkKRO789QKBR6ME7pIDF.webp"
+        },
+        {
+            "number": 46,
+            "section": "Stones or Bricks",
+            "title": "Hey You",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/7F02x6EKYIQV3VcTaTm7oN",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/345f25474cd1b98639745de3928fceae197b3583",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/44-7F02x6EKYIQV3VcTaTm7oN.webp"
+        },
+        {
+            "number": 47,
+            "section": "Stones or Bricks",
+            "title": "The Hero's Return",
+            "artists": "Pink Floyd",
+            "album": "The Final Cut",
+            "year": "1983",
+            "spotifyUrl": "https://open.spotify.com/track/0s9iofqbQdsmWZQJ1TZh1c",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/a5bad64fe257b23985f186d71a6489cff766425f",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/45-0s9iofqbQdsmWZQJ1TZh1c.webp"
+        },
+        {
+            "number": 48,
+            "section": "Stones or Bricks",
+            "title": "The Gunner's Dream",
+            "artists": "Pink Floyd",
+            "album": "The Final Cut",
+            "year": "1983",
+            "spotifyUrl": "https://open.spotify.com/track/1057KuzIH4fWCyI5Gb5kX2",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/290d41e39aa0ba3833143944bd653c29b001a62c",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/46-1057KuzIH4fWCyI5Gb5kX2.webp"
+        },
+        {
+            "number": 49,
+            "section": "Stones or Bricks",
+            "title": "Comfortably Numb",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/5HNCy40Ni5BZJFw1TKzRsC",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/c9dfe2af430ee6cfb986a563cd7e1fc63d77ee43",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/47-5HNCy40Ni5BZJFw1TKzRsC.webp"
+        },
+        {
+            "number": 50,
+            "section": "Stones or Bricks",
+            "title": "The Show Must Go On",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/077OhUjy58qkjscrXjW696",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/8a27c0ba92a9545879720195fa50ac6221e52fc0",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/48-077OhUjy58qkjscrXjW696.webp"
+        },
+        {
+            "number": 51,
+            "section": "Stones or Bricks",
+            "title": "Run Like Hell",
+            "artists": "Pink Floyd",
+            "album": "The Wall",
+            "year": "1979",
+            "spotifyUrl": "https://open.spotify.com/track/0EaLRxrtnq7Mqhdf8q9txr",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/baba6b12d3d4294f19f8afbd9ee6f4a883005c9b",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/49-0EaLRxrtnq7Mqhdf8q9txr.webp"
+        },
+        {
+            "number": 52,
+            "section": "Stones or Bricks",
+            "title": "The Final Cut",
+            "artists": "Pink Floyd",
+            "album": "The Final Cut",
+            "year": "1983",
+            "spotifyUrl": "https://open.spotify.com/track/5y1Uc72BAKxaleTEXpcJJq",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/d39510370069db7f50a502ff4de7819cb9fa63bc",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/50-5y1Uc72BAKxaleTEXpcJJq.webp"
+        },
+        {
+            "number": 53,
+            "section": "Learning to Floyd",
+            "title": "Signs of Life",
+            "artists": "Pink Floyd",
+            "album": "A Momentary Lapse of Reason",
+            "year": "1987",
+            "spotifyUrl": "https://open.spotify.com/track/5IuSQa3vuy5ZGw0ZxJ9z3a",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/4a327f87e4c383e5f8a54ec139d3f0bd0ab53831",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/51-5IuSQa3vuy5ZGw0ZxJ9z3a.webp"
+        },
+        {
+            "number": 54,
+            "section": "Learning to Floyd",
+            "title": "Learning to Fly",
+            "artists": "Pink Floyd",
+            "album": "A Momentary Lapse of Reason",
+            "year": "1987",
+            "spotifyUrl": "https://open.spotify.com/track/3ieDOGcOqVxScs2VZBzidt",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/169e590ad688dd85c9e73be1760a9caccd5be19d",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/52-3ieDOGcOqVxScs2VZBzidt.webp"
+        },
+        {
+            "number": 55,
+            "section": "Learning to Floyd",
+            "title": "A Great Day for Freedom",
+            "artists": "Pink Floyd",
+            "album": "The Division Bell",
+            "year": "1994",
+            "spotifyUrl": "https://open.spotify.com/track/2dxfyqdrI8XVOT3H1YcOsU",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/b95b8be4e181edc818e0bbdd841443c78d3dc05b",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/53-2dxfyqdrI8XVOT3H1YcOsU.webp"
+        },
+        {
+            "number": 56,
+            "section": "Learning to Floyd",
+            "title": "Poles Apart",
+            "artists": "Pink Floyd",
+            "album": "The Division Bell",
+            "year": "1994",
+            "spotifyUrl": "https://open.spotify.com/track/6uE9hF8fIb6shBXrrzA12U",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/84f989d3cddae70351e7a8f4418bd0237a1f8879",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/54-6uE9hF8fIb6shBXrrzA12U.webp"
+        },
+        {
+            "number": 57,
+            "section": "Learning to Floyd",
+            "title": "On the Turning Away",
+            "artists": "Pink Floyd",
+            "album": "A Momentary Lapse of Reason",
+            "year": "1987",
+            "spotifyUrl": "https://open.spotify.com/track/7KA6U0WOHdGxWWLGPYN2Sb",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/bc7523c0c3bba13429877ccbf946b34bee3477ed",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/55-7KA6U0WOHdGxWWLGPYN2Sb.webp"
+        },
+        {
+            "number": 58,
+            "section": "Learning to Floyd",
+            "title": "The Dogs of War",
+            "artists": "Pink Floyd",
+            "album": "A Momentary Lapse of Reason",
+            "year": "1987",
+            "spotifyUrl": "https://open.spotify.com/track/4ggDbvTME5EAso1xfGX2M0",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/918e70af8142a4b40c71436bdf1435fb4ce00896",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/56-4ggDbvTME5EAso1xfGX2M0.webp"
+        },
+        {
+            "number": 59,
+            "section": "Learning to Floyd",
+            "title": "Two Suns in the Sunset",
+            "artists": "Pink Floyd",
+            "album": "The Final Cut",
+            "year": "1983",
+            "spotifyUrl": "https://open.spotify.com/track/3KvKMHMlRj30a7IjHXQVzu",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/23fb1f5b8da293b809a5e177af50058929651ed6",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/57-3KvKMHMlRj30a7IjHXQVzu.webp"
+        },
+        {
+            "number": 60,
+            "section": "Learning to Floyd",
+            "title": "Marooned",
+            "artists": "Pink Floyd",
+            "album": "The Division Bell",
+            "year": "1994",
+            "spotifyUrl": "https://open.spotify.com/track/6bIPHR8AJG5HAcn9oF21Ma",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/7fe3fedf7ee5d3a71223c67aceb2f448318658dc",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/58-6bIPHR8AJG5HAcn9oF21Ma.webp"
+        },
+        {
+            "number": 61,
+            "section": "Learning to Floyd",
+            "title": "Sorrow",
+            "artists": "Pink Floyd",
+            "album": "A Momentary Lapse of Reason",
+            "year": "1987",
+            "spotifyUrl": "https://open.spotify.com/track/0u90NnJ2p3Q2MIP9IaAsg5",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/b794a1549304c04d915723ad8c34437b16546324",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/59-0u90NnJ2p3Q2MIP9IaAsg5.webp"
+        },
+        {
+            "number": 62,
+            "section": "The Endless Journey",
+            "title": "The Lost Art Of Conversation",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/5a2AbdlDvBRpu7yg6fTehj",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/3a13274a6fe21f2d8ca68a7d35d676d694d8a51e",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/60-5a2AbdlDvBRpu7yg6fTehj.webp"
+        },
+        {
+            "number": 63,
+            "section": "The Endless Journey",
+            "title": "On Noodle Street",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/7npQbR646LjCg0qBhvWE2s",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/2ab60cdbd3af860e43f6b6d557a56dbbba887199",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/61-7npQbR646LjCg0qBhvWE2s.webp"
+        },
+        {
+            "number": 64,
+            "section": "The Endless Journey",
+            "title": "Night Light",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/2M9kdmwWuGSNYYzzOxFKyB",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/db08549194b3b394e0d98cfaae42ed3afec721f7",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/62-2M9kdmwWuGSNYYzzOxFKyB.webp"
+        },
+        {
+            "number": 65,
+            "section": "The Endless Journey",
+            "title": "Allons-y (1)",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/5Cs8YMRH3hfaLK4HPUFe9l",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/f6f95d8685e473258e5b0d3f1aa6636e938055e0",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/63-5Cs8YMRH3hfaLK4HPUFe9l.webp"
+        },
+        {
+            "number": 66,
+            "section": "The Endless Journey",
+            "title": "Autumn '68",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/2wWncVXYwtlorzhk8S1jU5",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/f12d8bd02989e68e3cf3f9853fc9ded54c5249a2",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/64-2wWncVXYwtlorzhk8S1jU5.webp"
+        },
+        {
+            "number": 67,
+            "section": "The Endless Journey",
+            "title": "Allons-y (2)",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/618H64JuNjoDCzgf4SFJOH",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/eddd76473117402dc088dfcdb21371fa215987fc",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/65-618H64JuNjoDCzgf4SFJOH.webp"
+        },
+        {
+            "number": 68,
+            "section": "The Endless Journey",
+            "title": "Talkin' Hawkin'",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/5zezxlbGoSr1q3GJ4PMRUW",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/756bf949ce00816092788ed028a74f95cb83ac5b",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/66-5zezxlbGoSr1q3GJ4PMRUW.webp"
+        },
+        {
+            "number": 69,
+            "section": "The Endless Journey",
+            "title": "Lost for Words",
+            "artists": "Pink Floyd",
+            "album": "The Division Bell",
+            "year": "1994",
+            "spotifyUrl": "https://open.spotify.com/track/4Ev1LZ4uzjnSvDHpgdyBZK",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/4b92ce1efc2cf2a12593b7f9308e7ab5662baae4",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/67-4Ev1LZ4uzjnSvDHpgdyBZK.webp"
+        },
+        {
+            "number": 70,
+            "section": "The Endless Journey",
+            "title": "High Hopes",
+            "artists": "Pink Floyd",
+            "album": "The Division Bell",
+            "year": "1994",
+            "spotifyUrl": "https://open.spotify.com/track/5a4MgIUSf9K8wXLSm6xPEx",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/887b72d572dd39928d0519c3e15b431b42c913a8",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/68-5a4MgIUSf9K8wXLSm6xPEx.webp"
+        },
+        {
+            "number": 71,
+            "section": "The Endless Journey",
+            "title": "Louder Than Words",
+            "artists": "Pink Floyd",
+            "album": "The Endless River",
+            "year": "2014",
+            "spotifyUrl": "https://open.spotify.com/track/2nMRGpC0iszLNkJxBQuQ2a",
+            "audioPreviewUrl": "https://p.scdn.co/mp3-preview/7cca23e3522efaacc68d5c8d00d328c8ef9ae111",
+            "cover": "/images/audioshow/crates/a-pink-floyd-experience/tracks/69-2nMRGpC0iszLNkJxBQuQ2a.webp"
+        }
+    ]
+};

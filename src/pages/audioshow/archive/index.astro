@@ -2,7 +2,7 @@
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { groupEpisodesByRange } from "../../../utils/parseAudioshow";
 import { loadAllEpisodes } from "../../../utils/loadEpisodes";
-import { audioImage, audioImageSrcset, imageReferrerPolicy } from "../../../utils/audioImages";
+import { audioImage, audioImageSrcset, imageReferrerPolicy } from "../../../utils/audioImages.mjs";
 
 const allEpisodes = loadAllEpisodes();
 
@@ -128,13 +128,13 @@ const placeholderImage = "/images/placeholder-album.svg";
                                         </div>
 
                                         <!-- Play Button -->
-                                        {(ep.appleMusicUrl || ep.audioPreviewUrl) ? (
+                                        {(ep.playbackUrl || ep.audioPreviewUrl) ? (
                                             <button
                                                 class="episode-play"
                                                 aria-label={`Play ${ep.songTitle} by ${ep.artist}`}
                                                 data-play-track={JSON.stringify({
-                                                    type: (ep.audioPreviewUrl || ep.appleMusicUrl)?.includes('music.apple.com') ? 'apple' : 'local',
-                                                    url: ep.audioPreviewUrl || ep.appleMusicUrl,
+                                                    type: (ep.audioPreviewUrl || ep.playbackUrl)?.includes('music.apple.com') ? 'apple' : 'local',
+                                                    url: ep.audioPreviewUrl || ep.playbackUrl,
                                                     title: ep.songTitle,
                                                     artist: ep.artist,
                                                     artwork

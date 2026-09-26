@@ -1,15 +1,15 @@
 import { loadAllEpisodes } from "../../utils/loadEpisodes";
 import { sortEpisodesDesc } from "../../utils/parseAudioshow";
-import { audioImage } from "../../utils/audioImages";
+import { audioImage } from "../../utils/audioImages.mjs";
 
 const placeholderImage = "/images/placeholder-album.svg";
 
 export async function GET() {
     const allEpisodes = loadAllEpisodes();
     const tracks = sortEpisodesDesc(allEpisodes)
-        .filter((ep) => ep.appleMusicUrl || ep.audioPreviewUrl)
+        .filter((ep) => ep.playbackUrl || ep.audioPreviewUrl)
         .map((ep) => {
-            const url = ep.audioPreviewUrl || ep.appleMusicUrl;
+            const url = ep.audioPreviewUrl || ep.playbackUrl;
             return {
                 n: ep.number,
                 t: ep.songTitle,

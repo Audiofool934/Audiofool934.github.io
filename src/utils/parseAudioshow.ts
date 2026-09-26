@@ -20,7 +20,7 @@ export interface Episode {
     imageUrl?: string;
     coverImage?: string;
     coverAlt?: string;
-    appleMusicUrl?: string;
+    playbackUrl?: string;
     audioPreviewUrl?: string;
     projectLinks: AudioProjectLink[];
     sourceFile: string;
@@ -81,10 +81,10 @@ function parseEpisodeSection(section: string, sourceFile: string): Episode | nul
     const year = parseInt(metaLines[2] || '0', 10);
     const composer = metaLines[3] || undefined;
 
-    // Parse album cover and playable Apple/local URL from legacy image HTML.
+    // Read data attributes, retaining compatibility with older authored batches.
     let imageUrl: string | undefined;
     let coverAlt: string | undefined;
-    let appleMusicUrl: string | undefined;
+    let playbackUrl: string | undefined;
 
     const imgMatch = section.match(/<img[^>]*src="([^"]+)"[^>]*>/i);
     if (imgMatch) {
@@ -93,10 +93,9 @@ function parseEpisodeSection(section: string, sourceFile: string): Episode | nul
         coverAlt = altMatch?.[1];
     }
 
-    const onclickMatch = section.match(/onclick="toggleMusic\([^,]+,\s*'([^']+)'\)"/i);
-    if (onclickMatch) {
-        appleMusicUrl = onclickMatch[1];
-    }
+    const playbackMatch = section.match(/data-audio-url=["']([^"']+)["']/i)
+        || section.match(/onclick="toggleMusic\([^,]+,\s*'([^']+)'\)"/i);
+    playbackUrl = playbackMatch?.[1];
 
     // Parse an optional official preview audio URL. This is intended for
     // provider-hosted short preview files, not full-song streams.
@@ -133,7 +132,7 @@ function parseEpisodeSection(section: string, sourceFile: string): Episode | nul
         imageUrl,
         coverImage: imageUrl,
         coverAlt,
-        appleMusicUrl,
+        playbackUrl,
         audioPreviewUrl,
         projectLinks,
         sourceFile,

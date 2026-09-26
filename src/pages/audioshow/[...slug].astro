@@ -76,43 +76,8 @@ const ogImage =
     </div>
 </MinimalLayout>
 
-<script is:inline>
-    // The batch-markdown episode artwork is authored as <img onclick=...>.
-    // Replace the inline handler with explicit click/keyboard behavior so the
-    // global player receives a real event object instead of implicit browser
-    // event globals.
-    function upgradeAudioshowImages() {
-        document
-            .querySelectorAll(".audioshow-image[onclick]")
-            .forEach((img) => {
-                if (img.dataset.a11yUpgraded) return;
-                img.dataset.a11yUpgraded = "true";
-                const onclick = img.getAttribute("onclick") || "";
-                const match = onclick.match(/toggleMusic\([^,]+,\s*'([^']+)'\)/i);
-                const url = match?.[1];
-                if (!url) return;
-
-                img.removeAttribute("onclick");
-                img.setAttribute("role", "button");
-                img.setAttribute("tabindex", "0");
-                const alt = img.getAttribute("alt") || "";
-                const label = alt
-                    .replace(/^EP[_-]?\d+[_-]?/i, "")
-                    .replace(/_/g, " ")
-                    .trim();
-                img.setAttribute("aria-label", "Play" + (label ? ": " + label : ""));
-                img.addEventListener("click", (e) => {
-                    window.toggleMusic?.("apple-music-player", url, e);
-                });
-                img.addEventListener("keydown", (e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        window.toggleMusic?.("apple-music-player", url, e);
-                    }
-                });
-            });
-    }
-    document.addEventListener("astro:page-load", upgradeAudioshowImages);
+<script>
+    import "../../scripts/audio/batch";
 </script>
 
 <style>

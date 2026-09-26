@@ -1,0 +1,267 @@
+---
+import { IconChevronDown } from "@tabler/icons-astro";
+
+interface Props {
+    total: number;
+    featuredCount: number;
+    categories: { name: string; count: number }[];
+}
+const { total, featuredCount, categories } = Astro.props;
+---
+
+<div id="gallery-filters" hidden>
+    <div class="gallery-toolbar">
+        <div class="gallery-views" role="group" aria-label="Photo selection">
+            <button type="button" data-gallery-view="all" aria-pressed="true" class="gallery-filter-button gallery-view-button">
+                All photos <span class="gallery-count">{total}</span>
+            </button>
+            {featuredCount > 0 && (
+                <button type="button" data-gallery-view="featured" aria-pressed="false" class="gallery-filter-button gallery-view-button">
+                    Featured <span class="gallery-count">{featuredCount}</span>
+                </button>
+            )}
+        </div>
+        <div id="gallery-sort-controls" class="gallery-sort" hidden>
+            <label for="gallery-sort-order" class="gallery-sort-label">Sort:</label>
+            <div class="gallery-sort-select">
+                <select id="gallery-sort-order" name="order" aria-label="Sort photos">
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="location">Location</option>
+                    <option value="shuffle">Shuffle</option>
+                </select>
+                <IconChevronDown size={16} stroke={1.5} aria-hidden="true" />
+            </div>
+            <button type="button" id="gallery-reshuffle" hidden>Reshuffle</button>
+            <span id="gallery-sort-status" class="sr-only" role="status"></span>
+        </div>
+    </div>
+    <div class="gallery-subjects" role="group" aria-labelledby="gallery-subject-label">
+        <span id="gallery-subject-label" class="gallery-subject-label">Subject</span>
+        <div class="gallery-subject-options">
+            <button type="button" data-gallery-subject="all" aria-pressed="true" class="gallery-filter-button gallery-subject-button">All</button>
+            {categories.map(({ name, count }) => (
+                <button type="button" data-gallery-subject={name} aria-pressed="false" class="gallery-filter-button gallery-subject-button">
+                    <span>{name}</span><span class="gallery-count" data-subject-count>{count}</span>
+                </button>
+            ))}
+        </div>
+    </div>
+</div>
+<div class="gallery-results">
+    <p id="gallery-filter-status" role="status" aria-atomic="true">Showing {total} photos</p>
+    <button type="button" id="gallery-filter-reset" hidden>Clear filters</button>
+</div>
+<p id="gallery-filter-empty" class="gallery-empty" hidden></p>
+
+<script>
+    import "../../scripts/galleryFilters";
+    import "../../scripts/gallerySort";
+</script>
+
+<style>
+    #gallery-filters[hidden],
+    #gallery-sort-controls[hidden],
+    #gallery-filter-reset[hidden],
+    #gallery-reshuffle[hidden],
+    #gallery-filter-empty[hidden] {
+        display: none;
+    }
+
+    .gallery-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 1.5rem;
+        padding-bottom: 0.25rem;
+        border-bottom: 1px solid var(--border-main);
+    }
+
+    .gallery-views {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .gallery-filter-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        min-height: 44px;
+        padding: 0.5rem;
+        text-align: left;
+        color: var(--text-muted);
+        transition: color 150ms, background-color 150ms;
+    }
+
+    .gallery-filter-button:hover,
+    .gallery-sort select:hover,
+    .gallery-results button:hover,
+    #gallery-reshuffle:hover {
+        color: var(--text-main);
+    }
+
+    .gallery-filter-button[aria-pressed="true"] {
+        color: var(--text-main);
+        background-color: color-mix(in srgb, var(--text-main) 7%, var(--bg-body));
+        font-weight: 600;
+    }
+
+    .gallery-filter-button[aria-pressed="true"] .gallery-count {
+        color: var(--text-muted);
+    }
+
+    .gallery-view-button {
+        font-size: 1rem;
+    }
+
+    .gallery-count,
+    .gallery-subjects,
+    .gallery-sort,
+    .gallery-results {
+        font-family: var(--font-mono, "JetBrains Mono", monospace);
+    }
+
+    .gallery-count {
+        font-size: 0.8125rem;
+        font-weight: 400;
+        color: var(--text-faint);
+    }
+
+    .gallery-sort {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-left: auto;
+        font-size: 0.875rem;
+        color: var(--text-muted);
+    }
+
+    .gallery-sort-select {
+        position: relative;
+    }
+
+    .gallery-sort select {
+        appearance: none;
+        min-height: 44px;
+        padding: 0.5rem 1.75rem 0.5rem 0.5rem;
+        border: 0;
+        border-radius: 0;
+        cursor: pointer;
+        background: var(--bg-body);
+        color: var(--text-main);
+    }
+
+    .gallery-sort-select :global(svg) {
+        position: absolute;
+        right: 0.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    #gallery-reshuffle {
+        min-height: 44px;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+
+    .gallery-subjects {
+        padding-top: 1rem;
+        padding-bottom: 0.25rem;
+        border-bottom: 1px solid var(--border-main);
+    }
+
+    .gallery-subject-label {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--text-faint);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+    }
+
+    .gallery-subject-options {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        gap: 0.25rem 1rem;
+    }
+
+    .gallery-subject-button {
+        font-size: clamp(0.875rem, 1.1vw, 1rem);
+    }
+
+    .gallery-results {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 1rem;
+        min-height: 3.25rem;
+        padding: 0.5rem 0;
+        color: var(--text-muted);
+        font-size: 0.8125rem;
+    }
+
+    .gallery-results button {
+        min-height: 36px;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+
+    .gallery-empty {
+        padding: 2rem 0;
+        color: var(--text-muted);
+    }
+
+    @media (max-width: 1100px) {
+        .gallery-subject-options {
+            gap: 0.25rem 0.5rem;
+        }
+    }
+
+    @media (max-width: 639px) {
+        .gallery-toolbar {
+            column-gap: 0.75rem;
+        }
+        .gallery-views {
+            gap: 0.5rem;
+        }
+        .gallery-view-button {
+            font-size: 0.875rem;
+        }
+        .gallery-sort-label {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+        }
+        .gallery-sort {
+            gap: 0.25rem;
+            font-size: 0.75rem;
+        }
+        .gallery-subject-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 1rem;
+        }
+        .gallery-subject-button {
+            justify-content: space-between;
+            font-size: 0.8125rem;
+        }
+        .gallery-subject-button[data-gallery-subject="all"] {
+            justify-content: flex-start;
+        }
+        .gallery-subject-button .gallery-count {
+            font-size: 0.75rem;
+        }
+        .gallery-subjects {
+            padding-top: 0.75rem;
+        }
+        .gallery-results {
+            min-height: 2.75rem;
+            font-size: 0.75rem;
+        }
+    }
+</style>

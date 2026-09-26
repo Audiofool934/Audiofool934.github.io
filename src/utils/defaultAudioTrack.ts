@@ -12,10 +12,10 @@ export interface DefaultAudioTrack {
 export function getDefaultAudioTrack(): DefaultAudioTrack | null {
     try {
         const latest = sortEpisodesDesc(loadAllEpisodes())[0];
-        if (!latest?.appleMusicUrl) return null;
+        if (!latest?.playbackUrl) return null;
         return {
-            type: latest.appleMusicUrl.includes("music.apple.com") ? "apple" : "local",
-            url: latest.appleMusicUrl,
+            type: latest.playbackUrl.includes("music.apple.com") ? "apple" : "local",
+            url: latest.playbackUrl,
             title: latest.songTitle,
             artist: latest.artist,
             artwork: latest.imageUrl || "/images/placeholder-album.svg",

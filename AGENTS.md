@@ -23,7 +23,11 @@ Use npm with Node `>=22.12.0`.
 npm run dev                       # Generate image variants and start Astro
 npm run build                     # Generate images, clear Astro caches, build
 npm run preview                   # Serve the production build locally
+npm run check                     # Strict types, parser checks, and unit regressions
 npm run astro -- check             # Astro and TypeScript diagnostics
+npm run check:unit                # Player, artwork, and route policy regressions
+npm run check:routes              # Production redirects and canonical pages; build first
+npm run check:browser             # Production UI checks; install Playwright Chromium first
 npm run check:audioshow-parser     # AudioShow parser fixtures
 npm run check:performance          # Production output budgets; build first
 npm run generate:site-images
@@ -49,6 +53,9 @@ Run either GitHub sync command only when fresh project data is explicitly reques
 | Markdown typography and highlighting | `src/style/post.css`, `src/style/prism-theme.css` |
 | Collection schemas and loaders | `src/content.config.ts` |
 | Homepage updates, timeline, RSS items | `src/utils/timelineItems.ts` |
+| Gallery controls and viewer | `src/components/gallery/` |
+| AudioShow image paths and widths | `src/utils/audioImages.mjs` |
+| Legacy aliases | `src/data/legacyRedirects.mjs` |
 
 Update `getTimelineItems()` when changing what counts as an update; keep sorting and filtering out of individual consumers.
 Project metadata lives in `src/content/projects/`, synced READMEs in `src/content/project-readmes/`, and the GitHub catalog in `src/data/github-projects.json`.
@@ -70,6 +77,7 @@ Use `entry.id`, `render(entry)` from `astro:content`, and `getStaticPaths()` for
 - Keep trailing slashes on internal routes; `trailingSlash: "always"` is configured.
 - Preserve published legacy URLs with redirect stubs using `noindex, follow` and canonical targets.
 - Keep legacy redirects excluded from the sitemap in `astro.config.mjs`.
+- Case-only aliases must be omitted on case-insensitive build filesystems to protect canonical output; use `redirectsForFilesystem()` and verify with `check:routes`.
 
 ## UI, Theme, and Accessibility
 
@@ -86,7 +94,7 @@ Use `entry.id`, `render(entry)` from `astro:content`, and `getStaticPaths()` for
 - Keep tables, code, and display math horizontally scrollable within their containers, without page overflow.
 - Preserve custom scrollbar styling and `.post-content .katex { position: relative; }`, which contains hidden MathML inside scrolling equations and tables.
 - Pass `math={hasMath}` for math notes so `SiteHead` loads local, package-matched KaTeX CSS and font preloads only when needed; keep fonts out of inline CSS.
-- `astro.config.mjs` adds lazy loading and async decoding to Markdown and raw HTML images, plus responsive local AudioShow variants and remote referrer policies.
+- `src/utils/rehypeImages.mjs`, registered in `astro.config.mjs`, adds lazy loading and async decoding to Markdown and raw HTML images, plus responsive local AudioShow variants and remote referrer policies.
 - Fonts are vendored in `public/fonts/` with `font-display: swap`; do not load Google Fonts.
 - Give new images appropriate dimensions, `sizes`, decoding, loading, and fetch priority; use `referrerpolicy="no-referrer"` and a fallback for remote images where supported.
 - Gallery sources belong in `src/assets/gallery/` with schema-valid local paths using Astro's `image()` helper.
@@ -103,12 +111,14 @@ Use `entry.id`, `render(entry)` from `astro:content`, and `getStaticPaths()` for
 - Author batches in `src/content/audioshow/` using the existing episode format, rather than one file per episode.
 - `src/utils/parseAudioshow.ts` parses episodes; `src/utils/loadEpisodes.ts` loads batches; `sortEpisodesDesc()` orders newest first.
 - Optional batch fields include `Audio Preview` / `Preview Audio`, `Project Links`, and a fourth metadata bullet for composer.
-- The player UI is `src/components/AudioPlayer.astro`; logic is `src/scripts/audioPlayer.ts`; types are `src/scripts/audio/types.ts`.
+- The player UI is `src/components/AudioPlayer.astro`; `src/scripts/audioPlayer.ts` coordinates the typed queue, provider, artwork, and view modules in `src/scripts/audio/`.
+- Author artwork with `data-audio-url`; `src/scripts/audio/batch.ts` binds accessible playback after page load.
+- Keep each crate in `src/data/audioshow-crates/`, using its shared types; register it in `src/data/audioshowCrates.ts`.
 - Preserve `transition:persist` on `#audio-player-bar` and state on `window.__audioPlayerState` across navigation.
 - Load artwork for the visible player only; preload neighboring covers only during playback, respecting visibility and data-saving connections.
 - `src/utils/defaultAudioTrack.ts` supplies `window.__defaultAudioShowTrack` at build time.
 - Start playback with `window.playTrack({ type, url, title, artist, artwork })`; `type` is `apple` for Apple Music lookup or `local` for direct audio URLs.
-- Keep legacy `window.toggleMusic(playerType, url)` support and accessible upgrades of authored image handlers after page load.
+- Keep legacy `window.toggleMusic(playerType, url)` compatibility, but do not embed scripts or inline handlers in episode batches.
 - For new UI, use `data-*` attributes and listeners instead of inline event handlers.
 
 ## Verification
@@ -118,6 +128,8 @@ Use `entry.id`, `render(entry)` from `astro:content`, and `getStaticPaths()` for
 - For typography, check `/notes/policy-gradient/` with its math and table; verify document overflow and container scrolling separately.
 - For route or data changes, check both the relevant index and detail page.
 - Fix related failures and report unrelated failures without expanding scope.
+- Pull-request CI runs types, parser and unit checks, a production build, route validation, browser interactions, and performance budgets before deployment is eligible.
+- Browser checks own their preview and Chromium lifecycle, use deterministic provider/audio fixtures, and write screenshots under `.local/browser-check/`.
 - CI enforces the gzip budgets in `scripts/check-performance.mjs`; measure before raising a limit, and compare Lighthouse medians of at least three runs as described in `README.md`.
 
 ## Personal Knowledge Base

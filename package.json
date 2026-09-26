@@ -27,7 +27,11 @@
     "generate:audioshow-images": "node scripts/generate-audioshow-images.mjs",
     "refresh:github-projects": "node scripts/sync-github-projects.mjs",
     "build:with-sync": "npm run refresh:github-projects && npm run build",
-    "gallery:intake": "node scripts/gallery-intake/server.mjs"
+    "gallery:intake": "node scripts/gallery-intake/server.mjs",
+    "check:unit": "node --experimental-strip-types --test tests/*.test.mjs",
+    "check:routes": "node scripts/check-routes.mjs",
+    "check:browser": "node scripts/check-browser.mjs",
+    "check": "astro check && npm run check:audioshow-parser && npm run check:unit"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.0",
@@ -50,6 +54,7 @@
     "@astrojs/check": "^0.9.9",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^25.0.3",
+    "playwright": "^1.63.0",
     "sharp": "^0.34.5",
     "typescript": "^6.0.3"
   }

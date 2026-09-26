@@ -1,4 +1,4 @@
-import type { AudioShowCrate } from "./audioshowCrates";
+import type { AudioShowCrate } from "./types";
 
 export const longLiveRockCrate: AudioShowCrate = {
     "slug": "long-live-rock",

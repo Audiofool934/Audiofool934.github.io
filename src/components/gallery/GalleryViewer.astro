@@ -1,0 +1,341 @@
+<!-- Modal Overlay -->
+<div
+    id="gallery-modal"
+    class="fixed inset-0 z-[9999] opacity-0 pointer-events-none transition-opacity duration-200"
+    role="dialog"
+    aria-modal="true"
+>
+    <!-- Backdrop -->
+    <div
+        id="modal-backdrop"
+        class="absolute inset-0 bg-[var(--bg-body)] dark:bg-black"
+    >
+    </div>
+
+    <!-- Unified viewer: image first, metadata footer only as tall as needed -->
+    <div
+        id="modal-scroll"
+        class="absolute inset-0 flex items-stretch justify-center overflow-hidden"
+    >
+        <!-- Close button -->
+        <button
+            id="modal-close"
+            type="button"
+            class="absolute top-3 right-3 md:top-5 md:right-5 z-30 font-mono text-[var(--text-muted)] hover:text-[var(--text-main)] dark:text-white/70 dark:hover:text-white text-2xl w-10 h-10 flex items-center justify-center transition-colors"
+            aria-label="Close"
+        >
+            &times;
+        </button>
+
+        <!-- Viewer -->
+        <div
+            id="modal-content"
+            class="relative w-full h-[100dvh] max-h-[100dvh] overflow-hidden bg-[var(--bg-body)] dark:bg-black flex flex-col"
+        >
+            <!-- Image area -->
+            <div
+                id="modal-image-wrap"
+                class="modal-image-area relative min-h-0 flex-1 flex items-center justify-center bg-[var(--bg-body)] dark:bg-black overflow-hidden px-2 pt-12 pb-2 md:px-8 md:pt-10 md:pb-4"
+            >
+                <button
+                    id="modal-prev-zone"
+                    type="button"
+                    aria-label="Previous photo"
+                    class="modal-nav-zone modal-nav-zone-prev"
+                >
+                    <span aria-hidden="true">&larr;</span>
+                </button>
+                <button
+                    id="modal-next-zone"
+                    type="button"
+                    aria-label="Next photo"
+                    class="modal-nav-zone modal-nav-zone-next"
+                >
+                    <span aria-hidden="true">&rarr;</span>
+                </button>
+                <img
+                    id="modal-image"
+                    src=""
+                    alt=""
+                    draggable="false"
+                    class="max-w-full max-h-full object-contain select-none transition-opacity duration-150 block"
+                />
+            </div>
+
+            <!-- Info footer -->
+            <div
+                id="modal-info"
+                class="modal-info-area flex-shrink-0 overflow-y-auto border-t border-[var(--border-main)] flex flex-col bg-[var(--bg-body)] dark:bg-black"
+            >
+                <div
+                    class="modal-footer-grid mx-auto w-full max-w-4xl"
+                >
+                    <span
+                        id="modal-counter-mobile"
+                        class="modal-footer-counter font-mono text-[10px] md:text-xs text-[var(--text-faint)]"
+                    ></span>
+                    <div class="modal-footer-main">
+                        <h2
+                            id="modal-title-mobile"
+                            class="modal-footer-title min-w-0 text-base md:text-xl font-bold font-heading"
+                        ></h2>
+                        <div
+                            id="modal-body-mobile"
+                            class="modal-footer-body text-xs md:text-sm text-[var(--text-muted)] leading-relaxed"
+                        ></div>
+                    </div>
+
+                    <div class="modal-footer-rail">
+                        <div
+                            class="modal-footer-meta flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] md:text-xs text-[var(--text-muted)]"
+                        >
+                            <span id="modal-date-mobile"></span>
+                            <span id="modal-location-mobile"></span>
+                            <span id="modal-camera-mobile"></span>
+                            <span id="modal-lens-mobile"></span>
+                            <span id="modal-film-mobile"></span>
+                            <span id="modal-exif-mobile"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fullscreen Lightbox -->
+<div
+    id="lightbox"
+    class="fixed inset-0 z-[10000] bg-black/95 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 cursor-zoom-out backdrop-blur-sm"
+>
+    <img
+        id="lightbox-image"
+        src=""
+        alt=""
+        class="max-h-[95vh] max-w-[95vw] object-contain"
+    />
+</div>
+
+<script>
+    import "../../scripts/galleryViewer.js";
+</script>
+
+<style>
+    .modal-image-area {
+        min-height: 0;
+    }
+
+    .modal-nav-zone {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 10;
+        display: flex;
+        width: 50%;
+        align-items: center;
+        border: 0;
+        background: transparent;
+        color: rgb(255 255 255 / 0.72);
+        font-family: var(--font-mono, "JetBrains Mono", monospace);
+        font-size: 1rem;
+        transition: background-color 150ms ease;
+    }
+
+    .modal-nav-zone span {
+        opacity: 0;
+        transition:
+            opacity 150ms ease,
+            transform 150ms ease;
+    }
+
+    .modal-nav-zone-prev {
+        left: 0;
+        justify-content: flex-start;
+        padding-left: clamp(1.25rem, 5vw, 4rem);
+        cursor: w-resize;
+    }
+
+    .modal-nav-zone-next {
+        right: 0;
+        justify-content: flex-end;
+        padding-right: clamp(1.25rem, 5vw, 4rem);
+        cursor: e-resize;
+    }
+
+    .modal-nav-zone:disabled {
+        pointer-events: none;
+    }
+
+    .modal-nav-zone:focus-visible {
+        outline: none;
+    }
+
+    .modal-nav-zone:focus-visible span {
+        opacity: 1;
+    }
+
+    @media (hover: hover) {
+        .modal-nav-zone-prev:hover {
+            background: linear-gradient(
+                to right,
+                rgb(255 255 255 / 0.06),
+                transparent 55%
+            );
+        }
+
+        .modal-nav-zone-next:hover {
+            background: linear-gradient(
+                to left,
+                rgb(255 255 255 / 0.06),
+                transparent 55%
+            );
+        }
+
+        .modal-nav-zone:hover span {
+            opacity: 0.72;
+        }
+
+        .modal-nav-zone-prev:hover span {
+            transform: translateX(-0.25rem);
+        }
+
+        .modal-nav-zone-next:hover span {
+            transform: translateX(0.25rem);
+        }
+    }
+
+    .modal-info-area {
+        height: clamp(9.75rem, 28dvh, 11.5rem);
+        min-height: 0;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-footer-grid {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto;
+        gap: 0.7rem;
+        height: 100%;
+        position: relative;
+        padding: 1rem 1.25rem 0.85rem;
+        text-align: center;
+    }
+
+    .modal-footer-main {
+        display: flex;
+        min-width: 0;
+        min-height: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .modal-footer-counter {
+        position: absolute;
+        top: 0.8rem;
+        right: 1.25rem;
+        white-space: nowrap;
+    }
+
+    .modal-footer-title {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .modal-footer-body {
+        display: -webkit-box;
+        margin: 0 auto;
+        max-width: 44rem;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+
+    .modal-footer-body :global(p) {
+        display: inline;
+        margin: 0;
+    }
+
+    .modal-footer-body :global(p + p)::before {
+        content: " ";
+    }
+
+    .modal-footer-rail {
+        display: grid;
+        width: 100%;
+        min-width: 0;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: end;
+    }
+
+    .modal-footer-meta {
+        min-width: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding-bottom: 0.35rem;
+        text-align: left;
+        white-space: nowrap;
+        overscroll-behavior-x: contain;
+        scrollbar-color: rgb(255 255 255 / 0.24) transparent;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-footer-meta span {
+        flex: 0 0 auto;
+    }
+
+    .modal-footer-meta::-webkit-scrollbar {
+        height: 0.2rem;
+    }
+
+    .modal-footer-meta::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .modal-footer-meta::-webkit-scrollbar-thumb {
+        background: rgb(255 255 255 / 0.22);
+        border-radius: 999px;
+    }
+
+    @media (min-width: 768px) {
+        .modal-info-area {
+            height: clamp(7.75rem, 20dvh, 9.25rem);
+        }
+
+        .modal-footer-grid {
+            gap: 0.8rem;
+            padding: 1rem 2rem 0.9rem;
+        }
+
+        .modal-footer-counter {
+            top: 0.9rem;
+            right: 2rem;
+        }
+
+        .modal-footer-body {
+            -webkit-line-clamp: 2;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .modal-footer-meta {
+            -webkit-mask-image: linear-gradient(
+                to right,
+                #000 calc(100% - 1.5rem),
+                transparent
+            );
+            mask-image: linear-gradient(
+                to right,
+                #000 calc(100% - 1.5rem),
+                transparent
+            );
+        }
+    }
+
+</style>
