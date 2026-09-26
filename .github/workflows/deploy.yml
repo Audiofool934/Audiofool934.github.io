@@ -1,20 +1,13 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow every time you push to the `main` branch.
   push:
-    branches: [ main ]
-  # Rebuild periodically so GitHub-backed project READMEs/metadata stay fresh
-  # even when only the source project repositories changed.
-  schedule:
-    - cron: '0 */6 * * *'
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+    branches: [main]
   workflow_dispatch:
-  # Fallback manual trigger for automation when workflow_dispatch is unavailable.
+  # Lets external automation trigger a deploy through the repository dispatch API.
   repository_dispatch:
     types: [deploy-pages]
 
-# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
@@ -24,15 +17,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
+      - name: Check out repository
         uses: actions/checkout@v6
-      - name: Install, build, and upload your site
+      - name: Install, build, and upload site
         uses: withastro/action@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           node-version: 24
-      - name: Check production performance budgets
+      - name: Check performance budgets
         run: npm run check:performance
 
   deploy:

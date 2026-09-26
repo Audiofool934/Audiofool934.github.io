@@ -5,7 +5,6 @@ import { unified } from '@astrojs/markdown-remark';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 
-import preact from "@astrojs/preact";
 import sitemap from '@astrojs/sitemap';
 
 const audioImagePrefix = '/images/audioshow/';
@@ -149,7 +148,6 @@ export default defineConfig({
     },
   },
   integrations: [
-    preact(),
     // Legacy routes are 0-second meta-refresh redirect stubs. Keep them out of
     // the sitemap so crawlers are not handed thin redirecting URLs.
     sitemap({

@@ -1,7 +1,7 @@
 # Agent Guide
 
 Audiofool.blog is a personal archive for projects, notes, music, photography, and public updates.
-It uses Astro 6, TypeScript, Tailwind CSS 3 via PostCSS, MDX, and optional Preact islands.
+It uses Astro 6, TypeScript, Tailwind CSS 3 via PostCSS, and Markdown content collections; there is no UI framework runtime.
 Keep this guide current when project conventions change.
 
 ## Workflow
@@ -28,6 +28,7 @@ npm run check:audioshow-parser     # AudioShow parser fixtures
 npm run check:performance          # Production output budgets; build first
 npm run generate:site-images
 npm run generate:audioshow-images
+npm run gallery:intake             # Local photo curation desk; requires prepared .local/gallery-intake data
 npm run refresh:github-projects    # Explicit metadata and README sync
 npm run build:with-sync            # Explicit GitHub sync and build
 ```
@@ -117,7 +118,7 @@ Use `entry.id`, `render(entry)` from `astro:content`, and `getStaticPaths()` for
 - For typography, check `/notes/policy-gradient/` with its math and table; verify document overflow and container scrolling separately.
 - For route or data changes, check both the relevant index and detail page.
 - Fix related failures and report unrelated failures without expanding scope.
-- CI enforces production size budgets; see `PERFORMANCE.md` for measurement and regression checks.
+- CI enforces the gzip budgets in `scripts/check-performance.mjs`; measure before raising a limit, and compare Lighthouse medians of at least three runs as described in `README.md`.
 
 ## Personal Knowledge Base
 

@@ -1,45 +1,29 @@
-# build output
+# Build output and generated types
 dist/
-# generated types
 .astro/
 
-# generated media variants
+# Generated image variants (rebuilt by predev/prebuild)
 public/images/_generated/
 public/images/audioshow/_generated/
 public/muse/_generated/
 
-# dependencies
+# Dependencies
 node_modules/
 
-# logs
+# Logs
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
 
-
-# environment variables
+# Environment
 .env
 .env.production
 
-# macOS-specific files
+# Local tooling and private data
+.claude/
+.local/
+.idea/
+.vscode/
 .DS_Store
 
-# jetbrains setting folder
-.idea/
-
-# vscode editor settings
-.vscode/
-
-# Claude Code local config
-.claude/
-
-# private local photo curation data and previews
-.local/gallery-intake/
-
-# blueprint drafts
-blueprint.md
-
-# NOTE: the GitHub project sync output (src/data/github-projects.json and
-# src/content/project-readmes/*.md) is intentionally committed as a
-# last-known-good fallback so deploys don't depend on the GitHub API being up.
+# The GitHub project snapshot (src/data/github-projects.json and
+# src/content/project-readmes/) is committed on purpose so builds never depend
+# on the GitHub API.

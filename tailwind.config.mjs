@@ -1,7 +1,9 @@
+import typography from '@tailwindcss/typography';
+
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-	darkMode: 'class', // Manual toggle for "Dark Side of the Moon"
+	content: ['./src/**/*.{astro,html,js,md,ts}'],
+	darkMode: 'class',
 	theme: {
 		extend: {
 			fontFamily: {
@@ -13,14 +15,9 @@ export default {
 				DEFAULT: '1px',
 			},
 			borderColor: {
-				DEFAULT: '#000000', // Default border is black (Line aesthetic)
+				DEFAULT: '#000000',
 			},
-			backgroundImage: {
-				// Subtle grain or noise could be added here if requested, keeping it clean for now
-			}
 		},
 	},
-	plugins: [
-		require('@tailwindcss/typography'),
-	],
-}
+	plugins: [typography],
+};
