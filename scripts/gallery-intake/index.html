@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Gallery desk | Audiofool</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" type="module"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Gallery desk 首页"><span class="mark">a.</span><span>AUDIOFOOL <span class="brand-sub">/ GALLERY DESK</span></span></a>
+    <div class="top-actions"><span class="local-label"><i></i> 本地草稿</span><button id="export" class="quiet" disabled>导出清单 <span aria-hidden="true">↗</span></button></div>
+  </header>
+  <main id="desk" class="desk" hidden>
+    <aside class="rail" aria-label="照片列表">
+      <div class="rail-heading"><span class="eyebrow">CONTACT SHEET</span><h1>夏日之间<span>2026 · MAY - AUG</span></h1><div class="progress-line"><span id="progress"></span><span id="percent"></span></div><progress id="progress-bar" max="22" value="0" aria-label="填写进度"></progress><label class="filter-label" for="filter">显示</label><select id="filter"><option value="all">全部照片</option><option value="incomplete">待填写</option><option value="complete">已填写</option></select></div>
+      <div id="photo-list" class="photo-list"></div><p id="empty-list" class="empty-list" hidden>这个列表已经整理完了。</p>
+    </aside>
+    <section class="viewer" aria-label="照片预览">
+      <div class="viewer-header"><span id="photo-number" class="eyebrow"></span><span id="photo-date" class="eyebrow"></span></div>
+      <button id="enlarge" class="image-stage" aria-label="放大查看照片"><img id="preview" alt="" decoding="async"><span class="zoom-hint">点击放大 ↗</span></button>
+      <div class="viewer-footer"><div><h2 id="preview-title"></h2><p id="camera-line"></p></div><div class="nav-buttons"><button id="previous" aria-label="上一张">←</button><button id="next" aria-label="下一张">→</button></div></div>
+    </section>
+    <section class="editor" aria-label="照片信息">
+      <div class="editor-top"><span class="eyebrow">THE DETAILS</span><span id="item-status" class="item-status"></span></div>
+      <h2>给照片一个归处。</h2><p class="editor-intro">标题已拟好，地点与分组由你来填。</p>
+      <form id="form" autocomplete="off">
+        <label for="title">作品标题 <span>可修改</span></label><input id="title" name="title" maxlength="200" required>
+        <div class="field-heading"><label for="location">拍摄地点</label><button id="reuse" type="button" class="text-button">沿用上一张 ↙</button></div><input id="location" name="location" maxlength="300" list="locations" placeholder="例如：乌兰布统，内蒙古"><datalist id="locations"></datalist>
+        <label for="category">分组</label><input id="category" name="category" maxlength="100" list="categories" placeholder="输入或选择分组"><datalist id="categories"></datalist><p class="field-help">可以自定义分组。填过的名称会出现在建议里。</p>
+        <div id="group-suggestions" class="group-suggestions" aria-label="分组建议"></div>
+      </form>
+      <details class="exif"><summary>拍摄信息 <span>EXIF</span></summary><dl id="exif-values"></dl><p id="filename"></p></details>
+      <div class="editor-bottom"><div class="save-line" role="status" aria-live="polite"><span id="save-status">已保存到本机</span><button id="retry" class="text-button" hidden>重试</button></div><button id="continue" class="primary">下一张待填写 <span aria-hidden="true">→</span></button><p class="storage-note">自动保存，随时回来继续。<br>这里只整理草稿，不会发布到网站。</p></div>
+    </section>
+  </main>
+  <div id="loading" class="loading" role="status">正在打开照片…</div>
+  <dialog id="lightbox"><button id="close-lightbox" aria-label="关闭大图">关闭 ×</button><img id="large-image" alt=""></dialog>
+</body>
+</html>
