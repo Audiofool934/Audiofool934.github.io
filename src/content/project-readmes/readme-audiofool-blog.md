@@ -2,127 +2,132 @@
 project: "audiofool-blog"
 repo: "Audiofool934/Audiofool934.github.io"
 sourceUrl: "https://github.com/Audiofool934/Audiofool934.github.io"
-syncedAt: "2026-06-20T04:10:11.514Z"
+syncedAt: "2026-09-26T13:59:33.446Z"
 ---
 
 # audiofool.blog
 
-A personal archive for notes, music, photography, projects, and public traces of ongoing work.
+A personal archive for notes, music, photography, and projects.
 
 <p>
   <a href="https://audiofool.blog">
-    <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Audiofool934.github.io/main/docs/home.png" alt="audiofool.blog homepage — sidebar navigation, persistent audio player, and a timeline of recent updates" width="900" />
+    <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Audiofool934.github.io/main/docs/home.png" alt="audiofool.blog homepage with sidebar navigation, the persistent audio player, and recent updates" width="900" />
   </a>
 </p>
 
-The site is built with Astro and maintained as a set of small, typed content systems. GitHub is the source of code and project documentation; the website is the public layer that gives those materials a consistent visual language.
+<p>
+  <a href="https://audiofool.blog"><strong>audiofool.blog</strong></a>
+  ·
+  <a href="https://audiofool.blog/rss.xml">RSS</a>
+  ·
+  <a href="https://audiofool.blog/timeline/">Timeline</a>
+</p>
 
-🌐 **Live:** [audiofool.blog](https://audiofool.blog)
-📡 **Feed:** [/rss.xml](https://audiofool.blog/rss.xml) — projects, notes, photography, AudioShow, and timeline in one stream
-
-***
+The site is a small set of typed content systems built with Astro.
+GitHub holds the source and project documentation; the website gives all of it one visual language: monochrome, archival, and typography-first.
+External services supply data, and the site owns the presentation.
 
 ## Sections
 
-| Section       | Role                                                              |
-| ------------- | ----------------------------------------------------------------- |
-| **Notes**     | Personal essays, technical ideas, models, methods, and references |
-| **AudioShow** | A curated listening archive with playable legal previews          |
-| **Gallery**   | Selected photographs with camera, lens, and film metadata         |
-| **Projects**  | Project dossiers backed by GitHub metadata and README snapshots   |
-| **Timeline**  | A curated chronological record of public site activity            |
+| Section   | Route         | What lives there                                                                           |
+| --------- | ------------- | ------------------------------------------------------------------------------------------ |
+| Timeline  | `/timeline/`  | A curated record of updates across the site, also published as RSS                         |
+| Projects  | `/projects/`  | Project dossiers backed by GitHub metadata and README snapshots                            |
+| Notes     | `/notes/`     | Essays, methods, models, and references, with KaTeX math                                   |
+| AudioShow | `/audioshow/` | A long-running music journal with episode archive, curated crates, and a persistent player |
+| Gallery   | `/gallery/`   | Selected photographs with subject filters and camera, lens, and film metadata              |
 
-***
+## Stack
 
-## Design System
+[Astro 6](https://astro.build) with content collections and client-side routing, TypeScript, Tailwind CSS 3, KaTeX, and Prism.
+Fonts are self-hosted, image variants are generated at build time with `sharp`, and the site deploys to GitHub Pages.
 
-The site uses a restrained black-and-white archival style:
+## Getting started
 
-* thin line borders,
-* compact monospace metadata,
-* bracketed filters,
-* quiet hover states,
-* typography-first layouts,
-* no third-party visual embeds.
-
-External services can provide data, but the site owns the presentation.
-
-***
-
-## GitHub-backed Projects
-
-Project pages can link to a GitHub repository and render a committed README snapshot.
-
-```yaml
----
-title: "Project Name"
-pubDate: 2026-01-01
-description: "Short public description."
-category: "Research"
-status: "active"
-stack: ["Astro", "Agents", "Music"]
-type: "Experiment"
-githubRepo: "Audiofool934/example-repo"
-githubReadme: true
----
-```
-
-Run `npm run refresh:github-projects` to fetch repository metadata and README content, sanitize third-party README HTML, and update the committed snapshot. `npm run build` uses that snapshot, so deploys do not depend on the GitHub API being reachable at build time.
-
-The GitHub README can serve as the public project document. The website turns it into a designed project page.
-
-***
-
-## Development
+Requires Node.js 22.12 or newer.
 
 ```bash
 npm install
-npm run dev
-npm run build
-npm run preview
+npm run dev        # http://localhost:4321
 ```
 
-Useful scripts:
+| Command                           | Purpose                                                                                                                                         |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`                     | Generate image variants and start the dev server                                                                                                |
+| `npm run build`                   | Generate image variants, clear Astro caches, and build to `dist/`                                                                               |
+| `npm run preview`                 | Serve the production build                                                                                                                      |
+| `npm run astro -- check`          | Astro and TypeScript diagnostics                                                                                                                |
+| `npm run check:audioshow-parser`  | AudioShow parser fixtures                                                                                                                       |
+| `npm run check:performance`       | Gzip size budgets and local math assets; run after a build                                                                                      |
+| `npm run refresh:github-projects` | Fetch fresh GitHub metadata and README snapshots                                                                                                |
+| `npm run build:with-sync`         | Refresh GitHub snapshots, then build                                                                                                            |
+| `npm run gallery:intake`          | Local photo curation desk (see [its README](https://github.com/Audiofool934/Audiofool934.github.io/blob/main/scripts/gallery-intake/README.md)) |
 
-```bash
-npm run sync:github-projects
-npm run refresh:github-projects
+## How it works
+
+**Content.**
+Each section is an Astro content collection of Markdown files under `src/content/`, validated by Zod schemas in `src/content.config.ts`.
+Notes live in `wiki/` and timeline entries in `log/`; older `/wiki/` and `/log/` URLs redirect to their current routes.
+
+**Updates.**
+`src/utils/timelineItems.ts` decides what counts as an update.
+The homepage, the Timeline, and the RSS feed all read from it.
+
+**Projects.**
+A project entry can point at a GitHub repository:
+
+```yaml
+githubRepo: "Audiofool934/example-repo"
+githubReadme: true
 ```
 
-***
+`npm run refresh:github-projects` fetches repository metadata and the README, sanitizes it, and writes a snapshot to `src/data/github-projects.json` and `src/content/project-readmes/`.
+The snapshot is committed, so builds never call the GitHub API.
 
-## Project Structure
+**AudioShow.**
+Episodes are authored in batches in `src/content/audioshow/` and parsed by `src/utils/parseAudioshow.ts`.
+The player keeps playing across page navigation and supports Apple Music previews and local audio.
+
+**Images.**
+`predev` and `prebuild` generate responsive variants of site images (AVIF with WebP fallback) and AudioShow artwork (WebP).
+Gallery photographs are processed by Astro's image pipeline from `src/assets/gallery/`.
+
+## Project layout
 
 ```text
 src/
-├── content/
-│   ├── projects/            # Human-edited project metadata and briefs
-│   ├── project-readmes/     # Committed GitHub README snapshot
-│   ├── wiki/                # Notes content collection
-│   ├── log/                 # Timeline entries
-│   ├── audioshow/           # AudioShow markdown archive
-│   └── gallery/             # Gallery metadata
-├── data/
-│   └── github-projects.json # Committed GitHub metadata snapshot
-├── pages/
-│   ├── projects/
-│   ├── notes/
-│   ├── timeline/
-│   ├── audioshow/
-│   └── gallery/
-└── style/
-    ├── global.css
-    └── post.css
+├── components/   site shell, theme toggle, audio player
+├── content/      Markdown collections: projects, project-readmes, wiki, log, audioshow, gallery
+├── data/         GitHub snapshot, gallery subjects, AudioShow crates
+├── layouts/      the shared page shell
+├── pages/        routes, legacy redirects, RSS, AudioShow playlist
+├── scripts/      client code for the player and gallery
+├── style/        theme tokens, prose typography, code highlighting
+└── utils/        timeline, AudioShow parsing, date formatting
+scripts/          image generation, GitHub sync, checks, gallery intake desk
+public/           fonts, static media, CV
 ```
 
-***
+Conventions for contributors and coding agents are in [AGENTS.md](https://github.com/Audiofool934/Audiofool934.github.io/blob/main/AGENTS.md).
+
+## Deployment and performance
+
+Every push to `main` builds and deploys through [GitHub Actions](https://github.com/Audiofool934/Audiofool934.github.io/blob/main/.github/workflows/deploy.yml).
+The build job runs `npm run check:performance` first, and a deploy only proceeds if every page stays within its gzip budget in `scripts/check-performance.mjs`.
+Math pages load KaTeX locally, and only where it is needed.
+
+To audit a page against a running preview, compare the median of at least three runs:
+
+```bash
+npx lighthouse@13.4.1 http://localhost:4321/notes/policy-gradient/ \
+  --only-categories=performance --chrome-flags=--headless
+```
 
 ## License
 
-This project is open source and was originally created by **Audiofool**. The canonical repository is
-[github.com/Audiofool934/Audiofool934.github.io](https://github.com/Audiofool934/Audiofool934.github.io).
+The canonical repository is [Audiofool934/Audiofool934.github.io](https://github.com/Audiofool934/Audiofool934.github.io).
 
-* **Source code** — the Astro site, components, scripts, and styles — is released under the [MIT License](https://github.com/Audiofool934/Audiofool934.github.io/blob/main/LICENSE). Fork it, learn from it, and reuse it; attribution back to the original is appreciated.
-* **Site content** — writing, photographs, AudioShow curation, and other personal media — is © Audiofool, all rights reserved, and is **not** covered by the MIT license.
+* **Code** (the Astro site, components, scripts, and styles) is released under the [MIT License](https://github.com/Audiofool934/Audiofool934.github.io/blob/main/LICENSE).
+* **Content** (writing, photographs, AudioShow curation, and other personal media) is © Audiofool, all rights reserved, and is not covered by the MIT License.
 
-If you build something on top of this, a link back to the original is welcome.
+If you build on this, a link back is appreciated.

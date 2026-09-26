@@ -2,13 +2,13 @@
 project: "weavewave"
 repo: "Audiofool934/WeaveWave"
 sourceUrl: "https://github.com/Audiofool934/WeaveWave"
-syncedAt: "2026-06-20T04:08:34.470Z"
+syncedAt: "2026-09-26T13:59:52.825Z"
 ---
 
 # WeaveWave: Towards Multimodal Music Generation
 
 <div>
-   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/logo/WeaveWave.png" alt="WeaveWave Logo" width="500px" />
+   <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/logo/WeaveWave.png" alt="WeaveWave Logo" width="500px" />
 </div>
 
 <div></div>
@@ -31,7 +31,7 @@ WeaveWave is a multimodal music generation framework that synthesizes music from
 **For machines**, can AI music creation mimic these two stages? We believe that **multimodal music generation** precisely simulates this process — where "inspiration" corresponds to multimodal input data, and "implementation" to a music generation model.
 
 <div>
-   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/inspiration.png" alt="Music Creation: Humans and Machines" width="500px" />
+   <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/inspiration.png" alt="Music Creation: Humans and Machines" width="500px" />
 </div>
 <p><i>Music creation: humans and machines</i></p>
 
@@ -40,7 +40,7 @@ However, research on multimodal music generation has not yet garnered widespread
 ## Architecture
 
 <div>
-   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-1.png" alt="Text-Bridging Architecture" width="600px" />
+   <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-1.png" alt="Text-Bridging Architecture" width="600px" />
 </div>
 <p><i>Text-Bridging: MLLM generates music descriptions from multimodal input, MusicGen synthesizes audio</i></p>
 
@@ -52,12 +52,12 @@ The text-bridging approach builds on MusicGen \[1] and its style-conditioning ex
 We also explored two end-to-end alternatives during development:
 
 <div>
-   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-2.png" alt="End-to-End based on AudioLDM2" width="500px" />
+   <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-2.png" alt="End-to-End based on AudioLDM2" width="500px" />
 </div>
 <p><i>End-to-End approach 1: based on AudioLDM2 [4]</i></p>
 
 <div>
-   <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-3.png" alt="End-to-End based on MusicGen" width="500px" />
+   <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/frame-3.png" alt="End-to-End based on MusicGen" width="500px" />
 </div>
 <p><i>End-to-End approach 2: based on MusicGen [1]</i></p>
 
@@ -65,7 +65,7 @@ We also explored two end-to-end alternatives during development:
 
 <div>
    <a href="https://github.com/Audiofool934/WeaveWave/blob/main/assets/media/demo.mp4">
-      <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/demo.png" alt="Demo Video" width="600px" />
+      <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/WeaveWave/main/assets/media/demo.png" alt="Demo Video" width="600px" />
    </a>
 </div>
 <p><i>Click to view demo — WeaveWave web application built with Gradio</i></p>

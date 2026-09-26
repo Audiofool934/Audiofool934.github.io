@@ -2,13 +2,13 @@
 project: "data-side-of-the-moon"
 repo: "Audiofool934/Data-Side-of-the-Moon"
 sourceUrl: "https://github.com/Audiofool934/Data-Side-of-the-Moon"
-syncedAt: "2026-06-20T04:10:13.630Z"
+syncedAt: "2026-09-26T13:59:39.243Z"
 ---
 
 # Data Side of the Moon
 
 <p>
-  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/DSOTM.png" alt="Data Side of the Moon" width="420" />
+  <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/DSOTM.png" alt="Data Side of the Moon" width="420" />
 </p>
 
 <p>
@@ -49,7 +49,7 @@ flowchart LR
 ## The Model
 
 <p>
-  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/architecture.png" alt="Echoes architecture" width="680" />
+  <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/architecture.png" alt="Echoes architecture" width="680" />
 </p>
 
 Echoes is a symmetric convolutional autoencoder:
@@ -63,7 +63,7 @@ Echoes is a symmetric convolutional autoencoder:
 Trained unsupervised with MSE reconstruction loss on the [GTZAN](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification) dataset (\~1,000 tracks, 10 genres). The model never sees genre labels — it simply learns to reconstruct spectrograms, and the latent space organizes itself.
 
 <p>
-  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/train.png" alt="Training loss" width="500" />
+  <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/train.png" alt="Training loss" width="500" />
 </p>
 <p>
   <sub>Training and validation loss over 500 epochs. Smooth convergence, minimal overfitting.</sub>
@@ -76,7 +76,7 @@ Trained unsupervised with MSE reconstruction loss on the [GTZAN](https://www.kag
 To validate that Echoes learns musically meaningful features, we visualize the latent vectors of unseen GTZAN test samples via t-SNE. Metal, pop, and classical form distinct clusters — despite the model receiving zero genre supervision during training.
 
 <p>
-  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/GTZAN_test.png" alt="t-SNE of GTZAN test set" width="500" />
+  <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/GTZAN_test.png" alt="t-SNE of GTZAN test set" width="500" />
 </p>
 <p>
   <sub>t-SNE projection of latent vectors from held-out GTZAN tracks. Clear genre separation emerges unsupervised.</sub>
@@ -87,7 +87,7 @@ To validate that Echoes learns musically meaningful features, we visualize the l
 Applied to Pink Floyd's complete studio discography (1967–2014, 13 albums, 160+ tracks), the model's clusters map onto the band's well-known stylistic periods:
 
 <p>
-  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/PF_album_year.png" alt="Cluster distribution by year" width="640" />
+  <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/Data-Side-of-the-Moon/master/media/PF_album_year.png" alt="Cluster distribution by year" width="640" />
 </p>
 <p>
   <sub>Proportion of tracks per cluster across albums. Each color is a cluster discovered by the model.</sub>

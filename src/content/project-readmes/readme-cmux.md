@@ -2,7 +2,7 @@
 project: "cmux"
 repo: "Audiofool934/cmux"
 sourceUrl: "https://github.com/Audiofool934/cmux"
-syncedAt: "2026-06-20T04:10:13.050Z"
+syncedAt: "2026-09-26T13:59:37.769Z"
 ---
 
 <h1>cmux</h1>
@@ -10,7 +10,7 @@ syncedAt: "2026-06-20T04:10:13.050Z"
 
 <p>
   <a href="https://github.com/manaflow-ai/cmux/releases/latest/download/cmux-macos.dmg">
-    <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/macos-badge.png" alt="Download cmux for macOS" width="180" />
+    <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/macos-badge.png" alt="Download cmux for macOS" width="180" />
   </a>
 </p>
 
@@ -19,12 +19,12 @@ syncedAt: "2026-06-20T04:10:13.050Z"
 </p>
 
 <p>
-  <a href="https://x.com/manaflowai"><img decoding="async" loading="lazy" src="https://img.shields.io/badge/@manaflow-555?logo=x" alt="X / Twitter" /></a>
-  <a href="https://discord.gg/xsgFEVrWCZ"><img decoding="async" loading="lazy" src="https://img.shields.io/badge/Discord-555?logo=discord" alt="Discord" /></a>
+  <a href="https://x.com/manaflowai"><img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://img.shields.io/badge/@manaflow-555?logo=x" alt="X / Twitter" /></a>
+  <a href="https://discord.gg/xsgFEVrWCZ"><img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://img.shields.io/badge/Discord-555?logo=discord" alt="Discord" /></a>
 </p>
 
 <p>
-  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/main-first-image.png" alt="cmux screenshot" width="900" />
+  <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/main-first-image.png" alt="cmux screenshot" width="900" />
 </p>
 
 <p>
@@ -40,7 +40,7 @@ syncedAt: "2026-06-20T04:10:13.050Z"
 Panes get a blue ring and tabs light up when coding agents need your attention
 </td>
 <td>
-<img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/notification-rings.png" alt="Notification rings" width="100%" />
+<img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/notification-rings.png" alt="Notification rings" width="100%" />
 </td>
 </tr>
 <tr>
@@ -49,7 +49,7 @@ Panes get a blue ring and tabs light up when coding agents need your attention
 See all pending notifications in one place, jump to the most recent unread
 </td>
 <td>
-<img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/sidebar-notification-badge.png" alt="Sidebar notification badge" width="100%" />
+<img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/sidebar-notification-badge.png" alt="Sidebar notification badge" width="100%" />
 </td>
 </tr>
 <tr>
@@ -58,7 +58,7 @@ See all pending notifications in one place, jump to the most recent unread
 Split a browser alongside your terminal with a scriptable API ported from <a href="https://github.com/vercel-labs/agent-browser">agent-browser</a>
 </td>
 <td>
-<img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/built-in-browser.png" alt="Built-in browser" width="100%" />
+<img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/built-in-browser.png" alt="Built-in browser" width="100%" />
 </td>
 </tr>
 <tr>
@@ -67,7 +67,7 @@ Split a browser alongside your terminal with a scriptable API ported from <a hre
 Sidebar shows git branch, linked PR status/number, working directory, listening ports, and latest notification text. Split horizontally and vertically.
 </td>
 <td>
-<img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/vertical-horizontal-tabs-and-splits.png" alt="Vertical tabs and split panes" width="100%" />
+<img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/vertical-horizontal-tabs-and-splits.png" alt="Vertical tabs and split panes" width="100%" />
 </td>
 </tr>
 </table>
@@ -82,7 +82,7 @@ Sidebar shows git branch, linked PR status/number, working directory, listening 
 ### DMG (recommended)
 
 <a href="https://github.com/manaflow-ai/cmux/releases/latest/download/cmux-macos.dmg">
-  <img decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/macos-badge.png" alt="Download cmux for macOS" width="180" />
+  <img referrerpolicy="no-referrer" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/Audiofool934/cmux/main/docs/assets/macos-badge.png" alt="Download cmux for macOS" width="180" />
 </a>
 
 Open the `.dmg` and drag cmux to your Applications folder. cmux auto-updates via Sparkle, so you only need to download once.
@@ -239,7 +239,7 @@ cmux does **not** restore live process state inside terminal apps. For example, 
  <picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=manaflow-ai/cmux&amp;type=Date&amp;theme=dark"></source>
    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=manaflow-ai/cmux&amp;type=Date"></source>
-   <img decoding="async" loading="lazy" alt="Star History Chart" src="https://api.star-history.com/svg?repos=manaflow-ai/cmux&amp;type=Date" width="600" />
+   <img referrerpolicy="no-referrer" decoding="async" loading="lazy" alt="Star History Chart" src="https://api.star-history.com/svg?repos=manaflow-ai/cmux&amp;type=Date" width="600" />
  </picture>
 </a>
 
